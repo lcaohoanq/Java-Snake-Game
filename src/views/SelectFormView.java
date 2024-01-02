@@ -1,18 +1,12 @@
-package view;
+package views;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.EventQueue;
 import java.awt.FlowLayout;
-import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Image;
-import java.awt.Toolkit;
 import java.awt.event.ActionListener;
-import java.net.URL;
 
-import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -21,14 +15,15 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
-import javax.swing.border.Border;
-import javax.swing.border.EmptyBorder;
 
-import constants.ColorsHandling;
 import constants.Info;
 import constants.Path;
 import constants.Size;
-import controller.ScoreFormController;
+import controllers.ScoreFormController;
+import styles.BorderHandler;
+import styles.ColorHandler;
+import styles.FontHandler;
+import styles.ImageHandler;
 import utils.AudioHandler;
 import utils.DataHandler;
 
@@ -49,31 +44,17 @@ public class SelectFormView extends JFrame {
     private JPanel jPanel_PlayWithoutSignIn;
     private JPanel jPanel_Container;
 
-    // Dimensions and Styles
-    private Dimension dimension_button = new Dimension(300, 50);
-    Border border_color = BorderFactory.createLineBorder(Color.WHITE, 1);
-    private EmptyBorder emptyBorder_logo = new EmptyBorder(50, 0, 0, 0);
-    private EmptyBorder emptyBorder_title = new EmptyBorder(20, 0, 30, 0);
-    private EmptyBorder emptyBorder_container = new EmptyBorder(0, 30, 0, 30);
-    private EmptyBorder emptyBorder_middleZone = new EmptyBorder(10, 0, 10, 0);
-    private Font font_button = new Font("Dialog", Font.BOLD, 20);
-    private Font font_title = new Font("Dialog", Font.BOLD, 50);
-    // Logo
-    private URL url = SelectFormView.class.getResource("/resources/logo.png");
-    private Image logo = Toolkit.getDefaultToolkit().getImage(url);
-    private ImageIcon logoIcon = new ImageIcon(logo);
-
     // MenuBar
     private JMenuBar jMenuBar;
     private JMenu jMenu = new JMenu("HELP");
     private JMenuItem jMenuItem_AboutMe = new JMenuItem("About me");
 
     // Other
-    LoginFormView loginFormView;
-    RegisterFormView registerFormView;
-    ScoreFormView scoreFormView = new ScoreFormView();
-    ScoreFormController scoreFormController;
-    Snake snake;
+    private LoginFormView loginFormView;
+    private RegisterFormView registerFormView;
+    private ScoreFormView scoreFormView = new ScoreFormView();
+    private ScoreFormController scoreFormController;
+    private Snake snake;
 
     // Action
     ActionListener ac;
@@ -101,7 +82,7 @@ public class SelectFormView extends JFrame {
         // Menu bar setup
         jMenuBar = new JMenuBar();
         jMenuBar.setLayout(new FlowLayout(FlowLayout.LEFT));
-        jMenuBar.setBorder(border_color);
+        jMenuBar.setBorder(BorderHandler.LINE_BORDER_MENU_BAR);
         jMenuBar.add(jMenu);
         jMenu.add(jMenuItem_AboutMe);
         this.setJMenuBar(jMenuBar);
@@ -110,26 +91,19 @@ public class SelectFormView extends JFrame {
     private void setUpTopZone() {
         // Top zone setup
         jLabel_Title = new JLabel("Snake Game", JLabel.CENTER);
-        jLabel_Title.setFont(font_title);
-        jLabel_Title.setBackground(ColorsHandling.PRIMARY_COLOR);
-        jLabel_Title.setForeground(ColorsHandling.OTHER_OPTIONS);
-        jLabel_Title.setBorder(emptyBorder_title);
-
-        logoIcon = new ImageIcon(logoIcon.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH)); // Set the size
-
+        jLabel_Title.setFont(FontHandler.FONT_LOGO);
+        jLabel_Title.setBackground(ColorHandler.PRIMARY_COLOR);
+        jLabel_Title.setForeground(ColorHandler.TEXT_COLOR);
+        jLabel_Title.setBorder(BorderHandler.TITLE_SELECT_FORM_BORDER);
         jPanel_icon = new JPanel();
-        // jPanel_icon.setLayout();
         jPanel_icon.setPreferredSize(new Dimension(100, 100));
-        // jPanel_icon.setBorder(BorderFactory.createLineBorder(Color.RED, 1)); // Add
-        // border to jPanel_icon
-        jPanel_icon.setBackground(ColorsHandling.PRIMARY_COLOR);
-
-        logoLabel = new JLabel(logoIcon);
+        jPanel_icon.setBackground(ColorHandler.PRIMARY_COLOR);
+        logoLabel = new JLabel(
+                new ImageIcon(ImageHandler.logoIcon.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH)));
         // logoLabel.setBorder(); // Add border to the logo label
         jPanel_icon.add(logoLabel);
-
         jPanel_TopZone = new JPanel(new BorderLayout());
-        jPanel_TopZone.setBackground(ColorsHandling.PRIMARY_COLOR);
+        jPanel_TopZone.setBackground(ColorHandler.PRIMARY_COLOR);
         jPanel_TopZone.add(jPanel_icon, BorderLayout.CENTER);
         jPanel_TopZone.add(jLabel_Title, BorderLayout.SOUTH);
     }
@@ -147,7 +121,7 @@ public class SelectFormView extends JFrame {
         jPanel_PlayWithoutSignIn = createPanelWithButton(jButton_PlayWithoutSignIn);
 
         jPanel_MiddleZone = new JPanel(new GridLayout(4, 1));
-        jPanel_MiddleZone.setBackground(ColorsHandling.PRIMARY_COLOR);
+        jPanel_MiddleZone.setBackground(ColorHandler.PRIMARY_COLOR);
         jPanel_MiddleZone.add(jPanel_SignIn);
         jPanel_MiddleZone.add(jPanel_SignUp);
         jPanel_MiddleZone.add(jPanel_ShowScore);
@@ -157,18 +131,18 @@ public class SelectFormView extends JFrame {
     private JButton createButton(String text) {
         // Button creation
         JButton button = new JButton(text);
-        button.setPreferredSize(dimension_button);
-        button.setFont(font_button);
-        button.setBackground(ColorsHandling.TEXT_COLOR);
-        button.setForeground(ColorsHandling.PRIMARY_COLOR);
+        button.setPreferredSize(Size.SIZE_BUTTON);
+        button.setFont(FontHandler.FONT_TEXT_JBUTTON);
+        button.setBackground(ColorHandler.TEXT_COLOR);
+        button.setForeground(ColorHandler.PRIMARY_COLOR);
         return button;
     }
 
     private JPanel createPanelWithButton(JButton button) {
         // Panel creation containing a button
         JPanel panel = new JPanel();
-        panel.setBackground(ColorsHandling.PRIMARY_COLOR);
-        panel.setBorder(emptyBorder_middleZone);
+        panel.setBackground(ColorHandler.PRIMARY_COLOR);
+        panel.setBorder(BorderHandler.MIDDLEZONE_SELECT_FORM_BORDER);
         panel.add(button);
         return panel;
     }
@@ -176,8 +150,8 @@ public class SelectFormView extends JFrame {
     private void setUpContainer() {
         // Container setup
         jPanel_Container = new JPanel(new BorderLayout());
-        jPanel_Container.setBackground(ColorsHandling.PRIMARY_COLOR);
-        jPanel_Container.setBorder(emptyBorder_container);
+        jPanel_Container.setBackground(ColorHandler.PRIMARY_COLOR);
+        jPanel_Container.setBorder(BorderHandler.CONTAINER_SELECT_FORM_BORDER);
         jPanel_Container.add(jPanel_TopZone, BorderLayout.NORTH);
         jPanel_Container.add(jPanel_MiddleZone, BorderLayout.CENTER);
         this.add(jPanel_Container);

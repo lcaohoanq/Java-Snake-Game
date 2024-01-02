@@ -1,9 +1,9 @@
-package view;
+package views;
 
 import java.awt.EventQueue;
 import javax.swing.JFrame;
 
-import controller.Board;
+import models.Board;
 
 public class Snake {
     private JFrame snakeFrame;
@@ -28,6 +28,7 @@ public class Snake {
     public void startGame() {
         snakeFrame.setVisible(true);
     }
+
     public void stopGame() {
         snakeFrame.dispose();
     }

@@ -1,13 +1,14 @@
-package controller;
+package controllers;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import constants.Message;
 import constants.Path;
-import model.Account;
+import models.Account;
+import services.DBServices;
 import utils.DataHandler;
-import view.RegisterFormView;
+import views.RegisterFormView;
 
 public class RegisterFormController implements ActionListener {
 
@@ -21,8 +22,11 @@ public class RegisterFormController implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         String username = RegisterFormView.jTextField_Username.getText();
-        String password = RegisterFormView.jTextField_Password.getText();
-        String confirmPassword = RegisterFormView.jTextField_ConfirmPassword.getText();
+        // char[] passwordChar = RegisterFormView.jPasswordField_Password.getPassword();
+        // char[] confirmPassword =
+        // RegisterFormView.jPasswordField_ConfirmPassword.getPassword();
+        String password = String.valueOf(RegisterFormView.jPasswordField_Password.getPassword());
+        String confirmPassword = String.valueOf(RegisterFormView.jPasswordField_ConfirmPassword.getPassword());
 
         if ((isEmpty(username, password, confirmPassword))) {
             Message.IS_EMPTY_FIELD();
@@ -32,6 +36,7 @@ public class RegisterFormController implements ActionListener {
             if (isDuplicateUsername(username)) {
                 Message.IS_EXISTED_USERNAME();
             } else {
+                DBServices.insert(username, password, 0);
                 DataHandler.accountList.add(new Account(username, password));
                 dataHandler.writeFile(Path.url);
                 Message.IS_REGISTER_SUCCESS();

@@ -1,13 +1,13 @@
-package controller;
+package controllers;
 
 import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import constants.Message;
-import model.Account;
+import models.Account;
 import utils.DataHandler;
-import view.LoginFormView;
+import views.LoginFormView;
 
 public class LoginFormController implements ActionListener {
 
@@ -22,7 +22,7 @@ public class LoginFormController implements ActionListener {
   @Override
   public void actionPerformed(ActionEvent e) {
     username = LoginFormView.jTextField_Username.getText();
-    password = LoginFormView.jTextField_Password.getText();
+    password = LoginFormView.jPasswordField_Password.getText();
 
     if (isEmpty(username, password)) {
       Message.IS_EMPTY_USERNAME_OR_PASSWORD();

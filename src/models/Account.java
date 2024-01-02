@@ -1,4 +1,4 @@
-package model;
+package models;
 
 public class Account {
     private String username;
@@ -43,7 +43,7 @@ public class Account {
     }
 
     public int getScore() {
-        return this.score = score;
+        return this.score;
     }
 
     public void setScore(int score) {

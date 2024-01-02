@@ -1,3 +1,1 @@
-hoang 9
-admin 10
-duong 2
+hoang 10

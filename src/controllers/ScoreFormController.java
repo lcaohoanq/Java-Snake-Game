@@ -1,10 +1,10 @@
-package controller;
+package controllers;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import utils.DataHandler;
-import view.ScoreFormView;
+import views.ScoreFormView;
 
 public class ScoreFormController implements ActionListener {
 

@@ -1,7 +1,7 @@
 package test;
 
 import java.awt.EventQueue;
-import view.SelectFormView;
+import views.SelectFormView;
 
 public class Test {
 

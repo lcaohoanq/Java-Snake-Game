@@ -1,4 +1,4 @@
-package controller;
+package models;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -19,8 +19,9 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 import constants.Path;
-import model.Account;
-import model.Score;
+import controllers.LoginFormController;
+import models.Account;
+import models.Score;
 import utils.AudioHandler;
 import utils.DataHandler;
 
@@ -168,7 +169,8 @@ public class Board extends JPanel implements ActionListener {
     private void writeScoreToFile() {
         if (!scoreWrittenToFile) {
             String username = LoginFormController.username;
-            DataHandler.scoreList.add(new Score(username, score));
+            String username_id = username;
+            DataHandler.scoreList.put(username_id, new Score(username, score));
             System.out.println("Data Score " + DataHandler.scoreList);
 
             if (DataHandler.writeScore(Path.urlScore)) {

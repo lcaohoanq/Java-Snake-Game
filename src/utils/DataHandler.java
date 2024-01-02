@@ -6,17 +6,17 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.StringTokenizer;
 
-import model.Account;
-import model.Score;
+import models.Account;
+import models.Score;
 
 public class DataHandler {
 
   public static ArrayList<Account> accountList = new ArrayList<>();
-  public static ArrayList<Score> scoreList = new ArrayList<>();
+  public static Map<String, Score> scoreList = new HashMap<>();
 
   public boolean readFile(String url) {
     try {
@@ -25,8 +25,8 @@ public class DataHandler {
       String line = "";
       while ((line = br.readLine()) != null) {
         StringTokenizer stk = new StringTokenizer(line, " ");
-        String username = stk.nextToken();
-        String password = stk.nextToken();
+        String username = stk.nextToken().trim();
+        String password = stk.nextToken().trim();
         accountList.add(new Account(username, password));
       }
       br.close();
@@ -60,14 +60,16 @@ public class DataHandler {
 
   public static boolean readScore(String url) {
     try {
+      scoreList.clear();
       FileReader fr = new FileReader(url);
       BufferedReader br = new BufferedReader(fr);
       String line = "";
       while ((line = br.readLine()) != null) {
         StringTokenizer stk = new StringTokenizer(line, " ");
-        String username = stk.nextToken();
-        int score = Integer.parseInt(stk.nextToken());
-        scoreList.add(new Score(username, score));
+        String username = stk.nextToken().trim();
+        String username_id = username; // id = username
+        int score = Integer.parseInt(stk.nextToken().trim());
+        scoreList.put(username_id, new Score(username, score));
       }
       br.close();
       fr.close();
@@ -80,14 +82,15 @@ public class DataHandler {
 
   public static boolean writeScore(String url) {
     try {
+      // scoreList.clear();
       File file = new File(url);
       if (!file.exists()) {
         file.createNewFile();
       }
       FileWriter fileWriter = new FileWriter(file);
       BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-      for (Score item : scoreList) {
-        bufferedWriter.write(item.getUsername() + " " + item.getScore());
+      for (Map.Entry<String, Score> entry : scoreList.entrySet()) {
+        bufferedWriter.write(entry.getValue().getUsername() + " " + entry.getValue().getScore());
         bufferedWriter.newLine();
       }
       bufferedWriter.close();
@@ -96,10 +99,5 @@ public class DataHandler {
       System.out.println("Error write file Score.txt: " + e);
     }
     return false;
-  }
-
-  @Override
-  public String toString() {
-    return "[scoreList=" + scoreList + "]";
   }
 }
