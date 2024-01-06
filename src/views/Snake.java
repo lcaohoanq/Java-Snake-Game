@@ -1,35 +1,31 @@
 package views;
 
-import java.awt.EventQueue;
 import javax.swing.JFrame;
 
 import models.Board;
 
-public class Snake {
-    private JFrame snakeFrame;
+public class Snake extends JFrame {
 
     public Snake() {
         initUI();
     }
 
     private void initUI() {
-        snakeFrame = new JFrame();
-        snakeFrame.add(new Board());
+        add(new Board());
 
-        snakeFrame.setResizable(false);
-        snakeFrame.pack();
-
-        snakeFrame.setTitle("Snake");
-        snakeFrame.setLocationRelativeTo(null);
-        snakeFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        snakeFrame.setVisible(false);
+        setResizable(false);
+        pack();
+        setTitle("Snake");
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setVisible(false);
     }
 
     public void startGame() {
-        snakeFrame.setVisible(true);
+        setVisible(true);
     }
 
     public void stopGame() {
-        snakeFrame.dispose();
+        dispose();
     }
 }

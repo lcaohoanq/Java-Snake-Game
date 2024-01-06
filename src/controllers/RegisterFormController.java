@@ -8,14 +8,17 @@ import constants.Path;
 import models.Account;
 import services.DBServices;
 import utils.DataHandler;
+import utils.PasswordHandler;
 import views.RegisterFormView;
 
 public class RegisterFormController implements ActionListener {
 
     private DataHandler dataHandler;
+    private PasswordHandler passwordHandler;
 
     public RegisterFormController(DataHandler dataHandler) {
         this.dataHandler = dataHandler;
+        this.passwordHandler = new PasswordHandler();
     }
 
     // Su dung ArrayList<Account> de luu tru account
@@ -36,6 +39,7 @@ public class RegisterFormController implements ActionListener {
             if (isDuplicateUsername(username)) {
                 Message.IS_EXISTED_USERNAME();
             } else {
+                password = passwordHandler.hash(password); //replace password with the hashed 
                 DBServices.insert(username, password, 0);
                 DataHandler.accountList.add(new Account(username, password));
                 dataHandler.writeFile(Path.url);

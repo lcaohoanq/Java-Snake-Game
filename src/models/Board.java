@@ -166,8 +166,10 @@ public class Board extends JPanel implements ActionListener {
         }
     }
 
+    /// check username có rỗng không?
+    // nếu rỗng thì không ghi file
     private void writeScoreToFile() {
-        if (!scoreWrittenToFile) {
+        if (!scoreWrittenToFile && !LoginFormController.username.isEmpty()) {
             String username = LoginFormController.username;
             String username_id = username;
             DataHandler.scoreList.put(username_id, new Score(username, score));
