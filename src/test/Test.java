@@ -1,13 +1,14 @@
 package test;
 
 import java.awt.EventQueue;
-import views.SelectFormView;
+
+import views.LoginView;
 
 public class Test {
 
   public static void main(String[] args) {
     EventQueue.invokeLater(() -> {
-      SelectFormView ex = new SelectFormView();
+      LoginView ex = new LoginView();
       ex.setVisible(true);
     });
   }

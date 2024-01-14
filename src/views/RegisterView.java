@@ -24,11 +24,6 @@ public class RegisterView extends MyFrame {
     super();
   }
 
-  public static void main(String[] args) {
-    RegisterView registerView = new RegisterView();
-    registerView.setVisible(true);
-  }
-
   @Override
   public void initRight() {
     initRightTop();

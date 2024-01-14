@@ -24,11 +24,6 @@ public class LoginView extends MyFrame {
     super();
   }
 
-  public static void main(String[] args) {
-    LoginView loginView = new LoginView();
-    loginView.setVisible(true);
-  }
-
   @Override
   public void initRight() {
     initRightTop();

@@ -3,7 +3,6 @@ package views;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionListener;
@@ -13,12 +12,17 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import constants.Info;
 import constants.Size;
 import controllers.LoginFormController;
+import controllers.ScoreFormController;
 import styles.BorderHandler;
 import styles.ColorHandler;
 import styles.FontHandler;
@@ -60,6 +64,12 @@ public abstract class MyFrame extends JFrame {
   private Image logoImage;
   private ImageIcon logoIcon;
 
+  // MenuBar
+  private JMenuBar jMenuBar;
+  private JMenu jMenu = new JMenu("HELP");
+  private JMenuItem jMenuItem_AboutMe = new JMenuItem("About me");
+  private JMenuItem jMenuItem_Score = new JMenuItem("Show Score");
+
   public MyFrame() {
     setTitle("Snake Game");
     setSize(Size.WIDTH_MY_FRAME, Size.HEIGHT_MY_FRAME);
@@ -70,10 +80,22 @@ public abstract class MyFrame extends JFrame {
   }
 
   protected void initUI() {
+    initMenu();
     initLeft();
     initRight();
     initContainer();
     doAction();
+  }
+
+  private void initMenu() {
+    // Menu bar setup
+    jMenuBar = new JMenuBar();
+    jMenuBar.setLayout(new FlowLayout(FlowLayout.LEFT));
+    jMenuBar.setBorder(BorderHandler.LINE_BORDER_MENU_BAR);
+    jMenuBar.add(jMenu);
+    jMenu.add(jMenuItem_AboutMe);
+    jMenu.add(jMenuItem_Score);
+    this.setJMenuBar(jMenuBar);
   }
 
   private void initLeft() {
@@ -162,8 +184,9 @@ public abstract class MyFrame extends JFrame {
 
   protected void doAction() {
     jButton_Left_Play.addActionListener(new ClickPlayNow());
-
     jPasswordField_Right_Middle_Password.addActionListener(new PressEnter());
+    jMenuItem_AboutMe.addActionListener(new Info());
+    jMenuItem_Score.addActionListener(new ScoreFormController(new ScoreFormView()));
   }
 
 }
