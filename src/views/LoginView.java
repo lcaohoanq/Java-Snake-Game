@@ -1,6 +1,7 @@
 package views;
 
 import java.awt.BorderLayout;
+import java.awt.CardLayout;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 
@@ -13,12 +14,15 @@ import javax.swing.JTextField;
 
 import constants.Size;
 import controllers.LoginFormController;
+import controllers.PlayController;
 import styles.BorderHandler;
 import styles.ColorHandler;
 import styles.FontHandler;
 import utils.DataHandler;
 
 public class LoginView extends MyFrame {
+
+  public static CardLayout cardLayout;
 
   public LoginView() {
     super();
@@ -59,6 +63,7 @@ public class LoginView extends MyFrame {
     jPanel_Right_Middle_Username = new JPanel();
     jPanel_Right_Middle_Password = new JPanel();
     jPanel_Right_Bottom_Button = new JPanel();
+    cardLayout = new CardLayout();
 
     jLabel_Right_Middle_Username = new JLabel("Username");
     jLabel_Right_Middle_Password = new JLabel("Password");
@@ -67,6 +72,7 @@ public class LoginView extends MyFrame {
     jPasswordField_Right_Middle_Password = new JPasswordField(20);
 
     jButton_Right_Bottom_Submit = new JButton("Submit");
+    jButton_Right_Play = new JButton("Play");
 
     jLabel_Right_Middle_Username.setForeground(ColorHandler.TEXT_COLOR);
     jLabel_Right_Middle_Username.setFont(FontHandler.JLABEL);
@@ -99,8 +105,14 @@ public class LoginView extends MyFrame {
     jButton_Right_Bottom_Submit.setForeground(ColorHandler.PRIMARY_COLOR);
     jButton_Right_Bottom_Submit.setFont(FontHandler.JBUTTON);
     jButton_Right_Bottom_Submit.setPreferredSize(Size.SIZE_BUTTON);
+    jButton_Right_Play.setBackground(ColorHandler.TEXT_COLOR);
+    jButton_Right_Play.setForeground(ColorHandler.PRIMARY_COLOR);
+    jButton_Right_Play.setFont(FontHandler.JBUTTON);
+    jButton_Right_Play.setPreferredSize(Size.SIZE_BUTTON);
+    jPanel_Right_Bottom_Button.setLayout(cardLayout);
+    jPanel_Right_Bottom_Button.add(jButton_Right_Bottom_Submit, "Card1");
+    jPanel_Right_Bottom_Button.add(jButton_Right_Play, "Card2");
     jPanel_Right_Bottom_Button.setBackground(ColorHandler.PRIMARY_COLOR);
-    jPanel_Right_Bottom_Button.add(jButton_Right_Bottom_Submit);
     jPanel_Right_Bottom_Button.setBorder(BorderHandler.BUTTON);
 
     // Add jPanel_Right_Middle_Username and jPanel_Right_Middle_Password directly to
@@ -129,7 +141,6 @@ public class LoginView extends MyFrame {
     jPanel_Right_Bottom_Option.setBackground(ColorHandler.PRIMARY_COLOR);
     jPanel_Right_Bottom_Option.add(jLabel_Right_Bottom_Option);
     jPanel_Right_Bottom_Option.add(jButton_Right_Bottom_Others);
-
   }
 
   @Override
@@ -138,6 +149,7 @@ public class LoginView extends MyFrame {
     super.doAction();
     DataHandler dataHandler = new DataHandler();
     jButton_Right_Bottom_Submit.addActionListener(new LoginFormController(dataHandler));
+    jButton_Right_Play.addActionListener(new PlayController(this));
     jButton_Right_Bottom_Others.addActionListener(new ClickOtherOption());
   }
 

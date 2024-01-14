@@ -8,6 +8,7 @@ import constants.Message;
 import models.Account;
 import utils.DataHandler;
 import views.LoginFormView;
+import views.LoginView;
 import views.MyFrame;
 
 public class LoginFormController implements ActionListener {
@@ -24,8 +25,6 @@ public class LoginFormController implements ActionListener {
   public void actionPerformed(ActionEvent e) {
     username = MyFrame.jTextField_Right_Middle_Username.getText();
     password = MyFrame.jPasswordField_Right_Middle_Password.getText();
-    System.out.println("username: " + username);
-    System.out.println("password: " + password);
     if (isEmpty(username, password)) {
       Message.IS_EMPTY_USERNAME_OR_PASSWORD();
     } else {
@@ -35,8 +34,8 @@ public class LoginFormController implements ActionListener {
         Message.IS_LOGIN_SUCCESS();
         Message.IS_WELLCOME(username);
         // Switch to the play button card using static methods
-        CardLayout cardLayout = (CardLayout) LoginFormView.cardLayout;
-        cardLayout.next(LoginFormView.jPanel_Button);
+        CardLayout cardLayout = (CardLayout) LoginView.cardLayout;
+        cardLayout.next(LoginView.jPanel_Right_Bottom_Button);
       }
     }
   }

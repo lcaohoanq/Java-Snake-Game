@@ -51,9 +51,10 @@ public abstract class MyFrame extends JFrame {
   protected JPanel jPanel_Right_Middle_Confirm_Password;
 
   protected JPanel jPanel_Right_Middle_Data;
+  protected JButton jButton_Right_Play;
 
-  protected JPanel jPanel_Right_Bottom_Button;
-  protected JButton jButton_Right_Bottom_Submit;
+  public static JPanel jPanel_Right_Bottom_Button;
+  public static JButton jButton_Right_Bottom_Submit;
   protected JButton jButton_Right_Bottom_Others;
   protected JPanel jPanel_Right_Bottom_Option;
   protected JLabel jLabel_Right_Bottom_Option;

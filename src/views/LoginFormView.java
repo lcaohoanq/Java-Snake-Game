@@ -54,7 +54,7 @@ public class LoginFormView extends JFrame {
   // Others
   public static CardLayout cardLayout;
   private DataHandler dataHandler = new DataHandler();
-  private ActionListener ac;
+  protected ActionListener ac;
 
   public LoginFormView() {
     setTitle("Login");
