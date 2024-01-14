@@ -45,6 +45,6 @@ public class BorderHandler {
     public static final EmptyBorder MIDDLE = new EmptyBorder(10, 0, 10, 0);
     public static final EmptyBorder MID_LABEL = new EmptyBorder(0, 0, 10, 0);
     public static final EmptyBorder BUTTON = new EmptyBorder(30, 0, 20, 0);
-    public static final EmptyBorder MID_FIELD = new EmptyBorder(0, 20, 20, 0);
+    public static final EmptyBorder MID_FIELD = new EmptyBorder(0, 20, 0, 20);
 
 }
