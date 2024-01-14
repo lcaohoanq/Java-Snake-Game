@@ -38,8 +38,8 @@ public class ScoreFormView extends JFrame {
     }
 
     public void initTopZone() {
-        jLabel_Title.setFont(FontHandler.FONT_TEXT_JBUTTON);
-        jLabel_Title.setBorder(BorderHandler.JLABEL_BORDER);
+        jLabel_Title.setFont(FontHandler.JBUTTON);
+        jLabel_Title.setBorder(BorderHandler.JLABEL);
     }
 
     public void initMiddleZone() {
@@ -50,7 +50,7 @@ public class ScoreFormView extends JFrame {
     }
 
     public void initContainer() {
-        jPanel_Container.setBorder(BorderHandler.CONTAINER_BORDER);
+        jPanel_Container.setBorder(BorderHandler.CONTAINER);
         jPanel_Container.setLayout(new BorderLayout());
         jPanel_Container.add(jLabel_Title, BorderLayout.NORTH);
         jPanel_Container.add(jScrollPane_Score, BorderLayout.CENTER);

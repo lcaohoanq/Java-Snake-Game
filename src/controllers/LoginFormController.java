@@ -8,6 +8,7 @@ import constants.Message;
 import models.Account;
 import utils.DataHandler;
 import views.LoginFormView;
+import views.MyFrame;
 
 public class LoginFormController implements ActionListener {
 
@@ -21,9 +22,10 @@ public class LoginFormController implements ActionListener {
 
   @Override
   public void actionPerformed(ActionEvent e) {
-    username = LoginFormView.jTextField_Username.getText();
-    password = LoginFormView.jPasswordField_Password.getText();
-
+    username = MyFrame.jTextField_Right_Middle_Username.getText();
+    password = MyFrame.jPasswordField_Right_Middle_Password.getText();
+    System.out.println("username: " + username);
+    System.out.println("password: " + password);
     if (isEmpty(username, password)) {
       Message.IS_EMPTY_USERNAME_OR_PASSWORD();
     } else {

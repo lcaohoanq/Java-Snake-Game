@@ -91,10 +91,10 @@ public class SelectFormView extends JFrame {
     private void setUpTopZone() {
         // Top zone setup
         jLabel_Title = new JLabel("Snake Game", JLabel.CENTER);
-        jLabel_Title.setFont(FontHandler.FONT_LOGO);
+        jLabel_Title.setFont(FontHandler.LOGO);
         jLabel_Title.setBackground(ColorHandler.PRIMARY_COLOR);
         jLabel_Title.setForeground(ColorHandler.TEXT_COLOR);
-        jLabel_Title.setBorder(BorderHandler.TITLE_SELECT_FORM_BORDER);
+        jLabel_Title.setBorder(BorderHandler.TITLE_SELECT_FORM);
         jPanel_icon = new JPanel();
         jPanel_icon.setPreferredSize(new Dimension(100, 100));
         jPanel_icon.setBackground(ColorHandler.PRIMARY_COLOR);
@@ -132,7 +132,7 @@ public class SelectFormView extends JFrame {
         // Button creation
         JButton button = new JButton(text);
         button.setPreferredSize(Size.SIZE_BUTTON);
-        button.setFont(FontHandler.FONT_TEXT_JBUTTON);
+        button.setFont(FontHandler.JBUTTON);
         button.setBackground(ColorHandler.TEXT_COLOR);
         button.setForeground(ColorHandler.PRIMARY_COLOR);
         return button;
@@ -142,7 +142,7 @@ public class SelectFormView extends JFrame {
         // Panel creation containing a button
         JPanel panel = new JPanel();
         panel.setBackground(ColorHandler.PRIMARY_COLOR);
-        panel.setBorder(BorderHandler.MIDDLEZONE_SELECT_FORM_BORDER);
+        panel.setBorder(BorderHandler.MIDDLE_ZONE_SELECT_FORM);
         panel.add(button);
         return panel;
     }
@@ -151,7 +151,7 @@ public class SelectFormView extends JFrame {
         // Container setup
         jPanel_Container = new JPanel(new BorderLayout());
         jPanel_Container.setBackground(ColorHandler.PRIMARY_COLOR);
-        jPanel_Container.setBorder(BorderHandler.CONTAINER_SELECT_FORM_BORDER);
+        jPanel_Container.setBorder(BorderHandler.CONTAINER_SELECT_FORM);
         jPanel_Container.add(jPanel_TopZone, BorderLayout.NORTH);
         jPanel_Container.add(jPanel_MiddleZone, BorderLayout.CENTER);
         this.add(jPanel_Container);
