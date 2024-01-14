@@ -1,1 +1,4 @@
-![image](https://github.com/lcaohoanq/SnakeGame/assets/136492579/10f0b609-a028-4707-81a7-7fc432aa606c)
+# Login
+![image](https://github.com/lcaohoanq/Java-Snake-Game/assets/136492579/91b360c2-6762-4c93-881c-2509117fdbd5)
+# Register
+![image](https://github.com/lcaohoanq/Java-Snake-Game/assets/136492579/f3ff90b9-bac3-4b42-9a36-6c5955e055d9)
