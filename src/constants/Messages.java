@@ -2,7 +2,7 @@ package constants;
 
 import javax.swing.JOptionPane;
 
-public class Message {
+public class Messages {
     public static void IS_LOGIN_SUCCESS() {
         JOptionPane.showMessageDialog(null, "Login success", "Success", JOptionPane.INFORMATION_MESSAGE);
     }
@@ -41,7 +41,7 @@ public class Message {
         JOptionPane.showMessageDialog(null, "Username is existed", "Error", JOptionPane.WARNING_MESSAGE);
     }
 
-    public static void IS_WELLCOME(String msg) {
+    public static void IS_WELCOME(String msg) {
         JOptionPane.showMessageDialog(null, "Hello " + msg, null, JOptionPane.INFORMATION_MESSAGE);
     }
     public static void IS_ABOUT_ME(){

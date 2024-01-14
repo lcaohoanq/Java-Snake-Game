@@ -7,8 +7,8 @@ public class Info implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        Message.IS_ABOUT_ME();
-        Message.IS_COPYRIGHT();
+        Messages.IS_ABOUT_ME();
+        Messages.IS_COPYRIGHT();
     }
 
 }

@@ -65,6 +65,7 @@ local.properties
 ##############################
 ## NetBeans
 ##############################
+nbproject/
 nbproject/private/
 build/
 nbbuild/
@@ -90,3 +91,5 @@ nb-configuration.xml
 /build/
 /dist/
 .env
+build.xml
+manifest.mf

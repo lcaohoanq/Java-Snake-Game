@@ -4,7 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Image;
-import java.awt.Toolkit;
 import java.awt.event.ActionListener;
 import java.net.URL;
 
@@ -20,12 +19,13 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import constants.Info;
-import constants.Size;
-import controllers.LoginFormController;
-import controllers.ScoreFormController;
-import styles.BorderHandler;
-import styles.ColorHandler;
-import styles.FontHandler;
+import constants.Sizes;
+import controllers.LoginController;
+import controllers.ScoreController;
+import styles.Borders;
+import styles.Colors;
+import styles.Fonts;
+import styles.Images;
 import utils.DataHandler;
 
 public abstract class MyFrame extends JFrame {
@@ -59,7 +59,7 @@ public abstract class MyFrame extends JFrame {
   protected JPanel jPanel_Right_Bottom_Option;
   protected JLabel jLabel_Right_Bottom_Option;
 
-  private LoginFormController ac;
+  private LoginController ac;
   private DataHandler dataHandler = new DataHandler();
   private URL logoURL;
   private Image logoImage;
@@ -73,7 +73,8 @@ public abstract class MyFrame extends JFrame {
 
   public MyFrame() {
     setTitle("Snake Game");
-    setSize(Size.WIDTH_MY_FRAME, Size.HEIGHT_MY_FRAME);
+    setSize(Sizes.WIDTH_MY_FRAME, Sizes.HEIGHT_MY_FRAME);
+    setIconImage(Images.icon);
     setLocationRelativeTo(null);
     setResizable(true);
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -92,7 +93,7 @@ public abstract class MyFrame extends JFrame {
     // Menu bar setup
     jMenuBar = new JMenuBar();
     jMenuBar.setLayout(new FlowLayout(FlowLayout.LEFT));
-    jMenuBar.setBorder(BorderHandler.LINE_BORDER_MENU_BAR);
+    jMenuBar.setBorder(Borders.LINE_MENU_BAR);
     jMenuBar.add(jMenu);
     jMenu.add(jMenuItem_AboutMe);
     jMenu.add(jMenuItem_Score);
@@ -102,29 +103,26 @@ public abstract class MyFrame extends JFrame {
   private void initLeft() {
     jPanel_Left = new JPanel(new BorderLayout());
     jLabel_Left_Tittle = new JLabel("Snake Game", JLabel.CENTER);
-    jLabel_Left_Tittle.setForeground(ColorHandler.PRIMARY_COLOR);
-    jLabel_Left_Tittle.setFont(FontHandler.INPUT);
+    jLabel_Left_Tittle.setForeground(Colors.PRIMARY_COLOR);
+    jLabel_Left_Tittle.setFont(Fonts.LEFT_TITLE);
 
     jPanel_Left_Icon = new JPanel(new BorderLayout());
     jPanel_Left_Icon.setPreferredSize(new Dimension(100, 100));
-    jPanel_Left_Icon.setBackground(ColorHandler.TEXT_COLOR);
+    jPanel_Left_Icon.setBackground(Colors.TEXT_COLOR);
 
     // Use the new image "250-250.png"
-    logoURL = getClass().getResource("/resources/250-250.png");
-    logoImage = Toolkit.getDefaultToolkit().getImage(logoURL);
-    logoIcon = new ImageIcon(logoImage);
-
-    jLabel_Left_Icon = new JLabel(logoIcon);
+    jLabel_Left_Icon = new JLabel(
+        new ImageIcon(Images.logoIcon.getImage().getScaledInstance(250, 250, Image.SCALE_SMOOTH)));
     jPanel_Left_Icon.add(jLabel_Left_Icon, BorderLayout.CENTER);
 
     jButton_Left_Play = new JButton("Play Now");
-    jButton_Left_Play.setBackground(ColorHandler.PRIMARY_COLOR);
-    jButton_Left_Play.setForeground(ColorHandler.TEXT_COLOR);
-    jButton_Left_Play.setFont(FontHandler.JBUTTON);
+    jButton_Left_Play.setBackground(Colors.PRIMARY_COLOR);
+    jButton_Left_Play.setForeground(Colors.TEXT_COLOR);
+    jButton_Left_Play.setFont(Fonts.BUTTON);
 
-    jPanel_Left.setPreferredSize(new Dimension(Size.WIDTH_MY_LEFT_FRAME, Size.HEIGHT_MY_LEFT_FRAME));
-    jPanel_Left.setBackground(ColorHandler.TEXT_COLOR);
-    jPanel_Left.setBorder(BorderHandler.TITLE);
+    jPanel_Left.setPreferredSize(new Dimension(Sizes.WIDTH_MY_LEFT_FRAME, Sizes.HEIGHT_MY_LEFT_FRAME));
+    jPanel_Left.setBackground(Colors.TEXT_COLOR);
+    jPanel_Left.setBorder(Borders.TITLE);
 
     jPanel_Left.add(jLabel_Left_Tittle, BorderLayout.NORTH);
     jPanel_Left.add(jPanel_Left_Icon, BorderLayout.CENTER);
@@ -142,7 +140,7 @@ public abstract class MyFrame extends JFrame {
   protected void initContainer() {
     jPanel_Container = new JPanel();
     jPanel_Container.setLayout(new BorderLayout());
-    jPanel_Container.setBackground(ColorHandler.PRIMARY_COLOR);
+    jPanel_Container.setBackground(Colors.PRIMARY_COLOR);
     jPanel_Container.add(jPanel_Left, BorderLayout.WEST);
     jPanel_Container.add(jPanel_Right, BorderLayout.CENTER);
     this.add(jPanel_Container);
@@ -187,7 +185,7 @@ public abstract class MyFrame extends JFrame {
     jButton_Left_Play.addActionListener(new ClickPlayNow());
     jPasswordField_Right_Middle_Password.addActionListener(new PressEnter());
     jMenuItem_AboutMe.addActionListener(new Info());
-    jMenuItem_Score.addActionListener(new ScoreFormController(new ScoreFormView()));
+    jMenuItem_Score.addActionListener(new ScoreController(new ScoreFormView()));
   }
 
 }

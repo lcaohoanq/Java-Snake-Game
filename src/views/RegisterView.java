@@ -11,11 +11,11 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-import constants.Size;
-import controllers.LoginFormController;
-import styles.BorderHandler;
-import styles.ColorHandler;
-import styles.FontHandler;
+import constants.Sizes;
+import controllers.RegisterController;
+import styles.Borders;
+import styles.Colors;
+import styles.Fonts;
 import utils.DataHandler;
 
 public class RegisterView extends MyFrame {
@@ -31,9 +31,9 @@ public class RegisterView extends MyFrame {
     initRightBottom();
 
     jPanel_Right = new JPanel(new BorderLayout());
-    jPanel_Right.setPreferredSize(new Dimension(Size.WIDTH_MY_RIGHT_FRAME, Size.HEIGHT_MY_RIGHT_FRAME));
-    jPanel_Right.setBackground(ColorHandler.PRIMARY_COLOR);
-    jPanel_Right.setBorder(BorderHandler.MID_FIELD);
+    jPanel_Right.setPreferredSize(new Dimension(Sizes.WIDTH_MY_RIGHT_FRAME, Sizes.HEIGHT_MY_RIGHT_FRAME));
+    jPanel_Right.setBackground(Colors.PRIMARY_COLOR);
+    jPanel_Right.setBorder(Borders.MID_FIELD);
 
     jPanel_Right.add(jPanel_Right_Top_Tittle, BorderLayout.NORTH);
     jPanel_Right.add(jPanel_Right_Middle_Data, BorderLayout.CENTER);
@@ -45,12 +45,12 @@ public class RegisterView extends MyFrame {
   public void initRightTop() {
     jPanel_Right_Top_Tittle = new JPanel();
     jLabel_Right_Top_Tittle = new JLabel("Register", JLabel.CENTER);
-    jLabel_Right_Top_Tittle.setForeground(ColorHandler.TEXT_COLOR);
-    jLabel_Right_Top_Tittle.setFont(FontHandler.LOGO);
+    jLabel_Right_Top_Tittle.setForeground(Colors.TEXT_COLOR);
+    jLabel_Right_Top_Tittle.setFont(Fonts.RIGHT_TITLE);
 
-    jPanel_Right_Top_Tittle.setBackground(ColorHandler.PRIMARY_COLOR);
+    jPanel_Right_Top_Tittle.setBackground(Colors.PRIMARY_COLOR);
     jPanel_Right_Top_Tittle.add(jLabel_Right_Top_Tittle);
-    jPanel_Right_Top_Tittle.setBorder(BorderHandler.TITLE);
+    jPanel_Right_Top_Tittle.setBorder(Borders.TITLE);
   }
 
   @Override
@@ -71,58 +71,58 @@ public class RegisterView extends MyFrame {
 
     jButton_Right_Bottom_Submit = new JButton("Submit");
 
-    jLabel_Right_Middle_Username.setForeground(ColorHandler.TEXT_COLOR);
-    jLabel_Right_Middle_Username.setFont(FontHandler.JLABEL);
-    jLabel_Right_Middle_Username.setBorder(BorderHandler.MID_LABEL);
-    jTextField_Right_Middle_Username.setFont(FontHandler.INPUT_SMALL);
-    jTextField_Right_Middle_Username.setBackground(ColorHandler.PRIMARY_COLOR);
-    jTextField_Right_Middle_Username.setForeground(ColorHandler.TEXT_COLOR);
+    jLabel_Right_Middle_Username.setForeground(Colors.TEXT_COLOR);
+    jLabel_Right_Middle_Username.setFont(Fonts.LABEL);
+    jLabel_Right_Middle_Username.setBorder(Borders.MID_LABEL);
+    jTextField_Right_Middle_Username.setFont(Fonts.INPUT_SMALL);
+    jTextField_Right_Middle_Username.setBackground(Colors.SECONDARY_COLOR);
+    jTextField_Right_Middle_Username.setForeground(Colors.TEXT_COLOR);
 
-    jLabel_Right_Middle_Password.setForeground(ColorHandler.TEXT_COLOR);
-    jLabel_Right_Middle_Password.setFont(FontHandler.JLABEL);
-    jLabel_Right_Middle_Password.setBorder(BorderHandler.MID_LABEL);
-    jPasswordField_Right_Middle_Password.setFont(FontHandler.INPUT_SMALL);
-    jPasswordField_Right_Middle_Password.setBackground(ColorHandler.PRIMARY_COLOR);
-    jPasswordField_Right_Middle_Password.setForeground(ColorHandler.TEXT_COLOR);
+    jLabel_Right_Middle_Password.setForeground(Colors.TEXT_COLOR);
+    jLabel_Right_Middle_Password.setFont(Fonts.LABEL);
+    jLabel_Right_Middle_Password.setBorder(Borders.MID_LABEL);
+    jPasswordField_Right_Middle_Password.setFont(Fonts.INPUT_SMALL);
+    jPasswordField_Right_Middle_Password.setBackground(Colors.SECONDARY_COLOR);
+    jPasswordField_Right_Middle_Password.setForeground(Colors.TEXT_COLOR);
 
-    jLabel_Right_Middle_Confirm_Password.setForeground(ColorHandler.TEXT_COLOR);
-    jLabel_Right_Middle_Confirm_Password.setFont(FontHandler.JLABEL);
-    jLabel_Right_Middle_Confirm_Password.setBorder(BorderHandler.MID_LABEL);
-    jPasswordField_Right_Middle_Confirm_Password.setFont(FontHandler.INPUT_SMALL);
-    jPasswordField_Right_Middle_Confirm_Password.setBackground(ColorHandler.PRIMARY_COLOR);
-    jPasswordField_Right_Middle_Confirm_Password.setForeground(ColorHandler.TEXT_COLOR);
+    jLabel_Right_Middle_Confirm_Password.setForeground(Colors.TEXT_COLOR);
+    jLabel_Right_Middle_Confirm_Password.setFont(Fonts.LABEL);
+    jLabel_Right_Middle_Confirm_Password.setBorder(Borders.MID_LABEL);
+    jPasswordField_Right_Middle_Confirm_Password.setFont(Fonts.INPUT_SMALL);
+    jPasswordField_Right_Middle_Confirm_Password.setBackground(Colors.SECONDARY_COLOR);
+    jPasswordField_Right_Middle_Confirm_Password.setForeground(Colors.TEXT_COLOR);
 
     jPanel_Right_Middle_Username.setLayout(new BoxLayout(jPanel_Right_Middle_Username, BoxLayout.Y_AXIS));
-    jPanel_Right_Middle_Username.setBackground(ColorHandler.PRIMARY_COLOR);
+    jPanel_Right_Middle_Username.setBackground(Colors.PRIMARY_COLOR);
     jPanel_Right_Middle_Username.add(jLabel_Right_Middle_Username);
     jPanel_Right_Middle_Username.add(jTextField_Right_Middle_Username);
-    jPanel_Right_Middle_Username.setBorder(BorderHandler.MIDDLE);
+    jPanel_Right_Middle_Username.setBorder(Borders.MIDDLE);
 
     jPanel_Right_Middle_Password.setLayout(new BoxLayout(jPanel_Right_Middle_Password, BoxLayout.Y_AXIS));
-    jPanel_Right_Middle_Password.setBackground(ColorHandler.PRIMARY_COLOR);
+    jPanel_Right_Middle_Password.setBackground(Colors.PRIMARY_COLOR);
     jPanel_Right_Middle_Password.add(jLabel_Right_Middle_Password);
     jPanel_Right_Middle_Password.add(jPasswordField_Right_Middle_Password);
-    jPanel_Right_Middle_Password.setBorder(BorderHandler.MIDDLE);
+    jPanel_Right_Middle_Password.setBorder(Borders.MIDDLE);
 
     jPanel_Right_Middle_Confirm_Password
         .setLayout(new BoxLayout(jPanel_Right_Middle_Confirm_Password, BoxLayout.Y_AXIS));
-    jPanel_Right_Middle_Confirm_Password.setBackground(ColorHandler.PRIMARY_COLOR);
+    jPanel_Right_Middle_Confirm_Password.setBackground(Colors.PRIMARY_COLOR);
     jPanel_Right_Middle_Confirm_Password.add(jLabel_Right_Middle_Confirm_Password);
     jPanel_Right_Middle_Confirm_Password.add(jPasswordField_Right_Middle_Confirm_Password);
-    jPanel_Right_Middle_Confirm_Password.setBorder(BorderHandler.MIDDLE);
+    jPanel_Right_Middle_Confirm_Password.setBorder(Borders.MIDDLE);
 
-    jButton_Right_Bottom_Submit.setBackground(ColorHandler.TEXT_COLOR);
-    jButton_Right_Bottom_Submit.setForeground(ColorHandler.PRIMARY_COLOR);
-    jButton_Right_Bottom_Submit.setFont(FontHandler.JBUTTON);
-    jButton_Right_Bottom_Submit.setPreferredSize(Size.SIZE_BUTTON);
-    jPanel_Right_Bottom_Button.setBackground(ColorHandler.PRIMARY_COLOR);
+    jButton_Right_Bottom_Submit.setBackground(Colors.TEXT_COLOR);
+    jButton_Right_Bottom_Submit.setForeground(Colors.PRIMARY_COLOR);
+    jButton_Right_Bottom_Submit.setFont(Fonts.BUTTON);
+    jButton_Right_Bottom_Submit.setPreferredSize(Sizes.SIZE_BUTTON);
+    jPanel_Right_Bottom_Button.setBackground(Colors.PRIMARY_COLOR);
     jPanel_Right_Bottom_Button.add(jButton_Right_Bottom_Submit);
-    jPanel_Right_Bottom_Button.setBorder(BorderHandler.BUTTON);
+    jPanel_Right_Bottom_Button.setBorder(Borders.BUTTON);
 
     // Add jPanel_Right_Middle_Username and jPanel_Right_Middle_Password directly to
     // jPanel_Right
 
-    jPanel_Right_Middle_Data.setBackground(ColorHandler.PRIMARY_COLOR);
+    jPanel_Right_Middle_Data.setBackground(Colors.PRIMARY_COLOR);
     jPanel_Right_Middle_Data.add(jPanel_Right_Middle_Username);
     jPanel_Right_Middle_Data.add(jPanel_Right_Middle_Password);
     jPanel_Right_Middle_Data.add(jPanel_Right_Middle_Confirm_Password);
@@ -135,15 +135,15 @@ public class RegisterView extends MyFrame {
     jButton_Right_Bottom_Others = new JButton("Sign in here");
     jPanel_Right_Bottom_Option = new JPanel();
 
-    jLabel_Right_Bottom_Option.setForeground(ColorHandler.TEXT_COLOR);
-    jLabel_Right_Bottom_Option.setFont(FontHandler.OTHERS);
+    jLabel_Right_Bottom_Option.setForeground(Colors.TEXT_COLOR);
+    jLabel_Right_Bottom_Option.setFont(Fonts.OTHERS);
 
-    jButton_Right_Bottom_Others.setBackground(ColorHandler.PRIMARY_COLOR);
-    jButton_Right_Bottom_Others.setForeground(ColorHandler.OTHER_OPTIONS);
-    jButton_Right_Bottom_Others.setFont(FontHandler.OTHERS);
+    jButton_Right_Bottom_Others.setBackground(Colors.PRIMARY_COLOR);
+    jButton_Right_Bottom_Others.setForeground(Colors.OTHER_OPTIONS);
+    jButton_Right_Bottom_Others.setFont(Fonts.OTHERS);
     jButton_Right_Bottom_Others.setBorder(null);
 
-    jPanel_Right_Bottom_Option.setBackground(ColorHandler.PRIMARY_COLOR);
+    jPanel_Right_Bottom_Option.setBackground(Colors.PRIMARY_COLOR);
     jPanel_Right_Bottom_Option.add(jLabel_Right_Bottom_Option);
     jPanel_Right_Bottom_Option.add(jButton_Right_Bottom_Others);
 
@@ -154,7 +154,8 @@ public class RegisterView extends MyFrame {
     // TODO Auto-generated method stub
     super.doAction();
     DataHandler dataHandler = new DataHandler();
-    jButton_Right_Bottom_Submit.addActionListener(new LoginFormController(dataHandler));
+    jButton_Right_Bottom_Submit.addActionListener(new RegisterController(dataHandler));
+    jPasswordField_Right_Middle_Confirm_Password.addActionListener(new PressEnter());
     jButton_Right_Bottom_Others.addActionListener(new ClickOtherOption());
   }
 

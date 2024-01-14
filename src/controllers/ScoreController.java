@@ -6,13 +6,13 @@ import java.awt.event.ActionListener;
 import utils.DataHandler;
 import views.ScoreFormView;
 
-public class ScoreFormController implements ActionListener {
+public class ScoreController implements ActionListener {
 
     private DataHandler dataHandler;
     private ScoreFormView scoreFormView;
 
-    public ScoreFormController(ScoreFormView scoreFormView) {
-        this.dataHandler = dataHandler;
+    public ScoreController(ScoreFormView scoreFormView) {
+        this.dataHandler = new DataHandler();
         this.scoreFormView = scoreFormView;
     }
 

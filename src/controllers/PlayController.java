@@ -3,7 +3,6 @@ package controllers;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import views.LoginFormView;
 import views.LoginView;
 import views.Snake;
 

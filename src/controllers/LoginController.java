@@ -4,20 +4,19 @@ import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import constants.Message;
+import constants.Messages;
 import models.Account;
 import utils.DataHandler;
-import views.LoginFormView;
 import views.LoginView;
 import views.MyFrame;
 
-public class LoginFormController implements ActionListener {
+public class LoginController implements ActionListener {
 
   public static String username = "";
   public static String password = "";
   private DataHandler dataHandler;
 
-  public LoginFormController(DataHandler dataHandler) {
+  public LoginController(DataHandler dataHandler) {
     this.dataHandler = dataHandler;
   }
 
@@ -26,13 +25,13 @@ public class LoginFormController implements ActionListener {
     username = MyFrame.jTextField_Right_Middle_Username.getText();
     password = MyFrame.jPasswordField_Right_Middle_Password.getText();
     if (isEmpty(username, password)) {
-      Message.IS_EMPTY_USERNAME_OR_PASSWORD();
+      Messages.IS_EMPTY_USERNAME_OR_PASSWORD();
     } else {
       if (!isMatching(username, password)) {
-        Message.IS_WRONG_USERNAME_OR_PASSWORD();
+        Messages.IS_WRONG_USERNAME_OR_PASSWORD();
       } else {
-        Message.IS_LOGIN_SUCCESS();
-        Message.IS_WELLCOME(username);
+        Messages.IS_LOGIN_SUCCESS();
+        Messages.IS_WELCOME(username);
         // Switch to the play button card using static methods
         CardLayout cardLayout = (CardLayout) LoginView.cardLayout;
         cardLayout.next(LoginView.jPanel_Right_Bottom_Button);

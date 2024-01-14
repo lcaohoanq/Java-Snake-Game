@@ -8,10 +8,10 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
-import constants.Size;
-import controllers.ScoreFormController;
-import styles.BorderHandler;
-import styles.FontHandler;
+import constants.Sizes;
+import controllers.ScoreController;
+import styles.Borders;
+import styles.Fonts;
 
 public class ScoreFormView extends JFrame {
 
@@ -20,11 +20,11 @@ public class ScoreFormView extends JFrame {
     JScrollPane jScrollPane_Score = new JScrollPane(jTextArea_Score);
     JLabel jLabel_Title = new JLabel("SCORE BOARD", JLabel.CENTER);
 
-    private ScoreFormController scoreFormController;
+    private ScoreController scoreFormController;
 
     public ScoreFormView() {
-        this.scoreFormController = new ScoreFormController(this);
-        setSize(Size.WIDTH_SCORE_FORM, Size.HEIGHT_SCORE_FORM);
+        this.scoreFormController = new ScoreController(this);
+        setSize(Sizes.WIDTH_SCORE_FORM, Sizes.HEIGHT_SCORE_FORM);
         setLocationRelativeTo(null);
         setResizable(false);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -38,8 +38,8 @@ public class ScoreFormView extends JFrame {
     }
 
     public void initTopZone() {
-        jLabel_Title.setFont(FontHandler.JBUTTON);
-        jLabel_Title.setBorder(BorderHandler.JLABEL);
+        jLabel_Title.setFont(Fonts.BUTTON);
+        jLabel_Title.setBorder(Borders.MID_LABEL);
     }
 
     public void initMiddleZone() {
@@ -50,7 +50,7 @@ public class ScoreFormView extends JFrame {
     }
 
     public void initContainer() {
-        jPanel_Container.setBorder(BorderHandler.CONTAINER);
+        jPanel_Container.setBorder(Borders.CONTAINER);
         jPanel_Container.setLayout(new BorderLayout());
         jPanel_Container.add(jLabel_Title, BorderLayout.NORTH);
         jPanel_Container.add(jScrollPane_Score, BorderLayout.CENTER);

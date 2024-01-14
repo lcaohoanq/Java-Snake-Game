@@ -18,10 +18,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-import constants.Path;
-import controllers.LoginFormController;
-import models.Account;
-import models.Score;
+import constants.Paths;
+import controllers.LoginController;
 import utils.AudioHandler;
 import utils.DataHandler;
 
@@ -169,13 +167,13 @@ public class Board extends JPanel implements ActionListener {
     /// check username có rỗng không?
     // nếu rỗng thì không ghi file
     private void writeScoreToFile() {
-        if (!scoreWrittenToFile && !LoginFormController.username.isEmpty()) {
-            String username = LoginFormController.username;
+        if (!scoreWrittenToFile && !LoginController.username.isEmpty()) {
+            String username = LoginController.username;
             String username_id = username;
             DataHandler.scoreList.put(username_id, new Score(username, score));
             System.out.println("Data Score " + DataHandler.scoreList);
 
-            if (DataHandler.writeScore(Path.urlScore)) {
+            if (DataHandler.writeScore(Paths.URL_SCORE)) {
                 scoreWrittenToFile = true;
                 System.out.println(scoreWrittenToFile);
                 System.out.println("sau khi ghi file ");
