@@ -19,6 +19,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import constants.Info;
+import constants.Paths;
 import constants.Sizes;
 import controllers.LoginController;
 import controllers.ScoreController;
@@ -78,6 +79,7 @@ public abstract class MyFrame extends JFrame {
     setLocationRelativeTo(null);
     setResizable(true);
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    dataHandler.readFile(Paths.URL_ACCOUNT);
     initUI();
   }
 
@@ -183,7 +185,7 @@ public abstract class MyFrame extends JFrame {
 
   protected void doAction() {
     jButton_Left_Play.addActionListener(new ClickPlayNow());
-    jPasswordField_Right_Middle_Password.addActionListener(new PressEnter());
+//    jPasswordField_Right_Middle_Password.addActionListener(new PressEnter());
     jMenuItem_AboutMe.addActionListener(new Info());
     jMenuItem_Score.addActionListener(new ScoreController(new ScoreFormView()));
   }

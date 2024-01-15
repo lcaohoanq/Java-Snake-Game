@@ -147,8 +147,7 @@ public class LoginView extends MyFrame {
   protected void doAction() {
     // TODO Auto-generated method stub
     super.doAction();
-    DataHandler dataHandler = new DataHandler();
-    jButton_Right_Bottom_Submit.addActionListener(new LoginController(dataHandler));
+    jButton_Right_Bottom_Submit.addActionListener(new LoginController());
     jButton_Right_Play.addActionListener(new PlayController(this));
     jPasswordField_Right_Middle_Password.addActionListener(new PressEnter());
     jButton_Right_Bottom_Others.addActionListener(new ClickOtherOption());

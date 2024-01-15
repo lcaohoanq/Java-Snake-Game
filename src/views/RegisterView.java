@@ -153,8 +153,7 @@ public class RegisterView extends MyFrame {
   protected void doAction() {
     // TODO Auto-generated method stub
     super.doAction();
-    DataHandler dataHandler = new DataHandler();
-    jButton_Right_Bottom_Submit.addActionListener(new RegisterController(dataHandler));
+    jButton_Right_Bottom_Submit.addActionListener(new RegisterController());
     jPasswordField_Right_Middle_Confirm_Password.addActionListener(new PressEnter());
     jButton_Right_Bottom_Others.addActionListener(new ClickOtherOption());
   }
