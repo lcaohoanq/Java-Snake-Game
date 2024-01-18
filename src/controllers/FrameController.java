@@ -2,7 +2,7 @@ package controllers;
 
 import utils.DataHandler;
 
-public abstract class FrameController {
+public class FrameController {
 
     protected DataHandler dataHandler;
 
@@ -10,10 +10,10 @@ public abstract class FrameController {
         this.dataHandler = new DataHandler();
     }
 
-    //login
-    public abstract boolean isEmpty(String username, String password);
-    public abstract boolean isMatching(String username, String password);
-    //register
-    public abstract boolean isEmpty(String username, String password, String confirmPassword);
-    public abstract boolean isDuplicateUsername(String username);
+//    //login
+//    public abstract boolean isEmpty(String username, String password);
+//    public abstract boolean isMatching(String username, String password);
+//    //register
+//    public abstract boolean isEmpty(String username, String password, String confirmPassword);
+//    public abstract boolean isDuplicateUsername(String username);
 }

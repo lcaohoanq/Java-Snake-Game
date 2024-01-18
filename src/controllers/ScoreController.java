@@ -4,22 +4,22 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import utils.DataHandler;
-import views.ScoreFormView;
+import views.ScoreView;
 
 public class ScoreController implements ActionListener {
 
     private DataHandler dataHandler;
-    private ScoreFormView scoreFormView;
+    private ScoreView scoreView;
 
-    public ScoreController(ScoreFormView scoreFormView) {
+    public ScoreController(ScoreView scoreView) {
         this.dataHandler = new DataHandler();
-        this.scoreFormView = scoreFormView;
+        this.scoreView = scoreView;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        scoreFormView.setVisible(true);
-        ScoreFormView.jTextArea_Score.append(DataHandler.scoreList.toString() + "\n");
+        scoreView.setVisible(true);
+        ScoreView.jTextArea_Score.append(DataHandler.scoreList.toString() + "\n");
         System.out.println("Current Infor: " + DataHandler.scoreList.toString());
     }
 

@@ -187,7 +187,7 @@ public abstract class MyFrame extends JFrame {
     jButton_Left_Play.addActionListener(new ClickPlayNow());
 //    jPasswordField_Right_Middle_Password.addActionListener(new PressEnter());
     jMenuItem_AboutMe.addActionListener(new Info());
-    jMenuItem_Score.addActionListener(new ScoreController(new ScoreFormView()));
+    jMenuItem_Score.addActionListener(new ScoreController(new ScoreView()));
   }
 
 }

@@ -40,6 +40,13 @@ public class Messages {
     public static void IS_EXISTED_USERNAME() {
         JOptionPane.showMessageDialog(null, "Username is existed", "Error", JOptionPane.WARNING_MESSAGE);
     }
+    public static void IS_WRONG_FORMAT_USERNAME() {
+        JOptionPane.showMessageDialog(null, "Username must be 1-20 characters and no special characters", "Error", JOptionPane.WARNING_MESSAGE);
+    }
+
+    public static void IS_WRONG_FORMAT_PASSWORD() {
+        JOptionPane.showMessageDialog(null, "Password must be 8 characters and at least 1 lowercase character, 1 uppercase character, 1 number and 1 special character", "Error", JOptionPane.WARNING_MESSAGE);
+    }
 
     public static void IS_WELCOME(String msg) {
         JOptionPane.showMessageDialog(null, "Hello " + msg, null, JOptionPane.INFORMATION_MESSAGE);

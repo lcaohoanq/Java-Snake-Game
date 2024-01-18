@@ -11,9 +11,10 @@ import javax.swing.JTextArea;
 import constants.Sizes;
 import controllers.ScoreController;
 import styles.Borders;
+import styles.Colors;
 import styles.Fonts;
 
-public class ScoreFormView extends JFrame {
+public class ScoreView extends JFrame {
 
     JPanel jPanel_Container = new JPanel();
     public static JTextArea jTextArea_Score = new JTextArea();
@@ -22,7 +23,7 @@ public class ScoreFormView extends JFrame {
 
     private ScoreController scoreFormController;
 
-    public ScoreFormView() {
+    public ScoreView() {
         this.scoreFormController = new ScoreController(this);
         setSize(Sizes.WIDTH_SCORE_FORM, Sizes.HEIGHT_SCORE_FORM);
         setLocationRelativeTo(null);
@@ -38,8 +39,9 @@ public class ScoreFormView extends JFrame {
     }
 
     public void initTopZone() {
+        jLabel_Title.setForeground(Colors.TEXT_COLOR);
         jLabel_Title.setFont(Fonts.BUTTON);
-        jLabel_Title.setBorder(Borders.MID_LABEL);
+        jLabel_Title.setBorder(Borders.MIDDLE);
     }
 
     public void initMiddleZone() {
