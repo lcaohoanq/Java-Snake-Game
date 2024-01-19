@@ -54,7 +54,4 @@ public class Messages {
     public static void IS_ABOUT_ME(){
         JOptionPane.showMessageDialog(null, "This is a project of Java Swing", "About me", JOptionPane.INFORMATION_MESSAGE);
     }
-    public static void IS_COPYRIGHT(){
-        JOptionPane.showMessageDialog(null, "Core game made by Zet Code", "About me", JOptionPane.INFORMATION_MESSAGE);
-    }
 }

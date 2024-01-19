@@ -1,33 +1,19 @@
 package views;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Image;
-import java.awt.event.ActionListener;
-import java.net.URL;
-
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JPanel;
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
-
 import constants.Info;
 import constants.Paths;
 import constants.Sizes;
-import controllers.LoginController;
+import constants.Titles;
 import controllers.ScoreController;
 import styles.Borders;
 import styles.Colors;
 import styles.Fonts;
 import styles.Images;
 import utils.DataHandler;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionListener;
 
 public abstract class MyFrame extends JFrame {
 
@@ -60,11 +46,7 @@ public abstract class MyFrame extends JFrame {
   protected JPanel jPanel_Right_Bottom_Option;
   protected JLabel jLabel_Right_Bottom_Option;
 
-  private LoginController ac;
   private DataHandler dataHandler = new DataHandler();
-  private URL logoURL;
-  private Image logoImage;
-  private ImageIcon logoIcon;
 
   // MenuBar
   private JMenuBar jMenuBar;
@@ -73,7 +55,7 @@ public abstract class MyFrame extends JFrame {
   private JMenuItem jMenuItem_Score = new JMenuItem("Show Score");
 
   public MyFrame() {
-    setTitle("Snake Game");
+    setTitle(Titles.WINDOW);
     setSize(Sizes.WIDTH_MY_FRAME, Sizes.HEIGHT_MY_FRAME);
     setIconImage(Images.icon);
     setLocationRelativeTo(null);
@@ -104,7 +86,7 @@ public abstract class MyFrame extends JFrame {
 
   private void initLeft() {
     jPanel_Left = new JPanel(new BorderLayout());
-    jLabel_Left_Tittle = new JLabel("Snake Game", JLabel.CENTER);
+    jLabel_Left_Tittle = new JLabel(Titles.HEADING, JLabel.CENTER);
     jLabel_Left_Tittle.setForeground(Colors.PRIMARY_COLOR);
     jLabel_Left_Tittle.setFont(Fonts.LEFT_TITLE);
 

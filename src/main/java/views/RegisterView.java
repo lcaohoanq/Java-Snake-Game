@@ -1,22 +1,14 @@
 package views;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.GridLayout;
-
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
-
 import constants.Sizes;
+import constants.Titles;
 import controllers.RegisterController;
 import styles.Borders;
 import styles.Colors;
 import styles.Fonts;
-import utils.DataHandler;
+
+import javax.swing.*;
+import java.awt.*;
 
 public class RegisterView extends MyFrame {
 
@@ -44,7 +36,7 @@ public class RegisterView extends MyFrame {
   @Override
   public void initRightTop() {
     jPanel_Right_Top_Tittle = new JPanel();
-    jLabel_Right_Top_Tittle = new JLabel("Register", JLabel.CENTER);
+    jLabel_Right_Top_Tittle = new JLabel(Titles.REGISTER, JLabel.CENTER);
     jLabel_Right_Top_Tittle.setForeground(Colors.TEXT_COLOR);
     jLabel_Right_Top_Tittle.setFont(Fonts.RIGHT_TITLE);
 
@@ -61,15 +53,15 @@ public class RegisterView extends MyFrame {
     jPanel_Right_Middle_Confirm_Password = new JPanel();
     jPanel_Right_Bottom_Button = new JPanel();
 
-    jLabel_Right_Middle_Username = new JLabel("Username");
-    jLabel_Right_Middle_Password = new JLabel("Password");
-    jLabel_Right_Middle_Confirm_Password = new JLabel("Confirm Password");
+    jLabel_Right_Middle_Username = new JLabel(Titles.USERNAME);
+    jLabel_Right_Middle_Password = new JLabel(Titles.PASSWORD);
+    jLabel_Right_Middle_Confirm_Password = new JLabel(Titles.CONFIRM_PASSWORD);
 
     jTextField_Right_Middle_Username = new JTextField(20);
     jPasswordField_Right_Middle_Password = new JPasswordField(20);
     jPasswordField_Right_Middle_Confirm_Password = new JPasswordField(20);
 
-    jButton_Right_Bottom_Submit = new JButton("Submit");
+    jButton_Right_Bottom_Submit = new JButton(Titles.SUBMIT);
 
     jLabel_Right_Middle_Username.setForeground(Colors.TEXT_COLOR);
     jLabel_Right_Middle_Username.setFont(Fonts.LABEL);
@@ -131,8 +123,8 @@ public class RegisterView extends MyFrame {
 
   @Override
   public void initRightBottom() {
-    jLabel_Right_Bottom_Option = new JLabel("Already have account?");
-    jButton_Right_Bottom_Others = new JButton("Sign in here");
+    jLabel_Right_Bottom_Option = new JLabel(Titles.HAVE_ACCOUNT);
+    jButton_Right_Bottom_Others = new JButton(Titles.SIGN_IN_HERE);
     jPanel_Right_Bottom_Option = new JPanel();
 
     jLabel_Right_Bottom_Option.setForeground(Colors.TEXT_COLOR);
