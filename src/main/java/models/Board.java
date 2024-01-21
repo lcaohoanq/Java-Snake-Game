@@ -175,7 +175,7 @@ public class Board extends JPanel implements ActionListener {
 
             if (DataHandler.writeScore(Paths.URL_SCORE)) {
                 scoreWrittenToFile = true;
-                System.out.println(scoreWrittenToFile);
+                System.out.println(true);
                 System.out.println("sau khi ghi file ");
             } else {
                 System.out.println("Failed to write score to file");

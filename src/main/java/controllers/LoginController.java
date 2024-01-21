@@ -9,21 +9,26 @@ import models.Account;
 import models.LoginData;
 import utils.DataHandler;
 import views.LoginView;
-import views.MyFrame;
 
 public class LoginController extends FrameController implements ActionListener, LoginData {
 
   public static String username = "";
   public static String password = "";
 
-  public LoginController() {
+  private LoginView loginView;
+
+  public LoginController(LoginView loginView) {
     super();
+    this.loginView = loginView;
   }
 
   @Override
   public void actionPerformed(ActionEvent e) {
-    username = MyFrame.jTextField_Right_Middle_Username.getText();
-    password = String.valueOf(MyFrame.jPasswordField_Right_Middle_Password.getPassword());
+    String username = loginView.getLogin().getUsername();
+    String password = loginView.getLogin().getPassword();
+
+    System.out.println("Data: " + username + " " + password);
+
     if (isEmpty(username, password)) {
       handleEmpty();
     } else {
@@ -33,7 +38,8 @@ public class LoginController extends FrameController implements ActionListener, 
         handleSuccess();
       }
     }
-  }
+
+    }
 
   @Override
   public void handleEmpty() {

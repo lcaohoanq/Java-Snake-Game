@@ -13,6 +13,7 @@ import services.DBServices;
 import utils.DataHandler;
 import utils.PasswordHandler;
 import views.MyFrame;
+import views.RegisterView;
 
 public class RegisterController extends FrameController implements ActionListener, RegisterData {
 
@@ -20,19 +21,20 @@ public class RegisterController extends FrameController implements ActionListene
     private String password;
     private String confirmPassword;
     private PasswordHandler passwordHandler;
+    private RegisterView registerView;
 
-    public RegisterController() {
+    public RegisterController(RegisterView registerView) {
         super();
+        this.registerView = registerView;
         this.passwordHandler = new PasswordHandler();
     }
 
     // Su dung ArrayList<Account> de luu tru account
     @Override
     public void actionPerformed(ActionEvent e) {
-        username = MyFrame.jTextField_Right_Middle_Username.getText();
-        password = String.valueOf(MyFrame.jPasswordField_Right_Middle_Password.getPassword());
-        confirmPassword = String
-                .valueOf(MyFrame.jPasswordField_Right_Middle_Confirm_Password.getPassword());
+        username = registerView.getRegister().getUsername();
+        password = registerView.getRegister().getPassword();
+        confirmPassword = registerView.getRegister().getConfirmPassword();
         if(!username.matches(Regex.USERNAME)){
             Messages.IS_WRONG_FORMAT_USERNAME();
             return;

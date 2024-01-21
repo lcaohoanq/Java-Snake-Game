@@ -3,6 +3,7 @@ package views;
 import constants.Sizes;
 import constants.Titles;
 import controllers.RegisterController;
+import models.Account;
 import styles.Borders;
 import styles.Colors;
 import styles.Fonts;
@@ -145,9 +146,17 @@ public class RegisterView extends MyFrame {
   protected void doAction() {
     // TODO Auto-generated method stub
     super.doAction();
-    jButton_Right_Bottom_Submit.addActionListener(new RegisterController());
+    jButton_Right_Bottom_Submit.addActionListener(new RegisterController(this));
     jPasswordField_Right_Middle_Confirm_Password.addActionListener(new PressEnter());
     jButton_Right_Bottom_Others.addActionListener(new ClickOtherOption());
+  }
+
+  //xu li cac ham o day
+  public Account getRegister(){
+    String username = jTextField_Right_Middle_Username.getText();
+    String password = String.valueOf(jPasswordField_Right_Middle_Password.getPassword());
+    String confirmPassword = String.valueOf(jPasswordField_Right_Middle_Confirm_Password.getPassword());
+    return new Account(username, password, confirmPassword);
   }
 
 }

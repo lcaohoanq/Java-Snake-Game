@@ -5,6 +5,8 @@ import constants.Sizes;
 import constants.Titles;
 import controllers.LoginController;
 import controllers.PlayController;
+import models.Account;
+import models.LoginModel;
 import styles.Borders;
 import styles.Colors;
 import styles.Fonts;
@@ -15,6 +17,7 @@ import java.awt.*;
 
 public class LoginView extends MyFrame {
 
+  private LoginModel loginModel = new LoginModel();
   public static CardLayout cardLayout;
 
   public LoginView() {
@@ -141,10 +144,17 @@ public class LoginView extends MyFrame {
   protected void doAction() {
     // TODO Auto-generated method stub
     super.doAction();
-    jButton_Right_Bottom_Submit.addActionListener(new LoginController());
+    jButton_Right_Bottom_Submit.addActionListener(new LoginController(this));
     jButton_Right_Play.addActionListener(new PlayController(this));
     jPasswordField_Right_Middle_Password.addActionListener(new PressEnter());
     jButton_Right_Bottom_Others.addActionListener(new ClickOtherOption());
+  }
+
+  //xu li cac ham o day
+  public Account getLogin(){
+    String username = jTextField_Right_Middle_Username.getText();
+    String password = String.valueOf(jPasswordField_Right_Middle_Password.getPassword());
+    return new Account(username, password);
   }
 
 }

@@ -8,11 +8,18 @@ import lombok.*;
 public class Account {
     private String username;
     private String password;
+    private String confirmPassword;
     private int score;
 
     public Account(String username, String password) {
         this.username = username;
         this.password = password;
+    }
+
+    public Account(String username, String password, String confirmPassword) {
+        this.username = username;
+        this.password = password;
+        this.confirmPassword = confirmPassword;
     }
 
     public Account(String username, int score) {

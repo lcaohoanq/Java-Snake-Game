@@ -19,7 +19,7 @@ public class DataHandler {
   public static Map<String, Score> scoreList = new HashMap<>();
 
   public DataHandler() {
-    // accountList.add(new Account("admin", "admin"));
+//     accountList.add(new Account("admin", "admin"));
   }
 
   public boolean readFile(String url) {
