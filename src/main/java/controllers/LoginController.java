@@ -24,8 +24,8 @@ public class LoginController extends FrameController implements ActionListener, 
 
   @Override
   public void actionPerformed(ActionEvent e) {
-    String username = loginView.getLogin().getUsername();
-    String password = loginView.getLogin().getPassword();
+     username = loginView.getLogin().getUsername();
+     password = loginView.getLogin().getPassword();
 
     System.out.println("Data: " + username + " " + password);
 

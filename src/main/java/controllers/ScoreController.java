@@ -3,6 +3,7 @@ package controllers;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import services.DBServices;
 import utils.DataHandler;
 import views.ScoreView;
 
@@ -19,8 +20,10 @@ public class ScoreController implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         scoreView.setVisible(true);
-        ScoreView.jTextArea_Score.append(DataHandler.scoreList.toString() + "\n");
-        System.out.println("Current Infor: " + DataHandler.scoreList.toString());
+        String tmp = DBServices.selectUsernameAndScore().toString().substring(1, DBServices.selectUsernameAndScore().toString().length() - 1).replaceAll(", ", "\n");
+        //string tokenization
+        ScoreView.jTextArea_Score.append(tmp);
+        System.out.println("Current Infor: " + (DataHandler.scoreList.toString()));
     }
 
 }

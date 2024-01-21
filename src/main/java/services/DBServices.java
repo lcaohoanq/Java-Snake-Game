@@ -9,6 +9,8 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 public class DBServices {
@@ -18,6 +20,7 @@ public class DBServices {
         // day la mot connection toi db
         // selectAll();
         // insert();
+        //selectUsernameAndScore();
     }
 
     public static Connection getConnection() throws SQLException {
@@ -56,6 +59,22 @@ public class DBServices {
         }
     }
 
+    public static List<String> selectUsernameAndScore(){
+        List<String> resultList = new ArrayList<>();
+        try {
+            Connection connection = getConnection();
+
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT username, score FROM USERS");
+            while (resultSet.next()) {
+                resultList.add(resultSet.getString("username") + " " + resultSet.getInt("score"));
+            }
+        } catch (SQLException e) {
+            System.out.println("Error Select Username and Password: " + e);
+        }
+        return resultList;
+    }
+
     public static void insert() {
         try {
             Connection connection = getConnection();
@@ -89,6 +108,32 @@ public class DBServices {
             }
         } catch (SQLException e) {
             System.out.println("Error insert: " + e);
+        }
+    }
+
+    public static void excuteOther(){
+        try {
+            Connection connection = getConnection();
+            Statement statement = connection.createStatement();
+            statement.executeUpdate("SET SQL_SAFE_UPDATES = 0");
+        } catch (SQLException e) {
+            System.out.println("Error delete: " + e);
+        }
+    }
+    public static void updateUsernameScore(String username, String score){
+        try {
+            Connection connection = getConnection();
+
+            Statement statement = connection.createStatement();
+            String sql = "UPDATE `users_schema`.`users` SET `score` = '" + score + "' WHERE (`username` = '" + username + "')";
+            int rowsAffected = statement.executeUpdate(sql);
+            if (rowsAffected > 0) {
+                System.out.println("Update success");
+            } else {
+                System.out.println("Update fail");
+            }
+        } catch (SQLException e) {
+            System.out.println("Error update: " + e);
         }
     }
 

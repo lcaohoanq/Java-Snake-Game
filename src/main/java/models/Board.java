@@ -20,6 +20,7 @@ import javax.swing.Timer;
 
 import constants.Paths;
 import controllers.LoginController;
+import services.DBServices;
 import utils.AudioHandler;
 import utils.DataHandler;
 
@@ -161,25 +162,35 @@ public class Board extends JPanel implements ActionListener {
             gameOver(g);
             drawScore(g);
             writeScoreToFile();
+
+            updateScore();
         }
+    }
+
+    private void updateScore() {
+        String username = LoginController.username;
+        String score = String.valueOf(Board.score);
+        DBServices.excuteOther();
+        DBServices.updateUsernameScore(username, score);
     }
 
     /// check username có rỗng không?
     // nếu rỗng thì không ghi file
     private void writeScoreToFile() {
-        if (!scoreWrittenToFile && !LoginController.username.isEmpty()) {
-            String username = LoginController.username;
-            String username_id = username;
-            DataHandler.scoreList.put(username_id, new Score(username, score));
-            System.out.println("Data Score " + DataHandler.scoreList);
+        try{
+            if (!scoreWrittenToFile && !LoginController.username.isEmpty()) {
+                String username = LoginController.username;
+                DataHandler.scoreList.put(username, new Score(username, score));
+                System.out.println("Data Score " + DataHandler.scoreList);
 
-            if (DataHandler.writeScore(Paths.URL_SCORE)) {
-                scoreWrittenToFile = true;
-                System.out.println(true);
-                System.out.println("sau khi ghi file ");
-            } else {
-                System.out.println("Failed to write score to file");
+                if (DataHandler.writeScore(Paths.URL_SCORE)) {
+                    scoreWrittenToFile = true;
+                } else {
+                    throw new Exception();
+                }
             }
+        }catch(Exception e){
+            System.out.println("Failed to write score to file" + e.getMessage());
         }
     }
 
