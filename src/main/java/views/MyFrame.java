@@ -96,7 +96,7 @@ public abstract class MyFrame extends JFrame {
 
     // Use the new image "250-250.png"
     jLabel_Left_Icon = new JLabel(
-        new ImageIcon(Images.logoIcon.getImage().getScaledInstance(250, 250, Image.SCALE_SMOOTH)));
+        new ImageIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage(MyFrame.class.getResource(Paths.URL_SNAKE_LOGO))).getImage().getScaledInstance(250, 250, Image.SCALE_SMOOTH)));
     jPanel_Left_Icon.add(jLabel_Left_Icon, BorderLayout.CENTER);
 
     jButton_Left_Play = new JButton("Play Now");
