@@ -1,5 +1,7 @@
 package utils;
 
+import constants.Regex;
+
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;
@@ -35,7 +37,7 @@ public class PasswordHandler {
 
     private static final int SIZE = 128;
 
-    private static final Pattern layout = Pattern.compile("/$31/$(/d/d?)/$(.{43})");
+    private static final Pattern layout = Pattern.compile(Regex.HASHED_PASSWORD);
 
     private final SecureRandom random;
 

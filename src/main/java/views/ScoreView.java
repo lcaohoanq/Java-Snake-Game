@@ -17,7 +17,7 @@ import styles.Fonts;
 public class ScoreView extends JFrame {
 
     JPanel jPanel_Container = new JPanel();
-    public static JTextArea jTextArea_Score = new JTextArea();
+    public JTextArea jTextArea_Score = new JTextArea();
     JScrollPane jScrollPane_Score = new JScrollPane(jTextArea_Score);
     JLabel jLabel_Title = new JLabel("SCORE BOARD", JLabel.CENTER);
 
@@ -47,6 +47,8 @@ public class ScoreView extends JFrame {
     public void initMiddleZone() {
         jTextArea_Score.setWrapStyleWord(true);
         jTextArea_Score.setLineWrap(true);
+        jTextArea_Score.setEditable(false);
+        jTextArea_Score.setFont(Fonts.OTHERS);
         jScrollPane_Score.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         jScrollPane_Score.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
     }
@@ -59,4 +61,11 @@ public class ScoreView extends JFrame {
         this.add(jPanel_Container);
     }
 
+    public void clearTextArea() {
+        jTextArea_Score.setText("");
+    }
+
+    public void appendTextArea(String text) {
+        jTextArea_Score.append(text);
+    }
 }

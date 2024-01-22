@@ -1,7 +1,7 @@
 package constants;
 
 public class Titles {
-    public static final String WINDOW = "Snake";
+    public static final String WINDOW = "Snake Game";
     public static final String HEADING = "Snake Game";
     public static final String LOGIN = "Login";
     public static final String REGISTER = "Register";

@@ -1,28 +1,16 @@
 package models;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.FontMetrics;
-import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.Timer;
-
 import constants.Paths;
 import controllers.LoginController;
 import services.DBServices;
 import utils.AudioHandler;
-import utils.DataHandler;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class Board extends JPanel implements ActionListener {
 
@@ -31,10 +19,10 @@ public class Board extends JPanel implements ActionListener {
     private final int DOT_SIZE = 10;
     private final int ALL_DOTS = 900;
     private final int RAND_POS = 29;
-    private int DELAY = 50;
+    private final int DELAY = 50;
 
-    private final int x[] = new int[ALL_DOTS];
-    private final int y[] = new int[ALL_DOTS];
+    private final int[] x = new int[ALL_DOTS];
+    private final int[] y = new int[ALL_DOTS];
 
     public static int score = 0;
     private int dots;
@@ -54,7 +42,6 @@ public class Board extends JPanel implements ActionListener {
 
     private JButton playAgainButton;
     private JButton exitButton;
-    private boolean scoreWrittenToFile = false;
 
     public Board() {
         initBoard();
@@ -161,8 +148,6 @@ public class Board extends JPanel implements ActionListener {
         } else {
             gameOver(g);
             drawScore(g);
-            writeScoreToFile();
-
             updateScore();
         }
     }
@@ -172,27 +157,7 @@ public class Board extends JPanel implements ActionListener {
         String score = String.valueOf(Board.score);
         DBServices.excuteOther();
         DBServices.updateUsernameScore(username, score);
-    }
-
-    /// check username có rỗng không?
-    // nếu rỗng thì không ghi file
-    private void writeScoreToFile() {
-        try{
-            if (!scoreWrittenToFile && !LoginController.username.isEmpty()) {
-                String username = LoginController.username;
-                DataHandler.scoreList.put(username, new Score(username, score));
-                System.out.println("Data Score " + DataHandler.scoreList);
-
-                if (DataHandler.writeScore(Paths.URL_SCORE)) {
-                    scoreWrittenToFile = true;
-                } else {
-                    throw new Exception();
-                }
-            }
-        }catch(Exception e){
-            System.out.println("Failed to write score to file" + e.getMessage());
-        }
-    }
+}
 
     private void gameOver(Graphics g) {
 
@@ -217,7 +182,7 @@ public class Board extends JPanel implements ActionListener {
 
         g.setColor(Color.white);
         g.setFont(small);
-        g.drawString(msg, (B_WIDTH - metr.stringWidth(msg)) / 1, B_HEIGHT / 1);
+        g.drawString(msg, (B_WIDTH - metr.stringWidth(msg)), B_HEIGHT);
     }
 
     private void resetGame() {
@@ -282,6 +247,7 @@ public class Board extends JPanel implements ActionListener {
 
             if ((z > 4) && (x[0] == x[z]) && (y[0] == y[z])) {
                 inGame = false;
+                break;
             }
         }
 

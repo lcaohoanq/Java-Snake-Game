@@ -1,20 +1,22 @@
 package controllers;
 
-import java.awt.CardLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 import constants.Messages;
 import models.Account;
 import models.LoginData;
-import utils.DataHandler;
+import services.DBServices;
+import utils.PasswordHandler;
 import views.LoginView;
 
-public class LoginController extends FrameController implements ActionListener, LoginData {
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class LoginController implements ActionListener, LoginData {
 
   public static String username = "";
   public static String password = "";
-
+  private String usernameDB = "";
+  private String passwordDB = "";
   private LoginView loginView;
 
   public LoginController(LoginView loginView) {
@@ -40,6 +42,7 @@ public class LoginController extends FrameController implements ActionListener, 
     }
 
     }
+
 
   @Override
   public void handleEmpty() {
@@ -69,11 +72,17 @@ public class LoginController extends FrameController implements ActionListener, 
 
   @Override
   public boolean isMatching(String username, String password) {
-    for (Account item : DataHandler.accountList) {
-      if (item.getUsername().equals(username) && item.getPassword().equals(password)) {
-        return true;
+    Account db;
+      try{
+        db = DBServices.selectUsernameAndPasswordByUsername(username);
+        if(db != null){
+            return new PasswordHandler().authenticate(password.toCharArray(), db.getPassword());
+        }else{
+          throw new Exception();
+        }
+      }catch(Exception e){
+        System.out.println("Error authenticate: " + e.getMessage());
       }
-    }
-    return false;
+      return false;
   }
 }

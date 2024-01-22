@@ -1,21 +1,17 @@
 package controllers;
 
+import constants.Messages;
+import constants.Regex;
+import models.Account;
+import models.RegisterData;
+import services.DBServices;
+import utils.PasswordHandler;
+import views.RegisterView;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import constants.Messages;
-import constants.Paths;
-import constants.Regex;
-import models.Account;
-import models.LoginData;
-import models.RegisterData;
-import services.DBServices;
-import utils.DataHandler;
-import utils.PasswordHandler;
-import views.MyFrame;
-import views.RegisterView;
-
-public class RegisterController extends FrameController implements ActionListener, RegisterData {
+public class RegisterController implements ActionListener, RegisterData {
 
     private String username;
     private String password;
@@ -83,8 +79,6 @@ public class RegisterController extends FrameController implements ActionListene
         password = passwordHandler.hash(password); // replace password with the hashed
         System.out.println("Register success: " + "username:" + username + " password:" + password);
         DBServices.insert(username, password, 0);
-        DataHandler.accountList.add(new Account(username, password));
-        dataHandler.writeFile(Paths.URL_ACCOUNT);
         Messages.IS_REGISTER_SUCCESS();
     }
 
@@ -106,10 +100,12 @@ public class RegisterController extends FrameController implements ActionListene
 
     @Override
     public boolean isDuplicateUsername(String username) {
-        for (Account item : DataHandler.accountList) {
-            if (item.getUsername().equals(username)) {
-                return true;
-            }
+        Account db;
+        try{
+            db = DBServices.selectUsernameAndPasswordByUsername(username);
+            return (db==null || !db.getUsername().equals(username)) ? false : true;
+        } catch (Exception e){
+            System.out.println("Error, is duplicated username: " + e.getMessage());
         }
         return false;
     }

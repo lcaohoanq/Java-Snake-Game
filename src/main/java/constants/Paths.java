@@ -11,6 +11,4 @@ public class Paths {
     public static final String URL_KEY_ICON = "/component/key.png";
     public static final String URL_SNAKE_LOGO = "/component/snake.png";
 
-    public static final String URL_ACCOUNT = "src\\main\\resources\\data\\account.txt";
-    public static final String URL_SCORE = "src\\main\\resources\\data\\score.txt";
 }

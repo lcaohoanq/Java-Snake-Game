@@ -1,5 +1,7 @@
 package services;
 
+import models.Account;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -55,7 +57,7 @@ public class DBServices {
                         + resultSet.getString("password") + " score: " + resultSet.getInt("score"));
             }
         } catch (SQLException e) {
-            System.out.println("Error Select All: " + e);
+            System.out.println("Error Select All: " + e.getMessage());
         }
     }
 
@@ -70,9 +72,25 @@ public class DBServices {
                 resultList.add(resultSet.getString("username") + " " + resultSet.getInt("score"));
             }
         } catch (SQLException e) {
-            System.out.println("Error Select Username and Password: " + e);
+            System.out.println("Error Select Username and Password: " + e.getMessage());
         }
         return resultList;
+    }
+
+    public static Account selectUsernameAndPasswordByUsername(String username) {
+        try {
+            Connection connection = getConnection();
+
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement
+                    .executeQuery("SELECT username, password FROM users WHERE username = '" + username + "'");
+            while (resultSet.next()) {
+                return new Account(resultSet.getString("username"), resultSet.getString("password"));
+            }
+        } catch (SQLException e) {
+            System.out.println("Error Select Username and Password: " + e.getMessage());
+        }
+        return null;
     }
 
     public static void insert() {
@@ -89,7 +107,7 @@ public class DBServices {
                 System.out.println("Insert fail");
             }
         } catch (SQLException e) {
-            System.out.println("Error insert: " + e);
+            System.out.println("Error insert: " + e.getMessage());
         }
     }
 
@@ -107,7 +125,7 @@ public class DBServices {
                 System.out.println("Insert fail");
             }
         } catch (SQLException e) {
-            System.out.println("Error insert: " + e);
+            System.out.println("Error insert: " + e.getMessage());
         }
     }
 
@@ -117,7 +135,7 @@ public class DBServices {
             Statement statement = connection.createStatement();
             statement.executeUpdate("SET SQL_SAFE_UPDATES = 0");
         } catch (SQLException e) {
-            System.out.println("Error delete: " + e);
+            System.out.println("Error delete: " + e.getMessage());
         }
     }
     public static void updateUsernameScore(String username, String score){
@@ -133,7 +151,7 @@ public class DBServices {
                 System.out.println("Update fail");
             }
         } catch (SQLException e) {
-            System.out.println("Error update: " + e);
+            System.out.println("Error update: " + e.getMessage());
         }
     }
 
