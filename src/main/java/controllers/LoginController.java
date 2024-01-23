@@ -63,6 +63,7 @@ public class LoginController implements ActionListener, LoginData {
     System.out.println("Login success: " + "username:" + username + " password:" + password);
     CardLayout cardLayout = LoginView.cardLayout;
     cardLayout.next(LoginView.jPanel_Right_Bottom_Button);
+    loginView.setDisableInputData();
   }
 
   @Override

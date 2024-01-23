@@ -157,4 +157,9 @@ public class LoginView extends MyFrame {
     return new Account(username, password);
   }
 
+  public void setDisableInputData(){
+    jTextField_Right_Middle_Username.setEnabled(false);
+    jPasswordField_Right_Middle_Password.setEnabled(false);
+  }
+
 }
