@@ -15,7 +15,7 @@ import java.awt.event.KeyEvent;
 public class Board extends JPanel implements ActionListener {
 
     private final int B_WIDTH = 500;
-    private final int B_HEIGHT = 500;
+    private final int B_HEIGHT = 550;
     private final int DOT_SIZE = 10;
     private final int ALL_DOTS = 900;
     private final int RAND_POS = 29;
@@ -42,6 +42,8 @@ public class Board extends JPanel implements ActionListener {
 
     private JButton playAgainButton;
     private JButton exitButton;
+    private JLabel scoreLabel;
+    private int line;
 
     public Board() {
         initBoard();
@@ -56,9 +58,24 @@ public class Board extends JPanel implements ActionListener {
         setLayout(null);
         loadImages();
         initGame();
+        initScoreLabel();
+        initLine();
         initPlayAgainButton();
         initExitButton();
 
+    }
+
+    private void initScoreLabel(){
+        // Initialize the JLabel for live score display
+        scoreLabel = new JLabel("Score: 0");
+        scoreLabel.setForeground(Color.white);
+        scoreLabel.setFont(new Font("Roboto", Font.BOLD, 14));
+        scoreLabel.setBounds(10, B_HEIGHT - 30, 100, 20);
+        add(scoreLabel);
+    }
+
+    private void initLine(){
+        line = B_HEIGHT - 50;  // Adjust this value as needed
     }
 
     private void initPlayAgainButton() {
@@ -127,6 +144,8 @@ public class Board extends JPanel implements ActionListener {
         super.paintComponent(g);
 
         doDrawing(g);
+        g.setColor(Color.white);
+        g.drawLine(0, line, B_WIDTH, line);
     }
 
     private void doDrawing(Graphics g) {
@@ -134,7 +153,7 @@ public class Board extends JPanel implements ActionListener {
         if (inGame) {
 
             g.drawImage(apple, apple_x, apple_y, this);
-
+            scoreLabel.setText("Score: " + score);
             for (int z = 0; z < dots; z++) {
                 if (z == 0) {
                     g.drawImage(head, x[z], y[z], this);
@@ -147,7 +166,7 @@ public class Board extends JPanel implements ActionListener {
 
         } else {
             gameOver(g);
-            drawScore(g);
+//            drawScore(g);
             updateScore();
         }
     }
@@ -251,12 +270,12 @@ public class Board extends JPanel implements ActionListener {
             }
         }
 
-        if (y[0] >= B_HEIGHT) {
+        if (y[0] >= B_HEIGHT - 50) {
             y[0] = 0;
         }
 
         if (y[0] < 0) {
-            y[0] = B_HEIGHT - DOT_SIZE;
+            y[0] = B_HEIGHT - 50 - DOT_SIZE;
         }
 
         if (x[0] >= B_WIDTH) {
