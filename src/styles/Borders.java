@@ -18,4 +18,5 @@ public class Borders {
     public static final EmptyBorder MID_LABEL = new EmptyBorder(0, 0, 10, 0);
     public static final EmptyBorder BUTTON = new EmptyBorder(30, 0, 20, 0);
     public static final EmptyBorder MID_FIELD = new EmptyBorder(0, 20, 0, 20);
+    public static final EmptyBorder BOTTOM_SCORE_PROGRESS_BAR = new EmptyBorder(0, 10, 20, 10);
 }

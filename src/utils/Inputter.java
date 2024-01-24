@@ -1,8 +1,5 @@
 package utils;
 
-import views.MyFrame;
-
-import javax.swing.*;
 import java.util.Scanner;
 
 /*
@@ -107,12 +104,13 @@ public class Inputter {
         }
     }
     //ép nhập chuỗi regex
-    public static String getString(JTextField jTextField, String errMsg,
-                                   String regex){
+    public static String getString(String inpMsg, String errMsg, 
+                                    String regex){
+        System.out.println(inpMsg);
         while(true){
             try{
-                String str = MyFrame.jTextField_Right_Middle_Username.getText();
-                if(str.isEmpty() || !str.matches(regex)){
+                String str = input.nextLine();
+                if(str.isEmpty() | !str.matches(regex)){
                     throw new Exception();
                 }
                 return str;

@@ -15,4 +15,10 @@ public class Images {
     public static final URL snakeURL = MyFrame.class.getResource("/resources/snake.png");
     public static final Image logo = Toolkit.getDefaultToolkit().getImage(snakeURL);
     public static final ImageIcon logoIcon = new ImageIcon(logo);
+
+    // public static void main(String[] args) {
+    // System.out.println("test images");
+    // System.out.println(iconURL);
+    // System.out.println(snakeURL);
+    // }
 }
