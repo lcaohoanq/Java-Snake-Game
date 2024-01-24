@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.ActionListener;
 import java.net.URL;
 
@@ -62,9 +63,6 @@ public abstract class MyFrame extends JFrame {
 
   private LoginController ac;
   private DataHandler dataHandler = new DataHandler();
-  private URL logoURL;
-  private Image logoImage;
-  private ImageIcon logoIcon;
 
   // MenuBar
   private JMenuBar jMenuBar;
@@ -185,9 +183,9 @@ public abstract class MyFrame extends JFrame {
 
   protected void doAction() {
     jButton_Left_Play.addActionListener(new ClickPlayNow());
-//    jPasswordField_Right_Middle_Password.addActionListener(new PressEnter());
+    // jPasswordField_Right_Middle_Password.addActionListener(new PressEnter());
     jMenuItem_AboutMe.addActionListener(new Info());
-    jMenuItem_Score.addActionListener(new ScoreController(new ScoreView()));
+    jMenuItem_Score.addActionListener(new ScoreController(new ScoreFormView()));
   }
 
 }

@@ -5,20 +5,15 @@ import java.awt.event.ActionListener;
 
 import constants.Messages;
 import constants.Paths;
-import constants.Regex;
 import models.Account;
-import models.LoginData;
-import models.RegisterData;
 import services.DBServices;
 import utils.DataHandler;
 import utils.PasswordHandler;
 import views.MyFrame;
+import views.RegisterView;
 
-public class RegisterController extends FrameController implements ActionListener, RegisterData {
+public class RegisterController extends FrameController implements ActionListener {
 
-    private String username;
-    private String password;
-    private String confirmPassword;
     private PasswordHandler passwordHandler;
 
     public RegisterController() {
@@ -29,61 +24,35 @@ public class RegisterController extends FrameController implements ActionListene
     // Su dung ArrayList<Account> de luu tru account
     @Override
     public void actionPerformed(ActionEvent e) {
-        username = MyFrame.jTextField_Right_Middle_Username.getText();
-        password = String.valueOf(MyFrame.jPasswordField_Right_Middle_Password.getPassword());
-        confirmPassword = String
+        String username = MyFrame.jTextField_Right_Middle_Username.getText();
+        // char[] passwordChar = RegisterFormView.jPasswordField_Password.getPassword();
+        // char[] confirmPassword =
+        // RegisterFormView.jPasswordField_ConfirmPassword.getPassword();
+        String password = String.valueOf(MyFrame.jPasswordField_Right_Middle_Password.getPassword());
+        String confirmPassword = String
                 .valueOf(MyFrame.jPasswordField_Right_Middle_Confirm_Password.getPassword());
-        if(!username.matches(Regex.USERNAME)){
-            Messages.IS_WRONG_FORMAT_USERNAME();
-            return;
-        } else if(!password.matches(Regex.PASSWORD)){
-            Messages.IS_WRONG_FORMAT_PASSWORD();
-            return;
-        } else if(!confirmPassword.matches(Regex.PASSWORD)){
-            Messages.IS_WRONG_FORMAT_PASSWORD();
-            return;
-        }
 
         if ((isEmpty(username, password, confirmPassword))) {
-            handleEmpty();
+            Messages.IS_EMPTY_FIELD();
+            System.out.println("Register failed: " + "username:" + username + " password:" + password);
         } else if (!isMatching(password, confirmPassword)) {
-            handleWrong();
+            Messages.IS_NOT_MATCH_PASSWORD_AND_CONFIRM_PASSWORD();
+            System.out.println("Register failed: " + "username:" + username + " password:" + password);
         } else {
             if (isDuplicateUsername(username)) {
-                handleDuplicateUsername();
+                Messages.IS_EXISTED_USERNAME();
+                System.out.println("Register failed: " + "username:" + username + " password:" + password);
             } else {
-                handleSuccess();
+                password = passwordHandler.hash(password); // replace password with the hashed
+                System.out.println("Register success: " + "username:" + username + " password:" + password);
+                DBServices.insert(username, password, 0);
+                DataHandler.accountList.add(new Account(username, password));
+                dataHandler.writeFile(Paths.URL_ACCOUNT);
+                Messages.IS_REGISTER_SUCCESS();
             }
+
         }
 
-    }
-
-    @Override
-    public void handleEmpty() {
-        Messages.IS_EMPTY_FIELD();
-        System.out.println("Register failed: " + "username:" + username + " password:" + password);
-    }
-
-    @Override
-    public void handleWrong() {
-        Messages.IS_NOT_MATCH_PASSWORD_AND_CONFIRM_PASSWORD();
-        System.out.println("Register failed: " + "username:" + username + " password:" + password);
-    }
-
-    @Override
-    public void handleDuplicateUsername() {
-        Messages.IS_EXISTED_USERNAME();
-        System.out.println("Register failed: " + "username:" + username);
-    }
-
-    @Override
-    public void handleSuccess() {
-        password = passwordHandler.hash(password); // replace password with the hashed
-        System.out.println("Register success: " + "username:" + username + " password:" + password);
-        DBServices.insert(username, password, 0);
-        DataHandler.accountList.add(new Account(username, password));
-        dataHandler.writeFile(Paths.URL_ACCOUNT);
-        Messages.IS_REGISTER_SUCCESS();
     }
 
     @Override
@@ -111,6 +80,5 @@ public class RegisterController extends FrameController implements ActionListene
         }
         return false;
     }
-
 
 }
