@@ -35,6 +35,8 @@ public class Board extends JPanel implements ActionListener {
     private boolean upDirection = false;
     private boolean downDirection = false;
     private Timer timer;
+    private Timer bigAppleTimer;
+    private final int DECREASE_DELAY = 2;
     private Image ball;
     private Image apple;
     private Image head;
@@ -43,6 +45,7 @@ public class Board extends JPanel implements ActionListener {
     private JButton playAgainButton;
     private JButton exitButton;
     private JLabel scoreLabel;
+    private JProgressBar bigAppleTimeBar;
     private int line;
 
     public Board() {
@@ -126,7 +129,6 @@ public class Board extends JPanel implements ActionListener {
     private void initGame() {
 
         dots = 3;
-        apple_count = 0;
         for (int z = 0; z < dots; z++) {
             x[z] = 50 - z * 10;
             y[z] = 50;
@@ -162,6 +164,7 @@ public class Board extends JPanel implements ActionListener {
                     g.drawImage(ball, x[z], y[z], this);
                 }
             }
+            // what is the purpose of above for loop?
 
             Toolkit.getDefaultToolkit().sync();
         } else {
@@ -201,7 +204,15 @@ public class Board extends JPanel implements ActionListener {
         // For example:
         score = 0;
         dots = 3;
+        apple_count = 0;
         inGame = true;
+        bigApple_x = -100;
+        bigApple_y = -100;
+        // Reset the snake's position
+        for (int z = 0; z < dots; z++) {
+            x[z] = 50 - z * 10;
+            y[z] = 50;
+        }
         // Reset any other necessary game state variables
 
         // Hide the "Play Again" button again
@@ -221,7 +232,9 @@ public class Board extends JPanel implements ActionListener {
             checkScore();
             apple_count++;
             locateApple();
-            AudioHandler.playAudio(Paths.URL_EATING);
+            if (score % 5 != 0) {
+                AudioHandler.playAudio(Paths.URL_EATING);
+            }
             System.out.println("apple");
             return;
         }
@@ -229,10 +242,18 @@ public class Board extends JPanel implements ActionListener {
                 && (y[0] >= bigApple_y) && (y[0] <= bigApple_y + 2 * DOT_SIZE)) {
             dots += 5;
             checkBigScore();
+
+            // change the game speed
+            int newDelay = Math.max(timer.getDelay() - DECREASE_DELAY, 0);
+            timer.setDelay(newDelay);
+
+            // check the big apple are eaten
+            bigAppleTimer.stop();
+
+            apple_count = 0;
             locateApple();
             System.out.println("big apple");
-            apple_count = 1;
-            AudioHandler.playAudio(Paths.URL_EATING);
+            AudioHandler.playAudio(Paths.URL_EATING2);
         }
     }
 
@@ -305,20 +326,45 @@ public class Board extends JPanel implements ActionListener {
         if (apple_count % 5 == 0 && apple_count != 0) {
             locateBigApple();
         } else {
+            bigApple_x = -100;
             int r = (int) (Math.random() * RAND_POS);
             apple_x = ((r * DOT_SIZE));
 
+            bigApple_y = -100;
             r = (int) (Math.random() * RAND_POS);
-            apple_y = ((r * DOT_SIZE));
+            apple_y = ((r * DOT_SIZE) + DOT_SIZE);
         }
     }
 
     public void locateBigApple() {
+        AudioHandler.playAudio(Paths.URL_BIG_APPLE_APP);
         int r = (int) (Math.random() * RAND_POS);
         bigApple_x = ((r * DOT_SIZE));
 
         r = (int) (Math.random() * RAND_POS);
         bigApple_y = ((r * DOT_SIZE));
+
+        setBigAppleTime();
+
+    }
+
+    public void setBigAppleTime() {
+        if (bigAppleTimer != null) {
+            bigAppleTimer.stop();
+        }
+
+        bigAppleTimer = new Timer(5000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                bigApple_x = -100;
+                bigApple_y = -100;
+                bigAppleTimer.stop();
+                AudioHandler.playAudio(Paths.URL_BIG_APPLE_DIS);
+                apple_count = 0;
+                locateApple();
+            }
+        });
+        bigAppleTimer.start();
     }
 
     @Override
