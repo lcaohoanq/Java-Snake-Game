@@ -10,8 +10,10 @@ import views.RegisterView;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
-public class RegisterController implements ActionListener, RegisterData {
+public class RegisterController implements ActionListener, MouseListener, RegisterData {
 
     private String username;
     private String password;
@@ -31,13 +33,13 @@ public class RegisterController implements ActionListener, RegisterData {
         username = registerView.getRegister().getUsername();
         password = registerView.getRegister().getPassword();
         confirmPassword = registerView.getRegister().getConfirmPassword();
-        if(!username.matches(Regex.USERNAME)){
+        if (!username.matches(Regex.USERNAME)) {
             Messages.IS_WRONG_FORMAT_USERNAME();
             return;
-        } else if(!password.matches(Regex.PASSWORD)){
+        } else if (!password.matches(Regex.PASSWORD)) {
             Messages.IS_WRONG_FORMAT_PASSWORD();
             return;
-        } else if(!confirmPassword.matches(Regex.PASSWORD)){
+        } else if (!confirmPassword.matches(Regex.PASSWORD)) {
             Messages.IS_WRONG_FORMAT_PASSWORD();
             return;
         }
@@ -101,14 +103,66 @@ public class RegisterController implements ActionListener, RegisterData {
     @Override
     public boolean isDuplicateUsername(String username) {
         Account db;
-        try{
+        try {
             db = DBServices.selectUsernameAndPasswordByUsername(username);
-            return (db==null || !db.getUsername().equals(username)) ? false : true;
-        } catch (Exception e){
+            return (db == null || !db.getUsername().equals(username)) ? false : true;
+        } catch (Exception e) {
             System.out.println("Error, is duplicated username: " + e.getMessage());
         }
         return false;
     }
 
 
+    @Override
+    public void mouseClicked(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+        if (e.getSource() == registerView.jTextField_Right_Middle_Username) {
+            registerView.setHoverUsername(true);
+        }
+        if (e.getSource() == registerView.jPasswordField_Right_Middle_Password) {
+            registerView.setHoverPassword(true);
+        }
+        if (e.getSource() == registerView.jPasswordField_Right_Middle_Confirm_Password) {
+            registerView.setHoverConfirmPassword(true);
+        }
+        if (e.getSource() == registerView.jButton_Right_Bottom_Submit) {
+            registerView.setHoverButton(true);
+        }
+        if (e.getSource() == registerView.jButton_Right_Bottom_Others) {
+            registerView.setHoverOther(true);
+        }
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+        if (e.getSource() == registerView.jTextField_Right_Middle_Username) {
+            registerView.setHoverUsername(false);
+        }
+        if (e.getSource() == registerView.jPasswordField_Right_Middle_Password) {
+            registerView.setHoverPassword(false);
+        }
+        if (e.getSource() == registerView.jPasswordField_Right_Middle_Confirm_Password) {
+            registerView.setHoverConfirmPassword(false);
+        }
+        if (e.getSource() == registerView.jButton_Right_Bottom_Submit) {
+            registerView.setHoverButton(false);
+        }
+        if (e.getSource() == registerView.jButton_Right_Bottom_Others) {
+            registerView.setHoverOther(false);
+        }
+    }
 }

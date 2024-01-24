@@ -10,4 +10,5 @@ public class Fonts {
     public static final Font INPUT_SMALL = new Font("Dialog", Font.PLAIN, 20);
     public static final Font BUTTON = new Font("Dialog", Font.BOLD, 20);
     public static final Font OTHERS = new Font("Dialog", Font.PLAIN, 15);
+    public static final Font OTHERS_HOVER = new Font("Dialog", Font.BOLD, 15);
 }

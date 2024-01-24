@@ -14,27 +14,23 @@ import java.awt.event.KeyEvent;
 
 public class Board extends JPanel implements ActionListener {
 
+    public static int score = 0;
+    public static boolean inGame = true;
     private final int B_WIDTH = 500;
     private final int B_HEIGHT = 550;
     private final int DOT_SIZE = 10;
     private final int ALL_DOTS = 900;
     private final int RAND_POS = 29;
     private final int DELAY = 50;
-
     private final int[] x = new int[ALL_DOTS];
     private final int[] y = new int[ALL_DOTS];
-
-    public static int score = 0;
     private int dots;
     private int apple_x;
     private int apple_y;
-
     private boolean leftDirection = false;
     private boolean rightDirection = true;
     private boolean upDirection = false;
     private boolean downDirection = false;
-    public static boolean inGame = true;
-
     private Timer timer;
     private Image ball;
     private Image apple;
@@ -65,7 +61,7 @@ public class Board extends JPanel implements ActionListener {
 
     }
 
-    private void initScoreLabel(){
+    private void initScoreLabel() {
         // Initialize the JLabel for live score display
         scoreLabel = new JLabel("Score: 0");
         scoreLabel.setForeground(Color.white);
@@ -74,7 +70,7 @@ public class Board extends JPanel implements ActionListener {
         add(scoreLabel);
     }
 
-    private void initLine(){
+    private void initLine() {
         line = B_HEIGHT - 50;  // Adjust this value as needed
     }
 
@@ -83,11 +79,9 @@ public class Board extends JPanel implements ActionListener {
         playAgainButton.setFont(new Font("Roboto", Font.BOLD, 10));
         playAgainButton.setBackground(Color.GREEN);
         playAgainButton.setForeground(Color.WHITE);
-        playAgainButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                // Reset game parameters and restart the game
-                resetGame();
-            }
+        playAgainButton.addActionListener(e -> {
+            // Reset game parameters and restart the game
+            resetGame();
         });
         playAgainButton.setSize(100, 50);
         add(playAgainButton);
@@ -98,14 +92,11 @@ public class Board extends JPanel implements ActionListener {
         exitButton = new JButton("Exit");
         exitButton.setFont(new Font("Roboto", Font.BOLD, 10));
         exitButton.setBackground(Color.RED);
-        exitButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                int choice = JOptionPane.showConfirmDialog(null, "Do you want to exit?", "Exit Confirmation",
-                        JOptionPane.YES_NO_OPTION);
-                if (choice == JOptionPane.YES_OPTION) {
-                    System.exit(0);
-                }
+        exitButton.addActionListener(e -> {
+            int choice = JOptionPane.showConfirmDialog(null, "Do you want to exit?", "Exit Confirmation",
+                    JOptionPane.YES_NO_OPTION);
+            if (choice == JOptionPane.YES_OPTION) {
+                System.exit(0);
             }
         });
         exitButton.setSize(100, 50);
@@ -173,10 +164,13 @@ public class Board extends JPanel implements ActionListener {
 
     private void updateScore() {
         String username = LoginController.username;
-        String score = String.valueOf(Board.score);
-        DBServices.excuteOther();
-        DBServices.updateUsernameScore(username, score);
-}
+        String score;
+        if (username != null) {
+            score = String.valueOf(Board.score);
+            DBServices.excuteOther();
+            DBServices.updateUsernameScore(username, score);
+        }
+    }
 
     private void gameOver(Graphics g) {
 
@@ -186,22 +180,12 @@ public class Board extends JPanel implements ActionListener {
 
         g.setColor(Color.white);
         g.setFont(big);
-        g.drawString(msg, (B_WIDTH - metr.stringWidth(msg)) / 2, B_HEIGHT / 2);
+        g.drawString(msg, (B_WIDTH - metr.stringWidth(msg)) / 2, (B_HEIGHT - 50) / 2);
         // Show the "Play Again" and "Exit" button after displaying "Game Over" message
         playAgainButton.setVisible(true);
         playAgainButton.setBounds((B_WIDTH - 220) / 2, B_HEIGHT / 2 + 30, 100, 30);
         exitButton.setVisible(true);
         exitButton.setBounds((B_WIDTH - 220) / 2 + 120, B_HEIGHT / 2 + 30, 100, 30);
-    }
-
-    private void drawScore(Graphics g) {
-        String msg = " Your score is " + score;
-        Font small = new Font("Roboto", Font.BOLD, 14);
-        FontMetrics metr = getFontMetrics(small);
-
-        g.setColor(Color.white);
-        g.setFont(small);
-        g.drawString(msg, (B_WIDTH - metr.stringWidth(msg)), B_HEIGHT);
     }
 
     private void resetGame() {
