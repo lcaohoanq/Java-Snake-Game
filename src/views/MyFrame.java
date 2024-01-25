@@ -23,7 +23,6 @@ import constants.Info;
 import constants.Paths;
 import constants.Sizes;
 import controllers.LoginController;
-import controllers.ScoreController;
 import styles.Borders;
 import styles.Colors;
 import styles.Fonts;
@@ -185,7 +184,6 @@ public abstract class MyFrame extends JFrame {
     jButton_Left_Play.addActionListener(new ClickPlayNow());
     // jPasswordField_Right_Middle_Password.addActionListener(new PressEnter());
     jMenuItem_AboutMe.addActionListener(new Info());
-    jMenuItem_Score.addActionListener(new ScoreController(new ScoreFormView()));
   }
 
 }

@@ -6,9 +6,8 @@ import controllers.LoginController;
 import services.DBServices;
 import styles.Borders;
 import styles.Colors;
-import controllers.LoginController;
-import services.DBServices;
 import utils.AudioHandler;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -49,13 +48,10 @@ public class Board extends JPanel implements ActionListener {
     private JButton playAgainButton;
     private JButton exitButton;
     private JLabel scoreLabel;
-
     private final int BIG_APPLE_TIMER = 5000;
     private JProgressBar bigAppleProgressBar;
     private int line;
     private JPanel bottomPanel = new JPanel();
-    private JProgressBar bigAppleTimeBar;
-    private int line;
 
     public Board() {
         initBoard();
@@ -70,12 +66,8 @@ public class Board extends JPanel implements ActionListener {
         setLayout(new BorderLayout());
         loadImages();
         initGame();
-
         initLine();
         initBottomPanel();
-
-        initScoreLabel();
-        initLine();
         initPlayAgainButton();
         initExitButton();
 
@@ -86,8 +78,6 @@ public class Board extends JPanel implements ActionListener {
     }
 
     private void initBottomPanel() {
-
-    private void initScoreLabel() {
         // Initialize the JLabel for live score display
         scoreLabel = new JLabel("Score: 0");
         scoreLabel.setForeground(Color.white);
@@ -115,35 +105,21 @@ public class Board extends JPanel implements ActionListener {
     private void renderProgressBar() {
         // Display the progress bar
         bigAppleProgressBar.setVisible(true);
-
-        // Reset the progress bar value to 100
+        // Start the progress bar
         bigAppleProgressBar.setValue(100);
-
-        Timer timer = new Timer(50, new ActionListener() {
-            private int counter = 100;
-
+        // Start the timer
+        Timer progressBarTimer = new Timer(45, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Check if the snake has hit the big apple or if the game is over
-                if (apple_count == 0 || !inGame) {
-                    counter = 100; // Reset the counter
-                    bigAppleProgressBar.setValue(counter);
-                    bigAppleProgressBar.setVisible(false); // Hide the progress bar
-                    ((Timer) e.getSource()).stop(); // Stop the timer
+                int value = bigAppleProgressBar.getValue();
+                if (value > 0) {
+                    bigAppleProgressBar.setValue(value - 1);
                 } else {
-                    counter -= 2;
-                    bigAppleProgressBar.setValue(counter);
+                    ((Timer) e.getSource()).stop();
                 }
             }
         });
-
-        // Start the timer
-        timer.start();
-        add(scoreLabel);
-    }
-
-    private void initLine() {
-        line = B_HEIGHT - 50; // Adjust this value as needed
+        progressBarTimer.start();
     }
 
     private void initPlayAgainButton() {
@@ -217,8 +193,6 @@ public class Board extends JPanel implements ActionListener {
         if (inGame) {
             if (apple_count % 5 == 0 && apple_count != 0) {
                 g.drawImage(bigApple, bigApple_x, bigApple_y, this);
-                renderProgressBar();
-
             } else {
                 g.drawImage(apple, apple_x, apple_y, this);
             }
@@ -413,11 +387,13 @@ public class Board extends JPanel implements ActionListener {
         AudioHandler.playAudio(Paths.URL_BIG_APPLE_APP);
         int r = (int) (Math.random() * RAND_POS);
         bigApple_x = ((r * DOT_SIZE));
+        apple_x = -100;
 
         r = (int) (Math.random() * RAND_POS);
         bigApple_y = ((r * DOT_SIZE));
-
+        apple_y = -100;
         setBigAppleTime();
+        renderProgressBar();
 
     }
 
@@ -428,11 +404,8 @@ public class Board extends JPanel implements ActionListener {
         }
 
         bigAppleTimer = new Timer(BIG_APPLE_TIMER, new ActionListener() {
-        bigAppleTimer = new Timer(5000, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                bigApple_x = -100;
-                bigApple_y = -100;
                 bigAppleTimer.stop();
                 AudioHandler.playAudio(Paths.URL_BIG_APPLE_DIS);
                 apple_count = 0;
@@ -440,6 +413,7 @@ public class Board extends JPanel implements ActionListener {
                 bigAppleProgressBar.setVisible(false);
             }
         });
+        bigAppleProgressBar.setVisible(true);
         bigAppleTimer.start();
     }
 
