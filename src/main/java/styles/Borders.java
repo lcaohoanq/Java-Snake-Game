@@ -8,7 +8,7 @@ import javax.swing.border.EmptyBorder;
 public class Borders {
     // Borders for containers
     public static final EmptyBorder CONTAINER = new EmptyBorder(0, 30, 0, 30);
-
+    public static final EmptyBorder CONTAINER_MENU = new EmptyBorder(30, 30, 30, 30);
     // Borders for line inputs
     public static final Border LINE_MENU_BAR = BorderFactory.createLineBorder(Color.WHITE, 1);
 
