@@ -14,8 +14,9 @@ public class Borders {
 
     // My frame
     public static final EmptyBorder TITLE = new EmptyBorder(20, 0, 0, 0);
+    public static final EmptyBorder DATA_FIELD = new EmptyBorder(10, 10, 10, 10);
     public static final EmptyBorder MIDDLE = new EmptyBorder(10, 0, 10, 0);
     public static final EmptyBorder MID_LABEL = new EmptyBorder(0, 0, 10, 0);
     public static final EmptyBorder BUTTON = new EmptyBorder(30, 0, 20, 0);
-    public static final EmptyBorder MID_FIELD = new EmptyBorder(0, 20, 0, 20);
+    public static final EmptyBorder MID_FIELD = new EmptyBorder(10, 20, 10, 20);
 }

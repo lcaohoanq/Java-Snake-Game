@@ -76,13 +76,14 @@ public class LoginView extends MyFrame {
         jLabel_Right_Middle_Username.setFont(Fonts.LABEL);
         jLabel_Right_Middle_Username.setBorder(Borders.MID_LABEL);
         jTextField_Right_Middle_Username.setFont(Fonts.INPUT_LARGE);
-
+        jTextField_Right_Middle_Username.setBorder(Borders.DATA_FIELD);
         jTextField_Right_Middle_Username.setBackground(Colors.SECONDARY_COLOR);
         jTextField_Right_Middle_Username.setForeground(Colors.TEXT_COLOR);
 
         jLabel_Right_Middle_Password.setForeground(Colors.TEXT_COLOR);
         jLabel_Right_Middle_Password.setFont(Fonts.LABEL);
         jLabel_Right_Middle_Password.setBorder(Borders.MID_LABEL);
+        jPasswordField_Right_Middle_Password.setBorder(Borders.DATA_FIELD);
         jPasswordField_Right_Middle_Password.setFont(Fonts.INPUT_LARGE);
         jPasswordField_Right_Middle_Password.setBackground(Colors.SECONDARY_COLOR);
         jPasswordField_Right_Middle_Password.setForeground(Colors.TEXT_COLOR);
@@ -177,7 +178,7 @@ public class LoginView extends MyFrame {
 
     public void setHoverUsername(boolean isInside) {
         if (isInside) {
-            jTextField_Right_Middle_Username.setBackground(Colors.PRIMARY_COLOR);
+            jTextField_Right_Middle_Username.setBackground(Colors.SECONDARY_COLOR_HOVER);
         } else {
             jTextField_Right_Middle_Username.setBackground(Colors.SECONDARY_COLOR);
         }
@@ -185,7 +186,7 @@ public class LoginView extends MyFrame {
 
     public void setHoverPassword(boolean isInside) {
         if (isInside) {
-            jPasswordField_Right_Middle_Password.setBackground(Colors.PRIMARY_COLOR);
+            jPasswordField_Right_Middle_Password.setBackground(Colors.SECONDARY_COLOR_HOVER);
         } else {
             jPasswordField_Right_Middle_Password.setBackground(Colors.SECONDARY_COLOR);
         }
