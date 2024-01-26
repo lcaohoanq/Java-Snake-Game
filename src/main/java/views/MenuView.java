@@ -2,6 +2,9 @@ package views;
 
 import constants.Paths;
 import constants.Sizes;
+import controllers.LoginController;
+import controllers.MenuController;
+import models.MenuModel;
 import styles.Borders;
 import styles.Colors;
 import styles.Fonts;
@@ -14,35 +17,29 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-public class MenuView extends JFrame implements MouseListener, ActionListener {
+public class MenuView extends JFrame {
+    public JButton jButton_1 = new JButton("Classic");
+    public JButton jButton_2 = new JButton("Modern");
+    public JButton jButton_3 = new JButton("Campaign");
+    public JButton jButton_4 = new JButton("4");
+    public JButton jButton_5 = new JButton("5");
+    public JButton jButton_6 = new JButton("6");
+    public JButton jButton_7 = new JButton("7");
+    public JButton jButton_8 = new JButton("8");
+    public JButton jButton_9 = new JButton("9");
     JPanel jPanel_Container;
     JLabel jLabel_Title;
-
     JPanel jPanel_Button = new JPanel(new GridLayout(3, 3, 30, 20));
-    JButton jButton_1 = new JButton("1");
-    JButton jButton_2 = new JButton("2");
-    JButton jButton_3 = new JButton("3");
-    JButton jButton_4 = new JButton("4");
-    JButton jButton_5 = new JButton("5");
-    JButton jButton_6 = new JButton("6");
-    JButton jButton_7 = new JButton("7");
-    JButton jButton_8 = new JButton("8");
-    JButton jButton_9 = new JButton("9");
+    private MenuModel menuModel;
 
     public MenuView() {
+        menuModel = new MenuModel();
         setTitle("Snake Game");
         setSize(Sizes.WIDTH_MY_FRAME, Sizes.HEIGHT_MY_FRAME);
         setLocationRelativeTo(null);
         setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         initUI();
-    }
-
-    public static void main(String[] args) {
-        EventQueue.invokeLater(() -> {
-            MenuView menuView = new MenuView();
-            menuView.setVisible(true);
-        });
     }
 
     private void initUI() {
@@ -79,25 +76,15 @@ public class MenuView extends JFrame implements MouseListener, ActionListener {
         jButton_9.setForeground(Colors.PRIMARY_COLOR);
         jButton_9.setFont(Fonts.BUTTON);
 
-        jButton_1.addMouseListener(this);
-        jButton_2.addMouseListener(this);
-        jButton_3.addMouseListener(this);
-        jButton_4.addMouseListener(this);
-        jButton_5.addMouseListener(this);
-        jButton_6.addMouseListener(this);
-        jButton_7.addMouseListener(this);
-        jButton_8.addMouseListener(this);
-        jButton_9.addMouseListener(this);
-
-        jButton_1.addActionListener(this);
-        jButton_2.addActionListener(this);
-        jButton_3.addActionListener(this);
-        jButton_4.addActionListener(this);
-        jButton_5.addActionListener(this);
-        jButton_6.addActionListener(this);
-        jButton_7.addActionListener(this);
-        jButton_8.addActionListener(this);
-        jButton_9.addActionListener(this);
+        jButton_1.addMouseListener(new MenuController(this));
+        jButton_2.addMouseListener(new MenuController(this));
+        jButton_3.addMouseListener(new MenuController(this));
+        jButton_4.addMouseListener(new MenuController(this));
+        jButton_5.addMouseListener(new MenuController(this));
+        jButton_7.addMouseListener(new MenuController(this));
+        jButton_8.addMouseListener(new MenuController(this));
+        jButton_6.addMouseListener(new MenuController(this));
+        jButton_9.addMouseListener(new MenuController(this));
 
         jPanel_Button.setBackground(Colors.PRIMARY_COLOR);
         jPanel_Button.add(jButton_1);
@@ -117,85 +104,12 @@ public class MenuView extends JFrame implements MouseListener, ActionListener {
         add(jPanel_Container);
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        AudioHandler.playAudio(Paths.URL_EATING);
+    public void setHoverButton(JButton jButton) {
+        jButton.setBackground(Colors.TEXT_COLOR_HOVER);
     }
 
-    @Override
-    public void mouseClicked(MouseEvent e) {
-
+    public void setUnHoverButton(JButton jButton) {
+        jButton.setBackground(Colors.TEXT_COLOR);
     }
 
-    @Override
-    public void mousePressed(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent e) {
-        if (e.getSource() == jButton_1) {
-            jButton_1.setBackground(Colors.TEXT_COLOR_HOVER);
-        }
-        if (e.getSource() == jButton_2) {
-            jButton_2.setBackground(Colors.TEXT_COLOR_HOVER);
-        }
-        if (e.getSource() == jButton_3) {
-            jButton_3.setBackground(Colors.TEXT_COLOR_HOVER);
-        }
-        if (e.getSource() == jButton_4) {
-            jButton_4.setBackground(Colors.TEXT_COLOR_HOVER);
-        }
-        if (e.getSource() == jButton_5) {
-            jButton_5.setBackground(Colors.TEXT_COLOR_HOVER);
-        }
-        if (e.getSource() == jButton_6) {
-            jButton_6.setBackground(Colors.TEXT_COLOR_HOVER);
-        }
-        if (e.getSource() == jButton_7) {
-            jButton_7.setBackground(Colors.TEXT_COLOR_HOVER);
-        }
-        if (e.getSource() == jButton_8) {
-            jButton_8.setBackground(Colors.TEXT_COLOR_HOVER);
-        }
-        if (e.getSource() == jButton_9) {
-            jButton_9.setBackground(Colors.TEXT_COLOR_HOVER);
-        }
-    }
-
-    @Override
-    public void mouseExited(MouseEvent e) {
-        if (e.getSource() == jButton_1) {
-            jButton_1.setBackground(Colors.TEXT_COLOR);
-        }
-        if (e.getSource() == jButton_2) {
-            jButton_2.setBackground(Colors.TEXT_COLOR);
-        }
-        if (e.getSource() == jButton_3) {
-            jButton_3.setBackground(Colors.TEXT_COLOR);
-        }
-        if (e.getSource() == jButton_4) {
-            jButton_4.setBackground(Colors.TEXT_COLOR);
-        }
-        if (e.getSource() == jButton_5) {
-            jButton_5.setBackground(Colors.TEXT_COLOR);
-        }
-        if (e.getSource() == jButton_6) {
-            jButton_6.setBackground(Colors.TEXT_COLOR);
-        }
-        if (e.getSource() == jButton_7) {
-            jButton_7.setBackground(Colors.TEXT_COLOR);
-        }
-        if (e.getSource() == jButton_8) {
-            jButton_8.setBackground(Colors.TEXT_COLOR);
-        }
-        if (e.getSource() == jButton_9) {
-            jButton_9.setBackground(Colors.TEXT_COLOR);
-        }
-    }
 }

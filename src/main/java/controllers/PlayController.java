@@ -3,22 +3,26 @@ package controllers;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import views.LoginView;
+import views.MenuView;
 import views.Snake;
 
 public class PlayController implements ActionListener {
-  private LoginView loginView;
+    private LoginView loginView;
 
-  public PlayController(LoginView loginView) {
-    this.loginView = loginView;
-  }
+    public PlayController(LoginView loginView) {
+        this.loginView = loginView;
+    }
 
-  @Override
-  public void actionPerformed(ActionEvent e) {
-    loginView.dispose();
-    EventQueue.invokeLater(() -> {
-      Snake snake = new Snake();
-      snake.startGame();
-    });
-  }
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        loginView.dispose();
+        EventQueue.invokeLater(() -> {
+//      Snake snake = new Snake();
+//      snake.startGame();
+            MenuView menuView = new MenuView();
+            menuView.setVisible(true);
+        });
+    }
 }

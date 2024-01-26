@@ -96,7 +96,8 @@ public class Board extends JPanel implements ActionListener {
             int choice = JOptionPane.showConfirmDialog(null, "Do you want to exit?", "Exit Confirmation",
                     JOptionPane.YES_NO_OPTION);
             if (choice == JOptionPane.YES_OPTION) {
-                System.exit(0);
+//                System.exit(0);
+                SwingUtilities.getWindowAncestor(this).dispose();
             }
         });
         exitButton.setSize(100, 50);

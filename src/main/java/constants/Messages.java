@@ -3,6 +3,10 @@ package constants;
 import javax.swing.JOptionPane;
 
 public class Messages {
+    public static void IS_NOT_SUPPORT() {
+        JOptionPane.showMessageDialog(null, "This function is not supported", "Error", JOptionPane.ERROR_MESSAGE);
+    }
+
     public static void IS_LOGIN_SUCCESS() {
         JOptionPane.showMessageDialog(null, "Login success", "Success", JOptionPane.INFORMATION_MESSAGE);
     }
@@ -40,6 +44,7 @@ public class Messages {
     public static void IS_EXISTED_USERNAME() {
         JOptionPane.showMessageDialog(null, "Username is existed", "Error", JOptionPane.WARNING_MESSAGE);
     }
+
     public static void IS_WRONG_FORMAT_USERNAME() {
         JOptionPane.showMessageDialog(null, "Username must be 1-20 characters and no special characters", "Error", JOptionPane.WARNING_MESSAGE);
     }
@@ -51,7 +56,8 @@ public class Messages {
     public static void IS_WELCOME(String msg) {
         JOptionPane.showMessageDialog(null, "Hello " + msg, null, JOptionPane.INFORMATION_MESSAGE);
     }
-    public static void IS_ABOUT_ME(){
+
+    public static void IS_ABOUT_ME() {
         JOptionPane.showMessageDialog(null, "This is a project of Java Swing", "About me", JOptionPane.INFORMATION_MESSAGE);
     }
 }
