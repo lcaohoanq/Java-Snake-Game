@@ -30,8 +30,8 @@ public class LoginController implements ActionListener, MouseListener, LoginData
         password = loginView.getLogin().getPassword();
 
         System.out.println("Data: " + username + " " + password);
-
-        if (isEmpty(username, password)) {
+        //prevent empty field when click submit button, but not when click on the menu
+        if (isEmpty(username, password) && e.getSource() == loginView.jButton_Right_Bottom_Submit) {
             handleEmpty();
         } else {
             if (!isMatching(username, password)) {

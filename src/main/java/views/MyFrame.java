@@ -149,8 +149,7 @@ public abstract class MyFrame extends JFrame {
 
         @Override
         public void actionPerformed(java.awt.event.ActionEvent e) {
-            Snake snakeGame = new Snake();
-            snakeGame.startGame();
+            new MenuView().setVisible(true);
             dispose();
         }
     }

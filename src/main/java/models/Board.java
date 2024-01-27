@@ -1,8 +1,14 @@
 package models;
 
+import constants.Messages;
 import constants.Paths;
+import constants.Sizes;
+import constants.Titles;
 import controllers.LoginController;
 import services.DBServices;
+import styles.Borders;
+import styles.Colors;
+import styles.Fonts;
 import utils.AudioHandler;
 
 import javax.swing.*;
@@ -14,32 +20,46 @@ import java.awt.event.KeyEvent;
 
 public class Board extends JPanel implements ActionListener {
 
-    public static int score = 0;
-    public static boolean inGame = true;
-    private final int B_WIDTH = 500;
-    private final int B_HEIGHT = 550;
-    private final int DOT_SIZE = 10;
-    private final int ALL_DOTS = 900;
-    private final int RAND_POS = 29;
-    private final int DELAY = 50;
-    private final int[] x = new int[ALL_DOTS];
-    private final int[] y = new int[ALL_DOTS];
-    private int dots;
-    private int apple_x;
-    private int apple_y;
-    private boolean leftDirection = false;
-    private boolean rightDirection = true;
-    private boolean upDirection = false;
-    private boolean downDirection = false;
-    private Timer timer;
-    private Image ball;
-    private Image apple;
-    private Image head;
+    // Board dimensions and settings
+    private final int DOT_SIZE = 10;        // Size of the snake's body
+    private final int ALL_DOTS = 900;       // Maximum number of dots on the board
+    private final int RAND_POS = 29;        // Random positioning parameter
+    private final int DELAY = 50;           // Timer delay for the game loop
+    // Snake position and movement
+    private final int[] x = new int[ALL_DOTS];  // X-coordinate of each snake dot
+    private final int[] y = new int[ALL_DOTS];  // Y-coordinate of each snake dot
+    private final int DECREASE_DELAY = 2;       // Decrease delay for faster snake movement
+    // Game state variables
+    private int score = 0;            // Player's score
+    private boolean inGame = true;    // Flag indicating whether the game is currently active
+    private int dots;                          // Current number of snake dots
+    private int apple_count = 0;               // Counter for regular apples
+    private int apple_x;                       // X-coordinate of a regular apple
+    private int bigApple_x;                    // X-coordinate of a big apple
+    private int bigApple_y;                    // Y-coordinate of a big apple
+    private int apple_y;                       // Y-coordinate of a regular apple
 
-    private JButton playAgainButton;
-    private JButton exitButton;
-    private JLabel scoreLabel;
-    private int line;
+    // Snake movement directions
+    private boolean leftDirection = false;     // Flag for moving left
+    private boolean rightDirection = true;     // Flag for moving right
+    private boolean upDirection = false;       // Flag for moving up
+    private boolean downDirection = false;     // Flag for moving down
+
+    // Game timers and images
+    private Timer timer;                       // Timer for regular game events
+    private Timer bigAppleTimer;               // Timer for big apple appearance
+    private Image ball;                        // Snake body image
+    private Image apple;                       // Regular apple image
+    private Image head;                        // Snake head image
+    private Image bigApple;                    // Big apple image
+
+    // UI components
+    private JButton playAgainButton;           // Button to play the game again
+    private JButton exitButton;                // Button to exit the game
+    private JLabel scoreLabel;                 // Label to display the player's score
+    private int lineBottom;                    // Bottom line
+    private JProgressBar bigAppleProgressBar;  // Progress bar for big apple timer
+    private JPanel bottomPanel = new JPanel(); // Panel for UI components at the bottom
 
     public Board() {
         initBoard();
@@ -47,80 +67,116 @@ public class Board extends JPanel implements ActionListener {
 
     private void initBoard() {
         addKeyListener(new TAdapter());
-        setBackground(Color.black);
+        setBackground(Colors.BACKGROUND_COLOR);
         setFocusable(true);
-
-        setPreferredSize(new Dimension(B_WIDTH, B_HEIGHT));
-        setLayout(null);
+        bottomPanel.setVisible(true);
+        setPreferredSize(Sizes.SIZE_BOARD);
+        setLayout(new BorderLayout());
         loadImages();
         initGame();
-        initScoreLabel();
+
+        initBottomPanel();
         initLine();
         initPlayAgainButton();
         initExitButton();
 
     }
 
-    private void initScoreLabel() {
-        // Initialize the JLabel for live score display
-        scoreLabel = new JLabel("Score: 0");
-        scoreLabel.setForeground(Color.white);
-        scoreLabel.setFont(new Font("Roboto", Font.BOLD, 14));
-        scoreLabel.setBounds(10, B_HEIGHT - 30, 100, 20);
-        add(scoreLabel);
+    private void initLine() {
+        lineBottom = Sizes.HEIGHT_BOARD - Sizes.LINE_SPACE_FROM_BOTTOM; // Adjust this value as needed
     }
 
-    private void initLine() {
-        line = B_HEIGHT - 50;  // Adjust this value as needed
+    private void initScoreLabel() {
+        // Initialize the JLabel for live score display
+        scoreLabel = new JLabel(Titles.SCORE_LIVE);
+        scoreLabel.setForeground(Color.white);
+        scoreLabel.setFont(Fonts.SCORE_LIVE);
+        scoreLabel.setBounds(10, Sizes.HEIGHT_BOARD - 30, 100, 20);
+        scoreLabel.setVisible(true);
+    }
+
+    private void initProgressBar() {
+        // Initialize the JProgressBar for big apple countdown
+        bigAppleProgressBar = new JProgressBar(Sizes.MIN_PROGRESS_BAR, Sizes.MAX_PROGRESS_BAR);
+        bigAppleProgressBar.setPreferredSize(Sizes.SIZE_PROGRESS_BAR);
+        bigAppleProgressBar.setValue(100);
+        bigAppleProgressBar.setStringPainted(true);
+        bigAppleProgressBar.setForeground(Colors.PROGRESS_BAR_LOADING);
+        bigAppleProgressBar.setBackground(Colors.PRIMARY_COLOR);
+        bigAppleProgressBar.setVisible(false);
+    }
+
+    private void initBottomPanel() {
+        initScoreLabel();
+        initProgressBar();
+        bottomPanel.setLayout(new BorderLayout());
+        bottomPanel.setBackground(Colors.OTHER_OPTIONS);
+        bottomPanel.setBorder(Borders.BOTTOM_SCORE_PROGRESS_BAR);
+        bottomPanel.add(scoreLabel, BorderLayout.WEST);
+        bottomPanel.add(bigAppleProgressBar, BorderLayout.EAST);
+        add(bottomPanel, BorderLayout.SOUTH);
+    }
+
+    private void renderProgressBar() {
+        // Display the progress bar
+        bigAppleProgressBar.setVisible(true);
+        // Start the progress bar
+        bigAppleProgressBar.setValue(100);
+        // Start the timer
+        Timer progressBarTimer = new Timer(45, e -> {
+            int value = bigAppleProgressBar.getValue();
+            if (value > 0) {
+                bigAppleProgressBar.setValue(value - 1);
+            } else {
+                ((Timer) e.getSource()).stop();
+            }
+        });
+        progressBarTimer.start();
     }
 
     private void initPlayAgainButton() {
-        playAgainButton = new JButton("Play Again");
-        playAgainButton.setFont(new Font("Roboto", Font.BOLD, 10));
-        playAgainButton.setBackground(Color.GREEN);
-        playAgainButton.setForeground(Color.WHITE);
+        playAgainButton = new JButton(Titles.PLAY_AGAIN);
+        playAgainButton.setFont(Fonts.PLAY_EXIT_BUTTON);
+        playAgainButton.setBackground(Colors.TEXT_COLOR);
+        playAgainButton.setForeground(Colors.PRIMARY_COLOR);
         playAgainButton.addActionListener(e -> {
             // Reset game parameters and restart the game
             resetGame();
         });
-        playAgainButton.setSize(100, 50);
-        add(playAgainButton);
+        playAgainButton.setPreferredSize(Sizes.SIZE_BUTTON_GAME_OVER);
+        add(playAgainButton, BorderLayout.WEST);
         playAgainButton.setVisible(false); // Initially, hide the button
     }
 
     private void initExitButton() {
-        exitButton = new JButton("Exit");
-        exitButton.setFont(new Font("Roboto", Font.BOLD, 10));
-        exitButton.setBackground(Color.RED);
+        exitButton = new JButton(Titles.EXIT);
+        exitButton.setFont(Fonts.PLAY_EXIT_BUTTON);
+        exitButton.setBackground(Colors.PROGRESS_BAR_LOADING);
+        exitButton.setForeground(Colors.PRIMARY_COLOR);
         exitButton.addActionListener(e -> {
-            int choice = JOptionPane.showConfirmDialog(null, "Do you want to exit?", "Exit Confirmation",
-                    JOptionPane.YES_NO_OPTION);
-            if (choice == JOptionPane.YES_OPTION) {
-//                System.exit(0);
+            if (Messages.IS_CONFIRM_EXIT() == JOptionPane.YES_OPTION) {
                 SwingUtilities.getWindowAncestor(this).dispose();
             }
         });
-        exitButton.setSize(100, 50);
-        add(exitButton);
+        exitButton.setPreferredSize(Sizes.SIZE_BUTTON_GAME_OVER);
+        add(exitButton, BorderLayout.EAST);
         exitButton.setVisible(false); // Initially, hide the button
     }
 
     private void loadImages() {
 
-        ImageIcon iid = new ImageIcon(Paths.URL_DOT);
-        ball = iid.getImage();
+        ball = new ImageIcon(Paths.URL_DOT).getImage();
 
-        ImageIcon iia = new ImageIcon(Paths.URL_APPLE);
-        apple = iia.getImage();
+        apple = new ImageIcon(Paths.URL_APPLE).getImage();
 
-        ImageIcon iih = new ImageIcon(Paths.URL_HEAD);
-        head = iih.getImage();
+        head = new ImageIcon(Paths.URL_HEAD).getImage();
+
+        bigApple = new ImageIcon(Paths.URL_BIG_APPLE).getImage();
     }
 
     private void initGame() {
 
         dots = 3;
-
         for (int z = 0; z < dots; z++) {
             x[z] = 50 - z * 10;
             y[z] = 50;
@@ -136,15 +192,17 @@ public class Board extends JPanel implements ActionListener {
         super.paintComponent(g);
 
         doDrawing(g);
-        g.setColor(Color.white);
-        g.drawLine(0, line, B_WIDTH, line);
+        g.setColor(Colors.PRIMARY_COLOR);
+        g.drawLine(0, lineBottom, Sizes.WIDTH_BOARD, lineBottom);
     }
 
     private void doDrawing(Graphics g) {
-
         if (inGame) {
-
-            g.drawImage(apple, apple_x, apple_y, this);
+            if (apple_count % 5 == 0 && apple_count != 0) {
+                g.drawImage(bigApple, bigApple_x, bigApple_y, this);
+            } else {
+                g.drawImage(apple, apple_x, apple_y, this);
+            }
             scoreLabel.setText("Score: " + score);
             for (int z = 0; z < dots; z++) {
                 if (z == 0) {
@@ -155,38 +213,37 @@ public class Board extends JPanel implements ActionListener {
             }
 
             Toolkit.getDefaultToolkit().sync();
-
         } else {
             gameOver(g);
-//            drawScore(g);
             updateScore();
         }
     }
 
     private void updateScore() {
         String username = LoginController.username;
-        String score;
-        if (username != null) {
-            score = String.valueOf(Board.score);
-            DBServices.excuteOther();
-            DBServices.updateUsernameScore(username, score);
+        if (username.isEmpty()) {
+            return;
         }
+        DBServices.excuteOther();
+        DBServices.updateUsernameScore(username, String.valueOf(this.score));
     }
 
     private void gameOver(Graphics g) {
 
-        String msg = "Game Over";
-        Font big = new Font("Roboto", Font.BOLD, 30);
-        FontMetrics metr = getFontMetrics(big);
+        String msg = Titles.GAME_OVER;
+        FontMetrics metr = getFontMetrics(Fonts.GAME_OVER);
 
-        g.setColor(Color.white);
-        g.setFont(big);
-        g.drawString(msg, (B_WIDTH - metr.stringWidth(msg)) / 2, (B_HEIGHT - 50) / 2);
+        g.setColor(Colors.PRIMARY_COLOR);
+        g.setFont(Fonts.GAME_OVER);
+        g.drawString(msg, (Sizes.WIDTH_BOARD - metr.stringWidth(msg)) / 2, (Sizes.HEIGHT_BOARD - 100) / 2);
         // Show the "Play Again" and "Exit" button after displaying "Game Over" message
         playAgainButton.setVisible(true);
-        playAgainButton.setBounds((B_WIDTH - 220) / 2, B_HEIGHT / 2 + 30, 100, 30);
+        playAgainButton.setBounds((Sizes.WIDTH_BOARD - 260) / 2, (Sizes.HEIGHT_BOARD - 50) / 2, 130, 50);
         exitButton.setVisible(true);
-        exitButton.setBounds((B_WIDTH - 220) / 2 + 120, B_HEIGHT / 2 + 30, 100, 30);
+        exitButton.setBounds((Sizes.WIDTH_BOARD - 260) / 2 + 140, (Sizes.HEIGHT_BOARD - 50) / 2, 130, 50);
+
+        // Hide the progress bar
+        bigAppleProgressBar.setVisible(false);
     }
 
     private void resetGame() {
@@ -194,7 +251,15 @@ public class Board extends JPanel implements ActionListener {
         // For example:
         score = 0;
         dots = 3;
+        apple_count = 0;
         inGame = true;
+        bigApple_x = -100;
+        bigApple_y = -100;
+        // Reset the snake's position
+        for (int z = 0; z < dots; z++) {
+            x[z] = 50 - z * 10;
+            y[z] = 50;
+        }
         // Reset any other necessary game state variables
 
         // Hide the "Play Again" button again
@@ -212,13 +277,42 @@ public class Board extends JPanel implements ActionListener {
         if ((x[0] == apple_x) && (y[0] == apple_y)) {
             dots++;
             checkScore();
+            apple_count++;
             locateApple();
-            AudioHandler.playAudio(Paths.URL_EATING);
+            if (score % 5 != 0) {
+                AudioHandler.playAudio(Paths.URL_EATING);
+            }
+            System.out.println("apple");
+            return;
+        }
+        if ((x[0] >= bigApple_x) && (x[0] <= bigApple_x + 2 * DOT_SIZE)
+                && (y[0] >= bigApple_y) && (y[0] <= bigApple_y + 2 * DOT_SIZE)) {
+            dots += 5;
+            checkBigScore();
+
+            // change the game speed
+            int newDelay = Math.max(timer.getDelay() - DECREASE_DELAY, 0);
+            timer.setDelay(newDelay);
+
+            // disable the big apple progress bar
+            bigAppleProgressBar.setVisible(false);
+
+            // check the big apple are eaten
+            bigAppleTimer.stop();
+
+            apple_count = 0;
+            locateApple();
+            System.out.println("big apple");
+            AudioHandler.playAudio(Paths.URL_EATING2);
         }
     }
 
     private void checkScore() {
         score++;
+    }
+
+    private void checkBigScore() {
+        score += 5;
     }
 
     private void move() {
@@ -255,20 +349,20 @@ public class Board extends JPanel implements ActionListener {
             }
         }
 
-        if (y[0] >= B_HEIGHT - 50) {
+        if (y[0] >= Sizes.HEIGHT_BOARD - 50) {
             y[0] = 0;
         }
 
         if (y[0] < 0) {
-            y[0] = B_HEIGHT - 50 - DOT_SIZE;
+            y[0] = Sizes.HEIGHT_BOARD - 50 - DOT_SIZE;
         }
 
-        if (x[0] >= B_WIDTH) {
+        if (x[0] >= Sizes.WIDTH_BOARD) {
             x[0] = 0;
         }
 
         if (x[0] < 0) {
-            x[0] = B_WIDTH - DOT_SIZE;
+            x[0] = Sizes.WIDTH_BOARD - DOT_SIZE;
         }
 
         if (!inGame) {
@@ -279,11 +373,51 @@ public class Board extends JPanel implements ActionListener {
 
     private void locateApple() {
 
+        if (apple_count % 5 == 0 && apple_count != 0) {
+            locateBigApple();
+        } else {
+            bigApple_x = -100;
+            int r = (int) (Math.random() * RAND_POS);
+            apple_x = ((r * DOT_SIZE));
+
+            bigApple_y = -100;
+            r = (int) (Math.random() * RAND_POS);
+            apple_y = ((r * DOT_SIZE) + DOT_SIZE);
+        }
+    }
+
+    public void locateBigApple() {
+        AudioHandler.playAudio(Paths.URL_BIG_APPLE_APP);
         int r = (int) (Math.random() * RAND_POS);
-        apple_x = ((r * DOT_SIZE));
+        bigApple_x = ((r * DOT_SIZE));
+        apple_x = -100;
 
         r = (int) (Math.random() * RAND_POS);
-        apple_y = ((r * DOT_SIZE));
+        bigApple_y = ((r * DOT_SIZE));
+        apple_y = -100;
+        setBigAppleTime();
+        renderProgressBar();
+
+    }
+
+    public void setBigAppleTime() {
+        // neu ma bigAppleTimer dang null thi tao mot timer moi
+        if (bigAppleTimer != null) {
+            bigAppleTimer.stop();
+        }
+
+        // Apple-related variables
+        // Timer for big apple appearance
+        int BIG_APPLE_TIMER = 5000;
+        bigAppleTimer = new Timer(BIG_APPLE_TIMER, e -> {
+            bigAppleTimer.stop();
+            AudioHandler.playAudio(Paths.URL_BIG_APPLE_DIS);
+            apple_count = 0;
+            locateApple();
+            bigAppleProgressBar.setVisible(false);
+        });
+        bigAppleProgressBar.setVisible(true);
+        bigAppleTimer.start();
     }
 
     @Override

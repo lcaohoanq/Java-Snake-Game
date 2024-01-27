@@ -8,12 +8,15 @@ import javax.sound.sampled.Clip;
 
 public class AudioHandler {
     // im using wav file
+    private static AudioInputStream audioInputStream;
+    private static Clip clip;
+
     public static void playAudio(String filepath) {
         try {
             // load audio file
-            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(filepath).getAbsoluteFile());
+            audioInputStream = AudioSystem.getAudioInputStream(new File(filepath).getAbsoluteFile());
             // get clip
-            Clip clip = AudioSystem.getClip();
+            clip = AudioSystem.getClip();
             // open audioInputStream to the clip
             clip.open(audioInputStream);
             // start the audio clip

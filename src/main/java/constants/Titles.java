@@ -14,4 +14,8 @@ public class Titles {
     public static final String HAVE_ACCOUNT = "Already have account?";
     public static final String SIGN_UP_HERE = "Sign up here";
     public static final String SIGN_IN_HERE = "Sign in here";
+    public static final String SCORE_LIVE = "Score: 0";
+    public static final String GAME_OVER = "Game over";
+    public static final String PLAY_AGAIN = "Play again";
+    public static final String EXIT = "Exit";
 }

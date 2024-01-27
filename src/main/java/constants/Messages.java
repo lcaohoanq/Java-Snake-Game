@@ -57,6 +57,11 @@ public class Messages {
         JOptionPane.showMessageDialog(null, "Hello " + msg, null, JOptionPane.INFORMATION_MESSAGE);
     }
 
+    public static int IS_CONFIRM_EXIT() {
+        return JOptionPane.showConfirmDialog(null, "Do you want to exit?", "Exit Confirmation",
+                JOptionPane.YES_NO_OPTION);
+    }
+
     public static void IS_ABOUT_ME() {
         JOptionPane.showMessageDialog(null, "This is a project of Java Swing", "About me", JOptionPane.INFORMATION_MESSAGE);
     }

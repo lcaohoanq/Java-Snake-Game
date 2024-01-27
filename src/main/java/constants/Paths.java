@@ -11,5 +11,7 @@ public class Paths {
     public static final String URL_INTRO = "src\\main\\resources\\component\\intro.wav";
     public static final String URL_KEY_ICON = "/component/key.png";
     public static final String URL_SNAKE_LOGO = "/component/snake.png";
+    public static final String URL_BIG_APPLE_DIS = "src\\main\\resources\\component\\bigAppleDis.wav";
+    public static final String URL_BIG_APPLE_APP = "src\\main\\resources\\component\\bigAppleApp.wav";
 
 }

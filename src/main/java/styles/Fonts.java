@@ -11,4 +11,7 @@ public class Fonts {
     public static final Font BUTTON = new Font("Dialog", Font.BOLD, 20);
     public static final Font OTHERS = new Font("Dialog", Font.PLAIN, 15);
     public static final Font OTHERS_HOVER = new Font("Dialog", Font.BOLD, 15);
+    public static final Font SCORE_LIVE = new Font("Dialog", Font.BOLD, 15);
+    public static final Font GAME_OVER = new Font("Dialog", Font.BOLD, 50);
+    public static final Font PLAY_EXIT_BUTTON = new Font("Dialog", Font.BOLD, 15);
 }
