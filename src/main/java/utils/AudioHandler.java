@@ -1,5 +1,7 @@
 package utils;
 
+import errors.FileException;
+
 import java.io.File;
 
 import javax.sound.sampled.AudioInputStream;
@@ -13,8 +15,12 @@ public class AudioHandler {
 
     public static void playAudio(String filepath) {
         try {
+            File file = new File(filepath);
+            if (!file.exists()) {
+                throw new FileException("File is empty at: " + filepath);
+            }
             // load audio file
-            audioInputStream = AudioSystem.getAudioInputStream(new File(filepath).getAbsoluteFile());
+            audioInputStream = AudioSystem.getAudioInputStream(file.getAbsoluteFile());
             // get clip
             clip = AudioSystem.getClip();
             // open audioInputStream to the clip
@@ -22,7 +28,7 @@ public class AudioHandler {
             // start the audio clip
             clip.start();
         } catch (Exception e) {
-            System.out.println("Audio file not found" + filepath);
+            System.out.println(e.getMessage());
         }
     }
 }

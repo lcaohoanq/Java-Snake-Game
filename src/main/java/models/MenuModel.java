@@ -1,13 +1,8 @@
 package models;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-public class MenuModel {
-    private String tittle;
-    private String btn_1, btn_2, btn_3, btn_4, btn_5, btn_6, btn_7, btn_8, btn_9;
+public record MenuModel(String tittle, String btn_1, String btn_2, String btn_3, String btn_4, String btn_5,
+                        String btn_6, String btn_7, String btn_8, String btn_9) {
+    public MenuModel() {
+        this("Menu Game", "", "", "", "", "", "", "", "", "");
+    }
 }

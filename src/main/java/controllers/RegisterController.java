@@ -2,6 +2,8 @@ package controllers;
 
 import constants.Messages;
 import constants.Regex;
+import errors.DBException;
+import errors.DataException;
 import models.Account;
 import models.RegisterData;
 import services.DBServices;
@@ -30,9 +32,9 @@ public class RegisterController implements ActionListener, MouseListener, Regist
     // Su dung ArrayList<Account> de luu tru account
     @Override
     public void actionPerformed(ActionEvent e) {
-        username = registerView.getRegister().getUsername();
-        password = registerView.getRegister().getPassword();
-        confirmPassword = registerView.getRegister().getConfirmPassword();
+        username = registerView.getRegister().username();
+        password = registerView.getRegister().password();
+        confirmPassword = registerView.getRegister().confirmPassword();
         if (!username.matches(Regex.USERNAME)) {
             Messages.IS_WRONG_FORMAT_USERNAME();
             return;
@@ -105,9 +107,13 @@ public class RegisterController implements ActionListener, MouseListener, Regist
         Account db;
         try {
             db = DBServices.selectUsernameAndPasswordByUsername(username);
-            return (db == null || !db.getUsername().equals(username)) ? false : true;
+            if (db == null || !db.username().equals(username)) {
+                throw new DataException("Error, is duplicated username");
+            } else {
+                return true;
+            }
         } catch (Exception e) {
-            System.out.println("Error, is duplicated username: " + e.getMessage());
+            System.out.println(e.getMessage());
         }
         return false;
     }

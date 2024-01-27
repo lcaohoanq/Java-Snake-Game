@@ -1,12 +1,15 @@
 package controllers;
 
 import constants.Messages;
+import errors.DBException;
+import errors.DataException;
 import models.Account;
 import models.LoginData;
 import services.DBServices;
 import utils.PasswordHandler;
 import views.LoginView;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -26,12 +29,12 @@ public class LoginController implements ActionListener, MouseListener, LoginData
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        username = loginView.getLogin().getUsername();
-        password = loginView.getLogin().getPassword();
+        username = loginView.getLogin().username();
+        password = loginView.getLogin().password();
 
         System.out.println("Data: " + username + " " + password);
         //prevent empty field when click submit button, but not when click on the menu
-        if (isEmpty(username, password) && e.getSource() == loginView.jButton_Right_Bottom_Submit) {
+        if (isEmpty(username, password) && e.getSource() instanceof JButton) {
             handleEmpty();
         } else {
             if (!isMatching(username, password)) {
@@ -77,12 +80,12 @@ public class LoginController implements ActionListener, MouseListener, LoginData
         try {
             db = DBServices.selectUsernameAndPasswordByUsername(username);
             if (db != null) {
-                return new PasswordHandler().authenticate(password.toCharArray(), db.getPassword());
+                return new PasswordHandler().authenticate(password.toCharArray(), db.password());
             } else {
-                throw new Exception();
+                throw new DataException("Error authenticate, password do not match");
             }
         } catch (Exception e) {
-            System.out.println("Error authenticate: " + e.getMessage());
+            System.out.println(e.getMessage());
         }
         return false;
     }

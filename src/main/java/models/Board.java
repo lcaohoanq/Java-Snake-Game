@@ -224,7 +224,7 @@ public class Board extends JPanel implements ActionListener {
         if (username.isEmpty()) {
             return;
         }
-        DBServices.excuteOther();
+        DBServices.executeOther();
         DBServices.updateUsernameScore(username, String.valueOf(this.score));
     }
 
