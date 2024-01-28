@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import views.LoginView;
+import views.MenuView;
 import views.Snake;
 
 public class PlayController implements ActionListener {
@@ -17,8 +18,8 @@ public class PlayController implements ActionListener {
   public void actionPerformed(ActionEvent e) {
     loginView.dispose();
     EventQueue.invokeLater(() -> {
-      Snake snake = new Snake();
-      snake.startGame();
+      MenuView menuView = new MenuView();
+      menuView.setVisible(true);
     });
   }
 }

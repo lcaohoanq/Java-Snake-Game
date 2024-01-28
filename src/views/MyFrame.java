@@ -2,6 +2,7 @@ package views;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.EventQueue;
 import java.awt.FlowLayout;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -174,9 +175,11 @@ public abstract class MyFrame extends JFrame {
 
     @Override
     public void actionPerformed(java.awt.event.ActionEvent e) {
-      Snake snakeGame = new Snake();
-      snakeGame.startGame();
       dispose();
+      EventQueue.invokeLater(() -> {
+        MenuView menuView = new MenuView();
+        menuView.setVisible(true);
+      });
     }
   }
 

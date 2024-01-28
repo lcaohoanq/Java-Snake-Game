@@ -3,6 +3,7 @@ package constants;
 public class Paths {
     public static final String URL_ACCOUNT = "src\\resources\\account.txt";
     public static final String URL_SCORE = "src\\resources\\score.txt";
+    public static final String URL_INTRO = "src\\resources\\intro.wav";
     public static final String URL_DOT = "src\\resources\\dot.png";
     public static final String URL_APPLE = "src\\resources\\apple.png";
     public static final String URL_HEAD = "src\\resources\\head.png";

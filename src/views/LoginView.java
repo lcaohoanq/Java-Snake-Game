@@ -12,12 +12,14 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import constants.Paths;
 import constants.Sizes;
 import controllers.LoginController;
 import controllers.PlayController;
 import styles.Borders;
 import styles.Colors;
 import styles.Fonts;
+import utils.AudioHandler;
 import utils.DataHandler;
 
 public class LoginView extends MyFrame {
@@ -26,6 +28,7 @@ public class LoginView extends MyFrame {
 
   public LoginView() {
     super();
+    AudioHandler.playAudio(Paths.URL_INTRO);
   }
 
   @Override

@@ -3,15 +3,27 @@ package views;
 import javax.swing.JFrame;
 
 import models.BoxMode;
+import models.NoMazeMode;
+import models.TunnelMode;
 
 public class Snake extends JFrame {
 
-    public Snake() {
-        initUI();
+    String mode;
+
+    public Snake(String mode) {
+        initUI(mode);
     }
 
-    private void initUI() {
-        add(new BoxMode());
+    private void initUI(String mode) {
+        if (mode.equals("Box")) {
+            add(new BoxMode());
+        }
+        if (mode.equals("Tunnel")) {
+            add(new TunnelMode());
+        }
+        if (mode.equals("NoMaze")) {
+            add(new NoMazeMode());
+        }
 
         setResizable(false);
         pack();
