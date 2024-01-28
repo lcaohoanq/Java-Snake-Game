@@ -9,23 +9,22 @@ import styles.Borders;
 import styles.Colors;
 import styles.Fonts;
 import styles.Images;
+import utils.HoverHandler;
+import utils.ToggleHandler;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
 
-public abstract class MyFrame extends JFrame {
+public abstract class MyFrame extends JFrame implements ToggleHandler, HoverHandler {
 
     public static JPanel jPanel_Right_Bottom_Button;
-    protected static Toggle toggleButton;
     public JTextField jTextField_Right_Middle_Username; // 20 is the number of columns
     public JPasswordField jPasswordField_Right_Middle_Password;
     public JPasswordField jPasswordField_Right_Middle_Confirm_Password;
     public JButton jButton_Right_Bottom_Submit;
     public JButton jButton_Right_Bottom_Others;
     protected JPanel jPanel_Container;
-    //  private JButton jButton_Left_Play;
     protected JPanel jPanel_Right;
     protected JPanel jPanel_Right_Top_Tittle;
     protected JLabel jLabel_Right_Top_Tittle;
@@ -108,7 +107,6 @@ public abstract class MyFrame extends JFrame {
     public abstract void initRightBottom();
 
     protected void initToggle() {
-        toggleButton = new Toggle();
         toggleButton.addEventSelected(selected -> {
             if (selected) {
                 jLabel_Right_Middle_Username.setForeground(Colors.TEXT_COLOR_D);
@@ -180,7 +178,7 @@ public abstract class MyFrame extends JFrame {
         }
     }
 
-    public void setHoverUserPassword(boolean isInside, String mode) {
+    public void setHoverPassword(boolean isInside, String mode) {
         if (isInside) {
             if (mode.equals("light")) {
                 jPasswordField_Right_Middle_Password.setBackground(Colors.SECONDARY_COLOR_L_HOVER);
@@ -196,7 +194,7 @@ public abstract class MyFrame extends JFrame {
         }
     }
 
-    public void setHoverUserButton(boolean isInside, String mode) {
+    public void setHoverButton(boolean isInside, String mode) {
         if (isInside) {
             if (mode.equals("light")) {
                 jButton_Right_Bottom_Submit.setBackground(Colors.TEXT_COLOR_L_HOVER);
@@ -220,9 +218,9 @@ public abstract class MyFrame extends JFrame {
         }
     }
 
-    public boolean getStatusToggle() {
-        return toggleButton.isSelected();
-    }
+//    public boolean getStatusToggle() {
+//        return toggleButton.isSelected();
+//    }
 
     protected void initContainer() {
         jPanel_Container = new JPanel();

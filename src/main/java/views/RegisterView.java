@@ -7,11 +7,13 @@ import models.Account;
 import styles.Borders;
 import styles.Colors;
 import styles.Fonts;
+import utils.HoverHandler;
+import utils.ToggleHandler;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class RegisterView extends MyFrame {
+public class RegisterView extends MyFrame implements ToggleHandler, HoverHandler {
 
     public RegisterView() {
         super();
@@ -201,5 +203,10 @@ public class RegisterView extends MyFrame {
                 jPasswordField_Right_Middle_Confirm_Password.setBackground(Colors.SECONDARY_COLOR_D);
             }
         }
+    }
+
+    @Override
+    public boolean getStatusToggle() {
+        return toggleButton.isSelected();
     }
 }
