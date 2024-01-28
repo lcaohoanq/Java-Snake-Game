@@ -280,9 +280,10 @@ public class Board extends JPanel implements ActionListener {
             apple_count++;
             locateApple();
             if (score % 5 != 0) {
-                AudioHandler.playAudio(Paths.URL_EATING);
+                if (isOnSound()) {
+                    setAudio(Paths.URL_EATING);
+                }
             }
-            System.out.println("apple");
             return;
         }
         if ((x[0] >= bigApple_x) && (x[0] <= bigApple_x + 2 * DOT_SIZE)
@@ -302,8 +303,9 @@ public class Board extends JPanel implements ActionListener {
 
             apple_count = 0;
             locateApple();
-            System.out.println("big apple");
-            AudioHandler.playAudio(Paths.URL_EATING2);
+            if (isOnSound()) {
+                setAudio(Paths.URL_EATING2);
+            }
         }
     }
 
@@ -366,7 +368,9 @@ public class Board extends JPanel implements ActionListener {
         }
 
         if (!inGame) {
-            AudioHandler.playAudio(Paths.URL_GAME_OVER);
+            if (isOnSound()) {
+                setAudio(Paths.URL_GAME_OVER);
+            }
             timer.stop();
         }
     }
@@ -387,7 +391,9 @@ public class Board extends JPanel implements ActionListener {
     }
 
     public void locateBigApple() {
-        AudioHandler.playAudio(Paths.URL_BIG_APPLE_APP);
+        if (isOnSound()) {
+            setAudio(Paths.URL_BIG_APPLE_APP);
+        }
         int r = (int) (Math.random() * RAND_POS);
         bigApple_x = ((r * DOT_SIZE));
         apple_x = -100;
@@ -411,13 +417,23 @@ public class Board extends JPanel implements ActionListener {
         int BIG_APPLE_TIMER = 5000;
         bigAppleTimer = new Timer(BIG_APPLE_TIMER, e -> {
             bigAppleTimer.stop();
-            AudioHandler.playAudio(Paths.URL_BIG_APPLE_DIS);
+            if (isOnSound()) {
+                setAudio(Paths.URL_BIG_APPLE_DIS);
+            }
             apple_count = 0;
             locateApple();
             bigAppleProgressBar.setVisible(false);
         });
         bigAppleProgressBar.setVisible(true);
         bigAppleTimer.start();
+    }
+
+    private boolean isOnSound() {
+        return !AudioHandler.isEmptyPath();
+    }
+
+    private void setAudio(String path) {
+        AudioHandler.playAudio(path);
     }
 
     @Override

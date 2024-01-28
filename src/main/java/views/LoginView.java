@@ -191,4 +191,9 @@ public class LoginView extends MyFrame implements ToggleHandler, HoverHandler {
     @Override
     public void setHoverConfirmPassword(boolean isInside, String mode) {
     }
+
+    @Override
+    public void setHoverButton(boolean isInside, String mode, JButton button) {
+
+    }
 }

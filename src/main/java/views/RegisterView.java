@@ -206,6 +206,11 @@ public class RegisterView extends MyFrame implements ToggleHandler, HoverHandler
     }
 
     @Override
+    public void setHoverButton(boolean isInside, String mode, JButton button) {
+
+    }
+
+    @Override
     public boolean getStatusToggle() {
         return toggleButton.isSelected();
     }
