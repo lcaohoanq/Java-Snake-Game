@@ -12,6 +12,8 @@ import utils.ToggleHandler;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class MenuView extends JFrame implements ToggleHandler, HoverHandler {
     public JButton jButton_1 = new JButton("Classic");
@@ -29,6 +31,7 @@ public class MenuView extends JFrame implements ToggleHandler, HoverHandler {
     private JMenuBar jMenuBar = new JMenuBar();
     ;
     private JMenu jMenu = new JMenu("HELP");
+    private JMenuItem jMenuItem_Back_To_Main_Menu = new JMenuItem("Back to main menu");
     private JMenu jMenu_Sound = new JMenu("Sound");
     private JMenuItem jMenuItem_Sound_On = new JMenuItem("On");
     private JMenuItem jMenuItem_Sound_Off = new JMenuItem("Off");
@@ -60,6 +63,7 @@ public class MenuView extends JFrame implements ToggleHandler, HoverHandler {
         jMenuBar.add(jMenu);
         jMenu_Sound.add(jMenuItem_Sound_On);
         jMenu_Sound.add(jMenuItem_Sound_Off);
+        jMenu.add(jMenuItem_Back_To_Main_Menu);
         jMenu.add(jMenu_Sound);
         this.setJMenuBar(jMenuBar);
     }
@@ -149,6 +153,7 @@ public class MenuView extends JFrame implements ToggleHandler, HoverHandler {
     }
 
     private void doAction() {
+        jMenuItem_Back_To_Main_Menu.addActionListener(new BackToMainMenu());
         jMenuItem_Sound_On.addActionListener(new MenuController(this));
         jMenuItem_Sound_Off.addActionListener(new MenuController(this));
         jButton_1.addMouseListener(new MenuController(this));
@@ -216,6 +221,17 @@ public class MenuView extends JFrame implements ToggleHandler, HoverHandler {
     public void setAudio(String msg) {
         if (msg.isEmpty()) {
             AudioHandler.playAudio("");
+        }
+    }
+
+    private class BackToMainMenu implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            EventQueue.invokeLater(() -> {
+                dispose();
+                toggleButton.setSelected(false);
+                new LoginView().setVisible(true);
+            });
         }
     }
 }
