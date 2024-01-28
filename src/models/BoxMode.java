@@ -1,7 +1,6 @@
 package models;
 
 import constants.Paths;
-import constants.Sizes;
 import controllers.LoginController;
 import services.DBServices;
 import styles.Borders;
@@ -12,72 +11,22 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 
-public class Board extends JPanel implements ActionListener {
 
-    public static int score = 0;
-    public static boolean inGame = true;
-    private final int B_WIDTH = 500;
-    private final int B_HEIGHT = 550;
-    private final int DOT_SIZE = 10;
-    private final int ALL_DOTS = 900;
-    private final int RAND_POS = 29;
-    private final int DELAY = 50;
-    private final int[] x = new int[ALL_DOTS];
-    private final int[] y = new int[ALL_DOTS];
-    private int dots;
-    private int apple_count = 0;
-    private int apple_x;
-    private int bigApple_x;
-    private int bigApple_y;
-    private int apple_y;
-    private boolean leftDirection = false;
-    private boolean rightDirection = true;
-    private boolean upDirection = false;
-    private boolean downDirection = false;
-    private Timer timer;
-    private Timer bigAppleTimer;
-    private final int DECREASE_DELAY = 2;
-    private Image ball;
-    private Image apple;
-    private Image head;
-    private Image bigApple;
+public class BoxMode extends InitBoard {
+    protected int wallThickness = 20;
 
-    private JButton playAgainButton;
-    private JButton exitButton;
-    private JLabel scoreLabel;
-    private final int BIG_APPLE_TIMER = 5000;
-    private JProgressBar bigAppleProgressBar;
-    private int line;
-    private JPanel bottomPanel = new JPanel();
-
-    public Board() {
-        initBoard();
+    public BoxMode() {
+        super();
     }
 
-    private void initBoard() {
-        addKeyListener(new TAdapter());
-        setBackground(Color.black);
-        setFocusable(true);
-        bottomPanel.setVisible(true);
-        setPreferredSize(new Dimension(B_WIDTH, B_HEIGHT));
-        setLayout(new BorderLayout());
-        loadImages();
-        initGame();
-        initLine();
-        initBottomPanel();
-        initPlayAgainButton();
-        initExitButton();
-
-    }
-
-    private void initLine() {
+    @Override
+    public void initLine() {
         line = B_HEIGHT - 50; // Adjust this value as needed
     }
 
-    private void initBottomPanel() {
+    @Override
+    public void initBottomPanel() {
         // Initialize the JLabel for live score display
         scoreLabel = new JLabel("Score: 0");
         scoreLabel.setForeground(Color.white);
@@ -102,7 +51,8 @@ public class Board extends JPanel implements ActionListener {
         add(bottomPanel, BorderLayout.SOUTH);
     }
 
-    private void renderProgressBar() {
+    @Override
+    public void renderProgressBar() {
         // Display the progress bar
         bigAppleProgressBar.setVisible(true);
         // Start the progress bar
@@ -122,7 +72,8 @@ public class Board extends JPanel implements ActionListener {
         progressBarTimer.start();
     }
 
-    private void initPlayAgainButton() {
+    @Override
+    public void initPlayAgainButton() {
         playAgainButton = new JButton("Play Again");
         playAgainButton.setFont(new Font("Roboto", Font.BOLD, 10));
         playAgainButton.setBackground(Color.GREEN);
@@ -136,7 +87,8 @@ public class Board extends JPanel implements ActionListener {
         playAgainButton.setVisible(false); // Initially, hide the button
     }
 
-    private void initExitButton() {
+    @Override
+    public void initExitButton() {
         exitButton = new JButton("Exit");
         exitButton.setFont(new Font("Roboto", Font.BOLD, 10));
         exitButton.setBackground(Color.RED);
@@ -152,7 +104,8 @@ public class Board extends JPanel implements ActionListener {
         exitButton.setVisible(false); // Initially, hide the button
     }
 
-    private void loadImages() {
+    @Override
+    public void loadImages() {
 
         ImageIcon iid = new ImageIcon(Paths.URL_DOT);
         ball = iid.getImage();
@@ -165,9 +118,13 @@ public class Board extends JPanel implements ActionListener {
 
         ImageIcon iib = new ImageIcon(Paths.URL_BIG_APPLE);
         bigApple = iib.getImage();
+
+        ImageIcon iiw = new ImageIcon(Paths.URL_WALL);
+        wall = iiw.getImage();
     }
 
-    private void initGame() {
+    @Override
+    public void initGame() {
 
         dots = 3;
         for (int z = 0; z < dots; z++) {
@@ -177,6 +134,7 @@ public class Board extends JPanel implements ActionListener {
 
         locateApple();
         timer = new Timer(DELAY, this);
+        System.out.println(timer.getDelay());
         timer.start();
     }
 
@@ -187,9 +145,18 @@ public class Board extends JPanel implements ActionListener {
         doDrawing(g);
         g.setColor(Color.white);
         g.drawLine(0, line, B_WIDTH, line);
+        for (int i = 0; i < B_WIDTH; i += 20) {
+            g.drawImage(wall, i, 0, this);
+            g.drawImage(wall, i, B_HEIGHT - 70, this);
+        }
+        for (int i = 0; i < B_HEIGHT - 70; i += 20) {
+            g.drawImage(wall, 0, i, this);
+            g.drawImage(wall, B_WIDTH - 20, i, this);
+        }
     }
 
-    private void doDrawing(Graphics g) {
+    @Override
+    public void doDrawing(Graphics g) {
         if (inGame) {
             if (apple_count % 5 == 0 && apple_count != 0) {
                 g.drawImage(bigApple, bigApple_x, bigApple_y, this);
@@ -200,10 +167,11 @@ public class Board extends JPanel implements ActionListener {
             scoreLabel.setText("Score: " + score);
             for (int z = 0; z < dots; z++) {
                 if (z == 0) {
-                    g.drawImage(head, x[z], y[z], this);
+                    g.setColor(Color.ORANGE); // Head color
                 } else {
-                    g.drawImage(ball, x[z], y[z], this);
+                    g.setColor(Color.GREEN); // Body color
                 }
+                g.fillOval(x[z], y[z], DOT_SIZE, DOT_SIZE);
             }
             // what is the purpose of above for loop?
 
@@ -214,17 +182,19 @@ public class Board extends JPanel implements ActionListener {
         }
     }
 
-    private void updateScore() {
+    @Override
+    public void updateScore() {
         String username = LoginController.username;
         String score;
         if (username != null) {
-            score = String.valueOf(Board.score);
+            score = String.valueOf(NoMazeMode.score);
             // DBServices.excuteOther();
             // DBServices.updateUsernameScore(username, score);
         }
     }
 
-    private void gameOver(Graphics g) {
+    @Override
+    public void gameOver(Graphics g) {
 
         String msg = "Game Over";
         Font big = new Font("Roboto", Font.BOLD, 30);
@@ -243,7 +213,8 @@ public class Board extends JPanel implements ActionListener {
         bigAppleProgressBar.setVisible(false);
     }
 
-    private void resetGame() {
+    @Override
+    public void resetGame() {
         // Reset game variables here
         // For example:
         score = 0;
@@ -252,6 +223,7 @@ public class Board extends JPanel implements ActionListener {
         inGame = true;
         bigApple_x = -100;
         bigApple_y = -100;
+
         // Reset the snake's position
         for (int z = 0; z < dots; z++) {
             x[z] = 50 - z * 10;
@@ -269,7 +241,8 @@ public class Board extends JPanel implements ActionListener {
         timer.start();
     }
 
-    private void checkApple() {
+    @Override
+    public void checkApple() {
 
         if ((x[0] == apple_x) && (y[0] == apple_y)) {
             dots++;
@@ -290,6 +263,7 @@ public class Board extends JPanel implements ActionListener {
             // change the game speed
             int newDelay = Math.max(timer.getDelay() - DECREASE_DELAY, 0);
             timer.setDelay(newDelay);
+            System.out.println(timer.getDelay());
 
             // disable the big apple progress bar
             bigAppleProgressBar.setVisible(false);
@@ -304,39 +278,18 @@ public class Board extends JPanel implements ActionListener {
         }
     }
 
-    private void checkScore() {
+    @Override
+    public void checkScore() {
         score++;
     }
 
-    private void checkBigScore() {
+    @Override
+    public void checkBigScore() {
         score += 5;
     }
 
-    private void move() {
-
-        for (int z = dots; z > 0; z--) {
-            x[z] = x[(z - 1)];
-            y[z] = y[(z - 1)];
-        }
-
-        if (leftDirection) {
-            x[0] -= DOT_SIZE;
-        }
-
-        if (rightDirection) {
-            x[0] += DOT_SIZE;
-        }
-
-        if (upDirection) {
-            y[0] -= DOT_SIZE;
-        }
-
-        if (downDirection) {
-            y[0] += DOT_SIZE;
-        }
-    }
-
-    private void checkCollision() {
+    @Override
+    public void checkCollision() {
 
         for (int z = dots; z > 0; z--) {
 
@@ -346,20 +299,20 @@ public class Board extends JPanel implements ActionListener {
             }
         }
 
-        if (y[0] >= B_HEIGHT - 50) {
-            y[0] = 0;
+        if (y[0] >= B_HEIGHT - 70) {
+            inGame = false;
         }
 
-        if (y[0] < 0) {
-            y[0] = B_HEIGHT - 50 - DOT_SIZE;
+        if (y[0] < 20) {
+            inGame = false;
         }
 
         if (x[0] >= B_WIDTH) {
-            x[0] = 0;
+            inGame = false;
         }
 
-        if (x[0] < 0) {
-            x[0] = B_WIDTH - DOT_SIZE;
+        if (x[0] < 20) {
+            inGame = false;
         }
 
         if (!inGame) {
@@ -368,53 +321,35 @@ public class Board extends JPanel implements ActionListener {
         }
     }
 
-    private void locateApple() {
+    @Override
+    public void locateApple() {
 
         if (apple_count % 5 == 0 && apple_count != 0) {
             locateBigApple();
         } else {
             bigApple_x = -100;
-            int r = (int) (Math.random() * RAND_POS);
-            apple_x = ((r * DOT_SIZE));
+            int r = (int) (Math.random() * (RAND_POS - 2 * wallThickness));
+            apple_x = ((r + wallThickness) * DOT_SIZE);
 
             bigApple_y = -100;
-            r = (int) (Math.random() * RAND_POS);
-            apple_y = ((r * DOT_SIZE) + DOT_SIZE);
+            r = (int) (Math.random() * (RAND_POS - 2 * wallThickness));
+            apple_y = ((r + wallThickness) * DOT_SIZE);
         }
     }
 
+    @Override
     public void locateBigApple() {
         AudioHandler.playAudio(Paths.URL_BIG_APPLE_APP);
-        int r = (int) (Math.random() * RAND_POS);
-        bigApple_x = ((r * DOT_SIZE));
+        int r = (int) (Math.random() * (RAND_POS - 2 * wallThickness));
+        bigApple_x = ((r + wallThickness) * DOT_SIZE);
         apple_x = -100;
 
-        r = (int) (Math.random() * RAND_POS);
-        bigApple_y = ((r * DOT_SIZE));
+        r = (int) (Math.random() * (RAND_POS - 2 * wallThickness));
+        bigApple_y = ((r + wallThickness) * DOT_SIZE);
         apple_y = -100;
         setBigAppleTime();
         renderProgressBar();
 
-    }
-
-    public void setBigAppleTime() {
-        // neu ma bigAppleTimer dang null thi tao mot timer moi
-        if (bigAppleTimer != null) {
-            bigAppleTimer.stop();
-        }
-
-        bigAppleTimer = new Timer(BIG_APPLE_TIMER, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                bigAppleTimer.stop();
-                AudioHandler.playAudio(Paths.URL_BIG_APPLE_DIS);
-                apple_count = 0;
-                locateApple();
-                bigAppleProgressBar.setVisible(false);
-            }
-        });
-        bigAppleProgressBar.setVisible(true);
-        bigAppleTimer.start();
     }
 
     @Override
@@ -430,36 +365,4 @@ public class Board extends JPanel implements ActionListener {
         repaint();
     }
 
-    private class TAdapter extends KeyAdapter {
-
-        @Override
-        public void keyPressed(KeyEvent e) {
-
-            int key = e.getKeyCode();
-
-            if ((key == KeyEvent.VK_LEFT) && (!rightDirection)) {
-                leftDirection = true;
-                upDirection = false;
-                downDirection = false;
-            }
-
-            if ((key == KeyEvent.VK_RIGHT) && (!leftDirection)) {
-                rightDirection = true;
-                upDirection = false;
-                downDirection = false;
-            }
-
-            if ((key == KeyEvent.VK_UP) && (!downDirection)) {
-                upDirection = true;
-                rightDirection = false;
-                leftDirection = false;
-            }
-
-            if ((key == KeyEvent.VK_DOWN) && (!upDirection)) {
-                downDirection = true;
-                rightDirection = false;
-                leftDirection = false;
-            }
-        }
-    }
 }

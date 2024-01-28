@@ -2,7 +2,9 @@ package views;
 
 import javax.swing.JFrame;
 
-import models.Board;
+import models.NoMazeMode;
+import models.TunnelMode;
+import models.BoxMode;
 
 public class Snake extends JFrame {
 
@@ -11,7 +13,7 @@ public class Snake extends JFrame {
     }
 
     private void initUI() {
-        add(new Board());
+        add(new TunnelMode());
 
         setResizable(false);
         pack();

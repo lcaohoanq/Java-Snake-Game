@@ -16,4 +16,5 @@ public class Paths {
     public static final String URL_BIG_APPLE = "src\\resources\\big_apple.png";
     public static final String URL_BIG_APPLE_DIS = "src\\resources\\bigAppleDis.wav";
     public static final String URL_BIG_APPLE_APP = "src\\resources\\bigAppleApp.wav";
+    public static final String URL_WALL = "src\\resources\\wall.png";
 }
