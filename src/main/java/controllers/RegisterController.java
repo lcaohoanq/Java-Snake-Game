@@ -2,7 +2,6 @@ package controllers;
 
 import constants.Messages;
 import constants.Regex;
-import errors.DBException;
 import errors.DataException;
 import models.Account;
 import models.RegisterData;
@@ -137,16 +136,32 @@ public class RegisterController implements ActionListener, MouseListener, Regist
     @Override
     public void mouseEntered(MouseEvent e) {
         if (e.getSource() == registerView.jTextField_Right_Middle_Username) {
-            registerView.setHoverUsername(true);
+            if (!registerView.getStatusToggle()) {
+                registerView.setHoverUsername(true, "light");
+            } else {
+                registerView.setHoverUsername(true, "dark");
+            }
         }
         if (e.getSource() == registerView.jPasswordField_Right_Middle_Password) {
-            registerView.setHoverPassword(true);
+            if (!registerView.getStatusToggle()) {
+                registerView.setHoverUserPassword(true, "light");
+            } else {
+                registerView.setHoverUserPassword(true, "dark");
+            }
         }
         if (e.getSource() == registerView.jPasswordField_Right_Middle_Confirm_Password) {
-            registerView.setHoverConfirmPassword(true);
+            if (!registerView.getStatusToggle()) {
+                registerView.setHoverConfirmPassword(true, "light");
+            } else {
+                registerView.setHoverConfirmPassword(true, "dark");
+            }
         }
         if (e.getSource() == registerView.jButton_Right_Bottom_Submit) {
-            registerView.setHoverButton(true);
+            if (!registerView.getStatusToggle()) {
+                registerView.setHoverUserButton(true, "light");
+            } else {
+                registerView.setHoverUserButton(true, "dark");
+            }
         }
         if (e.getSource() == registerView.jButton_Right_Bottom_Others) {
             registerView.setHoverOther(true);
@@ -156,16 +171,32 @@ public class RegisterController implements ActionListener, MouseListener, Regist
     @Override
     public void mouseExited(MouseEvent e) {
         if (e.getSource() == registerView.jTextField_Right_Middle_Username) {
-            registerView.setHoverUsername(false);
+            if (!registerView.getStatusToggle()) {
+                registerView.setHoverUsername(false, "light");
+            } else {
+                registerView.setHoverUsername(false, "dark");
+            }
         }
         if (e.getSource() == registerView.jPasswordField_Right_Middle_Password) {
-            registerView.setHoverPassword(false);
+            if (!registerView.getStatusToggle()) {
+                registerView.setHoverUserPassword(false, "light");
+            } else {
+                registerView.setHoverUserPassword(false, "dark");
+            }
         }
         if (e.getSource() == registerView.jPasswordField_Right_Middle_Confirm_Password) {
-            registerView.setHoverConfirmPassword(false);
+            if (!registerView.getStatusToggle()) {
+                registerView.setHoverConfirmPassword(false, "light");
+            } else {
+                registerView.setHoverConfirmPassword(false, "dark");
+            }
         }
         if (e.getSource() == registerView.jButton_Right_Bottom_Submit) {
-            registerView.setHoverButton(false);
+            if (!registerView.getStatusToggle()) {
+                registerView.setHoverUserButton(false, "light");
+            } else {
+                registerView.setHoverUserButton(false, "dark");
+            }
         }
         if (e.getSource() == registerView.jButton_Right_Bottom_Others) {
             registerView.setHoverOther(false);

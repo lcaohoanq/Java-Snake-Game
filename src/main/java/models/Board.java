@@ -67,7 +67,7 @@ public class Board extends JPanel implements ActionListener {
 
     private void initBoard() {
         addKeyListener(new TAdapter());
-        setBackground(Colors.BACKGROUND_COLOR);
+        setBackground(Colors.OTHER_OPTIONS_L);
         setFocusable(true);
         bottomPanel.setVisible(true);
         setPreferredSize(Sizes.SIZE_BOARD);
@@ -102,7 +102,7 @@ public class Board extends JPanel implements ActionListener {
         bigAppleProgressBar.setValue(100);
         bigAppleProgressBar.setStringPainted(true);
         bigAppleProgressBar.setForeground(Colors.PROGRESS_BAR_LOADING);
-        bigAppleProgressBar.setBackground(Colors.PRIMARY_COLOR);
+        bigAppleProgressBar.setBackground(Colors.PRIMARY_COLOR_L);
         bigAppleProgressBar.setVisible(false);
     }
 
@@ -110,7 +110,7 @@ public class Board extends JPanel implements ActionListener {
         initScoreLabel();
         initProgressBar();
         bottomPanel.setLayout(new BorderLayout());
-        bottomPanel.setBackground(Colors.OTHER_OPTIONS);
+        bottomPanel.setBackground(Colors.OTHER_OPTIONS_L);
         bottomPanel.setBorder(Borders.BOTTOM_SCORE_PROGRESS_BAR);
         bottomPanel.add(scoreLabel, BorderLayout.WEST);
         bottomPanel.add(bigAppleProgressBar, BorderLayout.EAST);
@@ -137,8 +137,8 @@ public class Board extends JPanel implements ActionListener {
     private void initPlayAgainButton() {
         playAgainButton = new JButton(Titles.PLAY_AGAIN);
         playAgainButton.setFont(Fonts.PLAY_EXIT_BUTTON);
-        playAgainButton.setBackground(Colors.TEXT_COLOR);
-        playAgainButton.setForeground(Colors.PRIMARY_COLOR);
+        playAgainButton.setBackground(Colors.TEXT_COLOR_L);
+        playAgainButton.setForeground(Colors.PRIMARY_COLOR_L);
         playAgainButton.addActionListener(e -> {
             // Reset game parameters and restart the game
             resetGame();
@@ -152,7 +152,7 @@ public class Board extends JPanel implements ActionListener {
         exitButton = new JButton(Titles.EXIT);
         exitButton.setFont(Fonts.PLAY_EXIT_BUTTON);
         exitButton.setBackground(Colors.PROGRESS_BAR_LOADING);
-        exitButton.setForeground(Colors.PRIMARY_COLOR);
+        exitButton.setForeground(Colors.PRIMARY_COLOR_L);
         exitButton.addActionListener(e -> {
             if (Messages.IS_CONFIRM_EXIT() == JOptionPane.YES_OPTION) {
                 SwingUtilities.getWindowAncestor(this).dispose();
@@ -192,7 +192,7 @@ public class Board extends JPanel implements ActionListener {
         super.paintComponent(g);
 
         doDrawing(g);
-        g.setColor(Colors.PRIMARY_COLOR);
+        g.setColor(Colors.PRIMARY_COLOR_L);
         g.drawLine(0, lineBottom, Sizes.WIDTH_BOARD, lineBottom);
     }
 
@@ -233,7 +233,7 @@ public class Board extends JPanel implements ActionListener {
         String msg = Titles.GAME_OVER;
         FontMetrics metr = getFontMetrics(Fonts.GAME_OVER);
 
-        g.setColor(Colors.PRIMARY_COLOR);
+        g.setColor(Colors.PRIMARY_COLOR_L);
         g.setFont(Fonts.GAME_OVER);
         g.drawString(msg, (Sizes.WIDTH_BOARD - metr.stringWidth(msg)) / 2, (Sizes.HEIGHT_BOARD - 100) / 2);
         // Show the "Play Again" and "Exit" button after displaying "Game Over" message

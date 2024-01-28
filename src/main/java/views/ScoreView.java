@@ -16,8 +16,8 @@ import styles.Fonts;
 
 public class ScoreView extends JFrame {
 
-    JPanel jPanel_Container = new JPanel();
     public JTextArea jTextArea_Score = new JTextArea();
+    JPanel jPanel_Container = new JPanel();
     JScrollPane jScrollPane_Score = new JScrollPane(jTextArea_Score);
     JLabel jLabel_Title = new JLabel("SCORE BOARD", JLabel.CENTER);
 
@@ -39,7 +39,7 @@ public class ScoreView extends JFrame {
     }
 
     public void initTopZone() {
-        jLabel_Title.setForeground(Colors.TEXT_COLOR);
+        jLabel_Title.setForeground(Colors.TEXT_COLOR_L);
         jLabel_Title.setFont(Fonts.BUTTON);
         jLabel_Title.setBorder(Borders.MIDDLE);
     }

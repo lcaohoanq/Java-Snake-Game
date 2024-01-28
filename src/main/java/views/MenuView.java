@@ -1,21 +1,14 @@
 package views;
 
-import constants.Paths;
 import constants.Sizes;
-import controllers.LoginController;
 import controllers.MenuController;
 import models.MenuModel;
 import styles.Borders;
 import styles.Colors;
 import styles.Fonts;
-import utils.AudioHandler;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
 public class MenuView extends JFrame {
     public JButton jButton_1 = new JButton("Classic");
@@ -45,35 +38,35 @@ public class MenuView extends JFrame {
     private void initUI() {
         jLabel_Title = new JLabel("Snake Game", JLabel.CENTER);
         jLabel_Title.setFont(Fonts.RIGHT_TITLE);
-        jLabel_Title.setForeground(Colors.TEXT_COLOR);
+        jLabel_Title.setForeground(Colors.TEXT_COLOR_L);
         jLabel_Title.setBorder(Borders.CONTAINER_MENU);
 
-        jButton_1.setBackground(Colors.TEXT_COLOR);
-        jButton_1.setForeground(Colors.PRIMARY_COLOR);
+        jButton_1.setBackground(Colors.TEXT_COLOR_L);
+        jButton_1.setForeground(Colors.PRIMARY_COLOR_L);
         jButton_1.setFont(Fonts.BUTTON);
-        jButton_2.setBackground(Colors.TEXT_COLOR);
-        jButton_2.setForeground(Colors.PRIMARY_COLOR);
+        jButton_2.setBackground(Colors.TEXT_COLOR_L);
+        jButton_2.setForeground(Colors.PRIMARY_COLOR_L);
         jButton_2.setFont(Fonts.BUTTON);
-        jButton_3.setBackground(Colors.TEXT_COLOR);
-        jButton_3.setForeground(Colors.PRIMARY_COLOR);
+        jButton_3.setBackground(Colors.TEXT_COLOR_L);
+        jButton_3.setForeground(Colors.PRIMARY_COLOR_L);
         jButton_3.setFont(Fonts.BUTTON);
-        jButton_4.setBackground(Colors.TEXT_COLOR);
-        jButton_4.setForeground(Colors.PRIMARY_COLOR);
+        jButton_4.setBackground(Colors.TEXT_COLOR_L);
+        jButton_4.setForeground(Colors.PRIMARY_COLOR_L);
         jButton_4.setFont(Fonts.BUTTON);
-        jButton_5.setBackground(Colors.TEXT_COLOR);
-        jButton_5.setForeground(Colors.PRIMARY_COLOR);
+        jButton_5.setBackground(Colors.TEXT_COLOR_L);
+        jButton_5.setForeground(Colors.PRIMARY_COLOR_L);
         jButton_5.setFont(Fonts.BUTTON);
-        jButton_6.setBackground(Colors.TEXT_COLOR);
-        jButton_6.setForeground(Colors.PRIMARY_COLOR);
+        jButton_6.setBackground(Colors.TEXT_COLOR_L);
+        jButton_6.setForeground(Colors.PRIMARY_COLOR_L);
         jButton_6.setFont(Fonts.BUTTON);
-        jButton_7.setBackground(Colors.TEXT_COLOR);
-        jButton_7.setForeground(Colors.PRIMARY_COLOR);
+        jButton_7.setBackground(Colors.TEXT_COLOR_L);
+        jButton_7.setForeground(Colors.PRIMARY_COLOR_L);
         jButton_7.setFont(Fonts.BUTTON);
-        jButton_8.setBackground(Colors.TEXT_COLOR);
-        jButton_8.setForeground(Colors.PRIMARY_COLOR);
+        jButton_8.setBackground(Colors.TEXT_COLOR_L);
+        jButton_8.setForeground(Colors.PRIMARY_COLOR_L);
         jButton_8.setFont(Fonts.BUTTON);
-        jButton_9.setBackground(Colors.TEXT_COLOR);
-        jButton_9.setForeground(Colors.PRIMARY_COLOR);
+        jButton_9.setBackground(Colors.TEXT_COLOR_L);
+        jButton_9.setForeground(Colors.PRIMARY_COLOR_L);
         jButton_9.setFont(Fonts.BUTTON);
 
         jButton_1.addMouseListener(new MenuController(this));
@@ -86,7 +79,7 @@ public class MenuView extends JFrame {
         jButton_6.addMouseListener(new MenuController(this));
         jButton_9.addMouseListener(new MenuController(this));
 
-        jPanel_Button.setBackground(Colors.PRIMARY_COLOR);
+        jPanel_Button.setBackground(Colors.PRIMARY_COLOR_L);
         jPanel_Button.add(jButton_1);
         jPanel_Button.add(jButton_2);
         jPanel_Button.add(jButton_3);
@@ -98,18 +91,18 @@ public class MenuView extends JFrame {
         jPanel_Button.add(jButton_9);
 
         jPanel_Container = new JPanel(new BorderLayout());
-        jPanel_Container.setBackground(Colors.PRIMARY_COLOR);
+        jPanel_Container.setBackground(Colors.PRIMARY_COLOR_L);
         jPanel_Container.add(jLabel_Title, BorderLayout.NORTH);
         jPanel_Container.add(jPanel_Button, BorderLayout.CENTER);
         add(jPanel_Container);
     }
 
     public void setHoverButton(JButton jButton) {
-        jButton.setBackground(Colors.TEXT_COLOR_HOVER);
+        jButton.setBackground(Colors.TEXT_COLOR_L_HOVER);
     }
 
     public void setUnHoverButton(JButton jButton) {
-        jButton.setBackground(Colors.TEXT_COLOR);
+        jButton.setBackground(Colors.TEXT_COLOR_L);
     }
 
 }

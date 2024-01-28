@@ -13,10 +13,12 @@ import styles.Images;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
 
 public abstract class MyFrame extends JFrame {
 
     public static JPanel jPanel_Right_Bottom_Button;
+    protected static Toggle toggleButton;
     public JTextField jTextField_Right_Middle_Username; // 20 is the number of columns
     public JPasswordField jPasswordField_Right_Middle_Password;
     public JPasswordField jPasswordField_Right_Middle_Confirm_Password;
@@ -37,9 +39,8 @@ public abstract class MyFrame extends JFrame {
     protected JButton jButton_Right_Play;
     protected JPanel jPanel_Right_Bottom_Option;
     protected JLabel jLabel_Right_Bottom_Option;
+    protected JPanel jPanel_Left_Icon;
     private JPanel jPanel_Left;
-    //  private JLabel jLabel_Left_Tittle;
-    private JPanel jPanel_Left_Icon;
     private JLabel jLabel_Left_Icon;
     // MenuBar
     private JMenuBar jMenuBar;
@@ -62,6 +63,7 @@ public abstract class MyFrame extends JFrame {
         initMenu();
         initLeft();
         initRight();
+        initToggle();
         initContainer();
         doAction();
     }
@@ -83,7 +85,7 @@ public abstract class MyFrame extends JFrame {
 
         jPanel_Left_Icon = new JPanel(new BorderLayout());
         jPanel_Left_Icon.setPreferredSize(new Dimension(100, 100));
-        jPanel_Left_Icon.setBackground(Colors.TEXT_COLOR);
+        jPanel_Left_Icon.setBackground(Colors.TEXT_COLOR_L);
 
         // Use the new image "250-250.png"
         jLabel_Left_Icon = new JLabel(
@@ -91,7 +93,7 @@ public abstract class MyFrame extends JFrame {
         jPanel_Left_Icon.add(jLabel_Left_Icon, BorderLayout.CENTER);
 
         jPanel_Left.setPreferredSize(new Dimension(Sizes.WIDTH_MY_LEFT_FRAME, Sizes.HEIGHT_MY_LEFT_FRAME));
-        jPanel_Left.setBackground(Colors.TEXT_COLOR);
+        jPanel_Left.setBackground(Colors.TEXT_COLOR_L);
         jPanel_Left.setBorder(Borders.TITLE);
 
         jPanel_Left.add(jPanel_Left_Icon, BorderLayout.CENTER);
@@ -105,10 +107,127 @@ public abstract class MyFrame extends JFrame {
 
     public abstract void initRightBottom();
 
+    protected void initToggle() {
+        toggleButton = new Toggle();
+        toggleButton.addEventSelected(selected -> {
+            if (selected) {
+                jLabel_Right_Middle_Username.setForeground(Colors.TEXT_COLOR_D);
+                jTextField_Right_Middle_Username.setForeground(Colors.TEXT_COLOR_D);
+                jTextField_Right_Middle_Username.setBackground(Colors.SECONDARY_COLOR_D);
+                jLabel_Right_Middle_Password.setForeground(Colors.TEXT_COLOR_D);
+                jLabel_Right_Top_Tittle.setForeground(Colors.TEXT_COLOR_D);
+                jPasswordField_Right_Middle_Password.setBackground(Colors.SECONDARY_COLOR_D);
+                jPasswordField_Right_Middle_Password.setForeground(Colors.TEXT_COLOR_D);
+                jButton_Right_Bottom_Submit.setForeground(Colors.PRIMARY_COLOR_D);
+                jButton_Right_Bottom_Submit.setBackground(Colors.TEXT_COLOR_D);
+                jButton_Right_Bottom_Others.setForeground(Colors.OTHER_OPTIONS_D);
+                jButton_Right_Bottom_Others.setBackground(Colors.PRIMARY_COLOR_D);
+                jPanel_Right_Middle_Username.setBackground(Colors.PRIMARY_COLOR_D);
+                jPanel_Right_Middle_Password.setBackground(Colors.PRIMARY_COLOR_D);
+                jPanel_Right_Bottom_Button.setBackground(Colors.PRIMARY_COLOR_D);
+                jPanel_Right_Middle_Data.setBackground(Colors.PRIMARY_COLOR_D);
+                jLabel_Right_Bottom_Option.setForeground(Colors.TEXT_COLOR_D);
+                jLabel_Right_Bottom_Option.setBackground(Colors.PRIMARY_COLOR_D);
+                jPanel_Right_Bottom_Option.setBackground(Colors.PRIMARY_COLOR_D);
+                jLabel_Right_Top_Tittle.setBackground(Colors.PRIMARY_COLOR_D);
+                jPanel_Right_Top_Tittle.setBackground(Colors.PRIMARY_COLOR_D);
+                jPanel_Left_Icon.setBackground(Colors.TEXT_COLOR_D);
+                jPanel_Left.setBackground(Colors.TEXT_COLOR_D);
+                jPanel_Container.setBackground(Colors.TEXT_COLOR_D);
+                jPanel_Right.setBackground(Colors.PRIMARY_COLOR_D);
+            } else {
+                jLabel_Right_Middle_Username.setForeground(Colors.TEXT_COLOR_L);
+                jTextField_Right_Middle_Username.setForeground(Colors.TEXT_COLOR_L);
+                jTextField_Right_Middle_Username.setBackground(Colors.SECONDARY_COLOR_L);
+                jLabel_Right_Middle_Password.setForeground(Colors.TEXT_COLOR_L);
+                jPasswordField_Right_Middle_Password.setBackground(Colors.SECONDARY_COLOR_L);
+                jPasswordField_Right_Middle_Password.setForeground(Colors.TEXT_COLOR_L);
+                jPanel_Right_Middle_Username.setBackground(Colors.PRIMARY_COLOR_L);
+                jPanel_Right_Middle_Password.setBackground(Colors.PRIMARY_COLOR_L);
+                jButton_Right_Bottom_Submit.setForeground(Colors.PRIMARY_COLOR_L);
+                jButton_Right_Bottom_Submit.setBackground(Colors.TEXT_COLOR_L);
+                jPanel_Right_Bottom_Button.setBackground(Colors.PRIMARY_COLOR_L);
+                jPanel_Right_Middle_Data.setBackground(Colors.PRIMARY_COLOR_L);
+                jButton_Right_Bottom_Others.setForeground(Colors.OTHER_OPTIONS_L);
+                jButton_Right_Bottom_Others.setBackground(Colors.PRIMARY_COLOR_L);
+                jPanel_Right_Bottom_Option.setBackground(Colors.PRIMARY_COLOR_L);
+                jLabel_Right_Top_Tittle.setForeground(Colors.TEXT_COLOR_L);
+                jLabel_Right_Bottom_Option.setForeground(Colors.TEXT_COLOR_L);
+                jLabel_Right_Bottom_Option.setBackground(Colors.PRIMARY_COLOR_L);
+                jPanel_Right_Top_Tittle.setBackground(Colors.PRIMARY_COLOR_L);
+                jPanel_Left_Icon.setBackground(Colors.TEXT_COLOR_L);
+                jPanel_Left.setBackground(Colors.TEXT_COLOR_L);
+                jPanel_Container.setBackground(Colors.TEXT_COLOR_L);
+                jPanel_Right.setBackground(Colors.PRIMARY_COLOR_L);
+            }
+        });
+        jPanel_Right_Bottom_Option.add(toggleButton, FlowLayout.RIGHT);
+    }
+
+    public void setHoverUsername(boolean isInside, String mode) {
+        if (isInside) {
+            if (mode.equals("light")) {
+                jTextField_Right_Middle_Username.setBackground(Colors.SECONDARY_COLOR_L_HOVER);
+            } else {
+                jTextField_Right_Middle_Username.setBackground(Colors.SECONDARY_COLOR_D_HOVER);
+            }
+        } else {
+            if (mode.equals("light")) {
+                jTextField_Right_Middle_Username.setBackground(Colors.SECONDARY_COLOR_L);
+            } else {
+                jTextField_Right_Middle_Username.setBackground(Colors.SECONDARY_COLOR_D);
+            }
+        }
+    }
+
+    public void setHoverUserPassword(boolean isInside, String mode) {
+        if (isInside) {
+            if (mode.equals("light")) {
+                jPasswordField_Right_Middle_Password.setBackground(Colors.SECONDARY_COLOR_L_HOVER);
+            } else {
+                jPasswordField_Right_Middle_Password.setBackground(Colors.SECONDARY_COLOR_D_HOVER);
+            }
+        } else {
+            if (mode.equals("light")) {
+                jPasswordField_Right_Middle_Password.setBackground(Colors.SECONDARY_COLOR_L);
+            } else {
+                jPasswordField_Right_Middle_Password.setBackground(Colors.SECONDARY_COLOR_D);
+            }
+        }
+    }
+
+    public void setHoverUserButton(boolean isInside, String mode) {
+        if (isInside) {
+            if (mode.equals("light")) {
+                jButton_Right_Bottom_Submit.setBackground(Colors.TEXT_COLOR_L_HOVER);
+            } else {
+                jButton_Right_Bottom_Submit.setBackground(Colors.TEXT_COLOR_D_HOVER);
+            }
+        } else {
+            if (mode.equals("light")) {
+                jButton_Right_Bottom_Submit.setBackground(Colors.TEXT_COLOR_L);
+            } else {
+                jButton_Right_Bottom_Submit.setBackground(Colors.TEXT_COLOR_D);
+            }
+        }
+    }
+
+    public void setHoverOther(boolean isInside) {
+        if (isInside) {
+            jButton_Right_Bottom_Others.setFont(Fonts.OTHERS_HOVER);
+        } else {
+            jButton_Right_Bottom_Others.setFont(Fonts.OTHERS);
+        }
+    }
+
+    public boolean getStatusToggle() {
+        return toggleButton.isSelected();
+    }
+
     protected void initContainer() {
         jPanel_Container = new JPanel();
         jPanel_Container.setLayout(new BorderLayout());
-        jPanel_Container.setBackground(Colors.PRIMARY_COLOR);
+        jPanel_Container.setBackground(Colors.PRIMARY_COLOR_L);
         jPanel_Container.add(jPanel_Left, BorderLayout.WEST);
         jPanel_Container.add(jPanel_Right, BorderLayout.CENTER);
         this.add(jPanel_Container);

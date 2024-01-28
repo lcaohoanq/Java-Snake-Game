@@ -1,7 +1,6 @@
 package controllers;
 
 import constants.Messages;
-import errors.DBException;
 import errors.DataException;
 import models.Account;
 import models.LoginData;
@@ -108,13 +107,25 @@ public class LoginController implements ActionListener, MouseListener, LoginData
     @Override
     public void mouseEntered(MouseEvent e) {
         if (e.getSource() == loginView.jTextField_Right_Middle_Username) {
-            loginView.setHoverUsername(true);
+            if (!loginView.getStatusToggle()) {
+                loginView.setHoverUsername(true, "light");
+            } else {
+                loginView.setHoverUsername(true, "dark");
+            }
         }
         if (e.getSource() == loginView.jPasswordField_Right_Middle_Password) {
-            loginView.setHoverPassword(true);
+            if (!loginView.getStatusToggle()) {
+                loginView.setHoverUserPassword(true, "light");
+            } else {
+                loginView.setHoverUserPassword(true, "dark");
+            }
         }
         if (e.getSource() == loginView.jButton_Right_Bottom_Submit) {
-            loginView.setHoverButton(true);
+            if (!loginView.getStatusToggle()) {
+                loginView.setHoverUserButton(true, "light");
+            } else {
+                loginView.setHoverUserButton(true, "dark");
+            }
         }
         if (e.getSource() == loginView.jButton_Right_Bottom_Others) {
             loginView.setHoverOther(true);
@@ -124,13 +135,25 @@ public class LoginController implements ActionListener, MouseListener, LoginData
     @Override
     public void mouseExited(MouseEvent e) {
         if (e.getSource() == loginView.jTextField_Right_Middle_Username) {
-            loginView.setHoverUsername(false);
+            if (!loginView.getStatusToggle()) {
+                loginView.setHoverUsername(false, "light");
+            } else {
+                loginView.setHoverUsername(false, "dark");
+            }
         }
         if (e.getSource() == loginView.jPasswordField_Right_Middle_Password) {
-            loginView.setHoverPassword(false);
+            if (!loginView.getStatusToggle()) {
+                loginView.setHoverUserPassword(false, "light");
+            } else {
+                loginView.setHoverUserPassword(false, "dark");
+            }
         }
         if (e.getSource() == loginView.jButton_Right_Bottom_Submit) {
-            loginView.setHoverButton(false);
+            if (!loginView.getStatusToggle()) {
+                loginView.setHoverUserButton(false, "light");
+            } else {
+                loginView.setHoverUserButton(false, "dark");
+            }
         }
         if (e.getSource() == loginView.jButton_Right_Bottom_Others) {
             loginView.setHoverOther(false);
