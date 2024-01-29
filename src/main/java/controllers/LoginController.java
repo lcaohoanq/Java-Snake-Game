@@ -2,8 +2,8 @@ package controllers;
 
 import constants.Messages;
 import errors.DataException;
-import models.Account;
-import models.LoginData;
+import models.data.Account;
+import models.data.LoginData;
 import services.DBServices;
 import utils.PasswordHandler;
 import views.LoginView;

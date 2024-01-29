@@ -1,4 +1,4 @@
-package models;
+package models.board;
 
 import constants.Messages;
 import constants.Paths;
@@ -18,35 +18,33 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
-public class Board extends JPanel implements ActionListener {
+public abstract class Board extends JPanel implements ActionListener {
 
     // Board dimensions and settings
-    private final int DOT_SIZE = 10;        // Size of the snake's body
+    protected final int DOT_SIZE = 10;        // Size of the snake's body
+    protected final int RAND_POS = 29;        // Random positioning parameter
     private final int ALL_DOTS = 900;       // Maximum number of dots on the board
-    private final int RAND_POS = 29;        // Random positioning parameter
-    private final int DELAY = 50;           // Timer delay for the game loop
     // Snake position and movement
-    private final int[] x = new int[ALL_DOTS];  // X-coordinate of each snake dot
-    private final int[] y = new int[ALL_DOTS];  // Y-coordinate of each snake dot
+    protected final int[] x = new int[ALL_DOTS];  // X-coordinate of each snake dot
+    protected final int[] y = new int[ALL_DOTS];  // Y-coordinate of each snake dot
+    private final int DELAY = 50;           // Timer delay for the game loop
     private final int DECREASE_DELAY = 2;       // Decrease delay for faster snake movement
+    protected boolean inGame = true;    // Flag indicating whether the game is currently active
+    protected int dots;                          // Current number of snake dots
+    protected int apple_count = 0;               // Counter for regular apples
+    protected int apple_x;                       // X-coordinate of a regular apple
+    protected int bigApple_x;                    // X-coordinate of a big apple
+    protected int bigApple_y;                    // Y-coordinate of a big apple
+    protected int apple_y;                       // Y-coordinate of a regular apple
+    // Game timers and images
+    protected Timer timer;                       // Timer for regular game events
     // Game state variables
     private int score = 0;            // Player's score
-    private boolean inGame = true;    // Flag indicating whether the game is currently active
-    private int dots;                          // Current number of snake dots
-    private int apple_count = 0;               // Counter for regular apples
-    private int apple_x;                       // X-coordinate of a regular apple
-    private int bigApple_x;                    // X-coordinate of a big apple
-    private int bigApple_y;                    // Y-coordinate of a big apple
-    private int apple_y;                       // Y-coordinate of a regular apple
-
     // Snake movement directions
     private boolean leftDirection = false;     // Flag for moving left
     private boolean rightDirection = true;     // Flag for moving right
     private boolean upDirection = false;       // Flag for moving up
     private boolean downDirection = false;     // Flag for moving down
-
-    // Game timers and images
-    private Timer timer;                       // Timer for regular game events
     private Timer bigAppleTimer;               // Timer for big apple appearance
     private Image ball;                        // Snake body image
     private Image apple;                       // Regular apple image
@@ -117,7 +115,7 @@ public class Board extends JPanel implements ActionListener {
         add(bottomPanel, BorderLayout.SOUTH);
     }
 
-    private void renderProgressBar() {
+    protected void renderProgressBar() {
         // Display the progress bar
         bigAppleProgressBar.setVisible(true);
         // Start the progress bar
@@ -163,7 +161,7 @@ public class Board extends JPanel implements ActionListener {
         exitButton.setVisible(false); // Initially, hide the button
     }
 
-    private void loadImages() {
+    protected void loadImages() {
 
         ball = new ImageIcon(Paths.URL_DOT).getImage();
 
@@ -341,70 +339,11 @@ public class Board extends JPanel implements ActionListener {
         }
     }
 
-    private void checkCollision() {
+    protected abstract void checkCollision();
 
-        for (int z = dots; z > 0; z--) {
+    protected abstract void locateApple();
 
-            if ((z > 4) && (x[0] == x[z]) && (y[0] == y[z])) {
-                inGame = false;
-                break;
-            }
-        }
-
-        if (y[0] >= Sizes.HEIGHT_BOARD - 50) {
-            y[0] = 0;
-        }
-
-        if (y[0] < 0) {
-            y[0] = Sizes.HEIGHT_BOARD - 50 - DOT_SIZE;
-        }
-
-        if (x[0] >= Sizes.WIDTH_BOARD) {
-            x[0] = 0;
-        }
-
-        if (x[0] < 0) {
-            x[0] = Sizes.WIDTH_BOARD - DOT_SIZE;
-        }
-
-        if (!inGame) {
-            if (isOnSound()) {
-                setAudio(Paths.URL_GAME_OVER);
-            }
-            timer.stop();
-        }
-    }
-
-    private void locateApple() {
-
-        if (apple_count % 5 == 0 && apple_count != 0) {
-            locateBigApple();
-        } else {
-            bigApple_x = -100;
-            int r = (int) (Math.random() * RAND_POS);
-            apple_x = ((r * DOT_SIZE));
-
-            bigApple_y = -100;
-            r = (int) (Math.random() * RAND_POS);
-            apple_y = ((r * DOT_SIZE) + DOT_SIZE);
-        }
-    }
-
-    public void locateBigApple() {
-        if (isOnSound()) {
-            setAudio(Paths.URL_BIG_APPLE_APP);
-        }
-        int r = (int) (Math.random() * RAND_POS);
-        bigApple_x = ((r * DOT_SIZE));
-        apple_x = -100;
-
-        r = (int) (Math.random() * RAND_POS);
-        bigApple_y = ((r * DOT_SIZE));
-        apple_y = -100;
-        setBigAppleTime();
-        renderProgressBar();
-
-    }
+    protected abstract void locateBigApple();
 
     public void setBigAppleTime() {
         // neu ma bigAppleTimer dang null thi tao mot timer moi
@@ -428,11 +367,11 @@ public class Board extends JPanel implements ActionListener {
         bigAppleTimer.start();
     }
 
-    private boolean isOnSound() {
+    protected boolean isOnSound() {
         return !AudioHandler.isEmptyPath();
     }
 
-    private void setAudio(String path) {
+    protected void setAudio(String path) {
         AudioHandler.playAudio(path);
     }
 

@@ -3,7 +3,7 @@ package views;
 import constants.Sizes;
 import constants.Titles;
 import controllers.RegisterController;
-import models.Account;
+import models.data.Account;
 import styles.Borders;
 import styles.Colors;
 import styles.Fonts;

@@ -1,4 +1,4 @@
-package models;
+package models.data;
 
 public record Account(String username, String password, String confirmPassword, int score) {
 

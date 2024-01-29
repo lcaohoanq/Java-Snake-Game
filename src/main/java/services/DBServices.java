@@ -1,7 +1,7 @@
 package services;
 
 import errors.DBException;
-import models.Account;
+import models.data.Account;
 
 import java.io.BufferedReader;
 import java.io.FileReader;

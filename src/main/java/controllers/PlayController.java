@@ -9,6 +9,7 @@ import views.MenuView;
 import views.Snake;
 
 public class PlayController implements ActionListener {
+    public static MenuView menuView;
     private LoginView loginView;
 
     public PlayController(LoginView loginView) {
@@ -21,7 +22,7 @@ public class PlayController implements ActionListener {
         EventQueue.invokeLater(() -> {
 //      Snake snake = new Snake();
 //      snake.startGame();
-            MenuView menuView = new MenuView();
+            menuView = new MenuView();
             menuView.setVisible(true);
         });
     }
