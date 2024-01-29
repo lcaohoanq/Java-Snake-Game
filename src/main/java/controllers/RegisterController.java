@@ -14,7 +14,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-public class RegisterController implements ActionListener, MouseListener, RegisterData {
+public non-sealed class RegisterController implements ActionListener, MouseListener, RegisterData {
 
     private String username;
     private String password;

@@ -13,7 +13,7 @@ import utils.ToggleHandler;
 import javax.swing.*;
 import java.awt.*;
 
-public class RegisterView extends MyFrame implements ToggleHandler, HoverHandler {
+public non-sealed class RegisterView extends MyFrame implements ToggleHandler, HoverHandler {
 
     public RegisterView() {
         super();
@@ -211,7 +211,12 @@ public class RegisterView extends MyFrame implements ToggleHandler, HoverHandler
     }
 
     @Override
-    public boolean getStatusToggle() {
-        return toggleButton.isSelected();
+    public void changeColorBaseOnToggle() {
+
     }
+
+//    @Override
+//    public boolean getStatusToggle() {
+//        return toggleButton.isSelected();
+//    }
 }

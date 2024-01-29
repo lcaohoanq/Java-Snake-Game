@@ -5,5 +5,9 @@ import views.Toggle;
 public interface ToggleHandler {
     Toggle toggleButton = new Toggle();
 
-    boolean getStatusToggle();
+    void changeColorBaseOnToggle();
+
+    default boolean getStatusToggle() {
+        return toggleButton.isSelected() ? true : false;
+    }
 }

@@ -16,7 +16,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
-public abstract class MyFrame extends JFrame implements ToggleHandler, HoverHandler {
+public abstract sealed class MyFrame extends JFrame implements ToggleHandler, HoverHandler permits LoginView, RegisterView {
 
     public static JPanel jPanel_Right_Bottom_Button;
     public JTextField jTextField_Right_Middle_Username; // 20 is the number of columns

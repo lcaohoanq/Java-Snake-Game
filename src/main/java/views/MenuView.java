@@ -15,7 +15,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class MenuView extends JFrame implements ToggleHandler, HoverHandler {
+public non-sealed class MenuView extends JFrame implements ToggleHandler, HoverHandler {
     public JButton jButton_1 = new JButton("Classic");
     public JButton jButton_2 = new JButton("Modern");
     public JButton jButton_3 = new JButton("Campaign");
@@ -30,7 +30,6 @@ public class MenuView extends JFrame implements ToggleHandler, HoverHandler {
     JLabel jLabel_Title = new JLabel("Snake Game", JLabel.CENTER);
     JPanel jPanel_Button = new JPanel(new GridLayout(3, 1, 30, 20));
     boolean isActive;
-    ;
     private JMenuBar jMenuBar = new JMenuBar();
     private JMenu jMenu = new JMenu("HELP");
     private JMenuItem jMenuItem_Back_To_Main_Menu = new JMenuItem("Back to main menu");
@@ -105,7 +104,8 @@ public class MenuView extends JFrame implements ToggleHandler, HoverHandler {
         add(jPanel_Container);
     }
 
-    private void changeColorBaseOnToggle() {
+    @Override
+    public void changeColorBaseOnToggle() {
         //if toggle is on, change color to dark
         if (getStatusToggle()) {
             jLabel_Title.setForeground(Colors.TEXT_COLOR_D);
@@ -177,10 +177,10 @@ public class MenuView extends JFrame implements ToggleHandler, HoverHandler {
         jButton.setBackground(Colors.TEXT_COLOR_L);
     }
 
-    @Override
-    public boolean getStatusToggle() {
-        return toggleButton.isSelected() ? true : false;
-    }
+//    @Override
+//    public boolean getStatusToggle() {
+//        return toggleButton.isSelected() ? true : false;
+//    }
 
     @Override
     public void setHoverUsername(boolean isInside, String mode) {
@@ -230,9 +230,11 @@ public class MenuView extends JFrame implements ToggleHandler, HoverHandler {
         return isActive = value;
     }
 
-    public class MenuModern extends JFrame implements ActionListener, ToggleHandler, HoverHandler {
+    public non-sealed class MenuModern extends JFrame implements ActionListener, ToggleHandler, HoverHandler {
         //6 button: No Maze, Box, Tunnel, Mill, Rails, Apartment
+        public JPanel jPanel_Container = new JPanel();
         public JPanel jPanel_Menu_Mordern = new JPanel(new GridLayout(6, 1, 30, 20));
+        public JLabel jLabel_Title = new JLabel("Snake Game");
         public JButton jButton_4 = new JButton("No Maze");
         public JButton jButton_5 = new JButton("Box");
         public JButton jButton_6 = new JButton("Tunnel");
@@ -242,7 +244,7 @@ public class MenuView extends JFrame implements ToggleHandler, HoverHandler {
 
         public MenuModern() {
             setTitle("Modern Menu");
-            setSize(Sizes.WIDTH_MY_FRAME, Sizes.HEIGHT_MY_FRAME);
+            setSize(Sizes.WIDTH_SCORE_FORM, Sizes.HEIGHT_MY_FRAME);
             setLocationRelativeTo(null);
             setResizable(false);
             setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -251,9 +253,19 @@ public class MenuView extends JFrame implements ToggleHandler, HoverHandler {
         }
 
         private void initUIMenuModern() {
+            initLabel();
             initButtonMenuModern();
             initContainerMenuModern();
+            changeColorBaseOnToggle();
             doActionMenuModern();
+        }
+
+        private void initLabel() {
+            jLabel_Title.setFont(Fonts.RIGHT_TITLE);
+            jLabel_Title.setBackground(Colors.PRIMARY_COLOR_L);
+            jLabel_Title.setForeground(Colors.TEXT_COLOR_L);
+            jLabel_Title.setBorder(Borders.TITLE);
+            jLabel_Title.setHorizontalAlignment(SwingConstants.CENTER);
         }
 
         private void initButtonMenuModern() {
@@ -284,9 +296,13 @@ public class MenuView extends JFrame implements ToggleHandler, HoverHandler {
         }
 
         private void initContainerMenuModern() {
-            jPanel_Menu_Mordern.setBorder(Borders.CONTAINER_MENU);
+            jPanel_Menu_Mordern.setBorder(Borders.TITLE);
             jPanel_Menu_Mordern.setBackground(Colors.PRIMARY_COLOR_L);
-            add(jPanel_Menu_Mordern);
+            jPanel_Container.setBackground(Colors.PRIMARY_COLOR_L);
+            jPanel_Container.setLayout(new BorderLayout());
+            jPanel_Container.add(jLabel_Title, BorderLayout.NORTH);
+            jPanel_Container.add(jPanel_Menu_Mordern, BorderLayout.CENTER);
+            add(jPanel_Container);
         }
 
         private void doActionMenuModern() {
@@ -320,10 +336,10 @@ public class MenuView extends JFrame implements ToggleHandler, HoverHandler {
             }
         }
 
-        @Override
-        public boolean getStatusToggle() {
-            return toggleButton.isSelected();
-        }
+//        @Override
+//        public boolean getStatusToggle() {
+//            return toggleButton.isSelected();
+//        }
 
         @Override
         public void setHoverUsername(boolean isInside, String mode) {
@@ -365,6 +381,45 @@ public class MenuView extends JFrame implements ToggleHandler, HoverHandler {
         @Override
         public void setHoverOther(boolean isInside) {
 
+        }
+
+        @Override
+        public void changeColorBaseOnToggle() {
+            if (MenuView.this.getStatusToggle()) {
+                jLabel_Title.setBackground(Colors.PRIMARY_COLOR_D);
+                jLabel_Title.setForeground(Colors.TEXT_COLOR_D);
+                jButton_4.setBackground(Colors.TEXT_COLOR_D);
+                jButton_4.setForeground(Colors.PRIMARY_COLOR_D);
+                jButton_5.setBackground(Colors.TEXT_COLOR_D);
+                jButton_5.setForeground(Colors.PRIMARY_COLOR_D);
+                jButton_6.setBackground(Colors.TEXT_COLOR_D);
+                jButton_6.setForeground(Colors.PRIMARY_COLOR_D);
+                jButton_7.setBackground(Colors.TEXT_COLOR_D);
+                jButton_7.setForeground(Colors.PRIMARY_COLOR_D);
+                jButton_8.setBackground(Colors.TEXT_COLOR_D);
+                jButton_8.setForeground(Colors.PRIMARY_COLOR_D);
+                jButton_9.setBackground(Colors.TEXT_COLOR_D);
+                jButton_9.setForeground(Colors.PRIMARY_COLOR_D);
+                jPanel_Menu_Mordern.setBackground(Colors.PRIMARY_COLOR_D);
+                jPanel_Container.setBackground(Colors.PRIMARY_COLOR_D);
+            } else {
+                jLabel_Title.setBackground(Colors.PRIMARY_COLOR_L);
+                jLabel_Title.setForeground(Colors.TEXT_COLOR_L);
+                jButton_4.setBackground(Colors.TEXT_COLOR_L);
+                jButton_4.setForeground(Colors.PRIMARY_COLOR_L);
+                jButton_5.setBackground(Colors.TEXT_COLOR_L);
+                jButton_5.setForeground(Colors.PRIMARY_COLOR_L);
+                jButton_6.setBackground(Colors.TEXT_COLOR_L);
+                jButton_6.setForeground(Colors.PRIMARY_COLOR_L);
+                jButton_7.setBackground(Colors.TEXT_COLOR_L);
+                jButton_7.setForeground(Colors.PRIMARY_COLOR_L);
+                jButton_8.setBackground(Colors.TEXT_COLOR_L);
+                jButton_8.setForeground(Colors.PRIMARY_COLOR_L);
+                jButton_9.setBackground(Colors.TEXT_COLOR_L);
+                jButton_9.setForeground(Colors.PRIMARY_COLOR_L);
+                jPanel_Menu_Mordern.setBackground(Colors.PRIMARY_COLOR_L);
+                jPanel_Container.setBackground(Colors.PRIMARY_COLOR_L);
+            }
         }
     }
 

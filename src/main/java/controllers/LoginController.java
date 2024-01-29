@@ -15,7 +15,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-public class LoginController implements ActionListener, MouseListener, LoginData {
+public final class LoginController implements ActionListener, MouseListener, LoginData {
 
     public static String username = "";
     public static String password = "";

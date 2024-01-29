@@ -17,7 +17,7 @@ import utils.ToggleHandler;
 import javax.swing.*;
 import java.awt.*;
 
-public class LoginView extends MyFrame implements ToggleHandler, HoverHandler {
+public non-sealed class LoginView extends MyFrame implements ToggleHandler, HoverHandler {
 
     public static CardLayout cardLayout;
     private LoginModel loginModel = new LoginModel();
@@ -183,10 +183,10 @@ public class LoginView extends MyFrame implements ToggleHandler, HoverHandler {
         jPasswordField_Right_Middle_Password.setEnabled(status);
     }
 
-    @Override
-    public boolean getStatusToggle() {
-        return toggleButton.isSelected();
-    }
+//    @Override
+//    public boolean getStatusToggle() {
+//        return toggleButton.isSelected();
+//    }
 
     @Override
     public void setHoverConfirmPassword(boolean isInside, String mode) {
@@ -194,6 +194,11 @@ public class LoginView extends MyFrame implements ToggleHandler, HoverHandler {
 
     @Override
     public void setHoverButton(boolean isInside, String mode, JButton button) {
+
+    }
+
+    @Override
+    public void changeColorBaseOnToggle() {
 
     }
 }

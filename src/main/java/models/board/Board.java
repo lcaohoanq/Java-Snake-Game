@@ -259,7 +259,10 @@ public abstract class Board extends JPanel implements ActionListener {
             y[z] = 50;
         }
         // Reset any other necessary game state variables
-
+        rightDirection = true;
+        leftDirection = false;
+        upDirection = false;
+        downDirection = false;
         // Hide the "Play Again" button again
         playAgainButton.setVisible(false);
         exitButton.setVisible(false);
