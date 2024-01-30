@@ -10,12 +10,12 @@ import models.ui.LoginModel;
 import styles.Borders;
 import styles.Colors;
 import styles.Fonts;
-import utils.AudioHandler;
 import utils.HoverHandler;
 import utils.ToggleHandler;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.InputStream;
 
 public non-sealed class LoginView extends MyFrame implements ToggleHandler, HoverHandler {
 
@@ -24,7 +24,8 @@ public non-sealed class LoginView extends MyFrame implements ToggleHandler, Hove
 
     public LoginView() {
         super();
-        AudioHandler.playAudio(Paths.URL_INTRO);
+        InputStream inputStream = getClass().getResourceAsStream(Paths.URL_INTRO);
+        audioHandler.playAudio(inputStream);
     }
 
     @Override
@@ -182,11 +183,6 @@ public non-sealed class LoginView extends MyFrame implements ToggleHandler, Hove
         jTextField_Right_Middle_Username.setEnabled(status);
         jPasswordField_Right_Middle_Password.setEnabled(status);
     }
-
-//    @Override
-//    public boolean getStatusToggle() {
-//        return toggleButton.isSelected();
-//    }
 
     @Override
     public void setHoverConfirmPassword(boolean isInside, String mode) {

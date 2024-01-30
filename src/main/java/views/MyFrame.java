@@ -9,6 +9,7 @@ import styles.Borders;
 import styles.Colors;
 import styles.Fonts;
 import styles.Images;
+import utils.AudioHandler;
 import utils.HoverHandler;
 import utils.ToggleHandler;
 
@@ -19,6 +20,11 @@ import java.awt.event.ActionListener;
 public abstract sealed class MyFrame extends JFrame implements ToggleHandler, HoverHandler permits LoginView, RegisterView {
 
     public static JPanel jPanel_Right_Bottom_Button;
+    private final JMenu jMenu = new JMenu("HELP");
+    private final JMenu jMenu_Play_Here = new JMenu("Play here");
+    private final JMenuItem jMenuItem_AboutMe = new JMenuItem("About me");
+    private final JMenuItem jMenuItem_Score = new JMenuItem("Show Score");
+    private final JMenuItem jMenuItem_Go = new JMenuItem("Go!!!");
     public JTextField jTextField_Right_Middle_Username; // 20 is the number of columns
     public JPasswordField jPasswordField_Right_Middle_Password;
     public JPasswordField jPasswordField_Right_Middle_Confirm_Password;
@@ -39,14 +45,11 @@ public abstract sealed class MyFrame extends JFrame implements ToggleHandler, Ho
     protected JPanel jPanel_Right_Bottom_Option;
     protected JLabel jLabel_Right_Bottom_Option;
     protected JPanel jPanel_Left_Icon;
+    protected AudioHandler audioHandler = new AudioHandler();
     private JPanel jPanel_Left;
     private JLabel jLabel_Left_Icon;
     // MenuBar
     private JMenuBar jMenuBar;
-    private JMenu jMenu = new JMenu("HELP");
-    private JMenuItem jMenuItem_AboutMe = new JMenuItem("About me");
-    private JMenuItem jMenuItem_Score = new JMenuItem("Show Score");
-    private JMenuItem jMenuItem_PlayNow = new JMenuItem("Play Now");
 
     public MyFrame() {
         setTitle(Titles.WINDOW);
@@ -70,12 +73,13 @@ public abstract sealed class MyFrame extends JFrame implements ToggleHandler, Ho
     private void initMenu() {
         // Menu bar setup
         jMenuBar = new JMenuBar();
+        jMenu_Play_Here.add(jMenuItem_Go);
         jMenuBar.setLayout(new FlowLayout(FlowLayout.LEFT));
         jMenuBar.setBorder(Borders.LINE_MENU_BAR);
         jMenuBar.add(jMenu);
+        jMenuBar.add(jMenu_Play_Here);
         jMenu.add(jMenuItem_AboutMe);
         jMenu.add(jMenuItem_Score);
-        jMenu.add(jMenuItem_PlayNow);
         this.setJMenuBar(jMenuBar);
     }
 
@@ -218,10 +222,6 @@ public abstract sealed class MyFrame extends JFrame implements ToggleHandler, Ho
         }
     }
 
-//    public boolean getStatusToggle() {
-//        return toggleButton.isSelected();
-//    }
-
     protected void initContainer() {
         jPanel_Container = new JPanel();
         jPanel_Container.setLayout(new BorderLayout());
@@ -232,7 +232,7 @@ public abstract sealed class MyFrame extends JFrame implements ToggleHandler, Ho
     }
 
     protected void doAction() {
-        jMenuItem_PlayNow.addActionListener(new ClickPlayNow());
+        jMenuItem_Go.addActionListener(new ClickPlayNow());
         jMenuItem_AboutMe.addActionListener(new Info());
         jMenuItem_Score.addActionListener(new ScoreController(new ScoreView()));
     }

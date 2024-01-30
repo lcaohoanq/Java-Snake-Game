@@ -5,6 +5,7 @@ import constants.Sizes;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.InputStream;
 
 public class Box extends Board {
     protected int wallThickness = 20;
@@ -17,7 +18,7 @@ public class Box extends Board {
     @Override
     protected void loadImages() {
         super.loadImages();
-        wall = new ImageIcon(Paths.URL_WALL).getImage();
+        wall = new ImageIcon(getClass().getResource(Paths.URL_WALL)).getImage();
     }
 
     @Override
@@ -61,7 +62,9 @@ public class Box extends Board {
 
         if (!inGame) {
             if (isOnSound()) {
-                setAudio(Paths.URL_GAME_OVER);
+//                audioHandler.setAudio(audioHandler.formatAudioPath(getClass().getResource(Paths.URL_GAME_OVER).getPath()));
+                InputStream inputStream = getClass().getResourceAsStream(Paths.URL_GAME_OVER);
+                audioHandler.playAudio(inputStream);
             }
             timer.stop();
         }
@@ -85,7 +88,9 @@ public class Box extends Board {
     @Override
     protected void locateBigApple() {
         if (isOnSound()) {
-            setAudio(Paths.URL_BIG_APPLE_APP);
+//            audioHandler.setAudio(audioHandler.formatAudioPath(getClass().getResource(Paths.URL_BIG_APPLE_APP).getPath()));
+            InputStream inputStream = getClass().getResourceAsStream(Paths.URL_BIG_APPLE_APP);
+            audioHandler.playAudio(inputStream);
         }
         int r = (int) (Math.random() * (RAND_POS - 2 * wallThickness));
         bigApple_x = ((r + wallThickness) * DOT_SIZE);

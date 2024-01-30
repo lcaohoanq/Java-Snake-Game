@@ -1,13 +1,23 @@
 package views;
 
-import javax.swing.JFrame;
+import javax.swing.*;
 
+import controllers.MenuController;
+import controllers.PlayController;
 import models.board.*;
+import models.board.Box;
+import styles.Borders;
+import styles.Images;
+
+import java.awt.*;
 
 public class Snake extends JFrame {
-    String mode;
+    private JMenuBar jMenuBar = new JMenuBar();
+    private JMenu jMenu = new JMenu("HELP");
+    private JMenuItem jMenuItem_Back_To_Main_Menu = new JMenuItem("Back to main menu");
 
     public Snake(String mode) {
+        initMenu();
         initUI(mode);
     }
 
@@ -16,9 +26,21 @@ public class Snake extends JFrame {
         setResizable(false);
         pack();
         setTitle("Snake");
+        setIconImage(Images.icon);
+        setJMenuBar(jMenuBar);
+        MenuController.menuView.dispose();
         setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(false);
+    }
+
+    private void initMenu() {
+        jMenuBar.setLayout(new FlowLayout(FlowLayout.LEFT));
+        jMenuBar.setBorder(Borders.LINE_MENU_BAR);
+        jMenuBar.add(jMenu);
+        jMenu.add(jMenuItem_Back_To_Main_Menu);
+        jMenuItem_Back_To_Main_Menu.addActionListener(new PlayController(this));
+        this.setJMenuBar(jMenuBar);
     }
 
     private void checkMode(String mode) {

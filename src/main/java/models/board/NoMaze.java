@@ -3,6 +3,8 @@ package models.board;
 import constants.Paths;
 import constants.Sizes;
 
+import java.io.InputStream;
+
 public class NoMaze extends Board {
 
     public NoMaze() {
@@ -43,7 +45,9 @@ public class NoMaze extends Board {
 
         if (!inGame) {
             if (isOnSound()) {
-                setAudio(Paths.URL_GAME_OVER);
+//                audioHandler.setAudio(audioHandler.formatAudioPath(getClass().getResource(Paths.URL_GAME_OVER).getPath()));
+                InputStream inputStream = getClass().getResourceAsStream(Paths.URL_GAME_OVER);
+                audioHandler.playAudio(inputStream);
             }
             timer.stop();
         }
@@ -67,7 +71,9 @@ public class NoMaze extends Board {
     @Override
     protected void locateBigApple() {
         if (isOnSound()) {
-            setAudio(Paths.URL_BIG_APPLE_APP);
+//            audioHandler.setAudio(audioHandler.formatAudioPath(getClass().getResource(Paths.URL_BIG_APPLE_APP).getPath()));
+            InputStream inputStream = getClass().getResourceAsStream(Paths.URL_BIG_APPLE_APP);
+            audioHandler.playAudio(inputStream);
         }
         int r = (int) (Math.random() * RAND_POS);
         bigApple_x = ((r * DOT_SIZE));

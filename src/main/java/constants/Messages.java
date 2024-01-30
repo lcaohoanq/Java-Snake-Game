@@ -11,16 +11,8 @@ public class Messages {
         JOptionPane.showMessageDialog(null, "Login success", "Success", JOptionPane.INFORMATION_MESSAGE);
     }
 
-    public static void IS_LOGIN_FAILED() {
-        JOptionPane.showMessageDialog(null, "Login failed", "Failed", JOptionPane.ERROR_MESSAGE);
-    }
-
     public static void IS_REGISTER_SUCCESS() {
         JOptionPane.showMessageDialog(null, "Register success", "Success", JOptionPane.INFORMATION_MESSAGE);
-    }
-
-    public static void IS_REGISTER_FAILED() {
-        JOptionPane.showMessageDialog(null, "Register failed", "Failed", JOptionPane.ERROR_MESSAGE);
     }
 
     public static void IS_WRONG_USERNAME_OR_PASSWORD() {

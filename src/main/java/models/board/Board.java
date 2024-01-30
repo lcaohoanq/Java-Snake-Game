@@ -10,6 +10,7 @@ import styles.Borders;
 import styles.Colors;
 import styles.Fonts;
 import utils.AudioHandler;
+import views.MenuView;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,6 +18,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.io.InputStream;
 
 public abstract class Board extends JPanel implements ActionListener {
 
@@ -38,6 +40,7 @@ public abstract class Board extends JPanel implements ActionListener {
     protected int apple_y;                       // Y-coordinate of a regular apple
     // Game timers and images
     protected Timer timer;                       // Timer for regular game events
+    protected AudioHandler audioHandler = new AudioHandler();
     // Game state variables
     private int score = 0;            // Player's score
     // Snake movement directions
@@ -50,14 +53,19 @@ public abstract class Board extends JPanel implements ActionListener {
     private Image apple;                       // Regular apple image
     private Image head;                        // Snake head image
     private Image bigApple;                    // Big apple image
-
     // UI components
+    private JLabel gameOverLabel;              // Label to display the "Game Over" message
+    private JPanel gameOverPanel;              // Panel for UI components at the game over
     private JButton playAgainButton;           // Button to play the game again
     private JButton exitButton;                // Button to exit the game
+    private JPanel playAgainExitButtonPanel;   // Panel for UI components at the game over
+    private JButton backToMainMenuButton;      // Button to go back to the main menu
+    private JPanel backToMainMenuButtonPanel;  // Panel for UI components at the game over
     private JLabel scoreLabel;                 // Label to display the player's score
     private int lineBottom;                    // Bottom line
     private JProgressBar bigAppleProgressBar;  // Progress bar for big apple timer
     private JPanel bottomPanel = new JPanel(); // Panel for UI components at the bottom
+    private JPanel gameOverButtonPanel = new JPanel(); // Panel for UI components at the game over
 
     public Board() {
         initBoard();
@@ -69,15 +77,14 @@ public abstract class Board extends JPanel implements ActionListener {
         setFocusable(true);
         bottomPanel.setVisible(true);
         setPreferredSize(Sizes.SIZE_BOARD);
+
         setLayout(new BorderLayout());
         loadImages();
         initGame();
 
         initBottomPanel();
         initLine();
-        initPlayAgainButton();
-        initExitButton();
-
+        initGameOverPanel();
     }
 
     private void initLine() {
@@ -132,18 +139,29 @@ public abstract class Board extends JPanel implements ActionListener {
         progressBarTimer.start();
     }
 
+    private void initGameOverTitle() {
+        gameOverPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        gameOverLabel = new JLabel(Titles.GAME_OVER);
+        gameOverPanel.setBackground(Colors.OTHER_OPTIONS_L);
+        gameOverLabel.setForeground(Colors.PRIMARY_COLOR_L);
+        gameOverLabel.setBackground(Colors.OTHER_OPTIONS_L);
+        gameOverLabel.setFont(Fonts.GAME_OVER);
+        gameOverLabel.setBounds((Sizes.WIDTH_BOARD - 260) / 2, (Sizes.HEIGHT_BOARD - 50) / 2 - 50, 260, 50);
+        gameOverPanel.add(gameOverLabel);
+    }
+
     private void initPlayAgainButton() {
         playAgainButton = new JButton(Titles.PLAY_AGAIN);
         playAgainButton.setFont(Fonts.PLAY_EXIT_BUTTON);
         playAgainButton.setBackground(Colors.TEXT_COLOR_L);
         playAgainButton.setForeground(Colors.PRIMARY_COLOR_L);
-        playAgainButton.addActionListener(e -> {
-            // Reset game parameters and restart the game
-            resetGame();
-        });
         playAgainButton.setPreferredSize(Sizes.SIZE_BUTTON_GAME_OVER);
-        add(playAgainButton, BorderLayout.WEST);
-        playAgainButton.setVisible(false); // Initially, hide the button
+        playAgainButton.addActionListener(e -> {
+            SwingUtilities.invokeLater(() -> {
+                // Reset game parameters and restart the game
+                resetGame();
+            });
+        });
     }
 
     private void initExitButton() {
@@ -157,19 +175,59 @@ public abstract class Board extends JPanel implements ActionListener {
             }
         });
         exitButton.setPreferredSize(Sizes.SIZE_BUTTON_GAME_OVER);
-        add(exitButton, BorderLayout.EAST);
-        exitButton.setVisible(false); // Initially, hide the button
+    }
+
+    private void initPlayAgainExitButtonPanel() {
+        initPlayAgainButton();
+        initExitButton();
+        playAgainExitButtonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        playAgainExitButtonPanel.setBackground(Colors.OTHER_OPTIONS_L);
+        playAgainExitButtonPanel.add(playAgainButton);
+        playAgainExitButtonPanel.add(exitButton);
+    }
+
+    private void initBackToMainMenuButton() {
+        backToMainMenuButton = new JButton(Titles.BACK_TO_MAIN_MENU);
+        backToMainMenuButton.setFont(Fonts.PLAY_EXIT_BUTTON);
+        backToMainMenuButton.setBackground(Colors.BACK_TO_MAIN_MENU);
+        backToMainMenuButton.setForeground(Colors.PRIMARY_COLOR_L);
+        backToMainMenuButton.addActionListener(e -> {
+            SwingUtilities.getWindowAncestor(this).dispose();
+            new MenuView().setVisible(true);
+        });
+        backToMainMenuButton.setPreferredSize(Sizes.SIZE_BUTTON_GAME_OVER_BACK_TO_MAIN_MENU);
+    }
+
+    private void initBackToMainMenuButtonPanel() {
+        initBackToMainMenuButton();
+        backToMainMenuButtonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        backToMainMenuButtonPanel.setBackground(Colors.OTHER_OPTIONS_L);
+        backToMainMenuButtonPanel.add(backToMainMenuButton);
+    }
+
+    private void initGameOverPanel() {
+        initGameOverTitle();
+        initPlayAgainExitButtonPanel();
+        initBackToMainMenuButtonPanel();
+        gameOverButtonPanel.setLayout(new BorderLayout());
+        gameOverButtonPanel.setBackground(Colors.OTHER_OPTIONS_L);
+        gameOverButtonPanel.setBorder(Borders.GAME_OVER_ELEMENT);
+        gameOverButtonPanel.add(gameOverPanel, BorderLayout.NORTH);
+        gameOverButtonPanel.add(playAgainExitButtonPanel, BorderLayout.CENTER);
+        gameOverButtonPanel.add(backToMainMenuButtonPanel, BorderLayout.SOUTH);
+        gameOverButtonPanel.setVisible(false);
+        add(gameOverButtonPanel, BorderLayout.CENTER);
     }
 
     protected void loadImages() {
 
-        ball = new ImageIcon(Paths.URL_DOT).getImage();
+        ball = new ImageIcon(getClass().getResource(Paths.URL_DOT)).getImage();
 
-        apple = new ImageIcon(Paths.URL_APPLE).getImage();
+        apple = new ImageIcon(getClass().getResource(Paths.URL_APPLE)).getImage();
 
-        head = new ImageIcon(Paths.URL_HEAD).getImage();
+        head = new ImageIcon(getClass().getResource(Paths.URL_HEAD)).getImage();
 
-        bigApple = new ImageIcon(Paths.URL_BIG_APPLE).getImage();
+        bigApple = new ImageIcon(getClass().getResource(Paths.URL_BIG_APPLE)).getImage();
     }
 
     private void initGame() {
@@ -227,20 +285,12 @@ public abstract class Board extends JPanel implements ActionListener {
     }
 
     private void gameOver(Graphics g) {
-
-        String msg = Titles.GAME_OVER;
-        FontMetrics metr = getFontMetrics(Fonts.GAME_OVER);
-
-        g.setColor(Colors.PRIMARY_COLOR_L);
-        g.setFont(Fonts.GAME_OVER);
-        g.drawString(msg, (Sizes.WIDTH_BOARD - metr.stringWidth(msg)) / 2, (Sizes.HEIGHT_BOARD - 100) / 2);
         // Show the "Play Again" and "Exit" button after displaying "Game Over" message
+        gameOverButtonPanel.setVisible(true);
         playAgainButton.setVisible(true);
-        playAgainButton.setBounds((Sizes.WIDTH_BOARD - 260) / 2, (Sizes.HEIGHT_BOARD - 50) / 2, 130, 50);
         exitButton.setVisible(true);
-        exitButton.setBounds((Sizes.WIDTH_BOARD - 260) / 2 + 140, (Sizes.HEIGHT_BOARD - 50) / 2, 130, 50);
-
-        // Hide the progress bar
+        backToMainMenuButton.setVisible(true);
+//         Hide the progress bar
         bigAppleProgressBar.setVisible(false);
     }
 
@@ -266,7 +316,9 @@ public abstract class Board extends JPanel implements ActionListener {
         // Hide the "Play Again" button again
         playAgainButton.setVisible(false);
         exitButton.setVisible(false);
-
+        backToMainMenuButton.setVisible(false);
+        // Ensure that the gameOverButtonPanel is not visible
+        gameOverButtonPanel.setVisible(false);
         // Restart the timer and initialize the game
         timer.stop();
         initGame();
@@ -282,7 +334,8 @@ public abstract class Board extends JPanel implements ActionListener {
             locateApple();
             if (score % 5 != 0) {
                 if (isOnSound()) {
-                    setAudio(Paths.URL_EATING);
+                    InputStream inputStream = getClass().getResourceAsStream(Paths.URL_EATING2);
+                    audioHandler.playAudio(inputStream);
                 }
             }
             return;
@@ -305,7 +358,8 @@ public abstract class Board extends JPanel implements ActionListener {
             apple_count = 0;
             locateApple();
             if (isOnSound()) {
-                setAudio(Paths.URL_EATING2);
+                InputStream inputStream = getClass().getResourceAsStream(Paths.URL_EATING);
+                audioHandler.playAudio(inputStream);
             }
         }
     }
@@ -360,7 +414,8 @@ public abstract class Board extends JPanel implements ActionListener {
         bigAppleTimer = new Timer(BIG_APPLE_TIMER, e -> {
             bigAppleTimer.stop();
             if (isOnSound()) {
-                setAudio(Paths.URL_BIG_APPLE_DIS);
+                InputStream inputStream = getClass().getResourceAsStream(Paths.URL_BIG_APPLE_DIS);
+                audioHandler.playAudio(inputStream);
             }
             apple_count = 0;
             locateApple();
@@ -371,11 +426,8 @@ public abstract class Board extends JPanel implements ActionListener {
     }
 
     protected boolean isOnSound() {
-        return !AudioHandler.isEmptyPath();
-    }
-
-    protected void setAudio(String path) {
-        AudioHandler.playAudio(path);
+        System.out.println("check is On Sound: " + !audioHandler.isEmptyPath());
+        return !audioHandler.isEmptyPath();
     }
 
     @Override

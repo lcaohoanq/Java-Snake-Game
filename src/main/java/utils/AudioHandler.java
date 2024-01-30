@@ -2,41 +2,41 @@ package utils;
 
 import errors.FileException;
 
-import java.io.File;
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 
 public class AudioHandler {
-    // im using wav file
+    public static InputStream inputStreamCurrent;
+    public static boolean path = true;
     private static AudioInputStream audioInputStream;
     private static Clip clip;
-    private static String path;
 
-    public static boolean playAudio(String filepath) {
+    public boolean isEmptyPath() {
+        return !path;
+    }
+
+    public void playAudio(InputStream inputStream) {
         try {
-            path = filepath;
-            File file = new File(filepath);
-            if (filepath.isEmpty() || !file.exists()) {
-                return false;
+            if (inputStreamCurrent != null) {
+                throw new FileException("Audio file is missing");
             }
-            // load audio file
-            audioInputStream = AudioSystem.getAudioInputStream(file.getAbsoluteFile());
-            // get clip
+            // Create a byte array to store the audio data
+            byte[] audioData = inputStream.readAllBytes();
+
+            // Use ByteArrayInputStream to create an AudioInputStream
+            ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(audioData);
+            audioInputStream = AudioSystem.getAudioInputStream(byteArrayInputStream);
+
             clip = AudioSystem.getClip();
-            // open audioInputStream to the clip
             clip.open(audioInputStream);
-            // start the audio clip
             clip.start();
-            return true;
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        return false;
     }
 
-    public static boolean isEmptyPath() {
-        return path.isEmpty() ? true : false;
-    }
 }

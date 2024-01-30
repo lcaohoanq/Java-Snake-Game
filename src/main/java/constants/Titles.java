@@ -2,7 +2,6 @@ package constants;
 
 public class Titles {
     public static final String WINDOW = "Snake Game";
-    public static final String HEADING = "Snake Game";
     public static final String LOGIN = "Login";
     public static final String REGISTER = "Register";
     public static final String USERNAME = "Username";
@@ -18,4 +17,5 @@ public class Titles {
     public static final String GAME_OVER = "Game over";
     public static final String PLAY_AGAIN = "Play again";
     public static final String EXIT = "Exit";
+    public static final String BACK_TO_MAIN_MENU = "Back to main menu";
 }

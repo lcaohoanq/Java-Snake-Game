@@ -18,5 +18,6 @@ public class Colors {
     public static final Color TEXT_COLOR_D_HOVER = Color.decode("#00d48b");
     public static final Color OTHER_OPTIONS_D = Color.decode("#FFFFFF"); // WHITE
     //Others
+    public static final Color BACK_TO_MAIN_MENU = Color.decode("#0096FF"); //blue
     public static final Color PROGRESS_BAR_LOADING = Color.decode("#FF0000"); //red
 }

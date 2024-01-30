@@ -3,7 +3,6 @@ package controllers;
 import constants.Messages;
 import constants.Paths;
 import utils.AudioHandler;
-import utils.ToggleHandler;
 import views.MenuView;
 import views.Snake;
 
@@ -13,32 +12,48 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.InputStream;
 
 public class MenuController implements MouseListener, ActionListener {
 
-    private MenuView menuView;
-    private MenuView.MenuModern menuModern;
+    public static MenuView menuView;
+    public static MenuView.MenuModern menuModern;
+    private boolean isMenuModern = true;
+    private AudioHandler audioHandler;
 
     public MenuController(MenuView menuView) {
         this.menuView = menuView;
+        this.audioHandler = new AudioHandler();
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
         if (e.getSource() == menuView.jButton_1) {
             EventQueue.invokeLater(() -> {
+                menuView.dispose();
                 new Snake("Classic").startGame();
             });
         }
         if (e.getSource() == menuView.jButton_2) {
             EventQueue.invokeLater(() -> {
-                menuModern = menuView.new MenuModern();
-                menuModern.setVisible(true);
+
+                if (isMenuModern) {
+                    menuModern = menuView.new MenuModern();
+                    isMenuModern = true;
+//                    menuView.dispose();
+                    menuModern.setVisible(true);
+                } else {
+//                    menuView.dispose();
+                    isMenuModern = false;
+                }
             });
         }
         if (e.getSource() == menuView.jButton_3) {
             EventQueue.invokeLater(() -> {
-                new Snake("Campaign").startGame();
+//                menuView.dispose();
+//                new Snake("Campaign").startGame();
+
+                prepareUnsupportFeature();
             });
         }
     }
@@ -111,49 +126,72 @@ public class MenuController implements MouseListener, ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("Off")) {
-            menuView.setAudio("");
+            System.out.println("user click Off sound");
+            menuView.setAudio(false);
+        } else if (e.getActionCommand().equals("On")) {
+            menuView.setAudio(true);
         }
+    }
+
+    private void prepareUnsupportFeature() {
+        InputStream unsupported = getClass().getResourceAsStream(Paths.URL_EATING);
+        audioHandler.playAudio(unsupported);
+        Messages.IS_NOT_SUPPORT();
     }
 
     public static class MenuModernController extends JFrame implements MouseListener {
 
         private MenuView.MenuModern menuModern;
+        private AudioHandler audioHandler;
 
         public MenuModernController(MenuView.MenuModern menuModern) {
             this.menuModern = menuModern;
+            this.audioHandler = new AudioHandler();
         }
 
         @Override
         public void mouseClicked(MouseEvent e) {
             if (e.getSource() == menuModern.jButton_4) {
                 EventQueue.invokeLater(() -> {
+                    menuView.dispose();
                     new Snake("NoMaze").startGame();
                 });
             }
             if (e.getSource() == menuModern.jButton_5) {
                 EventQueue.invokeLater(() -> {
+                    menuView.dispose();
                     new Snake("Box").startGame();
                 });
             }
             if (e.getSource() == menuModern.jButton_6) {
                 EventQueue.invokeLater(() -> {
+                    menuView.dispose();
                     new Snake("Tunnel").startGame();
                 });
             }
             if (e.getSource() == menuModern.jButton_7) {
-                EventQueue.invokeLater(() -> {
-                    new Snake("Mill").startGame();
-                });
+//                EventQueue.invokeLater(() -> {
+//                    menuView.dispose();
+//                    new Snake("Mill").startGame();
+//                });
+
+                prepareUnsupportFeature();
             }
             if (e.getSource() == menuModern.jButton_8) {
-                EventQueue.invokeLater(() -> {
-                    new Snake("Rails").startGame();
-                });
+//                EventQueue.invokeLater(() -> {
+//                    menuView.dispose();
+//                    new Snake("Rails").startGame();
+//                });
+
+                prepareUnsupportFeature();
             }
             if (e.getSource() == menuModern.jButton_9) {
-                EventQueue.invokeLater(() -> {
-                    new Snake("Apartment").startGame();
-                });
+//                EventQueue.invokeLater(() -> {
+//                    menuView.dispose();
+//                    new Snake("Apartment").startGame();
+//                });
+
+                prepareUnsupportFeature();
             }
         }
 
@@ -251,6 +289,12 @@ public class MenuController implements MouseListener, ActionListener {
                     menuModern.setHoverButton(false, "light", menuModern.jButton_9);
                 }
             }
+        }
+
+        private void prepareUnsupportFeature() {
+            InputStream unsupported = getClass().getResourceAsStream(Paths.URL_EATING);
+            audioHandler.playAudio(unsupported);
+            Messages.IS_NOT_SUPPORT();
         }
     }
 }

@@ -8,6 +8,6 @@ public interface ToggleHandler {
     void changeColorBaseOnToggle();
 
     default boolean getStatusToggle() {
-        return toggleButton.isSelected() ? true : false;
+        return toggleButton.isSelected();
     }
 }

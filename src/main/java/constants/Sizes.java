@@ -17,6 +17,7 @@ public class Sizes {
     public static final int MAX_PROGRESS_BAR = 100;
     public static final int LINE_SPACE_FROM_BOTTOM = 50;
     public static final Dimension SIZE_BUTTON_GAME_OVER = new Dimension(130, 50);
+    public static final Dimension SIZE_BUTTON_GAME_OVER_BACK_TO_MAIN_MENU = new Dimension(230, 50);
     public static final Dimension SIZE_BUTTON = new Dimension(300, 50);
     public static final Dimension SIZE_BOARD = new Dimension(500, 550);
     public static final Dimension SIZE_PROGRESS_BAR = new Dimension(400, 20);

@@ -6,6 +6,7 @@ import models.ui.MenuModel;
 import styles.Borders;
 import styles.Colors;
 import styles.Fonts;
+import styles.Images;
 import utils.AudioHandler;
 import utils.HoverHandler;
 import utils.ToggleHandler;
@@ -19,21 +20,17 @@ public non-sealed class MenuView extends JFrame implements ToggleHandler, HoverH
     public JButton jButton_1 = new JButton("Classic");
     public JButton jButton_2 = new JButton("Modern");
     public JButton jButton_3 = new JButton("Campaign");
-    //    public JPanel jPanel_Menu_Mordern;
-//    public JButton jButton_4;
-//    public JButton jButton_5;
-//    public JButton jButton_6;
-//    public JButton jButton_7;
-//    public JButton jButton_8;
-//    public JButton jButton_9;
+
     JPanel jPanel_Container;
     JLabel jLabel_Title = new JLabel("Snake Game", JLabel.CENTER);
     JPanel jPanel_Button = new JPanel(new GridLayout(3, 1, 30, 20));
     boolean isActive;
     private JMenuBar jMenuBar = new JMenuBar();
-    private JMenu jMenu = new JMenu("HELP");
-    private JMenuItem jMenuItem_Back_To_Main_Menu = new JMenuItem("Back to main menu");
-    private JMenu jMenu_Sound = new JMenu("Sound");
+    //    private JMenu jMenu = new JMenu("HELP");
+    //change
+    private JMenu jMenu_Back_To_Main_Menu = new JMenu("Back to");
+    private JMenuItem jMenuItem_Back_To_Main_Menu = new JMenuItem("main menu");
+    private JMenu jMenu_Sound = new JMenu("Turn Sound");
     private JMenuItem jMenuItem_Sound_On = new JMenuItem("On");
     private JMenuItem jMenuItem_Sound_Off = new JMenuItem("Off");
     private MenuModel menuModel;
@@ -42,7 +39,8 @@ public non-sealed class MenuView extends JFrame implements ToggleHandler, HoverH
     public MenuView() {
         menuModel = new MenuModel();
         setTitle("Snake Game");
-        setSize(Sizes.WIDTH_MY_FRAME, Sizes.HEIGHT_MY_FRAME);
+        setSize(Sizes.HEIGHT_MY_FRAME, Sizes.HEIGHT_MY_FRAME);
+        setIconImage(Images.icon);
         setLocationRelativeTo(null);
         setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -59,13 +57,14 @@ public non-sealed class MenuView extends JFrame implements ToggleHandler, HoverH
     }
 
     private void initMenu() {
-        jMenuBar.setLayout(new FlowLayout(FlowLayout.LEFT));
-        jMenuBar.setBorder(Borders.LINE_MENU_BAR);
-        jMenuBar.add(jMenu);
+        jMenu_Back_To_Main_Menu.add(jMenuItem_Back_To_Main_Menu);
         jMenu_Sound.add(jMenuItem_Sound_On);
         jMenu_Sound.add(jMenuItem_Sound_Off);
-        jMenu.add(jMenuItem_Back_To_Main_Menu);
-        jMenu.add(jMenu_Sound);
+        jMenuBar.setLayout(new FlowLayout(FlowLayout.LEFT));
+        jMenuBar.setBorder(Borders.LINE_MENU_BAR);
+        jMenuBar.add(jMenu_Back_To_Main_Menu);
+        jMenuBar.add(jMenu_Sound);
+//        jMenu.add(jMenu_Sound);
         this.setJMenuBar(jMenuBar);
     }
 
@@ -78,22 +77,9 @@ public non-sealed class MenuView extends JFrame implements ToggleHandler, HoverH
         jButton_1.setFont(Fonts.BUTTON);
         jButton_2.setFont(Fonts.BUTTON);
         jButton_3.setFont(Fonts.BUTTON);
-//        jButton_4.setFont(Fonts.BUTTON);
-//        jButton_5.setFont(Fonts.BUTTON);
-//        jButton_6.setFont(Fonts.BUTTON);
-//        jButton_7.setFont(Fonts.BUTTON);
-//        jButton_8.setFont(Fonts.BUTTON);
-//        jButton_9.setFont(Fonts.BUTTON);
-
         jPanel_Button.add(jButton_1);
         jPanel_Button.add(jButton_2);
         jPanel_Button.add(jButton_3);
-//        jPanel_Button.add(jButton_4);
-//        jPanel_Button.add(jButton_5);
-//        jPanel_Button.add(jButton_6);
-//        jPanel_Button.add(jButton_7);
-//        jPanel_Button.add(jButton_8);
-//        jPanel_Button.add(jButton_9);
     }
 
     private void initContainer() {
@@ -115,18 +101,6 @@ public non-sealed class MenuView extends JFrame implements ToggleHandler, HoverH
             jButton_2.setForeground(Colors.PRIMARY_COLOR_D);
             jButton_3.setBackground(Colors.TEXT_COLOR_D);
             jButton_3.setForeground(Colors.PRIMARY_COLOR_D);
-//            jButton_4.setBackground(Colors.TEXT_COLOR_D);
-//            jButton_4.setForeground(Colors.PRIMARY_COLOR_D);
-//            jButton_5.setBackground(Colors.TEXT_COLOR_D);
-//            jButton_5.setForeground(Colors.PRIMARY_COLOR_D);
-//            jButton_6.setBackground(Colors.TEXT_COLOR_D);
-//            jButton_6.setForeground(Colors.PRIMARY_COLOR_D);
-//            jButton_7.setBackground(Colors.TEXT_COLOR_D);
-//            jButton_7.setForeground(Colors.PRIMARY_COLOR_D);
-//            jButton_8.setBackground(Colors.TEXT_COLOR_D);
-//            jButton_8.setForeground(Colors.PRIMARY_COLOR_D);
-//            jButton_9.setBackground(Colors.TEXT_COLOR_D);
-//            jButton_9.setForeground(Colors.PRIMARY_COLOR_D);
             jPanel_Button.setBackground(Colors.PRIMARY_COLOR_D);
             jPanel_Container.setBackground(Colors.PRIMARY_COLOR_D);
         } else {
@@ -137,36 +111,19 @@ public non-sealed class MenuView extends JFrame implements ToggleHandler, HoverH
             jButton_2.setForeground(Colors.PRIMARY_COLOR_L);
             jButton_3.setBackground(Colors.TEXT_COLOR_L);
             jButton_3.setForeground(Colors.PRIMARY_COLOR_L);
-//            jButton_4.setBackground(Colors.TEXT_COLOR_L);
-//            jButton_4.setForeground(Colors.PRIMARY_COLOR_L);
-//            jButton_5.setBackground(Colors.TEXT_COLOR_L);
-//            jButton_5.setForeground(Colors.PRIMARY_COLOR_L);
-//            jButton_6.setBackground(Colors.TEXT_COLOR_L);
-//            jButton_6.setForeground(Colors.PRIMARY_COLOR_L);
-//            jButton_7.setBackground(Colors.TEXT_COLOR_L);
-//            jButton_7.setForeground(Colors.PRIMARY_COLOR_L);
-//            jButton_8.setBackground(Colors.TEXT_COLOR_L);
-//            jButton_8.setForeground(Colors.PRIMARY_COLOR_L);
-//            jButton_9.setBackground(Colors.TEXT_COLOR_L);
-//            jButton_9.setForeground(Colors.PRIMARY_COLOR_L);
             jPanel_Button.setBackground(Colors.PRIMARY_COLOR_L);
             jPanel_Container.setBackground(Colors.PRIMARY_COLOR_L);
         }
     }
 
     private void doAction() {
+//        jMenuItem_Back_To_Main_Menu.addActionListener(new BackToMainMenu());
         jMenuItem_Back_To_Main_Menu.addActionListener(new BackToMainMenu());
         jMenuItem_Sound_On.addActionListener(new MenuController(this));
         jMenuItem_Sound_Off.addActionListener(new MenuController(this));
         jButton_1.addMouseListener(new MenuController(this));
         jButton_2.addMouseListener(new MenuController(this));
         jButton_3.addMouseListener(new MenuController(this));
-//        jButton_4.addMouseListener(new MenuController(this));
-//        jButton_5.addMouseListener(new MenuController(this));
-//        jButton_7.addMouseListener(new MenuController(this));
-//        jButton_8.addMouseListener(new MenuController(this));
-//        jButton_6.addMouseListener(new MenuController(this));
-//        jButton_9.addMouseListener(new MenuController(this));
     }
 
     public void setHoverButton(JButton jButton) {
@@ -176,11 +133,6 @@ public non-sealed class MenuView extends JFrame implements ToggleHandler, HoverH
     public void setUnHoverButton(JButton jButton) {
         jButton.setBackground(Colors.TEXT_COLOR_L);
     }
-
-//    @Override
-//    public boolean getStatusToggle() {
-//        return toggleButton.isSelected() ? true : false;
-//    }
 
     @Override
     public void setHoverUsername(boolean isInside, String mode) {
@@ -220,9 +172,14 @@ public non-sealed class MenuView extends JFrame implements ToggleHandler, HoverH
     public void setHoverOther(boolean isInside) {
     }
 
-    public void setAudio(String msg) {
-        if (msg.isEmpty()) {
-            AudioHandler.playAudio("");
+    public void setAudio(boolean msg) {
+        if (!msg) {
+            AudioHandler.path = false;
+            System.out.println("path update nek: " + AudioHandler.path);
+            System.out.println("set audio nhan gia tri null: " + msg);
+        } else {
+            AudioHandler.path = true;
+            System.out.println("set audio nhan gia tri: " + msg);
         }
     }
 
@@ -233,7 +190,7 @@ public non-sealed class MenuView extends JFrame implements ToggleHandler, HoverH
     public non-sealed class MenuModern extends JFrame implements ActionListener, ToggleHandler, HoverHandler {
         //6 button: No Maze, Box, Tunnel, Mill, Rails, Apartment
         public JPanel jPanel_Container = new JPanel();
-        public JPanel jPanel_Menu_Mordern = new JPanel(new GridLayout(6, 1, 30, 20));
+        public JPanel jPanel_Menu_Modern = new JPanel(new GridLayout(6, 1, 30, 20));
         public JLabel jLabel_Title = new JLabel("Snake Game");
         public JButton jButton_4 = new JButton("No Maze");
         public JButton jButton_5 = new JButton("Box");
@@ -245,6 +202,7 @@ public non-sealed class MenuView extends JFrame implements ToggleHandler, HoverH
         public MenuModern() {
             setTitle("Modern Menu");
             setSize(Sizes.WIDTH_SCORE_FORM, Sizes.HEIGHT_MY_FRAME);
+            setIconImage(Images.icon);
             setLocationRelativeTo(null);
             setResizable(false);
             setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -287,21 +245,21 @@ public non-sealed class MenuView extends JFrame implements ToggleHandler, HoverH
             jButton_8.setForeground(Colors.PRIMARY_COLOR_L);
             jButton_9.setBackground(Colors.TEXT_COLOR_L);
             jButton_9.setForeground(Colors.PRIMARY_COLOR_L);
-            jPanel_Menu_Mordern.add(jButton_4);
-            jPanel_Menu_Mordern.add(jButton_5);
-            jPanel_Menu_Mordern.add(jButton_6);
-            jPanel_Menu_Mordern.add(jButton_7);
-            jPanel_Menu_Mordern.add(jButton_8);
-            jPanel_Menu_Mordern.add(jButton_9);
+            jPanel_Menu_Modern.add(jButton_4);
+            jPanel_Menu_Modern.add(jButton_5);
+            jPanel_Menu_Modern.add(jButton_6);
+            jPanel_Menu_Modern.add(jButton_7);
+            jPanel_Menu_Modern.add(jButton_8);
+            jPanel_Menu_Modern.add(jButton_9);
         }
 
         private void initContainerMenuModern() {
-            jPanel_Menu_Mordern.setBorder(Borders.TITLE);
-            jPanel_Menu_Mordern.setBackground(Colors.PRIMARY_COLOR_L);
+            jPanel_Menu_Modern.setBorder(Borders.TITLE);
+            jPanel_Menu_Modern.setBackground(Colors.PRIMARY_COLOR_L);
             jPanel_Container.setBackground(Colors.PRIMARY_COLOR_L);
             jPanel_Container.setLayout(new BorderLayout());
             jPanel_Container.add(jLabel_Title, BorderLayout.NORTH);
-            jPanel_Container.add(jPanel_Menu_Mordern, BorderLayout.CENTER);
+            jPanel_Container.add(jPanel_Menu_Modern, BorderLayout.CENTER);
             add(jPanel_Container);
         }
 
@@ -335,11 +293,6 @@ public non-sealed class MenuView extends JFrame implements ToggleHandler, HoverH
                 System.out.println("Apartment");
             }
         }
-
-//        @Override
-//        public boolean getStatusToggle() {
-//            return toggleButton.isSelected();
-//        }
 
         @Override
         public void setHoverUsername(boolean isInside, String mode) {
@@ -400,7 +353,7 @@ public non-sealed class MenuView extends JFrame implements ToggleHandler, HoverH
                 jButton_8.setForeground(Colors.PRIMARY_COLOR_D);
                 jButton_9.setBackground(Colors.TEXT_COLOR_D);
                 jButton_9.setForeground(Colors.PRIMARY_COLOR_D);
-                jPanel_Menu_Mordern.setBackground(Colors.PRIMARY_COLOR_D);
+                jPanel_Menu_Modern.setBackground(Colors.PRIMARY_COLOR_D);
                 jPanel_Container.setBackground(Colors.PRIMARY_COLOR_D);
             } else {
                 jLabel_Title.setBackground(Colors.PRIMARY_COLOR_L);
@@ -417,7 +370,7 @@ public non-sealed class MenuView extends JFrame implements ToggleHandler, HoverH
                 jButton_8.setForeground(Colors.PRIMARY_COLOR_L);
                 jButton_9.setBackground(Colors.TEXT_COLOR_L);
                 jButton_9.setForeground(Colors.PRIMARY_COLOR_L);
-                jPanel_Menu_Mordern.setBackground(Colors.PRIMARY_COLOR_L);
+                jPanel_Menu_Modern.setBackground(Colors.PRIMARY_COLOR_L);
                 jPanel_Container.setBackground(Colors.PRIMARY_COLOR_L);
             }
         }
@@ -428,6 +381,7 @@ public non-sealed class MenuView extends JFrame implements ToggleHandler, HoverH
         public void actionPerformed(ActionEvent e) {
             EventQueue.invokeLater(() -> {
                 dispose();
+                System.out.println("Back to main menu");
                 toggleButton.setSelected(false);
                 new LoginView().setVisible(true);
             });

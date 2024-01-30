@@ -20,4 +20,5 @@ public class Borders {
     public static final EmptyBorder BUTTON = new EmptyBorder(30, 0, 20, 0);
     public static final EmptyBorder MID_FIELD = new EmptyBorder(10, 20, 10, 20);
     public static final EmptyBorder BOTTOM_SCORE_PROGRESS_BAR = new EmptyBorder(0, 10, 20, 10);
+    public static final EmptyBorder GAME_OVER_ELEMENT = new EmptyBorder(150, 30, 170, 30);
 }

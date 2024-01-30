@@ -215,8 +215,4 @@ public non-sealed class RegisterView extends MyFrame implements ToggleHandler, H
 
     }
 
-//    @Override
-//    public boolean getStatusToggle() {
-//        return toggleButton.isSelected();
-//    }
 }
