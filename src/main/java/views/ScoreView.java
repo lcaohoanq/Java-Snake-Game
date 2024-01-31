@@ -48,7 +48,7 @@ public class ScoreView extends JFrame {
         jTextArea_Score.setWrapStyleWord(true);
         jTextArea_Score.setLineWrap(true);
         jTextArea_Score.setEditable(false);
-        jTextArea_Score.setFont(Fonts.OTHERS);
+        jTextArea_Score.setFont(Fonts.INPUT_SMALL);
         jScrollPane_Score.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         jScrollPane_Score.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
     }

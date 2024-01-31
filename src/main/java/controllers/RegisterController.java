@@ -1,11 +1,12 @@
 package controllers;
 
 import constants.Messages;
+import constants.Paths;
 import constants.Regex;
 import errors.DataException;
 import models.data.Account;
+import models.data.DataHandler;
 import models.data.RegisterData;
-import services.DBServices;
 import utils.PasswordHandler;
 import views.RegisterView;
 
@@ -14,7 +15,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-public non-sealed class RegisterController implements ActionListener, MouseListener, RegisterData {
+public non-sealed class RegisterController extends FrameController
+        implements ActionListener, MouseListener, RegisterData {
 
     private String username;
     private String password;
@@ -81,7 +83,9 @@ public non-sealed class RegisterController implements ActionListener, MouseListe
     public void handleSuccess() {
         password = passwordHandler.hash(password); // replace password with the hashed
         System.out.println("Register success: " + "username:" + username + " password:" + password);
-        DBServices.insert(username, password, 0);
+        // DBServices.insert(username, password, 0);
+        DataHandler.accountList.add(new Account(username, password));
+        DataHandler.writeFile(Paths.URL_ACCOUNT);
         Messages.IS_REGISTER_SUCCESS();
     }
 
@@ -95,7 +99,6 @@ public non-sealed class RegisterController implements ActionListener, MouseListe
         return password.equals(confirmPassword);
     }
 
-
     @Override
     public boolean isEmpty(String username, String password, String confirmPassword) {
         return username.isEmpty() || password.isEmpty() || confirmPassword.isEmpty();
@@ -103,20 +106,25 @@ public non-sealed class RegisterController implements ActionListener, MouseListe
 
     @Override
     public boolean isDuplicateUsername(String username) {
-        Account db;
-        try {
-            db = DBServices.selectUsernameAndPasswordByUsername(username);
-            if (db == null || !db.username().equals(username)) {
-                throw new DataException("Error, is duplicated username");
-            } else {
+        // Account db;
+        // try {
+        // db = DBServices.selectUsernameAndPasswordByUsername(username);
+        // if (db == null || !db.username().equals(username)) {
+        // throw new DataException("Error, is duplicated username");
+        // } else {
+        // return true;
+        // }
+        // } catch (Exception e) {
+        // System.out.println(e.getMessage());
+        // }
+        // return false;
+        for (Account item : DataHandler.accountList) {
+            if (item.username().equals(username)) {
                 return true;
             }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
         }
         return false;
     }
-
 
     @Override
     public void mouseClicked(MouseEvent e) {

@@ -1,29 +1,31 @@
 package controllers;
 
 import constants.Messages;
+import constants.Paths;
 import errors.DataException;
 import models.data.Account;
+import models.data.DataHandler;
 import models.data.LoginData;
-import services.DBServices;
 import utils.PasswordHandler;
 import views.LoginView;
 
 import javax.swing.*;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-public final class LoginController implements ActionListener, MouseListener, LoginData {
+public final class LoginController implements ActionListener, MouseListener, LoginData{
 
     public static String username = "";
     public static String password = "";
     private LoginView loginView;
-
     public LoginController(LoginView loginView) {
         super();
         this.loginView = loginView;
+
     }
 
     @Override
@@ -36,10 +38,11 @@ public final class LoginController implements ActionListener, MouseListener, Log
             handleSuccess();
             return;
         }
-        //prevent empty field when click submit button, but not when click on the menu
+        // prevent empty field when click submit button, but not when click on the menu
         if (isEmpty(username, password) && e.getSource() instanceof JButton) {
             handleEmpty();
         } else {
+            showInfo();
             if (!isMatching(username, password)) {
                 handleWrong();
             } else {
@@ -48,7 +51,11 @@ public final class LoginController implements ActionListener, MouseListener, Log
         }
 
     }
-
+    public void showInfo(){
+        for(Account item : DataHandler.accountList){
+            System.out.println("Tim cac username trong login controller: " + "username: " + item.username() + " " + "password: " + item.password());
+        }
+    }
 
     @Override
     public void handleEmpty() {
@@ -79,18 +86,31 @@ public final class LoginController implements ActionListener, MouseListener, Log
 
     @Override
     public boolean isMatching(String username, String password) {
-        Account db;
-        try {
-            db = DBServices.selectUsernameAndPasswordByUsername(username);
-            if (db != null) {
-                return new PasswordHandler().authenticate(password.toCharArray(), db.password());
-            } else {
-                throw new DataException("Error authenticate, password do not match");
+        String hashPassword = getHashPassword(username);
+        System.out.println("In ra tu LoginController: ");
+        for(Account item : DataHandler.accountList){
+            System.out.println("username " + item.username() + " " + "password" + item.password());
+        }
+        for (Account item : DataHandler.accountList) {
+            if (item.username().equals(username) && isAuthenticatePassword(password, hashPassword)) {
+                return true;
             }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
         }
         return false;
+    }
+
+    private String getHashPassword(String username) {
+
+        for (Account item : DataHandler.accountList) {
+            if (item.username().equals(username)) {
+                return item.password();
+            }
+        }
+        return "";
+    }
+
+    private boolean isAuthenticatePassword(String password, String hashedPassword) {
+        return new PasswordHandler().authenticate(password.toCharArray(), hashedPassword);
     }
 
     @Override

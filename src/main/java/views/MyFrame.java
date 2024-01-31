@@ -5,6 +5,7 @@ import constants.Paths;
 import constants.Sizes;
 import constants.Titles;
 import controllers.ScoreController;
+import models.data.DataHandler;
 import styles.Borders;
 import styles.Colors;
 import styles.Fonts;
@@ -17,7 +18,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
-public abstract sealed class MyFrame extends JFrame implements ToggleHandler, HoverHandler permits LoginView, RegisterView {
+public abstract sealed class MyFrame extends JFrame implements ToggleHandler, HoverHandler
+        permits LoginView, RegisterView {
 
     public static JPanel jPanel_Right_Bottom_Button;
     private final JMenu jMenu = new JMenu("HELP");
@@ -50,7 +52,6 @@ public abstract sealed class MyFrame extends JFrame implements ToggleHandler, Ho
     private JLabel jLabel_Left_Icon;
     // MenuBar
     private JMenuBar jMenuBar;
-
     public MyFrame() {
         setTitle(Titles.WINDOW);
         setSize(Sizes.WIDTH_MY_FRAME, Sizes.HEIGHT_MY_FRAME);
@@ -58,6 +59,8 @@ public abstract sealed class MyFrame extends JFrame implements ToggleHandler, Ho
         setLocationRelativeTo(null);
         setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        DataHandler.readFile(getClass().getResource(Paths.URL_ACCOUNT).getPath());
+        DataHandler.readScore(getClass().getResource(Paths.URL_SCORE).getPath());
         initUI();
     }
 
@@ -92,7 +95,9 @@ public abstract sealed class MyFrame extends JFrame implements ToggleHandler, Ho
 
         // Use the new image "250-250.png"
         jLabel_Left_Icon = new JLabel(
-                new ImageIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage(MyFrame.class.getResource(Paths.URL_SNAKE_LOGO))).getImage().getScaledInstance(250, 250, Image.SCALE_SMOOTH)));
+                new ImageIcon(new ImageIcon(
+                        Toolkit.getDefaultToolkit().getImage(MyFrame.class.getResource(Paths.URL_SNAKE_LOGO)))
+                        .getImage().getScaledInstance(250, 250, Image.SCALE_SMOOTH)));
         jPanel_Left_Icon.add(jLabel_Left_Icon, BorderLayout.CENTER);
 
         jPanel_Left.setPreferredSize(new Dimension(Sizes.WIDTH_MY_LEFT_FRAME, Sizes.HEIGHT_MY_LEFT_FRAME));
@@ -222,6 +227,20 @@ public abstract sealed class MyFrame extends JFrame implements ToggleHandler, Ho
         }
     }
 
+    @Override
+    public void changeColorBaseOnToggle() {
+        //if toggle is enable, change color to dark mode
+        if(getStatusToggle()){
+            jPanel_Left_Icon.setBackground(Colors.TEXT_COLOR_D);
+            jPanel_Left.setBackground(Colors.TEXT_COLOR_D);
+            jPanel_Container.setBackground(Colors.TEXT_COLOR_D);
+        } else {
+            jPanel_Left_Icon.setBackground(Colors.TEXT_COLOR_L);
+            jPanel_Left.setBackground(Colors.TEXT_COLOR_L);
+            jPanel_Container.setBackground(Colors.TEXT_COLOR_L);
+        }
+    }
+
     protected void initContainer() {
         jPanel_Container = new JPanel();
         jPanel_Container.setLayout(new BorderLayout());
@@ -241,10 +260,66 @@ public abstract sealed class MyFrame extends JFrame implements ToggleHandler, Ho
         @Override
         public void actionPerformed(java.awt.event.ActionEvent e) {
             if (jButton_Right_Bottom_Others.getText().equals("Sign in here")) {
+                //if the toggle is enable, change color to dark mode
+                if(getStatusToggle()){
+                    jLabel_Right_Bottom_Option.setForeground(Colors.TEXT_COLOR_D);
+                    jLabel_Right_Bottom_Option.setBackground(Colors.PRIMARY_COLOR_D);
+                    jPanel_Right_Bottom_Option.setBackground(Colors.PRIMARY_COLOR_D);
+                    jPanel_Right_Bottom_Button.setBackground(Colors.PRIMARY_COLOR_D);
+                    jPanel_Right_Middle_Data.setBackground(Colors.PRIMARY_COLOR_D);
+                    jPanel_Right_Middle_Username.setBackground(Colors.PRIMARY_COLOR_D);
+                    jPanel_Right_Middle_Password.setBackground(Colors.PRIMARY_COLOR_D);
+                    jPanel_Right_Top_Tittle.setBackground(Colors.PRIMARY_COLOR_D);
+                    jPanel_Left_Icon.setBackground(Colors.TEXT_COLOR_D);
+                    jPanel_Left.setBackground(Colors.TEXT_COLOR_D);
+                    jPanel_Container.setBackground(Colors.TEXT_COLOR_D);
+                    jPanel_Right.setBackground(Colors.PRIMARY_COLOR_D);
+                } else {
+                    jLabel_Right_Bottom_Option.setForeground(Colors.TEXT_COLOR_L);
+                    jLabel_Right_Bottom_Option.setBackground(Colors.PRIMARY_COLOR_L);
+                    jPanel_Right_Bottom_Option.setBackground(Colors.PRIMARY_COLOR_L);
+                    jPanel_Right_Bottom_Button.setBackground(Colors.PRIMARY_COLOR_L);
+                    jPanel_Right_Middle_Data.setBackground(Colors.PRIMARY_COLOR_L);
+                    jPanel_Right_Middle_Username.setBackground(Colors.PRIMARY_COLOR_L);
+                    jPanel_Right_Middle_Password.setBackground(Colors.PRIMARY_COLOR_L);
+                    jPanel_Right_Top_Tittle.setBackground(Colors.PRIMARY_COLOR_L);
+                    jPanel_Left_Icon.setBackground(Colors.TEXT_COLOR_L);
+                    jPanel_Left.setBackground(Colors.TEXT_COLOR_L);
+                    jPanel_Container.setBackground(Colors.TEXT_COLOR_L);
+                    jPanel_Right.setBackground(Colors.PRIMARY_COLOR_L);
+                }
                 LoginView loginView = new LoginView();
                 loginView.setVisible(true);
                 dispose();
             } else if (jButton_Right_Bottom_Others.getText().equals("Sign up here")) {
+                //if the toggle is enable, change color to dark mode
+                if(getStatusToggle()){
+                    jLabel_Right_Bottom_Option.setForeground(Colors.TEXT_COLOR_D);
+                    jLabel_Right_Bottom_Option.setBackground(Colors.PRIMARY_COLOR_D);
+                    jPanel_Right_Bottom_Option.setBackground(Colors.PRIMARY_COLOR_D);
+                    jPanel_Right_Bottom_Button.setBackground(Colors.PRIMARY_COLOR_D);
+                    jPanel_Right_Middle_Data.setBackground(Colors.PRIMARY_COLOR_D);
+                    jPanel_Right_Middle_Username.setBackground(Colors.PRIMARY_COLOR_D);
+                    jPanel_Right_Middle_Password.setBackground(Colors.PRIMARY_COLOR_D);
+                    jPanel_Right_Top_Tittle.setBackground(Colors.PRIMARY_COLOR_D);
+                    jPanel_Left_Icon.setBackground(Colors.TEXT_COLOR_D);
+                    jPanel_Left.setBackground(Colors.TEXT_COLOR_D);
+                    jPanel_Container.setBackground(Colors.TEXT_COLOR_D);
+                    jPanel_Right.setBackground(Colors.PRIMARY_COLOR_D);
+                } else {
+                    jLabel_Right_Bottom_Option.setForeground(Colors.TEXT_COLOR_L);
+                    jLabel_Right_Bottom_Option.setBackground(Colors.PRIMARY_COLOR_L);
+                    jPanel_Right_Bottom_Option.setBackground(Colors.PRIMARY_COLOR_L);
+                    jPanel_Right_Bottom_Button.setBackground(Colors.PRIMARY_COLOR_L);
+                    jPanel_Right_Middle_Data.setBackground(Colors.PRIMARY_COLOR_L);
+                    jPanel_Right_Middle_Username.setBackground(Colors.PRIMARY_COLOR_L);
+                    jPanel_Right_Middle_Password.setBackground(Colors.PRIMARY_COLOR_L);
+                    jPanel_Right_Top_Tittle.setBackground(Colors.PRIMARY_COLOR_L);
+                    jPanel_Left_Icon.setBackground(Colors.TEXT_COLOR_L);
+                    jPanel_Left.setBackground(Colors.TEXT_COLOR_L);
+                    jPanel_Container.setBackground(Colors.TEXT_COLOR_L);
+                    jPanel_Right.setBackground(Colors.PRIMARY_COLOR_L);
+                }
                 RegisterView registerView = new RegisterView();
                 registerView.setVisible(true);
                 dispose();

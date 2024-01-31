@@ -5,7 +5,8 @@ import constants.Paths;
 import constants.Sizes;
 import constants.Titles;
 import controllers.LoginController;
-import services.DBServices;
+import models.data.DataHandler;
+import models.data.Score;
 import styles.Borders;
 import styles.Colors;
 import styles.Fonts;
@@ -66,6 +67,7 @@ public abstract class Board extends JPanel implements ActionListener {
     private JProgressBar bigAppleProgressBar;  // Progress bar for big apple timer
     private JPanel bottomPanel = new JPanel(); // Panel for UI components at the bottom
     private JPanel gameOverButtonPanel = new JPanel(); // Panel for UI components at the game over
+    private boolean scoreWrittenToFile = false;
 
     public Board() {
         initBoard();
@@ -271,17 +273,37 @@ public abstract class Board extends JPanel implements ActionListener {
             Toolkit.getDefaultToolkit().sync();
         } else {
             gameOver(g);
-            updateScore();
+            writeScoreToFile();
         }
     }
 
-    private void updateScore() {
-        String username = LoginController.username;
-        if (username.isEmpty()) {
-            return;
+//    private void updateScore() {
+//        String username = LoginController.username;
+//        if (username.isEmpty()) {
+//            return;
+//        }
+//        DataHandler.writeScore(Paths.URL_SCORE);
+//        System.out.println("Current playing: "+ username + " score: " + score);
+//    }
+
+    private void writeScoreToFile() {
+        try{
+            if (!scoreWrittenToFile) {
+                String username = LoginController.username;
+                DataHandler.scoreList.put(username, new Score(username, score));
+                System.out.println("Data Score " + DataHandler.scoreList);
+
+                if (DataHandler.writeScore(Paths.URL_SCORE)){
+                    scoreWrittenToFile = true;
+                    System.out.println(scoreWrittenToFile);
+                    System.out.println("sau khi ghi file ");
+                } else {
+                    throw new Exception("Error write file Score.txt");
+                }
+            }
+        }catch (Exception e){
+            System.out.println(e.getMessage());
         }
-        DBServices.executeOther();
-        DBServices.updateUsernameScore(username, String.valueOf(this.score));
     }
 
     private void gameOver(Graphics g) {

@@ -195,6 +195,46 @@ public non-sealed class LoginView extends MyFrame implements ToggleHandler, Hove
 
     @Override
     public void changeColorBaseOnToggle() {
-
+//        //if enble toggle, change color to dark
+//        if(getStatusToggle()){
+//            jPanel_Right.setBackground(Colors.PRIMARY_COLOR_D);
+//            jPanel_Right_Top_Tittle.setBackground(Colors.PRIMARY_COLOR_D);
+//            jPanel_Right_Middle_Data.setBackground(Colors.PRIMARY_COLOR_D);
+//            jPanel_Right_Bottom_Option.setBackground(Colors.PRIMARY_COLOR_D);
+//            jLabel_Right_Top_Tittle.setForeground(Colors.TEXT_COLOR_D);
+//            jLabel_Right_Middle_Username.setForeground(Colors.TEXT_COLOR_D);
+//            jLabel_Right_Middle_Password.setForeground(Colors.TEXT_COLOR_D);
+//            jLabel_Right_Bottom_Option.setForeground(Colors.TEXT_COLOR_D);
+//            jButton_Right_Bottom_Submit.setBackground(Colors.TEXT_COLOR_D);
+//            jButton_Right_Bottom_Submit.setForeground(Colors.PRIMARY_COLOR_D);
+//            jButton_Right_Bottom_Others.setBackground(Colors.TEXT_COLOR_D);
+//            jButton_Right_Bottom_Others.setForeground(Colors.OTHER_OPTIONS_D);
+//            jTextField_Right_Middle_Username.setBackground(Colors.SECONDARY_COLOR_D);
+//            jTextField_Right_Middle_Username.setForeground(Colors.TEXT_COLOR_D);
+//            jPasswordField_Right_Middle_Password.setBackground(Colors.SECONDARY_COLOR_D);
+//            jPasswordField_Right_Middle_Password.setForeground(Colors.TEXT_COLOR_D);
+//            jButton_Right_Play.setBackground(Colors.TEXT_COLOR_D);
+//            jButton_Right_Play.setForeground(Colors.PRIMARY_COLOR_D);
+//        }
+//        else{
+//            jPanel_Right.setBackground(Colors.PRIMARY_COLOR_L);
+//            jPanel_Right_Top_Tittle.setBackground(Colors.PRIMARY_COLOR_L);
+//            jPanel_Right_Middle_Data.setBackground(Colors.PRIMARY_COLOR_L);
+//            jPanel_Right_Bottom_Option.setBackground(Colors.PRIMARY_COLOR_L);
+//            jLabel_Right_Top_Tittle.setForeground(Colors.TEXT_COLOR_L);
+//            jLabel_Right_Middle_Username.setForeground(Colors.TEXT_COLOR_L);
+//            jLabel_Right_Middle_Password.setForeground(Colors.TEXT_COLOR_L);
+//            jLabel_Right_Bottom_Option.setForeground(Colors.TEXT_COLOR_L);
+//            jButton_Right_Bottom_Submit.setBackground(Colors.TEXT_COLOR_L);
+//            jButton_Right_Bottom_Submit.setForeground(Colors.PRIMARY_COLOR_L);
+//            jButton_Right_Bottom_Others.setBackground(Colors.TEXT_COLOR_L);
+//            jButton_Right_Bottom_Others.setForeground(Colors.OTHER_OPTIONS_L);
+//            jTextField_Right_Middle_Username.setBackground(Colors.SECONDARY_COLOR_L);
+//            jTextField_Right_Middle_Username.setForeground(Colors.TEXT_COLOR_L);
+//            jPasswordField_Right_Middle_Password.setBackground(Colors.SECONDARY_COLOR_L);
+//            jPasswordField_Right_Middle_Password.setForeground(Colors.TEXT_COLOR_L);
+//            jButton_Right_Play.setBackground(Colors.TEXT_COLOR_L);
+//            jButton_Right_Play.setForeground(Colors.PRIMARY_COLOR_L);
+//        }
     }
 }
