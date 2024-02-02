@@ -15,6 +15,15 @@ public class Tunnel extends Board {
         super();
     }
 
+    public static void main(String[] args) {
+        JFrame frame = new JFrame();
+        frame.add(new Tunnel());
+        frame.pack();
+        frame.setSize(Sizes.WIDTH_BOARD, Sizes.HEIGHT_BOARD);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setVisible(true);
+    }
+
     @Override
     public void loadImages() {
         super.loadImages();
@@ -24,28 +33,30 @@ public class Tunnel extends Board {
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        for (int i = 0; i < 200; i += 20) {
+        //draw the 2 left horizontal walls
+        for (int i = 0; i < 100; i += 20) {
             g.drawImage(wall, i, 0, this);
             g.drawImage(wall, i, Sizes.HEIGHT_BOARD - 70, this);
         }
-        for (int i = 600; i < Sizes.WIDTH_BOARD; i += 20) {
+        //draw the 2 right horizontal walls
+        for (int i = 400; i < Sizes.WIDTH_BOARD; i += 20) {
             g.drawImage(wall, i, 0, this);
             g.drawImage(wall, i, Sizes.HEIGHT_BOARD - 70, this);
         }
-
-        for (int i = 20; i < 200; i += 20) {
+        //draw the 2 left vertical walls
+        for (int i = 0; i < 100; i += 20) {
             g.drawImage(wall, 0, i, this);
-            g.drawImage(wall, Sizes.WIDTH_BOARD - 20, i, this);
+            g.drawImage(wall, 0, Sizes.HEIGHT_BOARD - 70 - i, this);
         }
-
-        for (int i = 600; i < Sizes.HEIGHT_BOARD - 70; i += 20) {
-            g.drawImage(wall, 0, i, this);
+        //draw the 2 right vertical walls
+        for (int i = 0; i < 100; i += 20) {
             g.drawImage(wall, Sizes.WIDTH_BOARD - 20, i, this);
+            g.drawImage(wall, Sizes.WIDTH_BOARD - 20, Sizes.HEIGHT_BOARD - 70 - i, this);
         }
-
-        for (int i = 220; i < 600; i += 20) {
-            g.drawImage(wall, i, 200, this);
-            g.drawImage(wall, i, Sizes.HEIGHT_BOARD - 270, this);
+        //draw the 2 middle horizontal walls
+        for (int i = 100; i < 400; i += 20) {
+            g.drawImage(wall, i, 205, this);
+            g.drawImage(wall, i, Sizes.HEIGHT_BOARD - 50 - 100 - 105, this);
         }
     }
 
