@@ -24,13 +24,13 @@ public class Box extends Board {
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        for (int i = 0; i <= Sizes.WIDTH_BOARD; i += 20) {
+        for (int i = 0; i < Sizes.WIDTH_BOARD; i += 20) {
             g.drawImage(wall, i, 0, this);
             g.drawImage(wall, i, Sizes.HEIGHT_BOARD - 70, this);
         }
         for (int i = 0; i < Sizes.HEIGHT_BOARD - 70; i += 20) {
             g.drawImage(wall, 0, i, this);
-            g.drawImage(wall, Sizes.WIDTH_BOARD - 10, i, this);
+            g.drawImage(wall, Sizes.WIDTH_BOARD - 20, i, this);
         }
     }
 
@@ -62,7 +62,6 @@ public class Box extends Board {
 
         if (!inGame) {
             if (isOnSound()) {
-//                audioHandler.setAudio(audioHandler.formatAudioPath(getClass().getResource(Paths.URL_GAME_OVER).getPath()));
                 InputStream inputStream = getClass().getResourceAsStream(Paths.URL_GAME_OVER);
                 audioHandler.playAudio(inputStream);
             }
@@ -88,7 +87,6 @@ public class Box extends Board {
     @Override
     protected void locateBigApple() {
         if (isOnSound()) {
-//            audioHandler.setAudio(audioHandler.formatAudioPath(getClass().getResource(Paths.URL_BIG_APPLE_APP).getPath()));
             InputStream inputStream = getClass().getResourceAsStream(Paths.URL_BIG_APPLE_APP);
             audioHandler.playAudio(inputStream);
         }
