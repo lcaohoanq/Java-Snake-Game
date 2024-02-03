@@ -170,28 +170,22 @@ public class MenuController implements MouseListener, ActionListener {
                 });
             }
             if (e.getSource() == menuModern.jButton_7) {
-//                EventQueue.invokeLater(() -> {
-//                    menuView.dispose();
-//                    new Snake("Mill").startGame();
-//                });
-
-                prepareUnsupportFeature();
+                EventQueue.invokeLater(() -> {
+                    menuView.dispose();
+                    new Snake("Mill").startGame();
+                });
             }
             if (e.getSource() == menuModern.jButton_8) {
-//                EventQueue.invokeLater(() -> {
-//                    menuView.dispose();
-//                    new Snake("Rails").startGame();
-//                });
-
-                prepareUnsupportFeature();
+                EventQueue.invokeLater(() -> {
+                    menuView.dispose();
+                    new Snake("Rails").startGame();
+                });
             }
             if (e.getSource() == menuModern.jButton_9) {
-//                EventQueue.invokeLater(() -> {
-//                    menuView.dispose();
-//                    new Snake("Apartment").startGame();
-//                });
-
-                prepareUnsupportFeature();
+                EventQueue.invokeLater(() -> {
+                    menuView.dispose();
+                    new Snake("Apartment").startGame();
+                });
             }
         }
 
