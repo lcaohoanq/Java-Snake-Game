@@ -13,7 +13,11 @@ public class Mill extends Board {
 
     public  Mill() {
         super();
+
+        //adjust to prevent hitting the side wall
+        leftDirection = false;
         rightDirection = false;
+        upDirection = false;
         downDirection = true;
     }
 
