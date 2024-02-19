@@ -70,36 +70,74 @@ public class Tunnel extends Board {
             }
         }
 
-        if (y[0] > Sizes.HEIGHT_BOARD - 50 && ((x[0] >= 0 && x[0] <= 200) || (x[0] >= 600 && x[0] < Sizes.WIDTH_BOARD))) {
+        //check if the snake hit the first middle horizontal walls (done)
+        if (y[0] >= 205 && y[0] <= 225 && x[0] >= 100 && x[0] <= 390) {
             inGame = false;
         }
 
-        if (y[0] >= Sizes.HEIGHT_BOARD - 50 && (x[0] > 200 && x[0] < 600)) {
+        //check if the snake hit the second middle horizontal walls (done)
+        if(y[0] >= Sizes.HEIGHT_BOARD - 50 - 100 - 105 && y[0] <= Sizes.HEIGHT_BOARD - 50 - 100 - 85 && x[0] >= 100 && x[0] <= 390){
+            inGame = false;
+        }
+
+        //check if the snake hit the top left vertical walls (done)
+        if (x[0] >= 0 && x[0] <= 20 && y[0] >= 0 && y[0] <= 90) {
+            inGame = false;
+        }
+
+        //check if the snake hit the bottom left vertical walls
+        if (x[0] >= 0 && x[0] <= 20 && y[0] >= Sizes.HEIGHT_BOARD - 50 - 100 && y[0] <= Sizes.HEIGHT_BOARD - 50) {
+            inGame = false;
+        }
+
+        //check if the snake hit the top right vertical walls (done)
+        if (x[0] >= Sizes.WIDTH_BOARD - 20 && x[0] <= Sizes.WIDTH_BOARD && y[0] >= 0 && y[0] <= 90) {
+            inGame = false;
+        }
+
+        //check if the snake hit the bottom right vertical walls
+        if (x[0] >= Sizes.WIDTH_BOARD - 20 && x[0] <= Sizes.WIDTH_BOARD && y[0] >= Sizes.HEIGHT_BOARD - 50 - 100 && y[0] <= Sizes.HEIGHT_BOARD - 70) {
+            inGame = false;
+        }
+
+        //check if the snake hit the top left horizontal walls (done)
+        if (y[0] >= 0 && y[0] <= 20 && x[0] >= 0 && x[0] <= 90) {
+            inGame = false;
+        }
+
+        //check if the snake hit the bottom left horizontal walls
+        if (y[0] >= Sizes.HEIGHT_BOARD - 70 && y[0] <= Sizes.HEIGHT_BOARD - 70 && x[0] >= 0 && x[0] <= 90) {
+            inGame = false;
+        }
+
+        //check if the snake hit the top right horizontal walls
+        if (y[0] >= 0 && y[0] <= 20 && x[0] >= Sizes.WIDTH_BOARD - 100 && x[0] <= Sizes.WIDTH_BOARD) {
+            inGame = false;
+        }
+
+        //check if the snake hit the bottom right horizontal walls
+        if (y[0] >= Sizes.HEIGHT_BOARD - 70 && y[0] <= Sizes.HEIGHT_BOARD - 50 && x[0] >= Sizes.WIDTH_BOARD - 100 && x[0] <= Sizes.WIDTH_BOARD) {
+            inGame = false;
+        }
+
+        // snake go through the wall south
+        if (y[0] >= Sizes.HEIGHT_BOARD - 50) {
             y[0] = 0;
         }
 
-        if (y[0] < 20 && ((x[0] >= 0 && x[0] <= 200) || (x[0] >= 600 && x[0] < Sizes.WIDTH_BOARD))) {
-            inGame = false;
+        // snake go through the wall north
+        if (y[0] < 0 && x[0] >= 100 && x[0] <= Sizes.WIDTH_BOARD - 100) {
+            y[0] = Sizes.HEIGHT_BOARD - 50 - DOT_SIZE;
         }
 
-        if (y[0] < 0 && (x[0] > 200 && x[0] < 600)) {
-            y[0] = Sizes.HEIGHT_BOARD - 50;
-        }
-
-        if (x[0] > Sizes.WIDTH_BOARD && ((y[0] >= 0 && y[0] <= 200) || (y[0] >= Sizes.HEIGHT_BOARD - 270 && y[0] < Sizes.HEIGHT_BOARD - 50))) {
-            inGame = false;
-        }
-
-        if (x[0] >= Sizes.WIDTH_BOARD && (y[0] > 200 && y[0] < Sizes.HEIGHT_BOARD - 250)) {
+        // snake go through the wall east
+        if (x[0] >= Sizes.WIDTH_BOARD && y[0] >= 100 && y[0] <= Sizes.HEIGHT_BOARD - 100) {
             x[0] = 0;
         }
 
-        if (x[0] < 20 && ((y[0] >= 0 && y[0] <= 200) || (y[0] >= Sizes.HEIGHT_BOARD - 270 && y[0] < Sizes.HEIGHT_BOARD - 50))) {
-            inGame = false;
-        }
-
-        if (x[0] < 0 && (y[0] > 200 && y[0] < Sizes.HEIGHT_BOARD - 250)) {
-            x[0] = Sizes.WIDTH_BOARD;
+        // snake go through the wall west
+        if (x[0] < 0) {
+            x[0] = Sizes.WIDTH_BOARD - DOT_SIZE;
         }
 
         if (!inGame) {
