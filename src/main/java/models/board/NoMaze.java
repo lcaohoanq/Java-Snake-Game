@@ -45,7 +45,6 @@ public class NoMaze extends Board {
 
         if (!inGame) {
             if (isOnSound()) {
-//                audioHandler.setAudio(audioHandler.formatAudioPath(getClass().getResource(Paths.URL_GAME_OVER).getPath()));
                 InputStream inputStream = getClass().getResourceAsStream(Paths.URL_GAME_OVER);
                 audioHandler.playAudio(inputStream);
             }

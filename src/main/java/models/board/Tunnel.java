@@ -167,7 +167,6 @@ public class Tunnel extends Board {
     @Override
     protected void locateBigApple() {
         if (isOnSound()) {
-//            audioHandler.setAudio(audioHandler.formatAudioPath(getClass().getResource(Paths.URL_BIG_APPLE_APP).getPath()));
             InputStream inputStream = getClass().getResourceAsStream(Paths.URL_BIG_APPLE_APP);
             audioHandler.playAudio(inputStream);
         }

@@ -5,6 +5,7 @@ import constants.Sizes;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.InputStream;
 
 public class Apartment extends Board {
     protected int wallThickness = 20;
@@ -55,7 +56,41 @@ public class Apartment extends Board {
     
     @Override
     protected void checkCollision() {
+        for (int z = dots; z > 0; z--) {
 
+            if ((z > 4) && (x[0] == x[z]) && (y[0] == y[z])) {
+                inGame = false;
+                break;
+            }
+        }
+
+        // snake can go through the walls north
+        if (y[0] < 0) {
+            y[0] = Sizes.HEIGHT_BOARD - 50 - DOT_SIZE;
+        }
+
+        // snake can go through the walls south
+        if(y[0] >= Sizes.HEIGHT_BOARD - 50){
+            y[0] = 0;
+        }
+
+        // snake can go through the walls east
+        if (x[0] >= Sizes.WIDTH_BOARD) {
+            x[0] = 0;
+        }
+
+        // snake can go through the walls west
+        if (x[0] < 0) {
+            x[0] = Sizes.WIDTH_BOARD - DOT_SIZE;
+        }
+
+        if (!inGame) {
+            if (isOnSound()) {
+                InputStream inputStream = getClass().getResourceAsStream(Paths.URL_GAME_OVER);
+                audioHandler.playAudio(inputStream);
+            }
+            timer.stop();
+        }
     }
 
     @Override

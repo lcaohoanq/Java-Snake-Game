@@ -44,10 +44,10 @@ public abstract class Board extends JPanel implements ActionListener {
     // Game state variables
     private int score = 0;            // Player's score
     // Snake movement directions
-    private boolean leftDirection = false;     // Flag for moving left
-    private boolean rightDirection = true;     // Flag for moving right
-    private boolean upDirection = false;       // Flag for moving up
-    private boolean downDirection = false;     // Flag for moving down
+    protected boolean leftDirection = false;     // Flag for moving left
+    protected boolean rightDirection = true;     // Flag for moving right
+    protected boolean upDirection = false;       // Flag for moving up
+    protected boolean downDirection = false;     // Flag for moving down
     private Timer bigAppleTimer;               // Timer for big apple appearance
     private Image ball;                        // Snake body image
     private Image apple;                       // Regular apple image
