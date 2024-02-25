@@ -6,6 +6,8 @@ public record Account(String username, String password, String confirmPassword, 
         this(username, password, "", 0);
     }
 
+    // use at Register view to create new account and
+    // check if password and confirmPassword are the same or not at RegisterController
     public Account(String username, String password, String confirmPassword) {
         this(username, password, confirmPassword, 0);
     }
