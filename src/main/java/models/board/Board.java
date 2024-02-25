@@ -276,14 +276,23 @@ public abstract class Board extends JPanel implements ActionListener {
         }
     }
 
-    private void updateScore() {
+    public int compareDatabaseAndCurrentScore(int dbScore, int currentScore){
+        return dbScore - currentScore;
+    }
+
+    public int handleScore(String username){
+        int currentScore = this.score;
+        int dbScore = Objects.requireNonNull(DBServices.selectUsernameAndScoreByUsername(username)).score();
+        return compareDatabaseAndCurrentScore(dbScore, currentScore);
+    }
+
+    public void updateScore() {
         String username = LoginController.username;
         if (username.isEmpty()) {
             return;
         }
-        //compare the current score vs the score we get from username in the database
-        int dbScore = Objects.requireNonNull(DBServices.selectUsernameAndScoreByUsername(username)).score();
-        if(dbScore < this.score) {
+        // if the current score > db score, update the score in the database
+        if(handleScore(username) < 0){
             DBServices.executeOther();
             DBServices.updateUsernameScore(username, String.valueOf(this.score));
         }
