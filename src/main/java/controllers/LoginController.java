@@ -19,7 +19,7 @@ public final class LoginController implements ActionListener, MouseListener, Log
 
     public static String username = "";
     public static String password = "";
-    private LoginView loginView;
+    private final LoginView loginView;
 
     public LoginController(LoginView loginView) {
         super();
@@ -32,7 +32,7 @@ public final class LoginController implements ActionListener, MouseListener, Log
         password = loginView.getLogin().password();
 
         System.out.println("Data: " + username + " " + password);
-        if (username.equals("admin") && password.equals("admin")) {
+        if (isAdmin("admin", "admin")) {
             handleSuccess();
             return;
         }
@@ -49,6 +49,9 @@ public final class LoginController implements ActionListener, MouseListener, Log
 
     }
 
+    private boolean isAdmin(String username, String password) {
+        return username.equals("admin") && password.equals("admin");
+    }
 
     @Override
     public void handleEmpty() {
