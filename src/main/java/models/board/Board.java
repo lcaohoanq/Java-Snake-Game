@@ -19,6 +19,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.InputStream;
+import java.util.Objects;
 
 public abstract class Board extends JPanel implements ActionListener {
 
@@ -41,13 +42,13 @@ public abstract class Board extends JPanel implements ActionListener {
     // Game timers and images
     protected Timer timer;                       // Timer for regular game events
     protected AudioHandler audioHandler = new AudioHandler();
-    // Game state variables
-    private int score = 0;            // Player's score
     // Snake movement directions
     protected boolean leftDirection = false;     // Flag for moving left
     protected boolean rightDirection = true;     // Flag for moving right
     protected boolean upDirection = false;       // Flag for moving up
     protected boolean downDirection = false;     // Flag for moving down
+    // Game state variables
+    private int score = 0;            // Player's score
     private Timer bigAppleTimer;               // Timer for big apple appearance
     private Image ball;                        // Snake body image
     private Image apple;                       // Regular apple image
@@ -275,13 +276,26 @@ public abstract class Board extends JPanel implements ActionListener {
         }
     }
 
-    private void updateScore() {
+    public int compareDatabaseAndCurrentScore(int dbScore, int currentScore) {
+        return dbScore - currentScore;
+    }
+
+    public int handleScore(String username) {
+        int currentScore = this.score;
+        int dbScore = Objects.requireNonNull(DBServices.selectUsernameAndScoreByUsername(username)).score();
+        return compareDatabaseAndCurrentScore(dbScore, currentScore);
+    }
+
+    public void updateScore() {
         String username = LoginController.username;
         if (username.isEmpty()) {
             return;
         }
-        DBServices.executeOther();
-        DBServices.updateUsernameScore(username, String.valueOf(this.score));
+        // if the current score > db score, update the score in the database
+        if (handleScore(username) < 0) {
+            DBServices.executeOther();
+            DBServices.updateUsernameScore(username, String.valueOf(this.score));
+        }
     }
 
     private void gameOver(Graphics g) {
