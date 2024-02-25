@@ -1,0 +1,290 @@
+/* reset css */
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
+body {
+  line-height: 1;
+}
+ol,
+ul {
+  list-style: none;
+}
+blockquote,
+q {
+  quotes: none;
+}
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: "";
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+a {
+  text-decoration: none;
+}
+/* reset css */
+
+/* processing */
+.App {
+  margin: 0 auto;
+  text-align: center;
+  font-family: "Roboto", sans-serif;
+  background-color: #121212;
+  /* this height is for testing, will adjust later by responsive */
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+.App-header h1 {
+  font-size: 100px;
+  color: #19b719;
+}
+#tmp {
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row-reverse;
+  gap: 100px;
+}
+#App-img {
+  /* border: 1px solid orange; */
+}
+#App-data .title {
+  color: #19b719;
+  font-weight: bold;
+  font-size: 30px;
+}
+#App-data {
+  width: 350px;
+  padding: 30px 0px 30px 0px;
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
+}
+#App-data input {
+  /* display: block; */
+  color: #19b719;
+  border: none;
+  font-family: "Roboto", sans-serif;
+  width: 250px;
+  height: 30px;
+  border-radius: 5px;
+  text-indent: 10px;
+  background-color: #f0f0f0;
+}
+#App-data input:hover {
+  background-color: #ffffff;
+}
+#App-data label {
+  /* background-color: #ffffff; */
+}
+.submit-btn button {
+  margin: 130px 0 40px 0;
+  width: 50px;
+  height: 50px;
+  color: #ffffff;
+  background-color: #19b719;
+  font-size: 20px;
+  font-weight: bold;
+  /* trên dưới 0.25, trái phải 0.75 */
+  padding: 0.25rem 0.75rem;
+
+  border: 1px solid #118011;
+
+  /* bo 4 góc 5px */
+  border-radius: 10px;
+
+  /* background: none; */
+
+  box-shadow: 0 3px 0 #118011;
+
+  /* đưa con chuột vào bị đổi */
+  cursor: pointer;
+
+  /* hiệu ứng không mượt */
+  transition: 0.2s;
+}
+.submit-btn button:active {
+  /* cùng màu với shadow khi nhấn */
+  box-shadow: 0 1px 0 #ffffff;
+  transform: translateY(2px);
+  /* box-shadow: none; */
+}
+.submit-btn button:hover {
+  background-color: #2bcd2b;
+}
+.bottom-btn {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 3px;
+}
+.bottom-btn p {
+  color: #19b719;
+}
+.bottom-btn a {
+  border: none;
+  color: black;
+  background-color: #ffffff;
+}
+
+/* Media Query for screens smaller than 768px (typical mobile devices) */
+@media (max-width: 768px) {
+  .App {
+    height: 100vh;
+  }
+
+  #tmp {
+    gap: 20px;
+  }
+
+  #App-data {
+    width: 100%;
+    height: 50vh;
+    padding: 20px;
+  }
+
+  #App-data input {
+    width: 100%;
+  }
+
+  .submit-btn button {
+    margin: 40px 0 40px 0;
+  }
+}
+
+/* Media Query for screens wider than 1200px */
+@media (min-width: 1201px) {
+  .App {
+    height: 100vh;
+  }
+
+  #tmp {
+    gap: 100px;
+  }
+
+  #App-data {
+    width: 350px;
+    padding: 30px 0px 30px 0px;
+  }
+
+  #App-data input {
+    width: 250px;
+  }
+
+  .submit-btn button {
+    margin: 130px 0 40px 0;
+  }
+}

@@ -1,0 +1,79 @@
+package views;
+
+import controllers.MenuController;
+import controllers.PlayController;
+import models.board.Box;
+import models.board.*;
+import styles.Borders;
+import styles.Images;
+
+import javax.swing.*;
+import java.awt.*;
+
+public class Snake extends JFrame {
+    private JMenuBar jMenuBar = new JMenuBar();
+    private JMenu jMenu = new JMenu("HELP");
+    private JMenuItem jMenuItem_Back_To_Main_Menu = new JMenuItem("Back to main menu");
+
+    public Snake(String mode) {
+        initMenu();
+        initUI(mode);
+    }
+
+    private void initUI(String mode) {
+        checkMode(mode);
+        setResizable(false);
+        pack();
+        setTitle("Snake");
+        setIconImage(Images.icon);
+        setJMenuBar(jMenuBar);
+        MenuController.menuView.dispose();
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setVisible(false);
+    }
+
+    private void initMenu() {
+        jMenuBar.setLayout(new FlowLayout(FlowLayout.LEFT));
+        jMenuBar.setBorder(Borders.LINE_MENU_BAR);
+        jMenuBar.add(jMenu);
+        jMenu.add(jMenuItem_Back_To_Main_Menu);
+        jMenuItem_Back_To_Main_Menu.addActionListener(new PlayController(this));
+        this.setJMenuBar(jMenuBar);
+    }
+
+    private void checkMode(String mode) {
+        if (mode.equals("Classic")) {
+            add(new NoMaze()); // NoMaze is the default mode
+        }
+        if (mode.equals("NoMaze")) {
+            add(new NoMaze());  // NoMaze is the default mode
+        }
+        if (mode.equals("Box")) {
+            add(new Box());
+        }
+        if (mode.equals("Tunnel")) {
+            add(new Tunnel());
+        }
+        if (mode.equals("Mill")) {
+            add(new Mill());
+        }
+        if (mode.equals("Rails")) {
+            add(new Rails());
+        }
+        if (mode.equals("Apartment")) {
+            add(new Apartment());
+        }
+        if (mode.equals("Campaign")) {
+            add(new Campaign());
+        }
+    }
+
+    public void startGame() {
+        setVisible(true);
+    }
+
+    public void stopGame() {
+        dispose();
+    }
+}
