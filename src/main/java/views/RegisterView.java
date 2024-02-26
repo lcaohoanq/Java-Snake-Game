@@ -189,6 +189,13 @@ public non-sealed class RegisterView extends MyFrame implements ToggleHandler, H
         return new Account(username, password, confirmPassword);
     }
 
+    //this method for test getRegister above
+    public void setRegister(String username, String password, String confirmPassword) {
+        jTextField_Right_Middle_Username.setText(username);
+        jPasswordField_Right_Middle_Password.setText(password);
+        jPasswordField_Right_Middle_Confirm_Password.setText(confirmPassword);
+    }
+
     public void setHoverConfirmPassword(boolean isInside, String mode) {
         if (isInside) {
             if (mode.equals("light")) {
