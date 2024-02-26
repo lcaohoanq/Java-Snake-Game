@@ -72,6 +72,7 @@ public final class LoginController implements ActionListener, MouseListener, Log
         System.out.println("Login success: " + "username:" + username + " password:" + password);
         CardLayout cardLayout = LoginView.cardLayout;
         cardLayout.next(LoginView.jPanel_Right_Bottom_Button);
+        //hidden the username and password input field
         loginView.setStatusInputData(false);
     }
 

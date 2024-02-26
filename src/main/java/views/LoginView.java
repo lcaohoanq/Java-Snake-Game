@@ -179,6 +179,12 @@ public non-sealed class LoginView extends MyFrame implements ToggleHandler, Hove
         return new Account(username, password);
     }
 
+    //this method for test getLogin above
+    public void setLogin(String username, String password) {
+        jTextField_Right_Middle_Username.setText(username);
+        jPasswordField_Right_Middle_Password.setText(password);
+    }
+
     public void setStatusInputData(boolean status) {
         jTextField_Right_Middle_Username.setEnabled(status);
         jPasswordField_Right_Middle_Password.setEnabled(status);
