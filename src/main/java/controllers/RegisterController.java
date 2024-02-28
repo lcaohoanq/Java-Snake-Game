@@ -13,12 +13,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.time.format.DateTimeFormatter;
 
 public non-sealed class RegisterController implements ActionListener, MouseListener, RegisterData {
 
     private String username;
     private String password;
     private String confirmPassword;
+    private String regDate;
+    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     private PasswordHandler passwordHandler;
     private RegisterView registerView;
 
@@ -34,6 +37,7 @@ public non-sealed class RegisterController implements ActionListener, MouseListe
         username = registerView.getRegister().username();
         password = registerView.getRegister().password();
         confirmPassword = registerView.getRegister().confirmPassword();
+        regDate = registerView.getRegister().registerDate().format(formatter);
         if (!username.matches(Regex.USERNAME)) {
             Messages.IS_WRONG_FORMAT_USERNAME();
             return;
@@ -81,7 +85,7 @@ public non-sealed class RegisterController implements ActionListener, MouseListe
     public void handleSuccess() {
         password = passwordHandler.hash(password); // replace password with the hashed
         System.out.println("Register success: " + "username:" + username + " password:" + password);
-        DBServices.insert(username, password, 0);
+        DBServices.insert(username, password, 0, regDate);
         Messages.IS_REGISTER_SUCCESS();
     }
 

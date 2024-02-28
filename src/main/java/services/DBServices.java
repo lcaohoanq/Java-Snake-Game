@@ -103,6 +103,24 @@ public class DBServices {
         }
     }
 
+    public static void insert(String username, String password, int score, String regDate) {
+        try {
+            Connection connection = getConnection();
+
+            Statement statement = connection.createStatement();
+            String sql = "INSERT INTO `users_schema`.`users` (`username`,`password`,`score`, `reg_date`) VALUES ('" + username
+                    + "', '" + password + "', " + score + ", '" + regDate + "')";
+            int rowsAffected = statement.executeUpdate(sql);
+            if (rowsAffected > 0) {
+                System.out.println(Database.INSERT_SUCCESS + " for " + username);
+            } else {
+                throw new DBException(Database.INSERT_FAILED + " for " + username);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
     //set safe updates
     public static void executeOther() {
         try {
