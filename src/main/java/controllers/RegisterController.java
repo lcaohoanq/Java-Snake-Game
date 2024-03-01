@@ -110,10 +110,10 @@ public non-sealed class RegisterController implements ActionListener, MouseListe
         Account db;
         try {
             db = DBServices.selectUsernameAndPasswordByUsername(username);
-            if (db == null || !db.username().equals(username)) {
-                throw new DataException("Error, is duplicated username");
-            } else {
+            if (db == null) {
                 return false;
+            } else {
+                throw new DataException("Error, is duplicated username");
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
