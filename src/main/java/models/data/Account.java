@@ -1,15 +1,17 @@
 package models.data;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
-public record Account(String username, String password, String confirmPassword, int score, LocalDateTime registerDate) {
+public record Account(String username, String password, String confirmPassword, int score, String registerDate) {
 
     public Account(String username, String password) {
         this(username, password, "", 0, null);
     }
 
     public Account(String username, String password, String confirmPassword) {
-        this(username, password, confirmPassword, 0, LocalDateTime.now());
+        this(username, password, confirmPassword, 0, Instant.now().toString().formatted(DateTimeFormatter.ISO_DATE_TIME));
     }
 
     public Account(String username, int score) {
