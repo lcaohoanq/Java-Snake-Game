@@ -107,10 +107,15 @@ public class DBServices {
         try {
             Connection connection = getConnection();
 
-            Statement statement = connection.createStatement();
-            String sql = "INSERT INTO `users_schema`.`users` (`username`,`password`,`score`, `reg_date`) VALUES ('" + username
-                    + "', '" + password + "', " + score + ", '" + regDate + "')";
-            int rowsAffected = statement.executeUpdate(sql);
+            String sql = "INSERT INTO `users_schema`.`users` " + "(`username`,`password`,`score`, `reg_date`) " + "VALUES (?,?,?,?)";
+
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, username);
+            statement.setString(2, password);
+            statement.setInt(3, score);
+            statement.setString(4, regDate);
+
+            int rowsAffected = statement.executeUpdate();
             if (rowsAffected > 0) {
                 System.out.println(Database.INSERT_SUCCESS + " for " + username);
             } else {
