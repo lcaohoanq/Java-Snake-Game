@@ -1,5 +1,6 @@
 package views;
 
+import io.github.cdimascio.dotenv.Dotenv;
 import models.data.Account;
 import org.junit.Before;
 import org.junit.Test;
@@ -8,18 +9,28 @@ import static org.junit.Assert.*;
 
 public class RegisterViewTest {
 
+    String username;
+    String password;
     RegisterView registerView;
 
     @Before
     public void setUp() throws Exception {
+        Dotenv dotenv = Dotenv.load();
         registerView = new RegisterView();
+        this.username = dotenv.get("TEST_USERNAME");
+        this.password = dotenv.get("TEST_PASSWORD");
     }
 
     @Test
     public void getRegister() {
-//        registerView.setRegister("hoang", "Luucaohoang1604^^", "Luucaohoang1604^^");
-//        Account expectedResult = new Account("hoang", "Luucaohoang1604^^", "Luucaohoang1604^^");
-//        Account actualResult = registerView.getRegister();
-//        assertEquals(expectedResult, actualResult);
+        Account expectedResult = new Account(username, password, password);
+
+        //reg_date above and below is different because the constructor of Account class has a reg_date parameter
+        //depend on the current time, so we can't compare the whole object
+        registerView.setRegister(username, password, password);
+        Account actualAccount = registerView.getRegister();
+
+        boolean actualResult = expectedResult.username().equals(actualAccount.username()) && expectedResult.password().equals(actualAccount.password());
+        assertTrue(actualResult);
     }
 }

@@ -13,8 +13,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import io.github.cdimascio.dotenv.Dotenv;
+
 public class DBServices {
-    private static final String ENV_FILE_PATH = ".env";
 
     public static Connection getConnection() throws SQLException {
         try {
@@ -23,16 +24,17 @@ public class DBServices {
             String dbUsername = properties.getProperty(Database.DB_USERNAME);
             String dbPassword = properties.getProperty(Database.DB_PASSWORD);
             return DriverManager.getConnection(dbUrl, dbUsername, dbPassword);
-        } catch (IOException e) {
+        } catch (Exception e) {
             throw new DBException(Errors.ERROR_READ_FILE_ENV + e.getMessage());
         }
     }
 
-    private static Properties loadEnv() throws IOException {
+    private static Properties loadEnv() {
+        Dotenv dotenv = Dotenv.configure().load();
         Properties properties = new Properties();
-        try (BufferedReader reader = new BufferedReader(new FileReader(ENV_FILE_PATH))) {
-            properties.load(reader);
-        }
+        properties.setProperty(Database.DB_URL, dotenv.get(Database.DB_URL));
+        properties.setProperty(Database.DB_USERNAME, dotenv.get(Database.DB_USERNAME));
+        properties.setProperty(Database.DB_PASSWORD, dotenv.get(Database.DB_PASSWORD));
         return properties;
     }
 
