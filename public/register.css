@@ -1,132 +1,17 @@
-/* reset css */
-/* http://meyerweb.com/eric/tools/css/reset/ 
-   v2.0 | 20110126
-   License: none (public domain)
-*/
-
-html,
-body,
-div,
-span,
-applet,
-object,
-iframe,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p,
-blockquote,
-pre,
-a,
-abbr,
-acronym,
-address,
-big,
-cite,
-code,
-del,
-dfn,
-em,
-img,
-ins,
-kbd,
-q,
-s,
-samp,
-small,
-strike,
-strong,
-sub,
-sup,
-tt,
-var,
-b,
-u,
-i,
-center,
-dl,
-dt,
-dd,
-ol,
-ul,
-li,
-fieldset,
-form,
-label,
-legend,
-table,
-caption,
-tbody,
-tfoot,
-thead,
-tr,
-th,
-td,
-article,
-aside,
-canvas,
-details,
-embed,
-figure,
-figcaption,
-footer,
-header,
-hgroup,
-menu,
-nav,
-output,
-ruby,
-section,
-summary,
-time,
-mark,
-audio,
-video {
+* {
   margin: 0;
   padding: 0;
-  border: 0;
-  font-size: 100%;
-  font: inherit;
-  vertical-align: baseline;
+  box-sizing: border-box;
 }
-/* HTML5 display-role reset for older browsers */
-article,
-aside,
-details,
-figcaption,
-figure,
-footer,
-header,
-hgroup,
-menu,
-nav,
-section {
-  display: block;
+html {
+  font-size: 62.5%;
+  font-family: "Roboto", sans-serif;
 }
 body {
-  line-height: 1;
-}
-ol,
-ul {
-  list-style: none;
-}
-blockquote,
-q {
-  quotes: none;
-}
-blockquote:before,
-blockquote:after,
-q:before,
-q:after {
-  content: "";
-  content: none;
-}
-table {
-  border-collapse: collapse;
-  border-spacing: 0;
+  font-size: 1.6rem;
+  height: 100vh;
+  background-color: #121212;
+  display: flex;
 }
 a {
   text-decoration: none;
@@ -140,7 +25,7 @@ a {
   font-family: "Roboto", sans-serif;
   background-color: #121212;
   /* this height is for testing, will adjust later by responsive */
-  height: 100vh;
+  max-width: 350px;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -161,16 +46,21 @@ a {
 #App-data .title {
   color: #19b719;
   font-weight: bold;
-  font-size: 30px;
+  font-size: 40px;
+  margin-bottom: 20px;
 }
 #App-data {
   width: 350px;
   padding: 30px 0px 30px 0px;
   background-color: #ffffff;
+  border-radius: 5px;
+  gap: 20px;
+}
+#App-data form {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   gap: 20px;
+  margin-bottom: 20px;
 }
 #App-data input {
   /* display: block; */
@@ -178,7 +68,7 @@ a {
   border: none;
   font-family: "Roboto", sans-serif;
   width: 250px;
-  height: 30px;
+  height: 50px;
   border-radius: 5px;
   text-indent: 10px;
   background-color: #f0f0f0;
@@ -189,37 +79,33 @@ a {
 #App-data label {
   /* background-color: #ffffff; */
 }
+.policy {
+  border: 1px solid red;
+  display: flex;
+  margin: 0 50px 0 50px;
+}
+.policy input {
+  width: 10px;
+  height: 10px;
+  margin-right: 10px;
+}
 .submit-btn button {
-  margin: 80px 0 40px 0;
-  width: 50px;
+  width: 250px;
   height: 50px;
   color: #ffffff;
   background-color: #19b719;
   font-size: 20px;
   font-weight: bold;
-  /* trên dưới 0.25, trái phải 0.75 */
   padding: 0.25rem 0.75rem;
-
   border: 1px solid #118011;
-
-  /* bo 4 góc 5px */
   border-radius: 10px;
-
-  /* background: none; */
-
   box-shadow: 0 3px 0 #118011;
-
-  /* đưa con chuột vào bị đổi */
   cursor: pointer;
-
-  /* hiệu ứng không mượt */
   transition: 0.2s;
 }
 .submit-btn button:active {
-  /* cùng màu với shadow khi nhấn */
   box-shadow: 0 1px 0 #ffffff;
   transform: translateY(2px);
-  /* box-shadow: none; */
 }
 .submit-btn button:hover {
   background-color: #2bcd2b;
