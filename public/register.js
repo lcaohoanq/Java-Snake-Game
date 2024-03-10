@@ -7,6 +7,10 @@ const isRequired = (value) => {
   return value == "" ? "That field is required" : "";
 };
 
+const isChecked = (value) => {
+  return value == "" ? "Checkbox must be checked" : "";
+};
+
 const min = (num) => (value) => value.length >= num ? "" : `Min is ${num}`;
 const max = (num) => (value) => value.length <= num ? "" : `Max is ${num}`;
 
@@ -56,6 +60,7 @@ document.querySelector("form").addEventListener("submit", (event) => {
   let usernameNode = document.querySelector("#username");
   let passwordNode = document.querySelector("#password");
   let confirmPasswordNode = document.querySelector("#confirmPassword");
+  let tickBoxNode = document.querySelector("#tickBox");
 
   const errorMsg = [
     isValid({
@@ -80,6 +85,12 @@ document.querySelector("form").addEventListener("submit", (event) => {
       ],
       parentNode: confirmPasswordNode.parentElement,
       controlNode: [confirmPasswordNode],
+    }),
+    isValid({
+      value: tickBoxNode.checked,
+      funcs: [isChecked],
+      parentNode: tickBoxNode.parentElement,
+      controlNode: [tickBoxNode],
     }),
   ];
 

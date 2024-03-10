@@ -1,0 +1,99 @@
+.App {
+  margin: 0 auto;
+  text-align: center;
+  font-family: "Roboto", sans-serif;
+  /* this height is for testing, will adjust later by responsive */
+  max-width: 350px;
+  /* max-height: 768px; */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+.App-header h1 {
+  font-size: 100px;
+  color: #19b719;
+}
+#App-img {
+  /* border: 1px solid orange; */
+}
+#App-data .title {
+  color: #19b719;
+  font-weight: bold;
+  font-size: 40px;
+  margin-bottom: 20px;
+}
+#App-data {
+  width: 350px;
+  padding: 30px 0px 30px 0px;
+  background-color: #ffffff;
+  border-radius: 5px;
+  gap: 20px;
+}
+#App-data form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+#App-data input {
+  border: none;
+  font-size: 1.8rem;
+  font-family: "Roboto", sans-serif;
+  border-radius: 5px;
+  text-indent: 10px;
+  background-color: #f0f0f0;
+}
+#App-data #username {
+  width: 250px;
+  height: 50px;
+}
+#App-data #password {
+  width: 250px;
+  height: 50px;
+}
+#App-data #confirmPassword {
+  width: 250px;
+  height: 50px;
+}
+#App-data input:hover {
+  background-color: #ffffff;
+}
+#App-data label {
+  /* background-color: #ffffff; */
+}
+.submit-btn button {
+  width: 250px;
+  height: 50px;
+  color: #ffffff;
+  background-color: #19b719;
+  font-size: 20px;
+  font-weight: bold;
+  padding: 0.25rem 0.75rem;
+  border: 1px solid #118011;
+  border-radius: 5px;
+  box-shadow: 0 3px 0 #118011;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.submit-btn button:active {
+  box-shadow: 0 1px 0 #ffffff;
+  transform: translateY(2px);
+}
+.submit-btn button:hover {
+  background-color: #2bcd2b;
+}
+.bottom-btn {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 3px;
+}
+.bottom-btn p {
+  color: #19b719;
+}
+.bottom-btn a {
+  border: none;
+  color: black;
+  background-color: #ffffff;
+}
