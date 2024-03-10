@@ -8,8 +8,11 @@
       @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
     </style>
     <link href="favicon.ico" rel="icon" type="image/png" />
+    <link rel="stylesheet" href="reset.css" />
+    <link rel="stylesheet" href="commons.css" />
     <link href="login.css" rel="stylesheet" />
     <link href="google-btn.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.all.min.js"></script>
     <!-- <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -19,52 +22,50 @@
   </head>
   <body>
     <div class="App">
-      <section id="tmp">
-        <section id="App-data">
-          <div class="title">
-            <h1>Sign In</h1>
+      <section id="App-data">
+        <div class="title">
+          <h1>Sign In</h1>
+        </div>
+        <form>
+          <div class="form-floating mb-3">
+            <input
+              autofocus="autofocus"
+              class="form-control"
+              placeholder="Username"
+              type="username"
+              id="username"
+            />
           </div>
-          <form>
-            <div class="form-floating mb-3">
-              <input
-                autofocus="autofocus"
-                class="form-control"
-                placeholder="Username"
-                type="username"
-                id="username"
+          <div class="form-floating mb-3">
+            <input
+              class="form-control"
+              placeholder="Password"
+              type="password"
+              id="password"
+            />
+          </div>
+          <div class="forgot-password">
+            <a href="./forgot-password.html">Forgot password?</a>
+          </div>
+          <div class="submit-btn">
+            <button>Submit</button>
+          </div>
+        </form>
+        <div class="google-button">
+          <button class="google-btn" id="log-google">
+            <div class="google-icon-wrapper">
+              <img
+                class="google-icon"
+                src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg"
               />
             </div>
-            <div class="form-floating mb-3">
-              <input
-                class="form-control"
-                placeholder="Password"
-                type="password"
-                id="password"
-              />
-            </div>
-            <div class="forgot-password">
-              <a href="./forgot-password.html">Forgot password?</a>
-            </div>
-            <div class="submit-btn">
-              <button>Submit</button>
-            </div>
-          </form>
-          <div class="google-button">
-            <button class="google-btn" id="log-google">
-              <div class="google-icon-wrapper">
-                <img
-                  class="google-icon"
-                  src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg"
-                />
-              </div>
-              <div class="btn-text"><p>Sign in with google</p></div>
-            </button>
-          </div>
-          <div class="bottom-btn">
-            <p>Not a member?</p>
-            <a href="./register.html">Sign up here</a>
-          </div>
-        </section>
+            <div class="btn-text"><p>Sign in with google</p></div>
+          </button>
+        </div>
+        <div class="bottom-btn">
+          <p>Not a member?</p>
+          <a href="./register.html">Sign up here</a>
+        </div>
       </section>
     </div>
     <!-- <script
@@ -72,8 +73,6 @@
   integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
   crossorigin="anonymous"
 ></script> -->
-    <script src="https://apis.google.com/js/api.js"></script>
-    <script src="./oauth.js"></script>
-    <script src="./login.js"></script>
+    <script type="module" src="./login.js"></script>
   </body>
 </html>
