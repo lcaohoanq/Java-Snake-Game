@@ -64,6 +64,18 @@ document.querySelector("form").addEventListener("submit", (event) => {
 
   if (isValidForm) {
     clearMsg();
-    alert("Form is valid");
+    Swal.fire({
+      title: "Success!",
+      text: "You have successfully registered!",
+      icon: "success",
+      confirmButtonText: "Ok",
+    });
+  } else {
+    Swal.fire({
+      title: "Error!",
+      text: "Please fill in the form correctly!",
+      icon: "error",
+      confirmButtonText: "Ok",
+    });
   }
 });

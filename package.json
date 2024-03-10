@@ -1,0 +1,24 @@
+{
+  "name": "snake-game-fe",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "sweetalert2": "^11.10.6"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lcaohoanq/Java-Snake-Game.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lcaohoanq/Java-Snake-Game/issues"
+  },
+  "homepage": "https://github.com/lcaohoanq/Java-Snake-Game#readme"
+}
