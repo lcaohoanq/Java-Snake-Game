@@ -18,8 +18,8 @@ import java.awt.event.MouseListener;
 public final class LoginController implements ActionListener, MouseListener, LoginData {
 
     public static String username = "";
-    public static String password = "";
     private final LoginView loginView;
+    public String password = "";
 
     public LoginController(LoginView loginView) {
         super();
@@ -32,18 +32,18 @@ public final class LoginController implements ActionListener, MouseListener, Log
         password = loginView.getLogin().password();
 
         System.out.println("Data: " + username + " " + password);
-        if (isAdmin("admin", "admin")) {
-            handleSuccess();
+        if (loginView.isAdmin()) {
+            loginView.handleSuccess();
             return;
         }
         //prevent empty field when click submit button, but not when click on the menu
-        if (isEmpty(username, password) && e.getSource() instanceof JButton) {
-            handleEmpty();
+        if (loginView.isEmpty() && e.getSource() instanceof JButton) {
+            loginView.handleEmpty();
         } else {
             if (!isMatching(username, password)) {
-                handleWrong();
+                loginView.handleWrong();
             } else {
-                handleSuccess();
+                loginView.handleSuccess();
             }
         }
 

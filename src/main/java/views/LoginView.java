@@ -1,5 +1,6 @@
 package views;
 
+import constants.Messages;
 import constants.Paths;
 import constants.Sizes;
 import constants.Titles;
@@ -20,12 +21,24 @@ import java.io.InputStream;
 public non-sealed class LoginView extends MyFrame implements ToggleHandler, HoverHandler {
 
     public static CardLayout cardLayout;
-    private LoginModel loginModel = new LoginModel();
+    private LoginModel loginModel;
+
+    private String username;
+    private String password;
 
     public LoginView() {
         super();
+        this.loginModel = new LoginModel();
         InputStream inputStream = getClass().getResourceAsStream(Paths.URL_INTRO);
         audioHandler.playAudio(inputStream);
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getPassword() {
+        return password;
     }
 
     @Override
@@ -174,9 +187,34 @@ public non-sealed class LoginView extends MyFrame implements ToggleHandler, Hove
 
     //xu li cac ham o day
     public Account getLogin() {
-        String username = jTextField_Right_Middle_Username.getText();
-        String password = String.valueOf(jPasswordField_Right_Middle_Password.getPassword());
+        username = jTextField_Right_Middle_Username.getText();
+        password = String.valueOf(jPasswordField_Right_Middle_Password.getPassword());
         return new Account(username, password);
+    }
+
+    public boolean isEmpty() {
+        return this.getLogin().username().isEmpty() || this.getLogin().password().isEmpty();
+    }
+
+    public void handleEmpty() {
+        Messages.IS_EMPTY_USERNAME_OR_PASSWORD();
+    }
+
+    public void handleWrong() {
+        Messages.IS_WRONG_USERNAME_OR_PASSWORD();
+    }
+
+    public boolean isAdmin() {
+        return this.getLogin().username().equals("admin") && this.getLogin().password().equals("admin");
+    }
+
+    public void handleSuccess() {
+        Messages.IS_LOGIN_SUCCESS();
+        // Switch to the play button card using static methods
+        CardLayout cardLayout = LoginView.cardLayout;
+        cardLayout.next(LoginView.jPanel_Right_Bottom_Button);
+        //hidden the username and password input field
+        this.setStatusInputData(false);
     }
 
     //this method for test getLogin above
