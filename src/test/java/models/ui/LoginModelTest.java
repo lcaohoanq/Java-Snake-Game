@@ -1,28 +1,24 @@
-package controllers;
+package models.ui;
 
+import controllers.LoginController;
 import io.github.cdimascio.dotenv.Dotenv;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import services.DBServices;
-import utils.PasswordHandler;
 import views.LoginView;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 
-public class LoginControllerTest {
-
+public class LoginModelTest {
     String username;
     String password;
-    LoginView mockView;
-    LoginController mockController;
+    private LoginModel loginModel;
 
     @Before
     public void setUp() throws Exception {
         Dotenv dotenv = Dotenv.load();
-        mockView = mock(LoginView.class);
-        mockController = new LoginController(mockView);
+        this.loginModel = new LoginModel();
         this.username = dotenv.get("TEST_USERNAME");
         this.password = dotenv.get("TEST_PASSWORD");
     }
@@ -31,17 +27,27 @@ public class LoginControllerTest {
     public void tearDown() throws Exception {
     }
 
-    //Test with empty and non-empty fields.
     @Test
-    public void isEmpty() {
-        boolean actualResult = mockController.isEmpty("", "");
+    public void isAdmin() {
+    }
+
+    @Test
+    public void isMatching() {
+        boolean actualResult = loginModel.isMatching(username, password);
         assertTrue(actualResult);
     }
 
-    //Test with valid and invalid credentials, database interactions, password matching.
     @Test
-    public void isMatching() {
-        boolean actualResult = mockController.isMatching(username, password);
+    public void isEmpty() {
+        boolean actualResult = loginModel.isEmpty("", "");
         assertTrue(actualResult);
+    }
+
+    @Test
+    public void username() {
+    }
+
+    @Test
+    public void password() {
     }
 }
