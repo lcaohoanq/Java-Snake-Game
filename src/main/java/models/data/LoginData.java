@@ -1,12 +1,10 @@
 package models.data;
 
 import controllers.LoginController;
+import views.LoginView;
+import views.RegisterView;
 
-sealed public interface LoginData permits LoginController, RegisterData {
-    boolean isEmpty(String username, String password);
-
-    boolean isMatching(String username, String password);
-
+sealed public interface LoginData permits RegisterData, LoginView {
     void handleEmpty();
 
     void handleWrong();

@@ -1,9 +1,12 @@
 package views;
 
+import constants.Messages;
 import constants.Sizes;
 import constants.Titles;
 import controllers.RegisterController;
 import models.data.Account;
+import models.data.RegisterData;
+import models.ui.RegisterModel;
 import styles.Borders;
 import styles.Colors;
 import styles.Fonts;
@@ -13,10 +16,16 @@ import utils.ToggleHandler;
 import javax.swing.*;
 import java.awt.*;
 
-public non-sealed class RegisterView extends MyFrame implements ToggleHandler, HoverHandler {
+public non-sealed class RegisterView extends MyFrame implements ToggleHandler, HoverHandler, RegisterData {
+
+    private String username;
+    private String password;
+    private String confirmPassword;
+    private RegisterModel registerModel;
 
     public RegisterView() {
         super();
+        this.registerModel = new RegisterModel();
     }
 
     @Override
@@ -181,12 +190,56 @@ public non-sealed class RegisterView extends MyFrame implements ToggleHandler, H
         jButton_Right_Bottom_Others.addActionListener(new ClickOtherOption());
     }
 
+    public void isMatchingPattern() {
+        if (!this.registerModel.isUsernameFormat(this.getRegister().username())) {
+            Messages.IS_WRONG_FORMAT_USERNAME();
+        } else if (!this.registerModel.isPasswordFormat(this.getRegister().password())) {
+            Messages.IS_WRONG_FORMAT_PASSWORD();
+        } else if (!this.registerModel.isConfirmPasswordFormat(this.getRegister().confirmPassword())) {
+            Messages.IS_WRONG_FORMAT_PASSWORD();
+        }
+    }
+
+    public boolean isMatching() {
+        return this.registerModel.isMatching(this.getRegister().password(), this.getRegister().confirmPassword());
+    }
+
+    @Override
+    public boolean isDuplicateUsername() {
+        return this.registerModel.isDuplicateUsername(this.getRegister().username());
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return this.registerModel.isEmpty(this.getRegister().username(), this.getRegister().password(), this.getRegister().confirmPassword());
+    }
+
     //xu li cac ham o day
     public Account getRegister() {
-        String username = jTextField_Right_Middle_Username.getText();
-        String password = String.valueOf(jPasswordField_Right_Middle_Password.getPassword());
-        String confirmPassword = String.valueOf(jPasswordField_Right_Middle_Confirm_Password.getPassword());
+        username = jTextField_Right_Middle_Username.getText();
+        password = String.valueOf(jPasswordField_Right_Middle_Password.getPassword());
+        confirmPassword = String.valueOf(jPasswordField_Right_Middle_Confirm_Password.getPassword());
         return new Account(username, password, confirmPassword);
+    }
+
+    public void insert() {
+        registerModel.insert(this.getRegister().username(), this.getRegister().password(), 0, this.getRegister().registerDate());
+    }
+
+    public void handleSuccess() {
+        Messages.IS_REGISTER_SUCCESS();
+    }
+
+    public void handleEmpty() {
+        Messages.IS_EMPTY_FIELD();
+    }
+
+    public void handleWrong() {
+        Messages.IS_NOT_MATCH_PASSWORD_AND_CONFIRM_PASSWORD();
+    }
+
+    public void handleDuplicateUsername() {
+        Messages.IS_EXISTED_USERNAME();
     }
 
     //this method for test getRegister above

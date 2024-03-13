@@ -7,6 +7,7 @@ import constants.Titles;
 import controllers.LoginController;
 import controllers.PlayController;
 import models.data.Account;
+import models.data.LoginData;
 import models.ui.LoginModel;
 import styles.Borders;
 import styles.Colors;
@@ -18,7 +19,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.InputStream;
 
-public non-sealed class LoginView extends MyFrame implements ToggleHandler, HoverHandler {
+public non-sealed class LoginView extends MyFrame implements ToggleHandler, HoverHandler, LoginData {
 
     public static CardLayout cardLayout;
     private LoginModel loginModel;
@@ -193,7 +194,7 @@ public non-sealed class LoginView extends MyFrame implements ToggleHandler, Hove
     }
 
     public boolean isEmpty() {
-        return this.getLogin().username().isEmpty() || this.getLogin().password().isEmpty();
+        return this.loginModel.isEmpty(this.getLogin().username(), this.getLogin().password());
     }
 
     public void handleEmpty() {
@@ -205,7 +206,11 @@ public non-sealed class LoginView extends MyFrame implements ToggleHandler, Hove
     }
 
     public boolean isAdmin() {
-        return this.getLogin().username().equals("admin") && this.getLogin().password().equals("admin");
+        return this.loginModel.isAdmin(this.getLogin().username(), this.getLogin().password());
+    }
+
+    public boolean isMatching() {
+        return this.loginModel.isMatching(this.getLogin().username(), this.getLogin().password());
     }
 
     public void handleSuccess() {

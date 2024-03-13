@@ -15,7 +15,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-public final class LoginController implements ActionListener, MouseListener, LoginData {
+public final class LoginController implements ActionListener, MouseListener {
 
     public static String username = "";
     private final LoginView loginView;
@@ -40,61 +40,13 @@ public final class LoginController implements ActionListener, MouseListener, Log
         if (loginView.isEmpty() && e.getSource() instanceof JButton) {
             loginView.handleEmpty();
         } else {
-            if (!isMatching(username, password)) {
+            if (!loginView.isMatching()) {
                 loginView.handleWrong();
             } else {
                 loginView.handleSuccess();
             }
         }
 
-    }
-
-    private boolean isAdmin(String username, String password) {
-        return username.equals("admin") && password.equals("admin");
-    }
-
-    @Override
-    public void handleEmpty() {
-        Messages.IS_EMPTY_USERNAME_OR_PASSWORD();
-        System.out.println("Login failed: " + "username:" + username + " password:" + password);
-    }
-
-    @Override
-    public void handleWrong() {
-        Messages.IS_WRONG_USERNAME_OR_PASSWORD();
-        System.out.println("Login failed: " + "username:" + username + " password:" + password);
-    }
-
-    @Override
-    public void handleSuccess() {
-        Messages.IS_LOGIN_SUCCESS();
-        // Switch to the play button card using static methods
-        System.out.println("Login success: " + "username:" + username + " password:" + password);
-        CardLayout cardLayout = LoginView.cardLayout;
-        cardLayout.next(LoginView.jPanel_Right_Bottom_Button);
-        //hidden the username and password input field
-        loginView.setStatusInputData(false);
-    }
-
-    @Override
-    public boolean isEmpty(String username, String password) {
-        return username.isEmpty() || password.isEmpty();
-    }
-
-    @Override
-    public boolean isMatching(String username, String password) {
-        Account db;
-        try {
-            db = DBServices.selectUsernameAndPasswordByUsername(username);
-            if (db != null) {
-                return new PasswordHandler().authenticate(password.toCharArray(), db.password());
-            } else {
-                throw new DataException("Error authenticate, password do not match");
-            }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-        return false;
     }
 
     @Override
