@@ -16,7 +16,7 @@ import javax.crypto.spec.PBEKeySpec;
 
 /**
  * Hash passwords for storage, and test passwords against password tokens.
- *
+ * <p>
  * Instances of this class can be used concurrently by multiple threads.
  *
  * @author erickson
@@ -66,6 +66,18 @@ public class PasswordHandler {
         return 1 << cost;
     }
 
+    private static byte[] pbkdf2(char[] password, byte[] salt, int iterations) {
+        KeySpec spec = new PBEKeySpec(password, salt, iterations, SIZE);
+        try {
+            SecretKeyFactory f = SecretKeyFactory.getInstance(ALGORITHM);
+            return f.generateSecret(spec).getEncoded();
+        } catch (NoSuchAlgorithmException ex) {
+            throw new IllegalStateException("Missing algorithm: " + ALGORITHM, ex);
+        } catch (InvalidKeySpecException ex) {
+            throw new IllegalStateException("Invalid SecretKeyFactory", ex);
+        }
+    }
+
     /**
      * Hash a password for storage.
      *
@@ -103,18 +115,6 @@ public class PasswordHandler {
         return zero == 0;
     }
 
-    private static byte[] pbkdf2(char[] password, byte[] salt, int iterations) {
-        KeySpec spec = new PBEKeySpec(password, salt, iterations, SIZE);
-        try {
-            SecretKeyFactory f = SecretKeyFactory.getInstance(ALGORITHM);
-            return f.generateSecret(spec).getEncoded();
-        } catch (NoSuchAlgorithmException ex) {
-            throw new IllegalStateException("Missing algorithm: " + ALGORITHM, ex);
-        } catch (InvalidKeySpecException ex) {
-            throw new IllegalStateException("Invalid SecretKeyFactory", ex);
-        }
-    }
-
     /**
      * Hash a password in an immutable {@code String}.
      *
@@ -135,8 +135,8 @@ public class PasswordHandler {
      * Authenticate with a password in an immutable {@code String} and a stored
      * password token.
      *
-     * @deprecated Use {@link #authenticate(char[],String)} instead.
      * @see #hash(String)
+     * @deprecated Use {@link #authenticate(char[], String)} instead.
      */
     @Deprecated
     public boolean authenticate(String password, String token) {
