@@ -1,10 +1,10 @@
 package services;
 
-import io.github.cdimascio.dotenv.Dotenv;
 import models.data.Account;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import utils.EnvUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,8 +17,7 @@ public class DBServicesTest {
 
     @Before
     public void setUp() throws Exception {
-        Dotenv dotenv = Dotenv.load();
-        this.passwordHashed = dotenv.get("TEST_PASSWORD_DB");
+        this.passwordHashed = EnvUtils.get("TEST_PASSWORD_DB");
     }
 
     @Test

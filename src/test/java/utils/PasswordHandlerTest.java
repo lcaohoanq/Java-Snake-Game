@@ -1,7 +1,6 @@
 package utils;
 
 import constants.Regex;
-import io.github.cdimascio.dotenv.Dotenv;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -15,8 +14,7 @@ public class PasswordHandlerTest {
 
     @Before
     public void setUp() throws Exception {
-        Dotenv dotenv = Dotenv.load();
-        this.password = dotenv.get("TEST_PASSWORD");
+        this.password = EnvUtils.get("TEST_PASSWORD");
         this.pwdHandler = new PasswordHandler();
     }
 

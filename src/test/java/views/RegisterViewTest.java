@@ -1,9 +1,9 @@
 package views;
 
-import io.github.cdimascio.dotenv.Dotenv;
 import models.data.Account;
 import org.junit.Before;
 import org.junit.Test;
+import utils.EnvUtils;
 
 import static org.junit.Assert.*;
 
@@ -15,10 +15,9 @@ public class RegisterViewTest {
 
     @Before
     public void setUp() throws Exception {
-        Dotenv dotenv = Dotenv.load();
         registerView = new RegisterView();
-        this.username = dotenv.get("TEST_USERNAME");
-        this.password = dotenv.get("TEST_PASSWORD");
+        this.username = EnvUtils.get("TEST_USERNAME");
+        this.password = EnvUtils.get("TEST_PASSWORD");
     }
 
     @Test

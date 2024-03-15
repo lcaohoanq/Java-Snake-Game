@@ -1,10 +1,9 @@
 package models.ui;
 
-import controllers.LoginController;
-import io.github.cdimascio.dotenv.Dotenv;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import utils.EnvUtils;
 import views.LoginView;
 
 import static org.junit.Assert.*;
@@ -17,10 +16,9 @@ public class LoginModelTest {
 
     @Before
     public void setUp() throws Exception {
-        Dotenv dotenv = Dotenv.load();
         this.loginModel = new LoginModel();
-        this.username = dotenv.get("TEST_USERNAME");
-        this.password = dotenv.get("TEST_PASSWORD");
+        this.username = EnvUtils.get("TEST_USERNAME");
+        this.password = EnvUtils.get("TEST_PASSWORD");
     }
 
     @After

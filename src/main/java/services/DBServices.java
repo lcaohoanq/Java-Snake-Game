@@ -4,38 +4,23 @@ import constants.Database;
 import constants.Errors;
 import errors.DBException;
 import models.data.Account;
+import utils.EnvUtils;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
-
-import io.github.cdimascio.dotenv.Dotenv;
 
 public class DBServices {
 
     public static Connection getConnection() throws SQLException {
         try {
-            Properties properties = loadEnv();
-            String dbUrl = properties.getProperty(Database.DB_URL);
-            String dbUsername = properties.getProperty(Database.DB_USERNAME);
-            String dbPassword = properties.getProperty(Database.DB_PASSWORD);
+            String dbUrl = EnvUtils.get(Database.DB_URL);
+            String dbUsername = EnvUtils.get(Database.DB_USERNAME);
+            String dbPassword = EnvUtils.get(Database.DB_PASSWORD);
             return DriverManager.getConnection(dbUrl, dbUsername, dbPassword);
         } catch (Exception e) {
             throw new DBException(Errors.ERROR_READ_FILE_ENV + e.getMessage());
         }
-    }
-
-    private static Properties loadEnv() {
-        Dotenv dotenv = Dotenv.configure().load();
-        Properties properties = new Properties();
-        properties.setProperty(Database.DB_URL, dotenv.get(Database.DB_URL));
-        properties.setProperty(Database.DB_USERNAME, dotenv.get(Database.DB_USERNAME));
-        properties.setProperty(Database.DB_PASSWORD, dotenv.get(Database.DB_PASSWORD));
-        return properties;
     }
 
     // !my query

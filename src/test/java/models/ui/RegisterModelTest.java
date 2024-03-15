@@ -1,10 +1,10 @@
 package models.ui;
 
 import controllers.RegisterController;
-import io.github.cdimascio.dotenv.Dotenv;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import utils.EnvUtils;
 import views.RegisterView;
 
 import static org.junit.Assert.*;
@@ -15,9 +15,8 @@ public class RegisterModelTest {
 
     @Before
     public void setUp() throws Exception {
-        Dotenv dotenv = Dotenv.load();
         this.registerModel = new RegisterModel();
-        this.username = dotenv.get("TEST_USERNAME");
+        this.username = EnvUtils.get("TEST_USERNAME");
     }
 
     @After
