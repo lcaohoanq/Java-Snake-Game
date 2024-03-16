@@ -1,15 +1,8 @@
 package controllers;
 
-import constants.Messages;
-import errors.DataException;
-import models.data.Account;
-import models.data.LoginData;
-import services.DBServices;
-import utils.PasswordHandler;
 import views.LoginView;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;

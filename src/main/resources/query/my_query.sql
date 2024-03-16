@@ -95,7 +95,7 @@ BEGIN
 END $
 
 DELIMITER ;
--- CALL proc_select_user_password('hoang');
+CALL proc_select_user_password('hoang');
 
 -- 3. selectUsernameAndScoreByUsername
 DELIMITER

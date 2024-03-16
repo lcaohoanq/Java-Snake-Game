@@ -4,32 +4,34 @@ import constants.Database;
 import constants.Errors;
 import errors.DBException;
 import models.data.Account;
-import utils.EnvUtils;
 
-import java.sql.*;
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DBServices {
+public class DatabaseQuery {
+    private static DatabaseQuery instance;
+    private DatabaseConnection dbConnection = new DatabaseConnection();
 
-    public static Connection getConnection() throws SQLException {
-        try {
-            String dbUrl = EnvUtils.get(Database.DB_URL);
-            String dbUsername = EnvUtils.get(Database.DB_USERNAME);
-            String dbPassword = EnvUtils.get(Database.DB_PASSWORD);
-            return DriverManager.getConnection(dbUrl, dbUsername, dbPassword);
-        } catch (Exception e) {
-            throw new DBException(Errors.ERROR_READ_FILE_ENV + e.getMessage());
-        }
+    private DatabaseQuery() {
     }
 
-    // !my query
-    public static List<String> selectUsernameAndScore() {
+    public static DatabaseQuery getInstance() {
+        if (instance == null) {
+            instance = new DatabaseQuery();
+        }
+        return instance;
+    }
+
+    public List<String> selectUsernameAndScore() {
         List<String> resultList = new ArrayList<>();
-        try {
-            Connection connection = getConnection();
-            CallableStatement cStatement = connection.prepareCall("{CALL proc_select_username_score()}");
-            ResultSet resultSet = cStatement.executeQuery();
+        try (Connection connection = dbConnection.getConnection();
+             CallableStatement cStatement = connection.prepareCall("{CALL proc_select_username_score()}");
+             ResultSet resultSet = cStatement.executeQuery()) {
+
             while (resultSet.next()) {
                 resultList.add(resultSet.getString(Database.COLUMN_USERNAME) + " " + resultSet.getInt(Database.COLUMN_SCORE));
             }
@@ -39,9 +41,9 @@ public class DBServices {
         return resultList;
     }
 
-    public static Account selectUsernameAndPasswordByUsername(String username) {
+    public Account selectUsernameAndPasswordByUsername(String username) {
         try {
-            Connection connection = getConnection();
+            Connection connection = dbConnection.getConnection();
             CallableStatement cStatement = connection.prepareCall("{CALL proc_select_username_password(?)}");
             cStatement.setString(1, username);
             ResultSet resultSet = cStatement.executeQuery();
@@ -54,9 +56,9 @@ public class DBServices {
         return null;
     }
 
-    public static Account selectUsernameAndScoreByUsername(String username) {
+    public Account selectUsernameAndScoreByUsername(String username) {
         try {
-            Connection connection = getConnection();
+            Connection connection = dbConnection.getConnection();
 
             CallableStatement cStatement = connection.prepareCall("{CALL proc_select_username_score_by_username(?)}");
             cStatement.setString(1, username);
@@ -71,9 +73,9 @@ public class DBServices {
         return null;
     }
 
-    public static boolean insert(String username, String password, int score, String regDate) {
+    public boolean insert(String username, String password, int score, String regDate) {
         try {
-            Connection connection = getConnection();
+            Connection connection = dbConnection.getConnection();
 
             CallableStatement cStatement = connection.prepareCall("{CALL proc_insert_user(?,?,?,?)}");
 
@@ -95,9 +97,9 @@ public class DBServices {
     }
 
     //set safe updates
-    public static boolean setSafeUpdate() {
+    public boolean setSafeUpdate() {
         try {
-            Connection connection = getConnection();
+            Connection connection = dbConnection.getConnection();
 
             CallableStatement cStatement = connection.prepareCall("{CALL proc_set_safe_update()}");
 
@@ -112,9 +114,9 @@ public class DBServices {
         return false;
     }
 
-    public static boolean updateUsernameScore(String username, String score) {
+    public boolean updateUsernameScore(String username, String score) {
         try {
-            Connection connection = getConnection();
+            Connection connection = dbConnection.getConnection();
 
             CallableStatement cStatement = connection.prepareCall("{CALL proc_update_username_score(?,?)}");
             cStatement.setString(1, username);
