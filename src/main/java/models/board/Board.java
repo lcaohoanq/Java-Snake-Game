@@ -293,7 +293,7 @@ public abstract class Board extends JPanel implements ActionListener {
         }
         // if the current score > db score, update the score in the database
         if (handleScore(username) < 0) {
-            DBServices.executeOther();
+            DBServices.setSafeUpdate();
             DBServices.updateUsernameScore(username, String.valueOf(this.score));
         }
     }

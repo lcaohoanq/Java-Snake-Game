@@ -28,9 +28,8 @@ public class DBServices {
         List<String> resultList = new ArrayList<>();
         try {
             Connection connection = getConnection();
-
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT username, score FROM USERS");
+            CallableStatement cStatement = connection.prepareCall("{CALL proc_select_username_score()}");
+            ResultSet resultSet = cStatement.executeQuery();
             while (resultSet.next()) {
                 resultList.add(resultSet.getString(Database.COLUMN_USERNAME) + " " + resultSet.getInt(Database.COLUMN_SCORE));
             }
@@ -43,10 +42,9 @@ public class DBServices {
     public static Account selectUsernameAndPasswordByUsername(String username) {
         try {
             Connection connection = getConnection();
-
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement
-                    .executeQuery("SELECT username, password FROM users WHERE username = '" + username + "'");
+            CallableStatement cStatement = connection.prepareCall("{CALL proc_select_username_password(?)}");
+            cStatement.setString(1, username);
+            ResultSet resultSet = cStatement.executeQuery();
             while (resultSet.next()) {
                 return new Account(resultSet.getString(Database.COLUMN_USERNAME), resultSet.getString(Database.COLUMN_PASSWORD));
             }
@@ -60,9 +58,10 @@ public class DBServices {
         try {
             Connection connection = getConnection();
 
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement
-                    .executeQuery("SELECT username, score FROM users WHERE username = '" + username + "'");
+            CallableStatement cStatement = connection.prepareCall("{CALL proc_select_username_score_by_username(?)}");
+            cStatement.setString(1, username);
+
+            ResultSet resultSet = cStatement.executeQuery();
             while (resultSet.next()) {
                 return new Account(resultSet.getString(Database.COLUMN_USERNAME), resultSet.getInt(Database.COLUMN_SCORE));
             }
@@ -72,76 +71,65 @@ public class DBServices {
         return null;
     }
 
-    public static void insert(String username, String password, int score) {
+    public static boolean insert(String username, String password, int score, String regDate) {
         try {
             Connection connection = getConnection();
 
-            Statement statement = connection.createStatement();
-            String sql = "INSERT INTO `users_schema`.`users` (`username`,`password`,`score`) VALUES ('" + username
-                    + "', '" + password + "', " + score + ")";
-            int rowsAffected = statement.executeUpdate(sql);
+            CallableStatement cStatement = connection.prepareCall("{CALL proc_insert_user(?,?,?,?)}");
+
+            cStatement.setString(1, username);
+            cStatement.setString(2, password);
+            cStatement.setInt(3, score);
+            cStatement.setString(4, regDate);
+
+            int rowsAffected = cStatement.executeUpdate();
             if (rowsAffected > 0) {
                 System.out.println(Database.INSERT_SUCCESS + " for " + username);
-            } else {
-                throw new DBException(Database.INSERT_FAILED + " for " + username);
+                return true;
             }
+            throw new DBException(Database.INSERT_FAILED + " for " + username);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-    }
-
-    public static void insert(String username, String password, int score, String regDate) {
-        try {
-            Connection connection = getConnection();
-
-            String sql = "INSERT INTO `users_schema`.`users` " + "(`username`,`password`,`score`, `reg_date`) " + "VALUES (?,?,?,?)";
-
-            PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setString(1, username);
-            statement.setString(2, password);
-            statement.setInt(3, score);
-            statement.setString(4, regDate);
-
-            int rowsAffected = statement.executeUpdate();
-            if (rowsAffected > 0) {
-                System.out.println(Database.INSERT_SUCCESS + " for " + username);
-            } else {
-                throw new DBException(Database.INSERT_FAILED + " for " + username);
-            }
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
+        return false;
     }
 
     //set safe updates
-    public static void executeOther() {
+    public static boolean setSafeUpdate() {
         try {
             Connection connection = getConnection();
-            Statement statement = connection.createStatement();
-            int rowsAffected = statement.executeUpdate("SET SQL_SAFE_UPDATES = 0");
-            if (rowsAffected != 0) {
-                throw new DBException(Database.ERROR_EXECUTE_SQL_SAFE_UPDATES);
+
+            CallableStatement cStatement = connection.prepareCall("{CALL proc_set_safe_update()}");
+
+            int rowsAffected = cStatement.executeUpdate();
+            if (rowsAffected == 0) {
+                return true;
             }
+            throw new DBException(Database.ERROR_EXECUTE_SQL_SAFE_UPDATES);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+        return false;
     }
 
-    public static void updateUsernameScore(String username, String score) {
+    public static boolean updateUsernameScore(String username, String score) {
         try {
             Connection connection = getConnection();
 
-            Statement statement = connection.createStatement();
-            String sql = "UPDATE `users_schema`.`users` SET `score` = '" + score + "' WHERE (`username` = '" + username + "')";
-            int rowsAffected = statement.executeUpdate(sql);
+            CallableStatement cStatement = connection.prepareCall("{CALL proc_update_username_score(?,?)}");
+            cStatement.setString(1, username);
+            cStatement.setString(2, score);
+
+            int rowsAffected = cStatement.executeUpdate();
             if (rowsAffected > 0) {
                 System.out.println(Database.UPDATE_SUCCESS + " for " + username);
-            } else {
-                throw new DBException(Database.UPDATE_FAILED + " for " + username);
+                return true;
             }
+            throw new DBException(Database.UPDATE_FAILED + " for " + username);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+        return false;
     }
 
 }
