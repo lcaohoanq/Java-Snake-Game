@@ -12,8 +12,8 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 public class DBServicesTest {
-
     String passwordHashed;
+    private DatabaseQuery dbQuery = DatabaseQuery.getInstance();
 
     @Before
     public void setUp() throws Exception {
@@ -30,8 +30,9 @@ public class DBServicesTest {
         expectedResult.add("huy 0");
         expectedResult.add("bao 0");
         expectedResult.add("minhnhu 0");
+        expectedResult.add("test 0");
 
-        List<String> actualResult = DBServices.selectUsernameAndScore();
+        List<String> actualResult = dbQuery.selectUsernameAndScore();
 
         assertEquals(expectedResult, actualResult);
     }
@@ -39,14 +40,14 @@ public class DBServicesTest {
     @Test
     public void selectUsernameAndPasswordByUsername() {
         Account expectedResult = new Account("minhnhu", passwordHashed);
-        Account actualResult = DBServices.selectUsernameAndPasswordByUsername("minhnhu");
+        Account actualResult = dbQuery.selectUsernameAndPasswordByUsername("minhnhu");
         assertEquals(expectedResult, actualResult);
     }
 
     @Test
     public void selectUsernameAndScoreByUsername() {
         Account expectedResult = new Account("minhnhu", 0);
-        Account actualResult = DBServices.selectUsernameAndScoreByUsername("minhnhu");
+        Account actualResult = dbQuery.selectUsernameAndScoreByUsername("minhnhu");
         assertEquals(expectedResult, actualResult);
     }
 }
