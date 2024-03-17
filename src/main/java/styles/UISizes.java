@@ -1,4 +1,4 @@
-package constants;
+package styles;
 
 import java.awt.Dimension;
 

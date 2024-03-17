@@ -2,13 +2,13 @@ package views;
 
 import constants.Info;
 import constants.ResourcePaths;
-import constants.UISizes;
-import constants.UILabels;
+import styles.UISizes;
+import styles.UILabels;
 import controllers.ScoreController;
-import styles.Borders;
-import styles.Colors;
-import styles.Fonts;
-import styles.Images;
+import styles.UIBorders;
+import styles.UIColors;
+import styles.UIFonts;
+import styles.UIImages;
 import utils.AudioHandler;
 import utils.HoverHandler;
 import utils.ToggleHandler;
@@ -54,7 +54,7 @@ public abstract sealed class MyFrame extends JFrame implements ToggleHandler, Ho
     public MyFrame() {
         setTitle(UILabels.WINDOW);
         setSize(UISizes.WIDTH_MY_FRAME, UISizes.HEIGHT_MY_FRAME);
-        setIconImage(Images.icon);
+        setIconImage(UIImages.icon);
         setLocationRelativeTo(null);
         setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -75,7 +75,7 @@ public abstract sealed class MyFrame extends JFrame implements ToggleHandler, Ho
         jMenuBar = new JMenuBar();
         jMenu_Play_Here.add(jMenuItem_Go);
         jMenuBar.setLayout(new FlowLayout(FlowLayout.LEFT));
-        jMenuBar.setBorder(Borders.LINE_MENU_BAR);
+        jMenuBar.setBorder(UIBorders.LINE_MENU_BAR);
         jMenuBar.add(jMenu);
         jMenuBar.add(jMenu_Play_Here);
         jMenu.add(jMenuItem_AboutMe);
@@ -88,7 +88,7 @@ public abstract sealed class MyFrame extends JFrame implements ToggleHandler, Ho
 
         jPanel_Left_Icon = new JPanel(new BorderLayout());
         jPanel_Left_Icon.setPreferredSize(new Dimension(100, 100));
-        jPanel_Left_Icon.setBackground(Colors.TEXT_COLOR_L);
+        jPanel_Left_Icon.setBackground(UIColors.TEXT_COLOR_L);
 
         // Use the new image "250-250.png"
         jLabel_Left_Icon = new JLabel(
@@ -96,8 +96,8 @@ public abstract sealed class MyFrame extends JFrame implements ToggleHandler, Ho
         jPanel_Left_Icon.add(jLabel_Left_Icon, BorderLayout.CENTER);
 
         jPanel_Left.setPreferredSize(new Dimension(UISizes.WIDTH_MY_LEFT_FRAME, UISizes.HEIGHT_MY_LEFT_FRAME));
-        jPanel_Left.setBackground(Colors.TEXT_COLOR_L);
-        jPanel_Left.setBorder(Borders.TITLE);
+        jPanel_Left.setBackground(UIColors.TEXT_COLOR_L);
+        jPanel_Left.setBorder(UIBorders.TITLE);
 
         jPanel_Left.add(jPanel_Left_Icon, BorderLayout.CENTER);
     }
@@ -113,54 +113,54 @@ public abstract sealed class MyFrame extends JFrame implements ToggleHandler, Ho
     protected void initToggle() {
         toggleButton.addEventSelected(selected -> {
             if (selected) {
-                jLabel_Right_Middle_Username.setForeground(Colors.TEXT_COLOR_D);
-                jTextField_Right_Middle_Username.setForeground(Colors.TEXT_COLOR_D);
-                jTextField_Right_Middle_Username.setBackground(Colors.SECONDARY_COLOR_D);
-                jLabel_Right_Middle_Password.setForeground(Colors.TEXT_COLOR_D);
-                jLabel_Right_Top_Tittle.setForeground(Colors.TEXT_COLOR_D);
-                jPasswordField_Right_Middle_Password.setBackground(Colors.SECONDARY_COLOR_D);
-                jPasswordField_Right_Middle_Password.setForeground(Colors.TEXT_COLOR_D);
-                jButton_Right_Bottom_Submit.setForeground(Colors.PRIMARY_COLOR_D);
-                jButton_Right_Bottom_Submit.setBackground(Colors.TEXT_COLOR_D);
-                jButton_Right_Bottom_Others.setForeground(Colors.OTHER_OPTIONS_D);
-                jButton_Right_Bottom_Others.setBackground(Colors.PRIMARY_COLOR_D);
-                jPanel_Right_Middle_Username.setBackground(Colors.PRIMARY_COLOR_D);
-                jPanel_Right_Middle_Password.setBackground(Colors.PRIMARY_COLOR_D);
-                jPanel_Right_Bottom_Button.setBackground(Colors.PRIMARY_COLOR_D);
-                jPanel_Right_Middle_Data.setBackground(Colors.PRIMARY_COLOR_D);
-                jLabel_Right_Bottom_Option.setForeground(Colors.TEXT_COLOR_D);
-                jLabel_Right_Bottom_Option.setBackground(Colors.PRIMARY_COLOR_D);
-                jPanel_Right_Bottom_Option.setBackground(Colors.PRIMARY_COLOR_D);
-                jLabel_Right_Top_Tittle.setBackground(Colors.PRIMARY_COLOR_D);
-                jPanel_Right_Top_Tittle.setBackground(Colors.PRIMARY_COLOR_D);
-                jPanel_Left_Icon.setBackground(Colors.TEXT_COLOR_D);
-                jPanel_Left.setBackground(Colors.TEXT_COLOR_D);
-                jPanel_Container.setBackground(Colors.TEXT_COLOR_D);
-                jPanel_Right.setBackground(Colors.PRIMARY_COLOR_D);
+                jLabel_Right_Middle_Username.setForeground(UIColors.TEXT_COLOR_D);
+                jTextField_Right_Middle_Username.setForeground(UIColors.TEXT_COLOR_D);
+                jTextField_Right_Middle_Username.setBackground(UIColors.SECONDARY_COLOR_D);
+                jLabel_Right_Middle_Password.setForeground(UIColors.TEXT_COLOR_D);
+                jLabel_Right_Top_Tittle.setForeground(UIColors.TEXT_COLOR_D);
+                jPasswordField_Right_Middle_Password.setBackground(UIColors.SECONDARY_COLOR_D);
+                jPasswordField_Right_Middle_Password.setForeground(UIColors.TEXT_COLOR_D);
+                jButton_Right_Bottom_Submit.setForeground(UIColors.PRIMARY_COLOR_D);
+                jButton_Right_Bottom_Submit.setBackground(UIColors.TEXT_COLOR_D);
+                jButton_Right_Bottom_Others.setForeground(UIColors.OTHER_OPTIONS_D);
+                jButton_Right_Bottom_Others.setBackground(UIColors.PRIMARY_COLOR_D);
+                jPanel_Right_Middle_Username.setBackground(UIColors.PRIMARY_COLOR_D);
+                jPanel_Right_Middle_Password.setBackground(UIColors.PRIMARY_COLOR_D);
+                jPanel_Right_Bottom_Button.setBackground(UIColors.PRIMARY_COLOR_D);
+                jPanel_Right_Middle_Data.setBackground(UIColors.PRIMARY_COLOR_D);
+                jLabel_Right_Bottom_Option.setForeground(UIColors.TEXT_COLOR_D);
+                jLabel_Right_Bottom_Option.setBackground(UIColors.PRIMARY_COLOR_D);
+                jPanel_Right_Bottom_Option.setBackground(UIColors.PRIMARY_COLOR_D);
+                jLabel_Right_Top_Tittle.setBackground(UIColors.PRIMARY_COLOR_D);
+                jPanel_Right_Top_Tittle.setBackground(UIColors.PRIMARY_COLOR_D);
+                jPanel_Left_Icon.setBackground(UIColors.TEXT_COLOR_D);
+                jPanel_Left.setBackground(UIColors.TEXT_COLOR_D);
+                jPanel_Container.setBackground(UIColors.TEXT_COLOR_D);
+                jPanel_Right.setBackground(UIColors.PRIMARY_COLOR_D);
             } else {
-                jLabel_Right_Middle_Username.setForeground(Colors.TEXT_COLOR_L);
-                jTextField_Right_Middle_Username.setForeground(Colors.TEXT_COLOR_L);
-                jTextField_Right_Middle_Username.setBackground(Colors.SECONDARY_COLOR_L);
-                jLabel_Right_Middle_Password.setForeground(Colors.TEXT_COLOR_L);
-                jPasswordField_Right_Middle_Password.setBackground(Colors.SECONDARY_COLOR_L);
-                jPasswordField_Right_Middle_Password.setForeground(Colors.TEXT_COLOR_L);
-                jPanel_Right_Middle_Username.setBackground(Colors.PRIMARY_COLOR_L);
-                jPanel_Right_Middle_Password.setBackground(Colors.PRIMARY_COLOR_L);
-                jButton_Right_Bottom_Submit.setForeground(Colors.PRIMARY_COLOR_L);
-                jButton_Right_Bottom_Submit.setBackground(Colors.TEXT_COLOR_L);
-                jPanel_Right_Bottom_Button.setBackground(Colors.PRIMARY_COLOR_L);
-                jPanel_Right_Middle_Data.setBackground(Colors.PRIMARY_COLOR_L);
-                jButton_Right_Bottom_Others.setForeground(Colors.OTHER_OPTIONS_L);
-                jButton_Right_Bottom_Others.setBackground(Colors.PRIMARY_COLOR_L);
-                jPanel_Right_Bottom_Option.setBackground(Colors.PRIMARY_COLOR_L);
-                jLabel_Right_Top_Tittle.setForeground(Colors.TEXT_COLOR_L);
-                jLabel_Right_Bottom_Option.setForeground(Colors.TEXT_COLOR_L);
-                jLabel_Right_Bottom_Option.setBackground(Colors.PRIMARY_COLOR_L);
-                jPanel_Right_Top_Tittle.setBackground(Colors.PRIMARY_COLOR_L);
-                jPanel_Left_Icon.setBackground(Colors.TEXT_COLOR_L);
-                jPanel_Left.setBackground(Colors.TEXT_COLOR_L);
-                jPanel_Container.setBackground(Colors.TEXT_COLOR_L);
-                jPanel_Right.setBackground(Colors.PRIMARY_COLOR_L);
+                jLabel_Right_Middle_Username.setForeground(UIColors.TEXT_COLOR_L);
+                jTextField_Right_Middle_Username.setForeground(UIColors.TEXT_COLOR_L);
+                jTextField_Right_Middle_Username.setBackground(UIColors.SECONDARY_COLOR_L);
+                jLabel_Right_Middle_Password.setForeground(UIColors.TEXT_COLOR_L);
+                jPasswordField_Right_Middle_Password.setBackground(UIColors.SECONDARY_COLOR_L);
+                jPasswordField_Right_Middle_Password.setForeground(UIColors.TEXT_COLOR_L);
+                jPanel_Right_Middle_Username.setBackground(UIColors.PRIMARY_COLOR_L);
+                jPanel_Right_Middle_Password.setBackground(UIColors.PRIMARY_COLOR_L);
+                jButton_Right_Bottom_Submit.setForeground(UIColors.PRIMARY_COLOR_L);
+                jButton_Right_Bottom_Submit.setBackground(UIColors.TEXT_COLOR_L);
+                jPanel_Right_Bottom_Button.setBackground(UIColors.PRIMARY_COLOR_L);
+                jPanel_Right_Middle_Data.setBackground(UIColors.PRIMARY_COLOR_L);
+                jButton_Right_Bottom_Others.setForeground(UIColors.OTHER_OPTIONS_L);
+                jButton_Right_Bottom_Others.setBackground(UIColors.PRIMARY_COLOR_L);
+                jPanel_Right_Bottom_Option.setBackground(UIColors.PRIMARY_COLOR_L);
+                jLabel_Right_Top_Tittle.setForeground(UIColors.TEXT_COLOR_L);
+                jLabel_Right_Bottom_Option.setForeground(UIColors.TEXT_COLOR_L);
+                jLabel_Right_Bottom_Option.setBackground(UIColors.PRIMARY_COLOR_L);
+                jPanel_Right_Top_Tittle.setBackground(UIColors.PRIMARY_COLOR_L);
+                jPanel_Left_Icon.setBackground(UIColors.TEXT_COLOR_L);
+                jPanel_Left.setBackground(UIColors.TEXT_COLOR_L);
+                jPanel_Container.setBackground(UIColors.TEXT_COLOR_L);
+                jPanel_Right.setBackground(UIColors.PRIMARY_COLOR_L);
             }
         });
         jPanel_Right_Bottom_Option.add(toggleButton, FlowLayout.RIGHT);
@@ -169,15 +169,15 @@ public abstract sealed class MyFrame extends JFrame implements ToggleHandler, Ho
     public void setHoverUsername(boolean isInside, String mode) {
         if (isInside) {
             if (mode.equals("light")) {
-                jTextField_Right_Middle_Username.setBackground(Colors.SECONDARY_COLOR_L_HOVER);
+                jTextField_Right_Middle_Username.setBackground(UIColors.SECONDARY_COLOR_L_HOVER);
             } else {
-                jTextField_Right_Middle_Username.setBackground(Colors.SECONDARY_COLOR_D_HOVER);
+                jTextField_Right_Middle_Username.setBackground(UIColors.SECONDARY_COLOR_D_HOVER);
             }
         } else {
             if (mode.equals("light")) {
-                jTextField_Right_Middle_Username.setBackground(Colors.SECONDARY_COLOR_L);
+                jTextField_Right_Middle_Username.setBackground(UIColors.SECONDARY_COLOR_L);
             } else {
-                jTextField_Right_Middle_Username.setBackground(Colors.SECONDARY_COLOR_D);
+                jTextField_Right_Middle_Username.setBackground(UIColors.SECONDARY_COLOR_D);
             }
         }
     }
@@ -185,15 +185,15 @@ public abstract sealed class MyFrame extends JFrame implements ToggleHandler, Ho
     public void setHoverPassword(boolean isInside, String mode) {
         if (isInside) {
             if (mode.equals("light")) {
-                jPasswordField_Right_Middle_Password.setBackground(Colors.SECONDARY_COLOR_L_HOVER);
+                jPasswordField_Right_Middle_Password.setBackground(UIColors.SECONDARY_COLOR_L_HOVER);
             } else {
-                jPasswordField_Right_Middle_Password.setBackground(Colors.SECONDARY_COLOR_D_HOVER);
+                jPasswordField_Right_Middle_Password.setBackground(UIColors.SECONDARY_COLOR_D_HOVER);
             }
         } else {
             if (mode.equals("light")) {
-                jPasswordField_Right_Middle_Password.setBackground(Colors.SECONDARY_COLOR_L);
+                jPasswordField_Right_Middle_Password.setBackground(UIColors.SECONDARY_COLOR_L);
             } else {
-                jPasswordField_Right_Middle_Password.setBackground(Colors.SECONDARY_COLOR_D);
+                jPasswordField_Right_Middle_Password.setBackground(UIColors.SECONDARY_COLOR_D);
             }
         }
     }
@@ -201,31 +201,31 @@ public abstract sealed class MyFrame extends JFrame implements ToggleHandler, Ho
     public void setHoverButton(boolean isInside, String mode) {
         if (isInside) {
             if (mode.equals("light")) {
-                jButton_Right_Bottom_Submit.setBackground(Colors.TEXT_COLOR_L_HOVER);
+                jButton_Right_Bottom_Submit.setBackground(UIColors.TEXT_COLOR_L_HOVER);
             } else {
-                jButton_Right_Bottom_Submit.setBackground(Colors.TEXT_COLOR_D_HOVER);
+                jButton_Right_Bottom_Submit.setBackground(UIColors.TEXT_COLOR_D_HOVER);
             }
         } else {
             if (mode.equals("light")) {
-                jButton_Right_Bottom_Submit.setBackground(Colors.TEXT_COLOR_L);
+                jButton_Right_Bottom_Submit.setBackground(UIColors.TEXT_COLOR_L);
             } else {
-                jButton_Right_Bottom_Submit.setBackground(Colors.TEXT_COLOR_D);
+                jButton_Right_Bottom_Submit.setBackground(UIColors.TEXT_COLOR_D);
             }
         }
     }
 
     public void setHoverOther(boolean isInside) {
         if (isInside) {
-            jButton_Right_Bottom_Others.setFont(Fonts.OTHERS_HOVER);
+            jButton_Right_Bottom_Others.setFont(UIFonts.OTHERS_HOVER);
         } else {
-            jButton_Right_Bottom_Others.setFont(Fonts.OTHERS);
+            jButton_Right_Bottom_Others.setFont(UIFonts.OTHERS);
         }
     }
 
     protected void initContainer() {
         jPanel_Container = new JPanel();
         jPanel_Container.setLayout(new BorderLayout());
-        jPanel_Container.setBackground(Colors.PRIMARY_COLOR_L);
+        jPanel_Container.setBackground(UIColors.PRIMARY_COLOR_L);
         jPanel_Container.add(jPanel_Left, BorderLayout.WEST);
         jPanel_Container.add(jPanel_Right, BorderLayout.CENTER);
         this.add(jPanel_Container);

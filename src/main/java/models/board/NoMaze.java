@@ -1,7 +1,7 @@
 package models.board;
 
 import constants.ResourcePaths;
-import constants.UISizes;
+import styles.UISizes;
 
 import java.io.InputStream;
 

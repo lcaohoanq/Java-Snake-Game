@@ -9,7 +9,7 @@ import javax.swing.ImageIcon;
 import constants.ResourcePaths;
 import views.MyFrame;
 
-public class Images {
+public class UIImages {
     public static final URL iconURL = MyFrame.class.getResource(ResourcePaths.URL_KEY_ICON);
     public static final Image icon = Toolkit.getDefaultToolkit().createImage(iconURL);
 

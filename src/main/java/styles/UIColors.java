@@ -2,7 +2,7 @@ package styles;
 
 import java.awt.Color;
 
-public class Colors {
+public class UIColors {
     //Light-mode
     public static final Color PRIMARY_COLOR_L = Color.decode("#FFFFFF"); // white
     public static final Color SECONDARY_COLOR_L = Color.decode("#F0F0F0"); // input field background

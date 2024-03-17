@@ -5,7 +5,7 @@ import javax.swing.BorderFactory;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
-public class Borders {
+public class UIBorders {
     // Borders for containers
     public static final EmptyBorder CONTAINER = new EmptyBorder(0, 30, 0, 30);
     public static final EmptyBorder CONTAINER_MENU = new EmptyBorder(30, 30, 30, 30);

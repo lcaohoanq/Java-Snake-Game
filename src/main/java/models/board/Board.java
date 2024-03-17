@@ -2,13 +2,13 @@ package models.board;
 
 import utils.UIUtils;
 import constants.ResourcePaths;
-import constants.UISizes;
-import constants.UILabels;
+import styles.UISizes;
+import styles.UILabels;
 import controllers.LoginController;
 import services.DatabaseQuery;
-import styles.Borders;
-import styles.Colors;
-import styles.Fonts;
+import styles.UIBorders;
+import styles.UIColors;
+import styles.UIFonts;
 import utils.AudioHandler;
 import views.MenuView;
 
@@ -74,7 +74,7 @@ public abstract class Board extends JPanel implements ActionListener {
 
     private void initBoard() {
         addKeyListener(new TAdapter());
-        setBackground(Colors.OTHER_OPTIONS_L);
+        setBackground(UIColors.OTHER_OPTIONS_L);
         setFocusable(true);
         bottomPanel.setVisible(true);
         setPreferredSize(UISizes.SIZE_BOARD);
@@ -96,7 +96,7 @@ public abstract class Board extends JPanel implements ActionListener {
         // Initialize the JLabel for live score display
         scoreLabel = new JLabel(UILabels.SCORE_LIVE);
         scoreLabel.setForeground(Color.white);
-        scoreLabel.setFont(Fonts.SCORE_LIVE);
+        scoreLabel.setFont(UIFonts.SCORE_LIVE);
         scoreLabel.setBounds(10, UISizes.HEIGHT_BOARD - 30, 100, 20);
         scoreLabel.setVisible(true);
     }
@@ -107,8 +107,8 @@ public abstract class Board extends JPanel implements ActionListener {
         bigAppleProgressBar.setPreferredSize(UISizes.SIZE_PROGRESS_BAR);
         bigAppleProgressBar.setValue(100);
         bigAppleProgressBar.setStringPainted(true);
-        bigAppleProgressBar.setForeground(Colors.PROGRESS_BAR_LOADING);
-        bigAppleProgressBar.setBackground(Colors.PRIMARY_COLOR_L);
+        bigAppleProgressBar.setForeground(UIColors.PROGRESS_BAR_LOADING);
+        bigAppleProgressBar.setBackground(UIColors.PRIMARY_COLOR_L);
         bigAppleProgressBar.setVisible(false);
     }
 
@@ -116,8 +116,8 @@ public abstract class Board extends JPanel implements ActionListener {
         initScoreLabel();
         initProgressBar();
         bottomPanel.setLayout(new BorderLayout());
-        bottomPanel.setBackground(Colors.OTHER_OPTIONS_L);
-        bottomPanel.setBorder(Borders.BOTTOM_SCORE_PROGRESS_BAR);
+        bottomPanel.setBackground(UIColors.OTHER_OPTIONS_L);
+        bottomPanel.setBorder(UIBorders.BOTTOM_SCORE_PROGRESS_BAR);
         bottomPanel.add(scoreLabel, BorderLayout.WEST);
         bottomPanel.add(bigAppleProgressBar, BorderLayout.EAST);
         add(bottomPanel, BorderLayout.SOUTH);
@@ -143,19 +143,19 @@ public abstract class Board extends JPanel implements ActionListener {
     private void initGameOverTitle() {
         gameOverPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         gameOverLabel = new JLabel(UILabels.GAME_OVER);
-        gameOverPanel.setBackground(Colors.OTHER_OPTIONS_L);
-        gameOverLabel.setForeground(Colors.PRIMARY_COLOR_L);
-        gameOverLabel.setBackground(Colors.OTHER_OPTIONS_L);
-        gameOverLabel.setFont(Fonts.GAME_OVER);
+        gameOverPanel.setBackground(UIColors.OTHER_OPTIONS_L);
+        gameOverLabel.setForeground(UIColors.PRIMARY_COLOR_L);
+        gameOverLabel.setBackground(UIColors.OTHER_OPTIONS_L);
+        gameOverLabel.setFont(UIFonts.GAME_OVER);
         gameOverLabel.setBounds((UISizes.WIDTH_BOARD - 260) / 2, (UISizes.HEIGHT_BOARD - 50) / 2 - 50, 260, 50);
         gameOverPanel.add(gameOverLabel);
     }
 
     private void initPlayAgainButton() {
         playAgainButton = new JButton(UILabels.PLAY_AGAIN);
-        playAgainButton.setFont(Fonts.PLAY_EXIT_BUTTON);
-        playAgainButton.setBackground(Colors.TEXT_COLOR_L);
-        playAgainButton.setForeground(Colors.PRIMARY_COLOR_L);
+        playAgainButton.setFont(UIFonts.PLAY_EXIT_BUTTON);
+        playAgainButton.setBackground(UIColors.TEXT_COLOR_L);
+        playAgainButton.setForeground(UIColors.PRIMARY_COLOR_L);
         playAgainButton.setPreferredSize(UISizes.SIZE_BUTTON_GAME_OVER);
         playAgainButton.addActionListener(e -> {
             SwingUtilities.invokeLater(() -> {
@@ -167,9 +167,9 @@ public abstract class Board extends JPanel implements ActionListener {
 
     private void initExitButton() {
         exitButton = new JButton(UILabels.EXIT);
-        exitButton.setFont(Fonts.PLAY_EXIT_BUTTON);
-        exitButton.setBackground(Colors.PROGRESS_BAR_LOADING);
-        exitButton.setForeground(Colors.PRIMARY_COLOR_L);
+        exitButton.setFont(UIFonts.PLAY_EXIT_BUTTON);
+        exitButton.setBackground(UIColors.PROGRESS_BAR_LOADING);
+        exitButton.setForeground(UIColors.PRIMARY_COLOR_L);
         exitButton.addActionListener(e -> {
             if (UIUtils.IS_CONFIRM_EXIT() == JOptionPane.YES_OPTION) {
                 SwingUtilities.getWindowAncestor(this).dispose();
@@ -182,16 +182,16 @@ public abstract class Board extends JPanel implements ActionListener {
         initPlayAgainButton();
         initExitButton();
         playAgainExitButtonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        playAgainExitButtonPanel.setBackground(Colors.OTHER_OPTIONS_L);
+        playAgainExitButtonPanel.setBackground(UIColors.OTHER_OPTIONS_L);
         playAgainExitButtonPanel.add(playAgainButton);
         playAgainExitButtonPanel.add(exitButton);
     }
 
     private void initBackToMainMenuButton() {
         backToMainMenuButton = new JButton(UILabels.BACK_TO_MAIN_MENU);
-        backToMainMenuButton.setFont(Fonts.PLAY_EXIT_BUTTON);
-        backToMainMenuButton.setBackground(Colors.BACK_TO_MAIN_MENU);
-        backToMainMenuButton.setForeground(Colors.PRIMARY_COLOR_L);
+        backToMainMenuButton.setFont(UIFonts.PLAY_EXIT_BUTTON);
+        backToMainMenuButton.setBackground(UIColors.BACK_TO_MAIN_MENU);
+        backToMainMenuButton.setForeground(UIColors.PRIMARY_COLOR_L);
         backToMainMenuButton.addActionListener(e -> {
             SwingUtilities.getWindowAncestor(this).dispose();
             new MenuView().setVisible(true);
@@ -202,7 +202,7 @@ public abstract class Board extends JPanel implements ActionListener {
     private void initBackToMainMenuButtonPanel() {
         initBackToMainMenuButton();
         backToMainMenuButtonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        backToMainMenuButtonPanel.setBackground(Colors.OTHER_OPTIONS_L);
+        backToMainMenuButtonPanel.setBackground(UIColors.OTHER_OPTIONS_L);
         backToMainMenuButtonPanel.add(backToMainMenuButton);
     }
 
@@ -211,8 +211,8 @@ public abstract class Board extends JPanel implements ActionListener {
         initPlayAgainExitButtonPanel();
         initBackToMainMenuButtonPanel();
         gameOverButtonPanel.setLayout(new BorderLayout());
-        gameOverButtonPanel.setBackground(Colors.OTHER_OPTIONS_L);
-        gameOverButtonPanel.setBorder(Borders.GAME_OVER_ELEMENT);
+        gameOverButtonPanel.setBackground(UIColors.OTHER_OPTIONS_L);
+        gameOverButtonPanel.setBorder(UIBorders.GAME_OVER_ELEMENT);
         gameOverButtonPanel.add(gameOverPanel, BorderLayout.NORTH);
         gameOverButtonPanel.add(playAgainExitButtonPanel, BorderLayout.CENTER);
         gameOverButtonPanel.add(backToMainMenuButtonPanel, BorderLayout.SOUTH);
@@ -249,7 +249,7 @@ public abstract class Board extends JPanel implements ActionListener {
         super.paintComponent(g);
 
         doDrawing(g);
-        g.setColor(Colors.PRIMARY_COLOR_L);
+        g.setColor(UIColors.PRIMARY_COLOR_L);
         g.drawLine(0, lineBottom, UISizes.WIDTH_BOARD, lineBottom);
     }
 

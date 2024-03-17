@@ -1,4 +1,4 @@
-package constants;
+package styles;
 
 public class UILabels {
     public static final String WINDOW = "Snake Game";

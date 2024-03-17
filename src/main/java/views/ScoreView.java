@@ -8,11 +8,11 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
-import constants.UISizes;
+import styles.UISizes;
 import controllers.ScoreController;
-import styles.Borders;
-import styles.Colors;
-import styles.Fonts;
+import styles.UIBorders;
+import styles.UIColors;
+import styles.UIFonts;
 
 public class ScoreView extends JFrame {
 
@@ -39,22 +39,22 @@ public class ScoreView extends JFrame {
     }
 
     public void initTopZone() {
-        jLabel_Title.setForeground(Colors.TEXT_COLOR_L);
-        jLabel_Title.setFont(Fonts.BUTTON);
-        jLabel_Title.setBorder(Borders.MIDDLE);
+        jLabel_Title.setForeground(UIColors.TEXT_COLOR_L);
+        jLabel_Title.setFont(UIFonts.BUTTON);
+        jLabel_Title.setBorder(UIBorders.MIDDLE);
     }
 
     public void initMiddleZone() {
         jTextArea_Score.setWrapStyleWord(true);
         jTextArea_Score.setLineWrap(true);
         jTextArea_Score.setEditable(false);
-        jTextArea_Score.setFont(Fonts.OTHERS);
+        jTextArea_Score.setFont(UIFonts.OTHERS);
         jScrollPane_Score.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         jScrollPane_Score.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
     }
 
     public void initContainer() {
-        jPanel_Container.setBorder(Borders.CONTAINER);
+        jPanel_Container.setBorder(UIBorders.CONTAINER);
         jPanel_Container.setLayout(new BorderLayout());
         jPanel_Container.add(jLabel_Title, BorderLayout.NORTH);
         jPanel_Container.add(jScrollPane_Score, BorderLayout.CENTER);
