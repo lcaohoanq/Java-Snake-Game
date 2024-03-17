@@ -1,7 +1,6 @@
 package services;
 
-import constants.Database;
-import constants.Errors;
+import constants.ErrorMessages;
 import errors.DBException;
 import models.data.Account;
 
@@ -33,10 +32,10 @@ public class DatabaseQuery {
              ResultSet resultSet = cStatement.executeQuery()) {
 
             while (resultSet.next()) {
-                resultList.add(resultSet.getString(Database.COLUMN_USERNAME) + " " + resultSet.getInt(Database.COLUMN_SCORE));
+                resultList.add(resultSet.getString("username") + " " + resultSet.getInt("score"));
             }
         } catch (SQLException e) {
-            System.out.println(Errors.ERROR_SELECT_USERNAME_AND_PASSWORD + e.getMessage());
+            System.out.println(ErrorMessages.ERROR_SELECT_USERNAME_AND_PASSWORD + e.getMessage());
         }
         return resultList;
     }
@@ -48,10 +47,10 @@ public class DatabaseQuery {
             cStatement.setString(1, username);
             ResultSet resultSet = cStatement.executeQuery();
             while (resultSet.next()) {
-                return new Account(resultSet.getString(Database.COLUMN_USERNAME), resultSet.getString(Database.COLUMN_PASSWORD));
+                return new Account(resultSet.getString("username"), resultSet.getString("password"));
             }
         } catch (SQLException e) {
-            System.out.println(Errors.ERROR_SELECT_USERNAME_AND_PASSWORD + e.getMessage());
+            System.out.println(ErrorMessages.ERROR_SELECT_USERNAME_AND_PASSWORD + e.getMessage());
         }
         return null;
     }
@@ -65,10 +64,10 @@ public class DatabaseQuery {
 
             ResultSet resultSet = cStatement.executeQuery();
             while (resultSet.next()) {
-                return new Account(resultSet.getString(Database.COLUMN_USERNAME), resultSet.getInt(Database.COLUMN_SCORE));
+                return new Account(resultSet.getString("username"), resultSet.getInt("score"));
             }
         } catch (SQLException e) {
-            System.out.println(Errors.ERROR_SELECT_USERNAME_AND_SCORE + e.getMessage());
+            System.out.println(ErrorMessages.ERROR_SELECT_USERNAME_AND_SCORE + e.getMessage());
         }
         return null;
     }
@@ -86,10 +85,10 @@ public class DatabaseQuery {
 
             int rowsAffected = cStatement.executeUpdate();
             if (rowsAffected > 0) {
-                System.out.println(Database.INSERT_SUCCESS + " for " + username);
+                System.out.println("Insert success for " + username);
                 return true;
             }
-            throw new DBException(Database.INSERT_FAILED + " for " + username);
+            throw new DBException("Insert failed for " + username);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -107,7 +106,7 @@ public class DatabaseQuery {
             if (rowsAffected == 0) {
                 return true;
             }
-            throw new DBException(Database.ERROR_EXECUTE_SQL_SAFE_UPDATES);
+            throw new DBException("Error execute sql safe updates");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -124,10 +123,10 @@ public class DatabaseQuery {
 
             int rowsAffected = cStatement.executeUpdate();
             if (rowsAffected > 0) {
-                System.out.println(Database.UPDATE_SUCCESS + " for " + username);
+                System.out.println("Update success for " + username);
                 return true;
             }
-            throw new DBException(Database.UPDATE_FAILED + " for " + username);
+            throw new DBException("Update failed for " + username);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }

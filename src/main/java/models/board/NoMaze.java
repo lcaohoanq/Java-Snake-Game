@@ -1,7 +1,7 @@
 package models.board;
 
-import constants.Paths;
-import constants.Sizes;
+import constants.ResourcePaths;
+import constants.UISizes;
 
 import java.io.InputStream;
 
@@ -27,25 +27,25 @@ public class NoMaze extends Board {
             }
         }
 
-        if (y[0] >= Sizes.HEIGHT_BOARD - 50) {
+        if (y[0] >= UISizes.HEIGHT_BOARD - 50) {
             y[0] = 0;
         }
 
         if (y[0] < 0) {
-            y[0] = Sizes.HEIGHT_BOARD - 50 - DOT_SIZE;
+            y[0] = UISizes.HEIGHT_BOARD - 50 - DOT_SIZE;
         }
 
-        if (x[0] >= Sizes.WIDTH_BOARD) {
+        if (x[0] >= UISizes.WIDTH_BOARD) {
             x[0] = 0;
         }
 
         if (x[0] < 0) {
-            x[0] = Sizes.WIDTH_BOARD - DOT_SIZE;
+            x[0] = UISizes.WIDTH_BOARD - DOT_SIZE;
         }
 
         if (!inGame) {
             if (isOnSound()) {
-                InputStream inputStream = getClass().getResourceAsStream(Paths.URL_GAME_OVER);
+                InputStream inputStream = getClass().getResourceAsStream(ResourcePaths.URL_GAME_OVER);
                 audioHandler.playAudio(inputStream);
             }
             timer.stop();
@@ -71,7 +71,7 @@ public class NoMaze extends Board {
     protected void locateBigApple() {
         if (isOnSound()) {
 //            audioHandler.setAudio(audioHandler.formatAudioPath(getClass().getResource(Paths.URL_BIG_APPLE_APP).getPath()));
-            InputStream inputStream = getClass().getResourceAsStream(Paths.URL_BIG_APPLE_APP);
+            InputStream inputStream = getClass().getResourceAsStream(ResourcePaths.URL_BIG_APPLE_APP);
             audioHandler.playAudio(inputStream);
         }
         int r = (int) (Math.random() * RAND_POS);

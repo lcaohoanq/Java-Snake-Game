@@ -1,9 +1,9 @@
 package views;
 
 import constants.Info;
-import constants.Paths;
-import constants.Sizes;
-import constants.Titles;
+import constants.ResourcePaths;
+import constants.UISizes;
+import constants.UILabels;
 import controllers.ScoreController;
 import styles.Borders;
 import styles.Colors;
@@ -52,8 +52,8 @@ public abstract sealed class MyFrame extends JFrame implements ToggleHandler, Ho
     private JMenuBar jMenuBar;
 
     public MyFrame() {
-        setTitle(Titles.WINDOW);
-        setSize(Sizes.WIDTH_MY_FRAME, Sizes.HEIGHT_MY_FRAME);
+        setTitle(UILabels.WINDOW);
+        setSize(UISizes.WIDTH_MY_FRAME, UISizes.HEIGHT_MY_FRAME);
         setIconImage(Images.icon);
         setLocationRelativeTo(null);
         setResizable(false);
@@ -92,10 +92,10 @@ public abstract sealed class MyFrame extends JFrame implements ToggleHandler, Ho
 
         // Use the new image "250-250.png"
         jLabel_Left_Icon = new JLabel(
-                new ImageIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage(MyFrame.class.getResource(Paths.URL_SNAKE_LOGO))).getImage().getScaledInstance(250, 250, Image.SCALE_SMOOTH)));
+                new ImageIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage(MyFrame.class.getResource(ResourcePaths.URL_SNAKE_LOGO))).getImage().getScaledInstance(250, 250, Image.SCALE_SMOOTH)));
         jPanel_Left_Icon.add(jLabel_Left_Icon, BorderLayout.CENTER);
 
-        jPanel_Left.setPreferredSize(new Dimension(Sizes.WIDTH_MY_LEFT_FRAME, Sizes.HEIGHT_MY_LEFT_FRAME));
+        jPanel_Left.setPreferredSize(new Dimension(UISizes.WIDTH_MY_LEFT_FRAME, UISizes.HEIGHT_MY_LEFT_FRAME));
         jPanel_Left.setBackground(Colors.TEXT_COLOR_L);
         jPanel_Left.setBorder(Borders.TITLE);
 

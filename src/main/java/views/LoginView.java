@@ -1,9 +1,9 @@
 package views;
 
-import constants.Messages;
-import constants.Paths;
-import constants.Sizes;
-import constants.Titles;
+import utils.UIUtils;
+import constants.ResourcePaths;
+import constants.UISizes;
+import constants.UILabels;
 import controllers.LoginController;
 import controllers.PlayController;
 import models.data.Account;
@@ -30,7 +30,7 @@ public non-sealed class LoginView extends MyFrame implements ToggleHandler, Hove
     public LoginView() {
         super();
         this.loginModel = new LoginModel();
-        InputStream inputStream = getClass().getResourceAsStream(Paths.URL_INTRO);
+        InputStream inputStream = getClass().getResourceAsStream(ResourcePaths.URL_INTRO);
         audioHandler.playAudio(inputStream);
     }
 
@@ -49,7 +49,7 @@ public non-sealed class LoginView extends MyFrame implements ToggleHandler, Hove
         initRightBottom();
 
         jPanel_Right = new JPanel(new BorderLayout());
-        jPanel_Right.setPreferredSize(new Dimension(Sizes.WIDTH_MY_RIGHT_FRAME, Sizes.HEIGHT_MY_RIGHT_FRAME));
+        jPanel_Right.setPreferredSize(new Dimension(UISizes.WIDTH_MY_RIGHT_FRAME, UISizes.HEIGHT_MY_RIGHT_FRAME));
         jPanel_Right.setBackground(Colors.PRIMARY_COLOR_L);
         jPanel_Right.setBorder(Borders.MID_FIELD);
 
@@ -62,7 +62,7 @@ public non-sealed class LoginView extends MyFrame implements ToggleHandler, Hove
     @Override
     public void initRightTop() {
         jPanel_Right_Top_Tittle = new JPanel();
-        jLabel_Right_Top_Tittle = new JLabel(Titles.LOGIN, JLabel.CENTER);
+        jLabel_Right_Top_Tittle = new JLabel(UILabels.LOGIN, JLabel.CENTER);
         jLabel_Right_Top_Tittle.setForeground(Colors.TEXT_COLOR_L);
         jLabel_Right_Top_Tittle.setFont(Fonts.RIGHT_TITLE);
 
@@ -79,14 +79,14 @@ public non-sealed class LoginView extends MyFrame implements ToggleHandler, Hove
         jPanel_Right_Bottom_Button = new JPanel();
         cardLayout = new CardLayout();
 
-        jLabel_Right_Middle_Username = new JLabel(Titles.USERNAME);
-        jLabel_Right_Middle_Password = new JLabel(Titles.PASSWORD);
+        jLabel_Right_Middle_Username = new JLabel(UILabels.USERNAME);
+        jLabel_Right_Middle_Password = new JLabel(UILabels.PASSWORD);
 
         jTextField_Right_Middle_Username = new JTextField(20);
         jPasswordField_Right_Middle_Password = new JPasswordField(20);
 
-        jButton_Right_Bottom_Submit = new JButton(Titles.SUBMIT);
-        jButton_Right_Play = new JButton(Titles.PLAY);
+        jButton_Right_Bottom_Submit = new JButton(UILabels.SUBMIT);
+        jButton_Right_Play = new JButton(UILabels.PLAY);
 
         jLabel_Right_Middle_Username.setForeground(Colors.TEXT_COLOR_L);
         jLabel_Right_Middle_Username.setFont(Fonts.LABEL);
@@ -119,11 +119,11 @@ public non-sealed class LoginView extends MyFrame implements ToggleHandler, Hove
         jButton_Right_Bottom_Submit.setBackground(Colors.TEXT_COLOR_L);
         jButton_Right_Bottom_Submit.setForeground(Colors.PRIMARY_COLOR_L);
         jButton_Right_Bottom_Submit.setFont(Fonts.BUTTON);
-        jButton_Right_Bottom_Submit.setPreferredSize(Sizes.SIZE_BUTTON);
+        jButton_Right_Bottom_Submit.setPreferredSize(UISizes.SIZE_BUTTON);
         jButton_Right_Play.setBackground(Colors.TEXT_COLOR_L);
         jButton_Right_Play.setForeground(Colors.PRIMARY_COLOR_L);
         jButton_Right_Play.setFont(Fonts.BUTTON);
-        jButton_Right_Play.setPreferredSize(Sizes.SIZE_BUTTON);
+        jButton_Right_Play.setPreferredSize(UISizes.SIZE_BUTTON);
         jPanel_Right_Bottom_Button.setLayout(cardLayout);
         jPanel_Right_Bottom_Button.add(jButton_Right_Bottom_Submit, "Card1");
         jPanel_Right_Bottom_Button.add(jButton_Right_Play, "Card2");
@@ -141,8 +141,8 @@ public non-sealed class LoginView extends MyFrame implements ToggleHandler, Hove
 
     @Override
     public void initRightBottom() {
-        jLabel_Right_Bottom_Option = new JLabel(Titles.DONT_HAVE_ACCOUNT);
-        jButton_Right_Bottom_Others = new JButton(Titles.SIGN_UP_HERE);
+        jLabel_Right_Bottom_Option = new JLabel(UILabels.DONT_HAVE_ACCOUNT);
+        jButton_Right_Bottom_Others = new JButton(UILabels.SIGN_UP_HERE);
         jPanel_Right_Bottom_Option = new JPanel();
 
         jLabel_Right_Bottom_Option.setForeground(Colors.TEXT_COLOR_L);
@@ -198,11 +198,11 @@ public non-sealed class LoginView extends MyFrame implements ToggleHandler, Hove
     }
 
     public void handleEmpty() {
-        Messages.IS_EMPTY_USERNAME_OR_PASSWORD();
+        UIUtils.IS_EMPTY_USERNAME_OR_PASSWORD();
     }
 
     public void handleWrong() {
-        Messages.IS_WRONG_USERNAME_OR_PASSWORD();
+        UIUtils.IS_WRONG_USERNAME_OR_PASSWORD();
     }
 
     public boolean isAdmin() {
@@ -214,7 +214,7 @@ public non-sealed class LoginView extends MyFrame implements ToggleHandler, Hove
     }
 
     public void handleSuccess() {
-        Messages.IS_LOGIN_SUCCESS();
+        UIUtils.IS_LOGIN_SUCCESS();
         // Switch to the play button card using static methods
         CardLayout cardLayout = LoginView.cardLayout;
         cardLayout.next(LoginView.jPanel_Right_Bottom_Button);

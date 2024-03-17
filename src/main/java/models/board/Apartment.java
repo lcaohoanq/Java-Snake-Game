@@ -1,7 +1,7 @@
 package models.board;
 
-import constants.Paths;
-import constants.Sizes;
+import constants.ResourcePaths;
+import constants.UISizes;
 
 import javax.swing.*;
 import java.awt.*;
@@ -18,7 +18,7 @@ public class Apartment extends Board {
     @Override
     public void loadImages() {
         super.loadImages();
-        wall = new ImageIcon(getClass().getResource(Paths.URL_WALL)).getImage();
+        wall = new ImageIcon(getClass().getResource(ResourcePaths.URL_WALL)).getImage();
     }
 
     @Override
@@ -29,7 +29,7 @@ public class Apartment extends Board {
             g.drawImage(wall, i, 0, this);
         }
         //draw the horizontal walls at y = 120, from x = 160 to x 340
-        for (int i = 160; i < Sizes.WIDTH_BOARD - 80; i += 20) {
+        for (int i = 160; i < UISizes.WIDTH_BOARD - 80; i += 20) {
             g.drawImage(wall, i, 0, this);
         }
         //draw the vertical walls at x = 0, from y = 0 to y 120
@@ -41,7 +41,7 @@ public class Apartment extends Board {
             g.drawImage(wall, i, 140, this);
         }
         //draw the horizontal walls at y = 140, from x = 300 to max width
-        for (int i = 300; i < Sizes.WIDTH_BOARD; i += 20) {
+        for (int i = 300; i < UISizes.WIDTH_BOARD; i += 20) {
             g.drawImage(wall, i, 140, this);
         }
         //draw the vertical walls at x = 200, from y = 0 to y 160
@@ -49,11 +49,11 @@ public class Apartment extends Board {
             g.drawImage(wall, 200, i, this);
         }
         //draw the horizontal walls at y = 400, from x = 0 to max width
-        for (int i = 0; i < Sizes.WIDTH_BOARD; i += 20) {
+        for (int i = 0; i < UISizes.WIDTH_BOARD; i += 20) {
             g.drawImage(wall, i, 260, this);
         }
         //draw the vertical walls at x = 300, from y = 260 to y 500
-        for (int i = 260; i < Sizes.HEIGHT_BOARD - 50; i += 20) {
+        for (int i = 260; i < UISizes.HEIGHT_BOARD - 50; i += 20) {
             g.drawImage(wall, 300, i, this);
         }
     }
@@ -71,22 +71,22 @@ public class Apartment extends Board {
 
         // snake can go through the walls north
         if (y[0] < 0) {
-            y[0] = Sizes.HEIGHT_BOARD - 50 - DOT_SIZE;
+            y[0] = UISizes.HEIGHT_BOARD - 50 - DOT_SIZE;
         }
 
         // snake can go through the walls south
-        if(y[0] >= Sizes.HEIGHT_BOARD - 50){
+        if(y[0] >= UISizes.HEIGHT_BOARD - 50){
             y[0] = 0;
         }
 
         // snake can go through the walls east
-        if (x[0] >= Sizes.WIDTH_BOARD) {
+        if (x[0] >= UISizes.WIDTH_BOARD) {
             x[0] = 0;
         }
 
         // snake can go through the walls west
         if (x[0] < 0) {
-            x[0] = Sizes.WIDTH_BOARD - DOT_SIZE;
+            x[0] = UISizes.WIDTH_BOARD - DOT_SIZE;
         }
 
         // snake hit the top left horizontal wall
@@ -110,12 +110,12 @@ public class Apartment extends Board {
         }
 
         // snake hit the second right horizontal middle chunk wall
-        if(x[0] >= Sizes.WIDTH_BOARD - 200 && y[0] >= 7*20 && y[0] < 8*20){
+        if(x[0] >= UISizes.WIDTH_BOARD - 200 && y[0] >= 7*20 && y[0] < 8*20){
             inGame = false;
         }
 
         // snake hit the third horizontal middle wall
-        if(y[0] >= Sizes.HEIGHT_BOARD - 50 - 12*20 && y[0] <= Sizes.HEIGHT_BOARD - 50 - 11*20){
+        if(y[0] >= UISizes.HEIGHT_BOARD - 50 - 12*20 && y[0] <= UISizes.HEIGHT_BOARD - 50 - 11*20){
             inGame = false;
         }
 
@@ -125,13 +125,13 @@ public class Apartment extends Board {
         }
 
         // snake hit the third vertical wall
-        if(x[0] >= 15*20 && x[0] <= 16*20 && y[0] >= Sizes.HEIGHT_BOARD - 50 - 12*20){
+        if(x[0] >= 15*20 && x[0] <= 16*20 && y[0] >= UISizes.HEIGHT_BOARD - 50 - 12*20){
             inGame = false;
         }
 
         if (!inGame) {
             if (isOnSound()) {
-                InputStream inputStream = getClass().getResourceAsStream(Paths.URL_GAME_OVER);
+                InputStream inputStream = getClass().getResourceAsStream(ResourcePaths.URL_GAME_OVER);
                 audioHandler.playAudio(inputStream);
             }
             timer.stop();
@@ -156,7 +156,7 @@ public class Apartment extends Board {
     @Override
     protected void locateBigApple() {
         if (isOnSound()) {
-            InputStream inputStream = getClass().getResourceAsStream(Paths.URL_BIG_APPLE_APP);
+            InputStream inputStream = getClass().getResourceAsStream(ResourcePaths.URL_BIG_APPLE_APP);
             audioHandler.playAudio(inputStream);
         }
         int r = (int) (Math.random() * (RAND_POS - 2 * wallThickness));

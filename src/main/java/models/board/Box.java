@@ -1,7 +1,7 @@
 package models.board;
 
-import constants.Paths;
-import constants.Sizes;
+import constants.ResourcePaths;
+import constants.UISizes;
 
 import javax.swing.*;
 import java.awt.*;
@@ -18,19 +18,19 @@ public class Box extends Board {
     @Override
     protected void loadImages() {
         super.loadImages();
-        wall = new ImageIcon(getClass().getResource(Paths.URL_WALL)).getImage();
+        wall = new ImageIcon(getClass().getResource(ResourcePaths.URL_WALL)).getImage();
     }
 
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        for (int i = 0; i < Sizes.WIDTH_BOARD; i += 20) {
+        for (int i = 0; i < UISizes.WIDTH_BOARD; i += 20) {
             g.drawImage(wall, i, 0, this);
-            g.drawImage(wall, i, Sizes.HEIGHT_BOARD - 70, this);
+            g.drawImage(wall, i, UISizes.HEIGHT_BOARD - 70, this);
         }
-        for (int i = 0; i < Sizes.HEIGHT_BOARD - 70; i += 20) {
+        for (int i = 0; i < UISizes.HEIGHT_BOARD - 70; i += 20) {
             g.drawImage(wall, 0, i, this);
-            g.drawImage(wall, Sizes.WIDTH_BOARD - 20, i, this);
+            g.drawImage(wall, UISizes.WIDTH_BOARD - 20, i, this);
         }
     }
 
@@ -44,7 +44,7 @@ public class Box extends Board {
             }
         }
 
-        if (y[0] >= Sizes.HEIGHT_BOARD - 70) {
+        if (y[0] >= UISizes.HEIGHT_BOARD - 70) {
             inGame = false;
         }
 
@@ -52,7 +52,7 @@ public class Box extends Board {
             inGame = false;
         }
 
-        if (x[0] >= Sizes.WIDTH_BOARD) {
+        if (x[0] >= UISizes.WIDTH_BOARD) {
             inGame = false;
         }
 
@@ -62,7 +62,7 @@ public class Box extends Board {
 
         if (!inGame) {
             if (isOnSound()) {
-                InputStream inputStream = getClass().getResourceAsStream(Paths.URL_GAME_OVER);
+                InputStream inputStream = getClass().getResourceAsStream(ResourcePaths.URL_GAME_OVER);
                 audioHandler.playAudio(inputStream);
             }
             timer.stop();
@@ -87,7 +87,7 @@ public class Box extends Board {
     @Override
     protected void locateBigApple() {
         if (isOnSound()) {
-            InputStream inputStream = getClass().getResourceAsStream(Paths.URL_BIG_APPLE_APP);
+            InputStream inputStream = getClass().getResourceAsStream(ResourcePaths.URL_BIG_APPLE_APP);
             audioHandler.playAudio(inputStream);
         }
         int r = (int) (Math.random() * (RAND_POS - 2 * wallThickness));

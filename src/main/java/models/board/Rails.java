@@ -1,7 +1,7 @@
 package models.board;
 
-import constants.Paths;
-import constants.Sizes;
+import constants.ResourcePaths;
+import constants.UISizes;
 
 import javax.swing.*;
 import java.awt.*;
@@ -19,31 +19,31 @@ public class Rails extends Board {
     @Override
     protected void loadImages() {
         super.loadImages();
-        wall = new ImageIcon(getClass().getResource(Paths.URL_WALL)).getImage();
+        wall = new ImageIcon(getClass().getResource(ResourcePaths.URL_WALL)).getImage();
     }
 
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         //draw the top and bottom horizontal walls
-        for (int i = 0; i < Sizes.WIDTH_BOARD; i += 20) {
+        for (int i = 0; i < UISizes.WIDTH_BOARD; i += 20) {
             g.drawImage(wall, i, 0, this);
-            g.drawImage(wall, i, Sizes.HEIGHT_BOARD - 70, this);
+            g.drawImage(wall, i, UISizes.HEIGHT_BOARD - 70, this);
         }
         //draw the 2 left vertical walls from y = 0 to y = 200 and from y = 300 to y = 480
         for (int i = 0; i < 200; i += 20) {
             g.drawImage(wall, 0, i, this);
-            g.drawImage(wall, 0, Sizes.HEIGHT_BOARD - 70 - i, this);
+            g.drawImage(wall, 0, UISizes.HEIGHT_BOARD - 70 - i, this);
         }
         //draw the 2 right vertical walls from
         for (int i = 0; i < 200; i += 20) {
-            g.drawImage(wall, Sizes.WIDTH_BOARD - 20, i, this);
-            g.drawImage(wall, Sizes.WIDTH_BOARD - 20, Sizes.HEIGHT_BOARD - 70 - i, this);
+            g.drawImage(wall, UISizes.WIDTH_BOARD - 20, i, this);
+            g.drawImage(wall, UISizes.WIDTH_BOARD - 20, UISizes.HEIGHT_BOARD - 70 - i, this);
         }
         //draw the 2 middle horizontal walls
         for (int i = 100; i < 400; i += 20) {
             g.drawImage(wall, i, 140, this);
-            g.drawImage(wall, i, Sizes.HEIGHT_BOARD - 50 - 160, this);
+            g.drawImage(wall, i, UISizes.HEIGHT_BOARD - 50 - 160, this);
         }
     }
 
@@ -63,7 +63,7 @@ public class Rails extends Board {
         }
 
         // snake hit the walls south
-        if(y[0] >= Sizes.HEIGHT_BOARD - 70){
+        if(y[0] >= UISizes.HEIGHT_BOARD - 70){
             inGame = false;
         }
 
@@ -73,17 +73,17 @@ public class Rails extends Board {
         }
 
         // snake hit the bottom left vertical wall
-        if (x[0] <= 20 && y[0] >= Sizes.HEIGHT_BOARD - 50 - 200) {
+        if (x[0] <= 20 && y[0] >= UISizes.HEIGHT_BOARD - 50 - 200) {
             inGame = false;
         }
 
         // snake hit the top right vertical wall
-        if (x[0] >= Sizes.WIDTH_BOARD - 20 && y[0] <= 200) {
+        if (x[0] >= UISizes.WIDTH_BOARD - 20 && y[0] <= 200) {
             inGame = false;
         }
 
         // snake hit the bottom right vertical wall
-        if (x[0] >= Sizes.WIDTH_BOARD - 20 && y[0] >= Sizes.HEIGHT_BOARD - 50 - 200) {
+        if (x[0] >= UISizes.WIDTH_BOARD - 20 && y[0] >= UISizes.HEIGHT_BOARD - 50 - 200) {
             inGame = false;
         }
 
@@ -93,23 +93,23 @@ public class Rails extends Board {
         }
 
         // snake hit the second horizontal wall length 400 at x = 100, y = 340, each block is 20x20
-        if (y[0] >= Sizes.HEIGHT_BOARD - 50 - 160 && y[0] <= Sizes.HEIGHT_BOARD - 50 - 140 && x[0] >= 100 && x[0] <= 390) {
+        if (y[0] >= UISizes.HEIGHT_BOARD - 50 - 160 && y[0] <= UISizes.HEIGHT_BOARD - 50 - 140 && x[0] >= 100 && x[0] <= 390) {
             inGame = false;
         }
 
         // snake can go through the walls east
-        if (x[0] >= Sizes.WIDTH_BOARD && y[0] >= 200 && y[0] <= Sizes.HEIGHT_BOARD - 50 - 200) {
+        if (x[0] >= UISizes.WIDTH_BOARD && y[0] >= 200 && y[0] <= UISizes.HEIGHT_BOARD - 50 - 200) {
             x[0] = 0;
         }
 
         // snake can go through the walls west
-        if (x[0] < 0 && y[0] >= 200 && y[0] <= Sizes.HEIGHT_BOARD - 50 - 200) {
-            x[0] = Sizes.WIDTH_BOARD - DOT_SIZE;
+        if (x[0] < 0 && y[0] >= 200 && y[0] <= UISizes.HEIGHT_BOARD - 50 - 200) {
+            x[0] = UISizes.WIDTH_BOARD - DOT_SIZE;
         }
 
         if (!inGame) {
             if (isOnSound()) {
-                InputStream inputStream = getClass().getResourceAsStream(Paths.URL_GAME_OVER);
+                InputStream inputStream = getClass().getResourceAsStream(ResourcePaths.URL_GAME_OVER);
                 audioHandler.playAudio(inputStream);
             }
             timer.stop();
@@ -134,7 +134,7 @@ public class Rails extends Board {
     @Override
     protected void locateBigApple() {
         if (isOnSound()) {
-            InputStream inputStream = getClass().getResourceAsStream(Paths.URL_BIG_APPLE_APP);
+            InputStream inputStream = getClass().getResourceAsStream(ResourcePaths.URL_BIG_APPLE_APP);
             audioHandler.playAudio(inputStream);
         }
         int r = (int) (Math.random() * (RAND_POS - 2 * wallThickness));

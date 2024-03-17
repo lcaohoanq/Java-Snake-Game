@@ -1,7 +1,7 @@
 package models.board;
 
-import constants.Paths;
-import constants.Sizes;
+import constants.ResourcePaths;
+import constants.UISizes;
 
 import javax.swing.*;
 import java.awt.*;
@@ -24,7 +24,7 @@ public class Mill extends Board {
     @Override
     public void loadImages() {
         super.loadImages();
-        wall = new ImageIcon(getClass().getResource(Paths.URL_WALL)).getImage();
+        wall = new ImageIcon(getClass().getResource(ResourcePaths.URL_WALL)).getImage();
     }
 
     @Override
@@ -32,10 +32,10 @@ public class Mill extends Board {
         super.paintComponent(g);
         //draw the left horizontal wall from x = 0 to x = 140 at y = 420
         for (int i = 0; i < 160; i += 20) {
-            g.drawImage(wall, i, Sizes.HEIGHT_BOARD - 50 - 80, this);
+            g.drawImage(wall, i, UISizes.HEIGHT_BOARD - 50 - 80, this);
         }
         //draw the right horizontal wall from x = 340 to x = 500 at y = 60
-        for (int i = 340; i < Sizes.WIDTH_BOARD; i += 20) {
+        for (int i = 340; i < UISizes.WIDTH_BOARD; i += 20) {
             g.drawImage(wall, i, 60, this);
         }
         //draw the vertical walls at x = 140, from y = 0 to y = 340
@@ -61,22 +61,22 @@ public class Mill extends Board {
 
         // snake can go through the walls north
         if (y[0] < 0) {
-            y[0] = Sizes.HEIGHT_BOARD - 50 - DOT_SIZE;
+            y[0] = UISizes.HEIGHT_BOARD - 50 - DOT_SIZE;
         }
 
         // snake can go through the walls south
-        if(y[0] >= Sizes.HEIGHT_BOARD - 50){
+        if(y[0] >= UISizes.HEIGHT_BOARD - 50){
             y[0] = 0;
         }
 
         // snake can go through the walls east
-        if (x[0] >= Sizes.WIDTH_BOARD) {
+        if (x[0] >= UISizes.WIDTH_BOARD) {
             x[0] = 0;
         }
 
         // snake can go through the walls west
         if (x[0] < 0) {
-            x[0] = Sizes.WIDTH_BOARD - DOT_SIZE;
+            x[0] = UISizes.WIDTH_BOARD - DOT_SIZE;
         }
 
         // snake hit the vertical wall at x = 140, from y = 0 to y = 340
@@ -90,18 +90,18 @@ public class Mill extends Board {
         }
 
         // snake hit the horizontal wall from x = 0 to x = 140 at y = 420
-        if(y[0] == Sizes.HEIGHT_BOARD - 50 - 80 && x[0] < 140 && x[0] > 0){
+        if(y[0] == UISizes.HEIGHT_BOARD - 50 - 80 && x[0] < 140 && x[0] > 0){
             inGame = false;
         }
 
         // snake hit the horizontal wall from x = 340 to x = 500 at y = 60
-        if(y[0] == 60 && x[0] < Sizes.WIDTH_BOARD && x[0] > 340){
+        if(y[0] == 60 && x[0] < UISizes.WIDTH_BOARD && x[0] > 340){
             inGame = false;
         }
 
         if (!inGame) {
             if (isOnSound()) {
-                InputStream inputStream = getClass().getResourceAsStream(Paths.URL_GAME_OVER);
+                InputStream inputStream = getClass().getResourceAsStream(ResourcePaths.URL_GAME_OVER);
                 audioHandler.playAudio(inputStream);
             }
             timer.stop();
@@ -126,7 +126,7 @@ public class Mill extends Board {
     @Override
     protected void locateBigApple() {
         if (isOnSound()) {
-            InputStream inputStream = getClass().getResourceAsStream(Paths.URL_BIG_APPLE_APP);
+            InputStream inputStream = getClass().getResourceAsStream(ResourcePaths.URL_BIG_APPLE_APP);
             audioHandler.playAudio(inputStream);
         }
         int r = (int) (Math.random() * (RAND_POS - 2 * wallThickness));

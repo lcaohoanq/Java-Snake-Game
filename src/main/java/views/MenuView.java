@@ -1,6 +1,6 @@
 package views;
 
-import constants.Sizes;
+import constants.UISizes;
 import controllers.MenuController;
 import models.ui.MenuModel;
 import styles.Borders;
@@ -39,7 +39,7 @@ public non-sealed class MenuView extends JFrame implements ToggleHandler, HoverH
     public MenuView() {
         menuModel = new MenuModel();
         setTitle("Snake Game");
-        setSize(Sizes.HEIGHT_MY_FRAME, Sizes.HEIGHT_MY_FRAME);
+        setSize(UISizes.HEIGHT_MY_FRAME, UISizes.HEIGHT_MY_FRAME);
         setIconImage(Images.icon);
         setLocationRelativeTo(null);
         setResizable(false);
@@ -201,7 +201,7 @@ public non-sealed class MenuView extends JFrame implements ToggleHandler, HoverH
 
         public MenuModern() {
             setTitle("Modern Menu");
-            setSize(Sizes.WIDTH_SCORE_FORM, Sizes.HEIGHT_MY_FRAME);
+            setSize(UISizes.WIDTH_SCORE_FORM, UISizes.HEIGHT_MY_FRAME);
             setIconImage(Images.icon);
             setLocationRelativeTo(null);
             setResizable(false);

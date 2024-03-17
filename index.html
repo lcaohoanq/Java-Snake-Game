@@ -2,14 +2,11 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>Home</title>
-    <link
-      rel="icon"
-      href="./src/main/webapp/assets/favicon.ico"
-      type="image/png"
-    />
-    <link rel="stylesheet" href="./src/main/webapp/css/style.css" />
+    <link href="/favicon.ico" rel="icon" type="image/png" />
+    <link rel="stylesheet" href="/reset.css" />
+    <link href="/style.css" rel="stylesheet" />
   </head>
   <body>
     <div class="App">
@@ -18,20 +15,14 @@
       </header>
       <section id="tmp">
         <section id="App-img">
-          <img
-            src="./src/main/webapp/assets/logo.png"
-            class="App-logo"
-            alt="logo"
-          />
+          <img alt="logo" class="App-logo" src="/logo.png" />
         </section>
         <section id="App-data">
           <div class="card_button">
-            <a href="./src/main/webapp/login/login.html" class="log">Login</a>
+            <a class="log" href="/login.html">Login</a>
           </div>
           <div class="card_button">
-            <a href="./src/main/webapp/register/register.html" class="reg"
-              >Register</a
-            >
+            <a class="reg" href="/register.html">Register</a>
           </div>
         </section>
       </section>
@@ -40,12 +31,14 @@
         <a
           class="App-link"
           href="https://github.com/lcaohoanq/Java-Snake-Game"
-          target="_blank"
           rel="noopener noreferrer"
+          target="_blank"
         >
           Click here !
         </a>
       </footer>
     </div>
+
+    <script src="/control.js"></script>
   </body>
 </html>
