@@ -1,6 +1,6 @@
-package constants;
+package styles;
 
-public class Titles {
+public class UILabels {
     public static final String WINDOW = "Snake Game";
     public static final String LOGIN = "Login";
     public static final String REGISTER = "Register";

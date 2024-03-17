@@ -1,6 +1,6 @@
 package constants;
 
-public class Paths {
+public class ResourcePaths {
     public static final String URL_DOT = "/dot.png";
     public static final String URL_HEAD = "/head.png";
     public static final String URL_APPLE = "/apple.png";

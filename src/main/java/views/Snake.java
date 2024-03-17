@@ -6,8 +6,8 @@ import controllers.MenuController;
 import controllers.PlayController;
 import models.board.*;
 import models.board.Box;
-import styles.Borders;
-import styles.Images;
+import styles.UIBorders;
+import styles.UIImages;
 
 import java.awt.*;
 
@@ -26,7 +26,7 @@ public class Snake extends JFrame {
         setResizable(false);
         pack();
         setTitle("Snake");
-        setIconImage(Images.icon);
+        setIconImage(UIImages.icon);
         setJMenuBar(jMenuBar);
         MenuController.menuView.dispose();
         setLocationRelativeTo(null);
@@ -36,7 +36,7 @@ public class Snake extends JFrame {
 
     private void initMenu() {
         jMenuBar.setLayout(new FlowLayout(FlowLayout.LEFT));
-        jMenuBar.setBorder(Borders.LINE_MENU_BAR);
+        jMenuBar.setBorder(UIBorders.LINE_MENU_BAR);
         jMenuBar.add(jMenu);
         jMenu.add(jMenuItem_Back_To_Main_Menu);
         jMenuItem_Back_To_Main_Menu.addActionListener(new PlayController(this));

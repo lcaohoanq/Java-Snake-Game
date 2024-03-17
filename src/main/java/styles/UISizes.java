@@ -1,8 +1,8 @@
-package constants;
+package styles;
 
 import java.awt.Dimension;
 
-public class Sizes {
+public class UISizes {
     public static final int WIDTH_SCORE_FORM = 400;
     public static final int HEIGHT_SCORE_FORM = 400;
     public static final int WIDTH_BOARD = 500;

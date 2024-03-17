@@ -1,8 +1,8 @@
-package constants;
+package utils;
 
 import javax.swing.JOptionPane;
 
-public class Messages {
+public class UIUtils {
     public static void IS_NOT_SUPPORT() {
         JOptionPane.showMessageDialog(null, "This function is not supported", "Error", JOptionPane.ERROR_MESSAGE);
     }

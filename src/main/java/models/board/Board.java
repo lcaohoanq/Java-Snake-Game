@@ -1,14 +1,14 @@
 package models.board;
 
-import constants.Messages;
-import constants.Paths;
-import constants.Sizes;
-import constants.Titles;
+import constants.ResourcePaths;
+import utils.UIUtils;
+import styles.UISizes;
+import styles.UILabels;
 import controllers.LoginController;
 import services.DatabaseQuery;
-import styles.Borders;
-import styles.Colors;
-import styles.Fonts;
+import styles.UIBorders;
+import styles.UIColors;
+import styles.UIFonts;
 import utils.AudioHandler;
 import views.MenuView;
 
@@ -74,10 +74,10 @@ public abstract class Board extends JPanel implements ActionListener {
 
     private void initBoard() {
         addKeyListener(new TAdapter());
-        setBackground(Colors.OTHER_OPTIONS_L);
+        setBackground(UIColors.OTHER_OPTIONS_L);
         setFocusable(true);
         bottomPanel.setVisible(true);
-        setPreferredSize(Sizes.SIZE_BOARD);
+        setPreferredSize(UISizes.SIZE_BOARD);
 
         setLayout(new BorderLayout());
         loadImages();
@@ -89,26 +89,26 @@ public abstract class Board extends JPanel implements ActionListener {
     }
 
     private void initLine() {
-        lineBottom = Sizes.HEIGHT_BOARD - Sizes.LINE_SPACE_FROM_BOTTOM; // Adjust this value as needed
+        lineBottom = UISizes.HEIGHT_BOARD - UISizes.LINE_SPACE_FROM_BOTTOM; // Adjust this value as needed
     }
 
     private void initScoreLabel() {
         // Initialize the JLabel for live score display
-        scoreLabel = new JLabel(Titles.SCORE_LIVE);
+        scoreLabel = new JLabel(UILabels.SCORE_LIVE);
         scoreLabel.setForeground(Color.white);
-        scoreLabel.setFont(Fonts.SCORE_LIVE);
-        scoreLabel.setBounds(10, Sizes.HEIGHT_BOARD - 30, 100, 20);
+        scoreLabel.setFont(UIFonts.SCORE_LIVE);
+        scoreLabel.setBounds(10, UISizes.HEIGHT_BOARD - 30, 100, 20);
         scoreLabel.setVisible(true);
     }
 
     private void initProgressBar() {
         // Initialize the JProgressBar for big apple countdown
-        bigAppleProgressBar = new JProgressBar(Sizes.MIN_PROGRESS_BAR, Sizes.MAX_PROGRESS_BAR);
-        bigAppleProgressBar.setPreferredSize(Sizes.SIZE_PROGRESS_BAR);
+        bigAppleProgressBar = new JProgressBar(UISizes.MIN_PROGRESS_BAR, UISizes.MAX_PROGRESS_BAR);
+        bigAppleProgressBar.setPreferredSize(UISizes.SIZE_PROGRESS_BAR);
         bigAppleProgressBar.setValue(100);
         bigAppleProgressBar.setStringPainted(true);
-        bigAppleProgressBar.setForeground(Colors.PROGRESS_BAR_LOADING);
-        bigAppleProgressBar.setBackground(Colors.PRIMARY_COLOR_L);
+        bigAppleProgressBar.setForeground(UIColors.PROGRESS_BAR_LOADING);
+        bigAppleProgressBar.setBackground(UIColors.PRIMARY_COLOR_L);
         bigAppleProgressBar.setVisible(false);
     }
 
@@ -116,8 +116,8 @@ public abstract class Board extends JPanel implements ActionListener {
         initScoreLabel();
         initProgressBar();
         bottomPanel.setLayout(new BorderLayout());
-        bottomPanel.setBackground(Colors.OTHER_OPTIONS_L);
-        bottomPanel.setBorder(Borders.BOTTOM_SCORE_PROGRESS_BAR);
+        bottomPanel.setBackground(UIColors.OTHER_OPTIONS_L);
+        bottomPanel.setBorder(UIBorders.BOTTOM_SCORE_PROGRESS_BAR);
         bottomPanel.add(scoreLabel, BorderLayout.WEST);
         bottomPanel.add(bigAppleProgressBar, BorderLayout.EAST);
         add(bottomPanel, BorderLayout.SOUTH);
@@ -142,21 +142,21 @@ public abstract class Board extends JPanel implements ActionListener {
 
     private void initGameOverTitle() {
         gameOverPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        gameOverLabel = new JLabel(Titles.GAME_OVER);
-        gameOverPanel.setBackground(Colors.OTHER_OPTIONS_L);
-        gameOverLabel.setForeground(Colors.PRIMARY_COLOR_L);
-        gameOverLabel.setBackground(Colors.OTHER_OPTIONS_L);
-        gameOverLabel.setFont(Fonts.GAME_OVER);
-        gameOverLabel.setBounds((Sizes.WIDTH_BOARD - 260) / 2, (Sizes.HEIGHT_BOARD - 50) / 2 - 50, 260, 50);
+        gameOverLabel = new JLabel(UILabels.GAME_OVER);
+        gameOverPanel.setBackground(UIColors.OTHER_OPTIONS_L);
+        gameOverLabel.setForeground(UIColors.PRIMARY_COLOR_L);
+        gameOverLabel.setBackground(UIColors.OTHER_OPTIONS_L);
+        gameOverLabel.setFont(UIFonts.GAME_OVER);
+        gameOverLabel.setBounds((UISizes.WIDTH_BOARD - 260) / 2, (UISizes.HEIGHT_BOARD - 50) / 2 - 50, 260, 50);
         gameOverPanel.add(gameOverLabel);
     }
 
     private void initPlayAgainButton() {
-        playAgainButton = new JButton(Titles.PLAY_AGAIN);
-        playAgainButton.setFont(Fonts.PLAY_EXIT_BUTTON);
-        playAgainButton.setBackground(Colors.TEXT_COLOR_L);
-        playAgainButton.setForeground(Colors.PRIMARY_COLOR_L);
-        playAgainButton.setPreferredSize(Sizes.SIZE_BUTTON_GAME_OVER);
+        playAgainButton = new JButton(UILabels.PLAY_AGAIN);
+        playAgainButton.setFont(UIFonts.PLAY_EXIT_BUTTON);
+        playAgainButton.setBackground(UIColors.TEXT_COLOR_L);
+        playAgainButton.setForeground(UIColors.PRIMARY_COLOR_L);
+        playAgainButton.setPreferredSize(UISizes.SIZE_BUTTON_GAME_OVER);
         playAgainButton.addActionListener(e -> {
             SwingUtilities.invokeLater(() -> {
                 // Reset game parameters and restart the game
@@ -166,43 +166,43 @@ public abstract class Board extends JPanel implements ActionListener {
     }
 
     private void initExitButton() {
-        exitButton = new JButton(Titles.EXIT);
-        exitButton.setFont(Fonts.PLAY_EXIT_BUTTON);
-        exitButton.setBackground(Colors.PROGRESS_BAR_LOADING);
-        exitButton.setForeground(Colors.PRIMARY_COLOR_L);
+        exitButton = new JButton(UILabels.EXIT);
+        exitButton.setFont(UIFonts.PLAY_EXIT_BUTTON);
+        exitButton.setBackground(UIColors.PROGRESS_BAR_LOADING);
+        exitButton.setForeground(UIColors.PRIMARY_COLOR_L);
         exitButton.addActionListener(e -> {
-            if (Messages.IS_CONFIRM_EXIT() == JOptionPane.YES_OPTION) {
+            if (UIUtils.IS_CONFIRM_EXIT() == JOptionPane.YES_OPTION) {
                 SwingUtilities.getWindowAncestor(this).dispose();
             }
         });
-        exitButton.setPreferredSize(Sizes.SIZE_BUTTON_GAME_OVER);
+        exitButton.setPreferredSize(UISizes.SIZE_BUTTON_GAME_OVER);
     }
 
     private void initPlayAgainExitButtonPanel() {
         initPlayAgainButton();
         initExitButton();
         playAgainExitButtonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        playAgainExitButtonPanel.setBackground(Colors.OTHER_OPTIONS_L);
+        playAgainExitButtonPanel.setBackground(UIColors.OTHER_OPTIONS_L);
         playAgainExitButtonPanel.add(playAgainButton);
         playAgainExitButtonPanel.add(exitButton);
     }
 
     private void initBackToMainMenuButton() {
-        backToMainMenuButton = new JButton(Titles.BACK_TO_MAIN_MENU);
-        backToMainMenuButton.setFont(Fonts.PLAY_EXIT_BUTTON);
-        backToMainMenuButton.setBackground(Colors.BACK_TO_MAIN_MENU);
-        backToMainMenuButton.setForeground(Colors.PRIMARY_COLOR_L);
+        backToMainMenuButton = new JButton(UILabels.BACK_TO_MAIN_MENU);
+        backToMainMenuButton.setFont(UIFonts.PLAY_EXIT_BUTTON);
+        backToMainMenuButton.setBackground(UIColors.BACK_TO_MAIN_MENU);
+        backToMainMenuButton.setForeground(UIColors.PRIMARY_COLOR_L);
         backToMainMenuButton.addActionListener(e -> {
             SwingUtilities.getWindowAncestor(this).dispose();
             new MenuView().setVisible(true);
         });
-        backToMainMenuButton.setPreferredSize(Sizes.SIZE_BUTTON_GAME_OVER_BACK_TO_MAIN_MENU);
+        backToMainMenuButton.setPreferredSize(UISizes.SIZE_BUTTON_GAME_OVER_BACK_TO_MAIN_MENU);
     }
 
     private void initBackToMainMenuButtonPanel() {
         initBackToMainMenuButton();
         backToMainMenuButtonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        backToMainMenuButtonPanel.setBackground(Colors.OTHER_OPTIONS_L);
+        backToMainMenuButtonPanel.setBackground(UIColors.OTHER_OPTIONS_L);
         backToMainMenuButtonPanel.add(backToMainMenuButton);
     }
 
@@ -211,8 +211,8 @@ public abstract class Board extends JPanel implements ActionListener {
         initPlayAgainExitButtonPanel();
         initBackToMainMenuButtonPanel();
         gameOverButtonPanel.setLayout(new BorderLayout());
-        gameOverButtonPanel.setBackground(Colors.OTHER_OPTIONS_L);
-        gameOverButtonPanel.setBorder(Borders.GAME_OVER_ELEMENT);
+        gameOverButtonPanel.setBackground(UIColors.OTHER_OPTIONS_L);
+        gameOverButtonPanel.setBorder(UIBorders.GAME_OVER_ELEMENT);
         gameOverButtonPanel.add(gameOverPanel, BorderLayout.NORTH);
         gameOverButtonPanel.add(playAgainExitButtonPanel, BorderLayout.CENTER);
         gameOverButtonPanel.add(backToMainMenuButtonPanel, BorderLayout.SOUTH);
@@ -222,13 +222,13 @@ public abstract class Board extends JPanel implements ActionListener {
 
     protected void loadImages() {
 
-        ball = new ImageIcon(getClass().getResource(Paths.URL_DOT)).getImage();
+        ball = new ImageIcon(getClass().getResource(ResourcePaths.URL_DOT)).getImage();
 
-        apple = new ImageIcon(getClass().getResource(Paths.URL_APPLE)).getImage();
+        apple = new ImageIcon(getClass().getResource(ResourcePaths.URL_APPLE)).getImage();
 
-        head = new ImageIcon(getClass().getResource(Paths.URL_HEAD)).getImage();
+        head = new ImageIcon(getClass().getResource(ResourcePaths.URL_HEAD)).getImage();
 
-        bigApple = new ImageIcon(getClass().getResource(Paths.URL_BIG_APPLE)).getImage();
+        bigApple = new ImageIcon(getClass().getResource(ResourcePaths.URL_BIG_APPLE)).getImage();
     }
 
     private void initGame() {
@@ -249,8 +249,8 @@ public abstract class Board extends JPanel implements ActionListener {
         super.paintComponent(g);
 
         doDrawing(g);
-        g.setColor(Colors.PRIMARY_COLOR_L);
-        g.drawLine(0, lineBottom, Sizes.WIDTH_BOARD, lineBottom);
+        g.setColor(UIColors.PRIMARY_COLOR_L);
+        g.drawLine(0, lineBottom, UISizes.WIDTH_BOARD, lineBottom);
     }
 
     private void doDrawing(Graphics g) {
@@ -350,7 +350,7 @@ public abstract class Board extends JPanel implements ActionListener {
             locateApple();
             if (score % 5 != 0) {
                 if (isOnSound()) {
-                    InputStream inputStream = getClass().getResourceAsStream(Paths.URL_EATING2);
+                    InputStream inputStream = getClass().getResourceAsStream(ResourcePaths.URL_EATING2);
                     audioHandler.playAudio(inputStream);
                 }
             }
@@ -374,7 +374,7 @@ public abstract class Board extends JPanel implements ActionListener {
             apple_count = 0;
             locateApple();
             if (isOnSound()) {
-                InputStream inputStream = getClass().getResourceAsStream(Paths.URL_EATING);
+                InputStream inputStream = getClass().getResourceAsStream(ResourcePaths.URL_EATING);
                 audioHandler.playAudio(inputStream);
             }
         }
@@ -430,7 +430,7 @@ public abstract class Board extends JPanel implements ActionListener {
         bigAppleTimer = new Timer(BIG_APPLE_TIMER, e -> {
             bigAppleTimer.stop();
             if (isOnSound()) {
-                InputStream inputStream = getClass().getResourceAsStream(Paths.URL_BIG_APPLE_DIS);
+                InputStream inputStream = getClass().getResourceAsStream(ResourcePaths.URL_BIG_APPLE_DIS);
                 audioHandler.playAudio(inputStream);
             }
             apple_count = 0;

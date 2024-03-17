@@ -2,7 +2,7 @@ package styles;
 
 import java.awt.Font;
 
-public class Fonts {
+public class UIFonts {
     public static final Font RIGHT_TITLE = new Font("Dialog", Font.BOLD, 60);
     public static final Font LEFT_TITLE = new Font("Dialog", Font.BOLD, 40);
     public static final Font LABEL = new Font("Dialog", Font.PLAIN, 20);
