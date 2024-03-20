@@ -23,3 +23,108 @@ INSERT INTO users (username, password, score, reg_date) VALUES
 ('minhnhu', '$31$16$xEeCSM_NeDhbLzpvpXAJpxdxGUR-dGI46UEH1paLa90', 0, '2024-03-03 02:25:42.098824600');
 
 -------------------------------------------------------------------------------------------------------
+--  ===========================================Procedure==============================================
+-- 1. selectUsernameAndScore
+DELIMITER $
+
+DROP PROCEDURE IF EXISTS proc_select_username_score;
+
+CREATE PROCEDURE proc_select_username_score()
+BEGIN
+    SELECT username, score
+    FROM `users_schema`.`users`;
+END $
+
+DELIMITER ;
+
+-- 2. selectUsernameAndPasswordByUsername
+DELIMITER $
+
+DROP PROCEDURE IF EXISTS proc_select_username_password;
+
+CREATE PROCEDURE proc_select_username_password(IN p_username NVARCHAR(45))
+BEGIN
+    SELECT username, password
+    FROM `users_schema`.`users`
+    WHERE username = p_username;
+END $
+
+DELIMITER ;
+
+-- 3. selectUsernameAndScoreByUsername
+DELIMITER $
+
+DROP PROCEDURE IF EXISTS proc_select_username_score_by_username;
+
+CREATE PROCEDURE proc_select_username_score_by_username(
+    IN p_username NVARCHAR(45)
+)
+BEGIN
+    SELECT username, score
+    FROM `users_schema`.`users`
+    WHERE username = p_username;
+END $
+
+DELIMITER ;
+
+-- 4. insert(username, password, score, reg_date)
+DELIMITER $
+DROP PROCEDURE IF EXISTS proc_insert_user;
+CREATE PROCEDURE proc_insert_user(
+    IN p_username VARCHAR(45),
+    IN p_password VARCHAR(50),
+    IN p_score INT,
+    IN p_reg_date VARCHAR(45)
+)
+BEGIN
+    -- Inserting data into a table named 'users'
+    INSERT INTO `users_schema`.`users` (username, password, score, reg_date)
+    VALUES (p_username, p_password, p_score, p_reg_date);
+END $
+
+DELIMITER ; -- Khai báo dấu phân cách trở lại mặc định là dấu chấm phẩy ;
+
+-- 5. setSafeUpdate
+DELIMITER $
+
+DROP PROCEDURE IF EXISTS proc_set_safe_update;
+
+CREATE PROCEDURE proc_set_safe_update()
+BEGIN
+    SET
+        SQL_SAFE_UPDATES = 0;
+END $
+
+DELIMITER ;
+
+-- 6. updateScoreByUsername
+DELIMITER $
+
+DROP PROCEDURE IF EXISTS proc_update_score_by_username;
+
+CREATE PROCEDURE proc_update_score_by_username(
+    IN p_username NVARCHAR(45),
+    IN p_score INT
+)
+BEGIN
+    UPDATE `users_schema`.`users`
+    SET score = p_score
+    WHERE username = p_username;
+END $
+
+DELIMITER ;
+
+-- ====================Test Procedure==============================
+-- 1.
+-- CALL proc_select_user_score();
+-- 2.
+-- CALL proc_select_user_password('hoang');
+-- 3.
+-- CALL proc_select_username_score_by_username('hoang');
+-- 4.
+-- CALL proc_insert_user('hoang', '1', 10, '2024-03-03T02:25:42.098824600Z', @status);
+-- SELECT @status as `insert status`;
+-- 5.
+
+-- 6.
+-- CALL proc_update_score_by_username('hoang', 42);
