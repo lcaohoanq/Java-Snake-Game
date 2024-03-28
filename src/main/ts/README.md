@@ -263,3 +263,12 @@ cài đặt expressjs phiên bản cho ts
 npm i express
 npm i @types/express -D //dành cho ts
 ```
+
+# III. Kết nối với database
+- Sử dụng `mysql2` và `dotenv`
+```bash 
+npm install --save mysql2
+npm install --save-dev @types/node
+
+npm install dotenv --save
+```
