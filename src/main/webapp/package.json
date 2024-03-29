@@ -1,0 +1,28 @@
+{
+  "name": "snakegame-web",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "npx nodemon server.js",
+    "browser-sync": "browser-sync start --proxy 'localhost:5000' --files 'public/*.css, public/*.html, public/*.js'",
+    "dev:watch": "concurrently 'npm run dev' 'npm run browser-sync'",
+    "build": "rimraf ./dist && tsc && tsc-alias",
+    "start": "node dist/index.js --production",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "prettier": "prettier --check .",
+    "prettier:fix": "prettier --write ."
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "nodemon": "^3.1.0",
+    "sweetalert2": "^11.10.6"
+  },
+  "devDependencies": {
+    "browser-sync": "^3.0.2",
+    "concurrently": "^8.2.2",
+    "express": "^4.18.3"
+  }
+}
