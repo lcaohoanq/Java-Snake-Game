@@ -223,7 +223,7 @@ public non-sealed class RegisterView extends MyFrame implements ToggleHandler, H
     }
 
     public void insert() {
-        registerModel.insert(this.getRegister().username(), this.getRegister().password(), 0, this.getRegister().registerDate());
+        registerModel.insert(this.getRegister().username(), this.getRegister().password());
     }
 
     public void handleSuccess() {
