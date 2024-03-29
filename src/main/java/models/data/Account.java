@@ -4,17 +4,17 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public record Account(String username, String password, String confirmPassword, int score, String registerDate) {
+public record Account(String username, String password, String confirmPassword, int score) {
 
     public Account(String username, String password) {
-        this(username, password, "", 0, null);
+        this(username, password, "", 0);
     }
 
     public Account(String username, String password, String confirmPassword) {
-        this(username, password, confirmPassword, 0, Instant.now().toString().formatted(DateTimeFormatter.ISO_DATE_TIME));
+        this(username, password, confirmPassword, 0);
     }
 
     public Account(String username, int score) {
-        this(username, "", "", score, null);
+        this(username, "", "", score);
     }
 }

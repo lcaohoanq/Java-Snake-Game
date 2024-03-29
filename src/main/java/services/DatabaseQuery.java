@@ -72,16 +72,14 @@ public class DatabaseQuery {
         return null;
     }
 
-    public boolean insert(String username, String password, int score, String regDate) {
+    public boolean insert(String username, String password) {
         try {
             Connection connection = dbConnection.getConnection();
 
-            CallableStatement cStatement = connection.prepareCall("{CALL proc_insert_user(?,?,?,?)}");
+            CallableStatement cStatement = connection.prepareCall("{CALL proc_insert_user(?,?)}");
 
             cStatement.setString(1, username);
             cStatement.setString(2, password);
-            cStatement.setInt(3, score);
-            cStatement.setString(4, regDate);
 
             int rowsAffected = cStatement.executeUpdate();
             if (rowsAffected > 0) {
@@ -117,7 +115,7 @@ public class DatabaseQuery {
         try {
             Connection connection = dbConnection.getConnection();
 
-            CallableStatement cStatement = connection.prepareCall("{CALL proc_update_username_score(?,?)}");
+            CallableStatement cStatement = connection.prepareCall("{CALL proc_update_score_by_username(?,?)}");
             cStatement.setString(1, username);
             cStatement.setString(2, score);
 

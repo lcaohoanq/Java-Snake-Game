@@ -47,9 +47,9 @@ public record RegisterModel(String username, String password, String confirmPass
         return true;
     }
 
-    public void insert(String username, String password, int score, String regDate) {
+    public void insert(String username, String password) {
         DatabaseQuery executeQuery = DatabaseQuery.getInstance();
         password = new PasswordHandler().hash(password); // replace password with the hashed
-        executeQuery.insert(username, password, 0, regDate);
+        executeQuery.insert(username, password);
     }
 }
