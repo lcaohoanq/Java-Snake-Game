@@ -265,10 +265,15 @@ npm i @types/express -D //dành cho ts
 ```
 
 # III. Kết nối với database
+## MySQL
 - Sử dụng `mysql2` và `dotenv`
 ```bash 
 npm install --save mysql2
 npm install --save-dev @types/node
 
 npm install dotenv --save
+```
+## MongoDB
+```
+npm install mongodb
 ```
