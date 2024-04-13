@@ -35,3 +35,8 @@ TEST_ACCOUNT=minhnhu
 TEST_PASSWORD_DB=$31$16$xEeCSM_NeDhbLzpvpXAJpxdxGUR-dGI46UEH1paLa90
 ```
 # The web-version will comming soon...
+
+## route
+- /users/register
+
+![image](https://github.com/lcaohoanq/Java-Snake-Game/assets/136492579/6eac4f42-24d2-486c-8ab5-527dee6021b2)
