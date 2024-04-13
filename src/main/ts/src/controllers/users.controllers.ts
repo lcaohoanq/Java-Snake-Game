@@ -6,9 +6,18 @@ export const accountController = async (req: Request, res: Response, _: NextFunc
   const account = await databaseServices.getAllAccounts();
   return res.status(HTTP_STATUS.OK).send(account);
 };
-export const loginController = (req: Request, res: Response, _: NextFunction) => {
-  // const account = await findAccount(username, password);
-  // res.send(account);
+export const loginController = async (req: Request, res: Response, _: NextFunction) => {
+  const account = await databaseServices.login(req.body);
+
+  if (account) {
+    return res.json({
+      message: 'Login successfully'
+    });
+  }
+
+  return res.status(HTTP_STATUS.BAD_REQUEST).json({
+    message: 'Invalid username or password. Please try again.'
+  });
 };
 
 export const registerController = async (req: Request, res: Response, _: NextFunction) => {

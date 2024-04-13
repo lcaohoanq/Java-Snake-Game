@@ -1,6 +1,7 @@
+import { log } from 'console';
 import dotenv from 'dotenv';
 import { Db, MongoClient } from 'mongodb';
-import { IAccount,User } from '~/models/schemas/User.schema'
+import { IAccount, User } from '~/models/schemas/User.schema';
 dotenv.config({ path: __dirname + '/../../.env' });
 
 const uri = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@snake-game.t2nmru9.mongodb.net/?retryWrites=true&w=majority&appName=Snake-Game`;
@@ -34,8 +35,8 @@ class DatabaseServices {
 
   async getAccount(username: string) {
     try {
-      const accountDocument = await this.db.collection('users').findOne({ username }) as IAccount;
-      if(accountDocument){
+      const accountDocument = (await this.db.collection('users').findOne({ username })) as IAccount;
+      if (accountDocument) {
         const account = new User(accountDocument);
         return account;
       }
@@ -43,6 +44,19 @@ class DatabaseServices {
     } catch (error) {
       console.log(error);
     }
+  }
+
+  async login(account: IAccount) {
+    try {
+      const { username, password } = account;
+      const accountDocument = (await this.db.collection('users').findOne({ username, password })) as IAccount;
+      if (accountDocument) {
+        return true;
+      }
+    } catch (error) {
+      console.log(error);
+    }
+    return false;
   }
 
   async register(account: IAccount) {
@@ -70,7 +84,7 @@ class DatabaseServices {
     }
   }
 
-  async getAllAccounts(){
+  async getAllAccounts() {
     try {
       return this.db.collection('users').find().toArray();
     } catch (error) {
