@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import HTTP_STATUS from '~/constants/httpStatus';
+import { USERS_MESSAGE } from '~/constants/messages';
 import databaseServices from '~/services/database.services';
 
 export const accountController = async (req: Request, res: Response, _: NextFunction) => {
@@ -11,12 +12,12 @@ export const loginController = async (req: Request, res: Response, _: NextFuncti
 
   if (account) {
     return res.json({
-      message: 'Login successfully'
+      message: USERS_MESSAGE.LOGIN_SUCCESS
     });
   }
 
   return res.status(HTTP_STATUS.BAD_REQUEST).json({
-    message: 'Invalid username or password. Please try again.'
+    message: USERS_MESSAGE.INVALID_USERNAME_OR_PASSWORD
   });
 };
 
@@ -25,23 +26,23 @@ export const registerController = async (req: Request, res: Response, _: NextFun
     const account = await databaseServices.register(req.body);
 
     return res.json({
-      message: 'Register successfully',
+      message: USERS_MESSAGE.REGISTER_SUCCESS,
       data: account
     });
   } catch (err: unknown) {
     if (err instanceof Error) {
       console.error(err.message); // Now you can access err.message safely
 
-      if (err.message === 'Account already exists') {
+      if (err.message === USERS_MESSAGE.ACCOUNT_EXISTS) {
         return res.status(HTTP_STATUS.BAD_REQUEST).json({
-          message: 'Account already exists'
+          message: USERS_MESSAGE.ACCOUNT_EXISTS
         });
       }
     }
 
     // For any other error, send a 500 response
     return res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({
-      message: 'An error occurred'
+      message: USERS_MESSAGE.ERROR
     });
   }
 };

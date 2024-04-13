@@ -1,10 +1,11 @@
-import { log } from 'console';
 import dotenv from 'dotenv';
 import { Db, MongoClient } from 'mongodb';
 import { IAccount, User } from '~/models/schemas/User.schema';
 dotenv.config({ path: __dirname + '/../../.env' });
 
 const uri = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@snake-game.t2nmru9.mongodb.net/?retryWrites=true&w=majority&appName=Snake-Game`;
+
+const dbCollection = process.env.DB_COLLECTION!;
 
 class DatabaseServices {
   private client: MongoClient;
@@ -26,7 +27,7 @@ class DatabaseServices {
 
   async createAccount(username: string, password: string) {
     try {
-      const account = await this.db.collection('users').insertOne({ username, password });
+      const account = await this.db.collection(dbCollection).insertOne({ username, password });
       return account;
     } catch (error) {
       console.log(error);
@@ -35,7 +36,7 @@ class DatabaseServices {
 
   async getAccount(username: string) {
     try {
-      const accountDocument = (await this.db.collection('users').findOne({ username })) as IAccount;
+      const accountDocument = (await this.db.collection(dbCollection).findOne({ username })) as IAccount;
       if (accountDocument) {
         const account = new User(accountDocument);
         return account;
@@ -49,7 +50,7 @@ class DatabaseServices {
   async login(account: IAccount) {
     try {
       const { username, password } = account;
-      const accountDocument = (await this.db.collection('users').findOne({ username, password })) as IAccount;
+      const accountDocument = (await this.db.collection(dbCollection).findOne({ username, password })) as IAccount;
       if (accountDocument) {
         return true;
       }
@@ -64,16 +65,16 @@ class DatabaseServices {
       const { username, password } = account;
 
       // Check if the account already exists
-      const existingAccount = await this.db.collection('users').findOne({ username });
+      const existingAccount = await this.db.collection(dbCollection).findOne({ username });
       if (existingAccount) {
         throw new Error('Account already exists');
       }
 
       // If the account does not exist, insert it into the database
-      const insertResult = await this.db.collection('users').insertOne({ username, password });
+      const insertResult = await this.db.collection(dbCollection).insertOne({ username, password });
 
       // Retrieve the inserted document using the insertedId
-      const accountDocument = await this.db.collection('users').findOne({ _id: insertResult.insertedId });
+      const accountDocument = await this.db.collection(dbCollection).findOne({ _id: insertResult.insertedId });
 
       if (accountDocument) {
         return new User(accountDocument as IAccount);
@@ -86,7 +87,7 @@ class DatabaseServices {
 
   async getAllAccounts() {
     try {
-      return this.db.collection('users').find().toArray();
+      return this.db.collection(dbCollection).find().toArray();
     } catch (error) {
       console.log(error);
     }
