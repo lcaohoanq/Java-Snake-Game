@@ -4,7 +4,14 @@ import { isMatchPasswordAndConfirmPassword } from '~/controllers/users.controlle
 
 import { User } from '~/models/schemas/User.schema';
 import { REGEX_PASSWORD, REGEX_USERNAME } from '~/utils/regex';
-export const loginValidator = (req: Request, res: Response, _: NextFunction) => {};
+export const loginValidator = (req: Request, res: Response, next: NextFunction) => {
+  if (!req.body) {
+    return res.status(HTTP_STATUS.BAD_REQUEST).send({
+      message: 'Invalid username or password. Please try again.'
+    });
+  }
+  next();
+};
 
 export const registerValidator = (req: Request, res: Response, next: NextFunction) => {
   if (!req.body) {
