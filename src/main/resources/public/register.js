@@ -87,6 +87,25 @@ document.querySelector("form").addEventListener("submit", (event) => {
 
   if (isValidForm) {
     clearMsg();
-    alert("Form is valid");
+    registerNewAccount(usernameNode, passwordNode, confirmPasswordNode);
   }
 });
+
+function registerNewAccount(usernameNode, passwordNode, confirmPasswordNode) {
+  fetch("http://localhost:4000/users/register", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      username: usernameNode.value,
+      password: passwordNode.value,
+      confirmPassword: confirmPasswordNode.value,
+    }),
+  })
+    .then((response) => response.json())
+    .then((data) => console.log(data))
+    .catch((error) => {
+      console.error("Error:", error);
+    });
+}

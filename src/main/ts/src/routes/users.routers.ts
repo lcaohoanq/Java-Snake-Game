@@ -1,22 +1,13 @@
-import express from "express";
-import {createAccount, getAccount, getAccounts} from '~/services/database.services';
+import express from 'express';
+import { accountController, loginController, registerController } from '~/controllers/users.controllers';
+import { loginValidator, registerValidator } from '~/middlewares/users.middlewares';
 
 const usersRoutes = express.Router();
 
-usersRoutes.get("/",async(req,res) => {
-  const accountList = await getAccounts();
-  res.send(accountList[0]);
-})
+usersRoutes.get('/account', accountController);
 
-usersRoutes.get("/:username", async(req,res) => {
-  const account = await getAccount(req.params.username);
-  res.send(account[0]);
-})
+usersRoutes.post('/login', loginValidator, loginController);
 
-usersRoutes.post("/register", async(req,res) => {
-  const {username, password} = req.body;
-  const result = await createAccount(username, password);
-  res.status(201).send(result[0]);
-})
+usersRoutes.post('/register', registerValidator, registerController);
 
 export default usersRoutes;

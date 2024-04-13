@@ -86,4 +86,4 @@ manifest.mf
 ##############################
 .DS_Store
 
-.env
+src/main/ts/.env
