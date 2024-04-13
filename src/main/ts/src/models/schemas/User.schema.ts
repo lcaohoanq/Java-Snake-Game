@@ -1,6 +1,6 @@
 import { ObjectId } from 'mongodb';
 
-interface IAccount {
+export interface IAccount {
   _id?: ObjectId;
   username: string;
   password: string;
@@ -8,7 +8,7 @@ interface IAccount {
   created?: Date;
 }
 
-export default class User {
+export class User {
   private _id?: ObjectId;
   private username: string;
   private password: string;

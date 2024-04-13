@@ -1,3 +1,4 @@
+import cors from 'cors';
 import dotenv from 'dotenv';
 import express, { NextFunction, Request, Response } from 'express';
 import usersRouters from '~/routes/users.routers';
@@ -9,6 +10,9 @@ const port = process.env.PORT || 4000;
 
 //use middleware to parse json
 app.use(express.json());
+
+// Enable CORS for all routes
+app.use(cors());
 
 databaseServices.connect();
 
