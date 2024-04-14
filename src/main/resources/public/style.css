@@ -1,154 +1,3 @@
-/* reset css */
-/* http://meyerweb.com/eric/tools/css/reset/ 
-   v2.0 | 20110126
-   License: none (public domain)
-*/
-
-html,
-body,
-div,
-span,
-applet,
-object,
-iframe,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p,
-blockquote,
-pre,
-a,
-abbr,
-acronym,
-address,
-big,
-cite,
-code,
-del,
-dfn,
-em,
-img,
-ins,
-kbd,
-q,
-s,
-samp,
-small,
-strike,
-strong,
-sub,
-sup,
-tt,
-var,
-b,
-u,
-i,
-center,
-dl,
-dt,
-dd,
-ol,
-ul,
-li,
-fieldset,
-form,
-label,
-legend,
-table,
-caption,
-tbody,
-tfoot,
-thead,
-tr,
-th,
-td,
-article,
-aside,
-canvas,
-details,
-embed,
-figure,
-figcaption,
-footer,
-header,
-hgroup,
-menu,
-nav,
-output,
-ruby,
-section,
-summary,
-time,
-mark,
-audio,
-video {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  font-size: 100%;
-  font: inherit;
-  vertical-align: baseline;
-}
-/* HTML5 display-role reset for older browsers */
-article,
-aside,
-details,
-figcaption,
-figure,
-footer,
-header,
-hgroup,
-menu,
-nav,
-section {
-  display: block;
-}
-body {
-  line-height: 1;
-}
-ol,
-ul {
-  list-style: none;
-}
-blockquote,
-q {
-  quotes: none;
-}
-blockquote:before,
-blockquote:after,
-q:before,
-q:after {
-  content: "";
-  content: none;
-}
-table {
-  border-collapse: collapse;
-  border-spacing: 0;
-}
-a {
-  text-decoration: none;
-}
-/* reset css */
-
-/* processing */
-/* Reset some default styles */
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-body {
-  font-family: "Roboto", sans-serif;
-  background-color: #121212;
-  color: #fff;
-  margin: 0;
-  padding: 0;
-}
-
 .App {
   margin: 0 auto;
   text-align: center;
@@ -191,11 +40,13 @@ body {
 }
 
 #App-data a.log {
-  width: 100px;
+  font-size: 2rem;
+  width: 150px;
 }
 
 #App-data a.reg {
-  width: 100px;
+  font-size: 2rem;
+  width: 150px;
 }
 
 .card_button a {
@@ -267,44 +118,4 @@ footer a {
 
 footer a:hover {
   font-weight: bold;
-}
-
-/* Media Query for screens smaller than 768px (typical mobile devices) */
-@media (max-width: 768px) {
-  .App-header h1 {
-    font-size: 8vw;
-  }
-
-  .card_button a {
-    width: 100%;
-  }
-}
-
-/* Media Query for screens wider than 1200px (typical full HD monitors) */
-@media (min-width: 1201px) {
-  .App-header h1 {
-    font-size: 3rem; /* Adjust the font size for larger screens */
-  }
-
-  #tmp {
-    padding: 2rem;
-  }
-
-  #App-data {
-    width: 50%; /* Adjust the width of App-data for larger screens */
-  }
-
-  #App-img img {
-    margin-top: 2rem;
-    width: 30%;
-    height: auto;
-  }
-
-  .card_button a {
-    width: 250px; /* Adjust the width of buttons for larger screens */
-  }
-
-  footer a {
-    margin-bottom: 1rem;
-  }
 }
