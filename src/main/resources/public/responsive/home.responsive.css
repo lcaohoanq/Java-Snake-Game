@@ -1,0 +1,52 @@
+/* Media Query for screens smaller than 768px (typical mobile devices) */
+@media (max-width: 768px) {
+  .App-header h1 {
+    font-size: 5rem;
+  }
+
+  .card_button a {
+    width: 100%;
+  }
+}
+
+/* Media Query for screens wider than 1200px (typical full HD monitors) */
+@media only screen and (min-width: 1201px) and (max-width: 1920px) {
+  .App-header h1 {
+    font-size: 10rem; /* Adjust the font size for larger screens */
+  }
+
+  #tmp {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 2rem;
+  }
+
+  #App-data {
+    width: 50%; /* Adjust the width of App-data for larger screens */
+    gap: 30px;
+  }
+
+  #App-data a.log {
+    font-size: 4rem;
+    width: 250px;
+    height: 100px;
+  }
+
+  #App-data a.reg {
+    font-size: 4rem;
+    width: 250px;
+    height: 100px;
+  }
+
+  #App-img img {
+    /* margin-top: 1rem; */
+    width: 100%;
+    height: auto;
+  }
+
+  footer a {
+    margin-bottom: 1rem;
+    font-size: 2rem;
+  }
+}
