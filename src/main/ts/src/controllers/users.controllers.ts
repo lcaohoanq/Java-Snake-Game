@@ -1,7 +1,11 @@
+import bcrypt from 'bcrypt';
+import { config } from 'dotenv';
 import { NextFunction, Request, Response } from 'express';
 import HTTP_STATUS from '~/constants/httpStatus';
 import { USERS_MESSAGE } from '~/constants/messages';
 import databaseServices from '~/services/database.services';
+
+config();
 
 export const accountController = async (req: Request, res: Response, _: NextFunction) => {
   const account = await databaseServices.getAllAccounts();
@@ -23,7 +27,11 @@ export const loginController = async (req: Request, res: Response, _: NextFuncti
 
 export const registerController = async (req: Request, res: Response, _: NextFunction) => {
   try {
-    const account = await databaseServices.register(req.body);
+    // const account = await databaseServices.register(req.body);
+
+    const { username, password } = req.body;
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const account = await databaseServices.register({ username, password: hashedPassword });
 
     return res.json({
       message: USERS_MESSAGE.REGISTER_SUCCESS,
