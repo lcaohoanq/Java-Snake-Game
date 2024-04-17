@@ -5,14 +5,15 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>Home</title>
     <link
-      href="./src/main/resources/public/favicon.ico"
+      href="./src/main/resources/public/resources/favicon.ico"
       rel="icon"
       type="image/png"
     />
-    <link rel="stylesheet" href="./src/main/resources/public/reset.css" />
+    <link rel="stylesheet" href="./src/main/resources/public/util/reset.css" />
 <!--    <link rel="stylesheet" href="./src/main/resources/public/commons.css">-->
-    <link rel="stylesheet" href="./src/main/resources/public/index.commons.css">
-    <link href="./src/main/resources/public/style-light.css" rel="stylesheet" id="theme"/>
+    <link rel="stylesheet" href="./src/main/resources/public/util/index.commons.css">
+    <link rel="stylesheet" href="./src/main/resources/public/style-light.css" id="theme"/>
+    <link rel="stylesheet" href="./src/main/resources/public/component/toggle/toggle.css">
     <link
       rel="stylesheet"
       href="./src/main/resources/public/responsive/home.responsive.css"
@@ -28,7 +29,7 @@
           <img
             alt="logo"
             class="App-logo"
-            src="./src/main/resources/public/logo.png"
+            src="./src/main/resources/public/resources/logo.png"
           />
         </section>
         <section id="App-data">
@@ -44,6 +45,20 @@
           </div>
         </section>
       </section>
+      <div class="toggle">
+        <input class="toggle-input" type="checkbox" onchange="changeTheme()" id="toggle" />
+        <div class="toggle-handle-wrapper">
+          <div class="toggle-handle">
+            <div class="toggle-handle-knob"></div>
+            <div class="toggle-handle-bar-wrapper">
+              <div class="toggle-handle-bar"></div>
+            </div>
+          </div>
+        </div>
+        <div class="toggle-base">
+          <div class="toggle-base-inside"></div>
+        </div>
+      </div>
       <footer>
         <p class="App-link">Follow my Github for more</p>
         <a
@@ -54,10 +69,9 @@
         >
           Click here !
         </a>
-        <button class="App-change-theme" onclick="changeTheme()">Change Theme</button>
       </footer>
     </div>
 
-    <script src="./src/main/resources/public/control.js"></script>
+    <script src="./src/main/resources/public/controller/control.js"></script>
   </body>
 </html>

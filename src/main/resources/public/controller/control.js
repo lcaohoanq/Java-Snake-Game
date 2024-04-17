@@ -8,14 +8,13 @@ document.querySelector(".reg").addEventListener("click", (e) => {
 
 
 function changeTheme() {
-    var currentTheme = document.getElementById('theme').getAttribute('href');
+    var toggle = document.getElementById('toggle');
     var newTheme;
 
-    // Toggle between light and dark themes
-    if (currentTheme === './src/main/resources/public/style-light.css') {
-        newTheme = './src/main/resources/public/style-dark.css';
-    } else {
+    if(toggle.checked){
         newTheme = './src/main/resources/public/style-light.css';
+    }else{
+        newTheme = './src/main/resources/public/style-dark.css';
     }
 
     document.getElementById('theme').setAttribute('href', newTheme);
