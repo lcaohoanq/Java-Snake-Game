@@ -28,10 +28,10 @@ body {
 .google-btn .google-icon-wrapper {
   /* border: 3px solid purple; */
   position: absolute;
-  margin-top: -6px;
-  margin-left: -1px;
-  width: 40px;
-  height: 40px;
+  margin-top: 2px;
+  margin-left: 2px;
+  width: 35px;
+  height: 34px;
   border-radius: 5px;
   background-color: #fff;
   z-index: 1;
@@ -41,17 +41,17 @@ body {
   /* border: 3px solid purple; */
 
   position: relative;
-  margin-top: 11px;
-  margin-left: 4px;
+  margin-top: 9px;
+  margin-left: 1px;
   width: 18px;
   height: 18px;
 }
 
 .google-btn .btn-text {
-  float: right;
-  margin: 11px 11px 0 0;
+  width: fit-content;
+  margin: 11px 11px 11px 70px;
   color: #fff;
-  font-size: 14px;
+  font-size: 15px;
   letter-spacing: 0.2px;
 }
 

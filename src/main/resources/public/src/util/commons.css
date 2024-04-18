@@ -90,11 +90,11 @@
   gap: 10px;
 }
 .bottom-btn p {
-  color: #19b719;
+  color: black;
 }
 .bottom-btn a {
   border: none;
-  color: black;
+  color: #19b719;
   background-color: #ffffff;
 }
 .bottom-btn a:hover {

@@ -3,3 +3,11 @@
   margin: 0 50px 0 50px;
   display: flex;
 }
+
+.forgot-password a {
+  color: #19b719;
+}
+
+.forgot-password a:hover {
+  font-weight: bold;
+}
