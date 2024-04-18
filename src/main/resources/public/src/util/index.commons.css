@@ -1,12 +1,12 @@
 .App {
-  margin: 0 auto;
+  width: 100%;
   text-align: center;
   font-family: "Roboto", sans-serif;
-  background-color: #121212;
   height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+  align-items: center;
 }
 
 .App-header h1 {
@@ -109,13 +109,12 @@ footer {
   color: #19b719;
 }
 
+footer a:hover {
+  font-weight: bold;
+}
+
 footer a {
   margin-bottom: 1rem;
   font-size: 1rem;
-  color: #fff;
   text-decoration: none;
-}
-
-footer a:hover {
-  font-weight: bold;
 }

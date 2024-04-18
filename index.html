@@ -5,17 +5,37 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>Home</title>
     <link
-      href="./src/main/resources/public/favicon.ico"
+      href="./src/main/resources/public/src/resources/favicon.ico"
       rel="icon"
       type="image/png"
     />
-    <link rel="stylesheet" href="./src/main/resources/public/reset.css" />
-    <link rel="stylesheet" href="./src/main/resources/public/register.css" />
-    <link href="./src/main/resources/public/style.css" rel="stylesheet" />
     <link
       rel="stylesheet"
-      href="./src/main/resources/public/responsive/home.responsive.css"
+      href="./src/main/resources/public/src/util/reset.css"
     />
+    <!--    <link rel="stylesheet" href="./src/main/resources/public/commons.css">-->
+    <link
+      rel="stylesheet"
+      href="./src/main/resources/public/src/util/index.commons.css"
+    />
+    <link
+      rel="stylesheet"
+      href="./src/main/resources/public/src/style-light.css"
+      id="theme"
+    />
+    <link
+      rel="stylesheet"
+      href="./src/main/resources/public/src/component/toggle/toggle.css"
+    />
+    <link
+      rel="stylesheet"
+      href="./src/main/resources/public/src/responsive/home.responsive.css"
+    />
+    <script
+      type="module"
+      src="./src/main/resources/public/src/controller/control.js"
+      defer
+    ></script>
   </head>
   <body>
     <div class="App">
@@ -27,22 +47,41 @@
           <img
             alt="logo"
             class="App-logo"
-            src="./src/main/resources/public/logo.png"
+            src="./src/main/resources/public/src/resources/logo.png"
           />
         </section>
         <section id="App-data">
           <div class="card_button">
-            <a class="log" href="./src/main/resources/public/login.html"
+            <a class="log" href="./src/main/resources/public/src/login.html"
               >Login</a
             >
           </div>
           <div class="card_button">
-            <a class="reg" href="./src/main/resources/public/register.html"
+            <a class="reg" href="./src/main/resources/public/src/register.html"
               >Register</a
             >
           </div>
         </section>
       </section>
+      <div class="toggle">
+        <input
+          class="toggle-input"
+          type="checkbox"
+          onchange="changeTheme()"
+          id="toggle"
+        />
+        <div class="toggle-handle-wrapper">
+          <div class="toggle-handle">
+            <div class="toggle-handle-knob"></div>
+            <div class="toggle-handle-bar-wrapper">
+              <div class="toggle-handle-bar"></div>
+            </div>
+          </div>
+        </div>
+        <div class="toggle-base">
+          <div class="toggle-base-inside"></div>
+        </div>
+      </div>
       <footer>
         <p class="App-link">Follow my Github for more</p>
         <a
@@ -55,7 +94,5 @@
         </a>
       </footer>
     </div>
-
-    <script src="./src/main/resources/public/control.js"></script>
   </body>
 </html>

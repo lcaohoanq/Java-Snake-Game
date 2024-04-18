@@ -87,7 +87,7 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  gap: 3px;
+  gap: 10px;
 }
 .bottom-btn p {
   color: #19b719;
@@ -96,4 +96,7 @@
   border: none;
   color: black;
   background-color: #ffffff;
+}
+.bottom-btn a:hover {
+  font-weight: bold;
 }
