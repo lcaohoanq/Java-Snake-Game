@@ -1,0 +1,33 @@
+/* Media Query for screens smaller than 768px (typical mobile devices) */
+@media (max-width: 768px) {
+  #App-logo {
+    display: none;
+  }
+
+  .forgot-password {
+    margin-left: 50px;
+  }
+
+  .policy {
+    margin-left: 50px;
+  }
+}
+
+@media only screen and (min-width: 769px) and (max-width: 1200px) {
+  .App {
+    display: flex;
+    flex-direction: row;
+  }
+
+  #App-logo {
+    width: 70%;
+  }
+}
+
+/* Media Query for screens wider than 1200px (typical full HD monitors) */
+@media only screen and (min-width: 1201px) and (max-width: 1920px) {
+  .App {
+    display: flex;
+    flex-direction: row;
+  }
+}
