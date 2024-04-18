@@ -1,13 +1,12 @@
-body{
-  background-color: white;
+body {
+  /* background-color: white; */
 }
 
-.App{
-  background-color: white;
+.App {
+  border: 1px solid red;
+  /* background-color: white; */
 }
 
 footer a {
   color: black;
 }
-
-
