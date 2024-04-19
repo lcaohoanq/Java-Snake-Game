@@ -4,10 +4,7 @@
   font-family: "Roboto", sans-serif;
   /* this height is for testing, will adjust later by responsive */
   max-width: 700px;
-  /* max-height: 768px; */
-  /* /* display: flex; */
   flex-direction: row;
-  /* justify-content: space-around; */
 }
 .App-header h1 {
   font-size: 100px;
