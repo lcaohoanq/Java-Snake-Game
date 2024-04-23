@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Login</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+    </style>
+    <link
+      rel="icon"
+      type="image/png"
+      href="/src/main/webapp/resources/favicon.ico"
+    />
+    <link rel="stylesheet" href="/src/main/webapp/style/util/reset.css" />
+    <link rel="stylesheet" href="/src/main/webapp/style/util/commons.css" />
+    <link
+      rel="stylesheet"
+      href="/src/main/webapp/style/component/login/login.css"
+    />
+    <link
+      rel="stylesheet"
+      href="/src/main/webapp/style/component/google/google-btn.css"
+    />
+    <link
+      rel="stylesheet"
+      href="/src/main/webapp/style/responsive/logo.responsive.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.all.min.js"></script>
+    <!-- <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    /> -->
+  </head>
+  <body>
+    <div class="App">
+      <section id="App-logo">
+        <img src="/src/main/webapp/resources/logo.png" alt="Snake-Logo" />
+      </section>
+      <section id="App-data">
+        <div class="title">
+          <h1>Sign In</h1>
+        </div>
+        <form>
+          <div class="form-floating mb-3">
+            <input
+              autofocus="autofocus"
+              class="form-control"
+              placeholder="Username"
+              type="username"
+              id="username"
+            />
+          </div>
+          <div class="form-floating mb-3">
+            <input
+              class="form-control"
+              placeholder="Password"
+              type="password"
+              id="password"
+            />
+          </div>
+          <div class="forgot-password">
+            <a
+              href="/src/main/webapp/component/forgotPassword/forgot-password.html"
+              >Forgot password?</a
+            >
+          </div>
+          <div class="submit-btn">
+            <button>Submit</button>
+          </div>
+        </form>
+        <div class="google-button">
+          <button class="google-btn" id="log-google">
+            <div class="google-icon-wrapper">
+              <img
+                class="google-icon"
+                src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg"
+              />
+            </div>
+            <div class="btn-text"><p>Sign in with Google</p></div>
+          </button>
+        </div>
+        <div class="bottom-btn">
+          <p>Not a member?</p>
+          <a href="/src/main/webapp/component/register/register.html"
+            >Sign up here</a
+          >
+        </div>
+      </section>
+    </div>
+    <!-- <script
+  src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+  crossorigin="anonymous"
+></script> -->
+    <script type="module" src="/src/main/webapp/controller/login.js"></script>
+  </body>
+</html>

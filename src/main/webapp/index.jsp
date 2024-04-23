@@ -4,39 +4,18 @@
     <meta charset="UTF-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>Home</title>
-    <link
-      href="./src/main/webapp/resources/favicon.ico"
-      rel="icon"
-      type="image/png"
-    />
-    <link rel="stylesheet" href="./src/main/webapp/style/util/reset.css" />
+    <link href="./resources/favicon.ico" rel="icon" type="image/png" />
+    <link rel="stylesheet" href="./util/reset.css" />
     <!--    <link rel="stylesheet" href="./src/main/resources/public/commons.css">-->
-    <link
-      rel="stylesheet"
-      href="./src/main/webapp/style/util/index.commons.css"
-    />
-    <link
-      rel="stylesheet"
-      href="src/main/webapp/style/theme/style-light.css"
-      id="theme"
-    />
-    <link
-      rel="stylesheet"
-      href="./src/main/webapp/style/component/toggle/toggle.css"
-    />
-    <link
-      rel="stylesheet"
-      href="./src/main/webapp/style/responsive/home.responsive.css"
-    />
+    <link rel="stylesheet" href="./util/index.commons.css" />
+    <link rel="stylesheet" href="style/theme/style-light.css" id="theme" />
+    <link rel="stylesheet" href="./component/toggle/toggle.css" />
+    <link rel="stylesheet" href="./responsive/home.responsive.css" />
     <!-- <link
       href="./src/main/resources/public/node_modules/bootstrap/dist/css/bootstrap.min.css"
       rel="stylesheet"
     /> -->
-    <script
-      type="module"
-      src="/src/main/webapp/controller/control.js"
-      defer
-    ></script>
+    <script type="module" src="./controller/control.js" defer></script>
   </head>
   <body>
     <div class="App">
@@ -45,24 +24,14 @@
       </header>
       <section id="tmp">
         <section id="App-img">
-          <img
-            alt="logo"
-            class="App-logo"
-            src="./src/main/webapp/resources/logo.png"
-          />
+          <img alt="logo" class="App-logo" src="./resources/logo.png" />
         </section>
         <section id="App-data">
           <div class="card_button">
-            <a class="log" href="src/main/webapp/component/login/login.html"
-              >Login</a
-            >
+            <a class="log" href="./login.jsp">Login</a>
           </div>
           <div class="card_button">
-            <a
-              class="reg"
-              href="src/main/webapp/component/register/register.html"
-              >Register</a
-            >
+            <a class="reg" href="./register.jsp">Register</a>
           </div>
         </section>
       </section>
