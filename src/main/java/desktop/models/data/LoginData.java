@@ -3,7 +3,7 @@ package desktop.models.data;
 import desktop.controllers.LoginController;
 import desktop.views.LoginView;
 
-sealed public interface LoginData permits RegisterData, LoginView {
+public interface LoginData {
     void handleEmpty();
 
     void handleWrong();

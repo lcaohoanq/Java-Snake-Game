@@ -3,7 +3,7 @@ package desktop.models.data;
 import desktop.controllers.RegisterController;
 import desktop.views.RegisterView;
 
-public sealed interface RegisterData extends LoginData permits RegisterView {
+public interface RegisterData extends LoginData {
     boolean isEmpty();
 
     boolean isDuplicateUsername();

@@ -1,4 +1,4 @@
-package desktop.runtime;
+package desktop;
 
 import java.awt.EventQueue;
 

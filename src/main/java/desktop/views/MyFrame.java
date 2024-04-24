@@ -17,7 +17,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
-public abstract sealed class MyFrame extends JFrame implements ToggleHandler, HoverHandler permits LoginView, RegisterView {
+public abstract class MyFrame extends JFrame implements ToggleHandler, HoverHandler {
 
     public static JPanel jPanel_Right_Bottom_Button;
     private final JMenu jMenu = new JMenu("HELP");

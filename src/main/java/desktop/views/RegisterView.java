@@ -16,7 +16,7 @@ import desktop.utils.ToggleHandler;
 import javax.swing.*;
 import java.awt.*;
 
-public non-sealed class RegisterView extends MyFrame implements ToggleHandler, HoverHandler, RegisterData {
+public class RegisterView extends MyFrame implements ToggleHandler, HoverHandler, RegisterData {
 
     private String username;
     private String password;

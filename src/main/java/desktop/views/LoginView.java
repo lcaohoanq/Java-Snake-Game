@@ -19,7 +19,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.InputStream;
 
-public non-sealed class LoginView extends MyFrame implements ToggleHandler, HoverHandler, LoginData {
+public class LoginView extends MyFrame implements ToggleHandler, HoverHandler, LoginData {
 
     public static CardLayout cardLayout;
     private LoginModel loginModel;

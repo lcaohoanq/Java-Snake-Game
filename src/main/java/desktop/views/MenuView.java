@@ -16,7 +16,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public non-sealed class MenuView extends JFrame implements ToggleHandler, HoverHandler {
+public class MenuView extends JFrame implements ToggleHandler, HoverHandler {
     public JButton jButton_1 = new JButton("Classic");
     public JButton jButton_2 = new JButton("Modern");
     public JButton jButton_3 = new JButton("Campaign");
@@ -187,7 +187,7 @@ public non-sealed class MenuView extends JFrame implements ToggleHandler, HoverH
         return isActive = value;
     }
 
-    public non-sealed class MenuModern extends JFrame implements ActionListener, ToggleHandler, HoverHandler {
+    public class MenuModern extends JFrame implements ActionListener, ToggleHandler, HoverHandler {
         //6 button: No Maze, Box, Tunnel, Mill, Rails, Apartment
         public JPanel jPanel_Container = new JPanel();
         public JPanel jPanel_Menu_Modern = new JPanel(new GridLayout(6, 1, 30, 20));

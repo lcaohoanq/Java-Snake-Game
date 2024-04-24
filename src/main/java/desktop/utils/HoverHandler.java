@@ -7,7 +7,7 @@ import desktop.views.RegisterView;
 
 import javax.swing.*;
 
-sealed public interface HoverHandler permits LoginView, MenuView, MenuView.MenuModern, MyFrame, RegisterView {
+public interface HoverHandler {
     void setHoverUsername(boolean isInside, String mode);
 
     void setHoverPassword(boolean isInside, String mode);
