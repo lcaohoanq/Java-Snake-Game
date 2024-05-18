@@ -1,5 +1,9 @@
 package controllers;
 
+import java.util.Arrays;
+import java.util.List;
+import javax.swing.JButton;
+import javax.swing.JTextField;
 import views.RegisterView;
 
 import java.awt.event.ActionEvent;
@@ -8,11 +12,21 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 public class RegisterController implements ActionListener, MouseListener {
+
     private RegisterView registerView;
+    private List<JTextField> inputFieldList;
+    private List<JButton> buttonList;
 
     public RegisterController(RegisterView registerView) {
         super();
         this.registerView = registerView;
+        this.inputFieldList = Arrays.asList(
+            registerView.jTextField_Right_Middle_Username,
+            registerView.jPasswordField_Right_Middle_Password,
+            registerView.jPasswordField_Right_Middle_Confirm_Password);
+        this.buttonList = Arrays.asList(
+            registerView.jButton_Right_Bottom_Submit,
+            registerView.jButton_Right_Bottom_Others);
     }
 
     // Su dung ArrayList<Account> de luu tru account
@@ -53,71 +67,63 @@ public class RegisterController implements ActionListener, MouseListener {
 
     @Override
     public void mouseEntered(MouseEvent e) {
-        if (e.getSource() == registerView.jTextField_Right_Middle_Username) {
-            if (!registerView.getStatusToggle()) {
-                registerView.setHoverUsername(true, "light");
-            } else {
-                registerView.setHoverUsername(true, "dark");
-            }
-        }
-        if (e.getSource() == registerView.jPasswordField_Right_Middle_Password) {
-            if (!registerView.getStatusToggle()) {
-                registerView.setHoverPassword(true, "light");
-            } else {
-                registerView.setHoverPassword(true, "dark");
-            }
-        }
-        if (e.getSource() == registerView.jPasswordField_Right_Middle_Confirm_Password) {
-            if (!registerView.getStatusToggle()) {
-                registerView.setHoverConfirmPassword(true, "light");
-            } else {
-                registerView.setHoverConfirmPassword(true, "dark");
-            }
-        }
-        if (e.getSource() == registerView.jButton_Right_Bottom_Submit) {
-            if (!registerView.getStatusToggle()) {
-                registerView.setHoverButton(true, "light");
-            } else {
-                registerView.setHoverButton(true, "dark");
-            }
-        }
-        if (e.getSource() == registerView.jButton_Right_Bottom_Others) {
-            registerView.setHoverOther(true);
-        }
+        inputFieldList.stream()
+            .filter(inputField -> e.getSource() == inputField)
+            .forEach(inputField -> {
+                if (!registerView.getStatusToggle()) {
+                    registerView.setHoverUsername(true, "light");
+                    registerView.setHoverPassword(true, "light");
+                    registerView.setHoverConfirmPassword(true, "light");
+                } else {
+                    registerView.setHoverUsername(true, "dark");
+                    registerView.setHoverPassword(true, "dark");
+                    registerView.setHoverConfirmPassword(true, "dark");
+                }
+            });
+
+        buttonList.stream()
+            .filter(button -> e.getSource() == button)
+            .forEach(button -> {
+                if (button.getText().equals("Submit")) {
+                    if (!registerView.getStatusToggle()) {
+                        registerView.setHoverButton(true, "light");
+                    } else {
+                        registerView.setHoverButton(true, "dark");
+                    }
+                } else {
+                    registerView.setHoverOther(true);
+                }
+            });
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
-        if (e.getSource() == registerView.jTextField_Right_Middle_Username) {
-            if (!registerView.getStatusToggle()) {
-                registerView.setHoverUsername(false, "light");
-            } else {
-                registerView.setHoverUsername(false, "dark");
-            }
-        }
-        if (e.getSource() == registerView.jPasswordField_Right_Middle_Password) {
-            if (!registerView.getStatusToggle()) {
-                registerView.setHoverPassword(false, "light");
-            } else {
-                registerView.setHoverPassword(false, "dark");
-            }
-        }
-        if (e.getSource() == registerView.jPasswordField_Right_Middle_Confirm_Password) {
-            if (!registerView.getStatusToggle()) {
-                registerView.setHoverConfirmPassword(false, "light");
-            } else {
-                registerView.setHoverConfirmPassword(false, "dark");
-            }
-        }
-        if (e.getSource() == registerView.jButton_Right_Bottom_Submit) {
-            if (!registerView.getStatusToggle()) {
-                registerView.setHoverButton(false, "light");
-            } else {
-                registerView.setHoverButton(false, "dark");
-            }
-        }
-        if (e.getSource() == registerView.jButton_Right_Bottom_Others) {
-            registerView.setHoverOther(false);
-        }
+        inputFieldList.stream()
+            .filter(inputField -> e.getSource() == inputField)
+            .forEach(inputField -> {
+                if (!registerView.getStatusToggle()) {
+                    registerView.setHoverUsername(false, "light");
+                    registerView.setHoverPassword(false, "light");
+                    registerView.setHoverConfirmPassword(false, "light");
+                } else {
+                    registerView.setHoverUsername(false, "dark");
+                    registerView.setHoverPassword(false, "dark");
+
+                }
+            });
+
+        buttonList.stream()
+            .filter(button -> e.getSource() == button)
+            .forEach(button -> {
+                if (button.getText().equals("Submit")) {
+                    if (!registerView.getStatusToggle()) {
+                        registerView.setHoverButton(false, "light");
+                    } else {
+                        registerView.setHoverButton(false, "dark");
+                    }
+                } else {
+                    registerView.setHoverOther(false);
+                }
+            });
     }
 }

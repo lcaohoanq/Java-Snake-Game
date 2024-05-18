@@ -8,8 +8,7 @@ public class Main {
 
     public static void main(String[] args) {
         EventQueue.invokeLater(() -> {
-            LoginView ex = new LoginView();
-            ex.setVisible(true);
+            new LoginView().setVisible(true);
         });
     }
 }

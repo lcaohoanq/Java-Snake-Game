@@ -1,5 +1,7 @@
 package controllers;
 
+import java.util.Arrays;
+import java.util.List;
 import utils.UIUtils;
 import constants.ResourcePaths;
 import utils.AudioHandler;
@@ -21,9 +23,15 @@ public class MenuController implements MouseListener, ActionListener {
     private boolean isMenuModern = true;
     private AudioHandler audioHandler;
 
+    private List<JButton> jButtonList;
+
     public MenuController(MenuView menuView) {
         this.menuView = menuView;
         this.audioHandler = new AudioHandler();
+        this.jButtonList = Arrays.asList(
+            menuView.jButton_1,
+            menuView.jButton_2,
+            menuView.jButton_3);
     }
 
     @Override
@@ -71,27 +79,15 @@ public class MenuController implements MouseListener, ActionListener {
     @Override
     public void mouseEntered(MouseEvent e) {
         if (menuView.isActive()) {
-            if (menuView.getStatusToggle()) {
-                if (e.getSource() == menuView.jButton_1) {
-                    menuView.setHoverButton(true, "dark", menuView.jButton_1);
-                }
-                if (e.getSource() == menuView.jButton_2) {
-                    menuView.setHoverButton(true, "dark", menuView.jButton_2);
-                }
-                if (e.getSource() == menuView.jButton_3) {
-                    menuView.setHoverButton(true, "dark", menuView.jButton_3);
-                }
-            } else {
-                if (e.getSource() == menuView.jButton_1) {
-                    menuView.setHoverButton(true, "light", menuView.jButton_1);
-                }
-                if (e.getSource() == menuView.jButton_2) {
-                    menuView.setHoverButton(true, "light", menuView.jButton_2);
-                }
-                if (e.getSource() == menuView.jButton_3) {
-                    menuView.setHoverButton(true, "light", menuView.jButton_3);
-                }
-            }
+            jButtonList.stream()
+                .filter(button -> e.getSource() == button)
+                .forEach(button -> {
+                    if (menuView.getStatusToggle()) {
+                        menuView.setHoverButton(true, "dark", button);
+                    } else {
+                        menuView.setHoverButton(true, "light", button);
+                    }
+                });
         }
     }
 
@@ -99,27 +95,15 @@ public class MenuController implements MouseListener, ActionListener {
     @Override
     public void mouseExited(MouseEvent e) {
         if (menuView.isActive()) {
-            if (menuView.getStatusToggle()) {
-                if (e.getSource() == menuView.jButton_1) {
-                    menuView.setHoverButton(false, "dark", menuView.jButton_1);
-                }
-                if (e.getSource() == menuView.jButton_2) {
-                    menuView.setHoverButton(false, "dark", menuView.jButton_2);
-                }
-                if (e.getSource() == menuView.jButton_3) {
-                    menuView.setHoverButton(false, "dark", menuView.jButton_3);
-                }
-            } else {
-                if (e.getSource() == menuView.jButton_1) {
-                    menuView.setHoverButton(false, "light", menuView.jButton_1);
-                }
-                if (e.getSource() == menuView.jButton_2) {
-                    menuView.setHoverButton(false, "light", menuView.jButton_2);
-                }
-                if (e.getSource() == menuView.jButton_3) {
-                    menuView.setHoverButton(false, "light", menuView.jButton_3);
-                }
-            }
+            jButtonList.stream()
+                .filter(button -> e.getSource() == button)
+                .forEach(button -> {
+                    if (menuView.getStatusToggle()) {
+                        menuView.setHoverButton(false, "dark", button);
+                    } else {
+                        menuView.setHoverButton(false, "light", button);
+                    }
+                });
         }
     }
 
