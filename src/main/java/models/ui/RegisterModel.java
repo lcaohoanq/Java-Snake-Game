@@ -3,7 +3,7 @@ package models.ui;
 import constants.Regex;
 import errors.DataException;
 import models.data.Account;
-import services.DatabaseQuery;
+import services.UserDAO;
 import utils.PasswordHandler;
 
 public record RegisterModel(String username, String password, String confirmPassword) {
@@ -33,7 +33,7 @@ public record RegisterModel(String username, String password, String confirmPass
 
     public boolean isDuplicateUsername(String username) {
         Account db;
-        DatabaseQuery executeQuery = DatabaseQuery.getInstance();
+        UserDAO executeQuery = UserDAO.getInstance();
         try {
             db = executeQuery.selectUsernameAndPasswordByUsername(username);
             if (db == null) {
@@ -48,7 +48,7 @@ public record RegisterModel(String username, String password, String confirmPass
     }
 
     public void insert(String username, String password) {
-        DatabaseQuery executeQuery = DatabaseQuery.getInstance();
+        UserDAO executeQuery = UserDAO.getInstance();
         password = new PasswordHandler().hash(password); // replace password with the hashed
         executeQuery.insert(username, password);
     }

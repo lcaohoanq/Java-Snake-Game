@@ -1,6 +1,6 @@
 package controllers;
 
-import services.DatabaseQuery;
+import services.UserDAO;
 import views.ScoreView;
 
 import java.awt.event.ActionEvent;
@@ -9,7 +9,7 @@ import java.awt.event.ActionListener;
 public class ScoreController implements ActionListener {
 
     private ScoreView scoreView;
-    private DatabaseQuery executeQuery = DatabaseQuery.getInstance();
+    private UserDAO executeQuery = UserDAO.getInstance();
 
     public ScoreController(ScoreView scoreView) {
         this.scoreView = scoreView;

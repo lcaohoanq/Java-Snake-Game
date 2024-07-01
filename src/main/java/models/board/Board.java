@@ -5,7 +5,7 @@ import constants.ResourcePaths;
 import styles.UISizes;
 import styles.UILabels;
 import controllers.LoginController;
-import services.DatabaseQuery;
+import services.UserDAO;
 import styles.UIBorders;
 import styles.UIColors;
 import styles.UIFonts;
@@ -281,14 +281,14 @@ public abstract class Board extends JPanel implements ActionListener {
     }
 
     public int handleScore(String username) {
-        DatabaseQuery executeQuery = DatabaseQuery.getInstance();
+        UserDAO executeQuery = UserDAO.getInstance();
         int currentScore = this.score;
         int dbScore = Objects.requireNonNull(executeQuery.selectUsernameAndScoreByUsername(username)).score();
         return compareDatabaseAndCurrentScore(dbScore, currentScore);
     }
 
     public void updateScore() {
-        DatabaseQuery executeQuery = DatabaseQuery.getInstance();
+        UserDAO executeQuery = UserDAO.getInstance();
         String username = LoginController.username;
         if (username.isEmpty()) {
             return;
