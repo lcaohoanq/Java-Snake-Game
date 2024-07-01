@@ -34,7 +34,7 @@ public final class LoginController implements ActionListener, MouseListener {
             loginView.handleEmpty();
         } else {
             if (!loginView.isMatching()) {
-                loginView.handleWrong();
+                loginView.handleNotMatchingPasswordAndConfirmPassword();
             } else {
                 loginView.handleSuccess();
             }

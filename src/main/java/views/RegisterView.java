@@ -190,17 +190,19 @@ public non-sealed class RegisterView extends MyFrame implements ToggleHandler, H
         jButton_Right_Bottom_Others.addActionListener(new ClickOtherOption());
     }
 
-    public void isMatchingPattern() {
+    public boolean isMatchingPattern() {
+        boolean isMatching = false;
         if (!this.registerModel.isUsernameFormat(this.getRegister().username())) {
             UIUtils.IS_WRONG_FORMAT_USERNAME();
         } else if (!this.registerModel.isPasswordFormat(this.getRegister().password())) {
             UIUtils.IS_WRONG_FORMAT_PASSWORD();
-        } else if (!this.registerModel.isConfirmPasswordFormat(this.getRegister().confirmPassword())) {
-            UIUtils.IS_WRONG_FORMAT_PASSWORD();
+        } else {
+            isMatching = true;
         }
+        return isMatching;
     }
 
-    public boolean isMatching() {
+    public boolean isMatchingPasswordAndConfirmPassword() {
         return this.registerModel.isMatching(this.getRegister().password(), this.getRegister().confirmPassword());
     }
 
@@ -234,9 +236,11 @@ public non-sealed class RegisterView extends MyFrame implements ToggleHandler, H
         UIUtils.IS_EMPTY_FIELD();
     }
 
-    public void handleWrong() {
+    public void handleNotMatchingPasswordAndConfirmPassword() {
         UIUtils.IS_NOT_MATCH_PASSWORD_AND_CONFIRM_PASSWORD();
     }
+
+
 
     public void handleDuplicateUsername() {
         UIUtils.IS_EXISTED_USERNAME();

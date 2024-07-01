@@ -32,20 +32,21 @@ public class RegisterController implements ActionListener, MouseListener {
     // Su dung ArrayList<Account> de luu tru account
     @Override
     public void actionPerformed(ActionEvent e) {
-
-        registerView.isMatchingPattern();
-
-        if (registerView.isEmpty()) {
-            registerView.handleEmpty();
-        } else if (!registerView.isMatching()) {
-            registerView.handleWrong();
-        } else {
-            if (registerView.isDuplicateUsername()) {
-                registerView.handleDuplicateUsername();
-            } else {
-                registerView.insert();
-                registerView.handleSuccess();
+        if (!registerView.isEmpty()) {
+            if (registerView.isMatchingPattern()) {
+                if (registerView.isMatchingPasswordAndConfirmPassword()) {
+                    if (!registerView.isDuplicateUsername()) {
+                        registerView.insert();
+                        registerView.handleSuccess();
+                    } else {
+                        registerView.handleDuplicateUsername();
+                    }
+                } else {
+                    registerView.handleNotMatchingPasswordAndConfirmPassword();
+                }
             }
+        } else {
+            registerView.handleEmpty();
         }
 
     }
