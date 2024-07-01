@@ -19,10 +19,6 @@ public record RegisterModel(String username, String password, String confirmPass
         return password.matches(Regex.PASSWORD);
     }
 
-    public boolean isConfirmPasswordFormat(String confirmPassword) {
-        return confirmPassword.matches(Regex.PASSWORD);
-    }
-
     public boolean isEmpty(String username, String password, String confirmPassword) {
         return username.isEmpty() || password.isEmpty() || confirmPassword.isEmpty();
     }

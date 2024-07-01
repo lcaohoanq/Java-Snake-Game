@@ -201,7 +201,7 @@ public non-sealed class LoginView extends MyFrame implements ToggleHandler, Hove
         UIUtils.IS_EMPTY_USERNAME_OR_PASSWORD();
     }
 
-    public void handleWrong() {
+    public void handleNotMatchingPasswordAndConfirmPassword() {
         UIUtils.IS_WRONG_USERNAME_OR_PASSWORD();
     }
 
