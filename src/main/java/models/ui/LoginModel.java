@@ -2,7 +2,7 @@ package models.ui;
 
 import errors.DataException;
 import models.data.Account;
-import services.DatabaseQuery;
+import services.UserDAO;
 import utils.PasswordHandler;
 
 public record LoginModel(String username, String password) {
@@ -16,7 +16,7 @@ public record LoginModel(String username, String password) {
 
     public boolean isMatching(String username, String password) {
         Account db;
-        DatabaseQuery executeQuery = DatabaseQuery.getInstance();
+        UserDAO executeQuery = UserDAO.getInstance();
         try {
             db = executeQuery.selectUsernameAndPasswordByUsername(username);
             if (db != null) {

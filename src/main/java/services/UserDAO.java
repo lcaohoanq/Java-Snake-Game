@@ -11,16 +11,16 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DatabaseQuery {
-    private static DatabaseQuery instance;
+public class UserDAO {
+    private static UserDAO instance;
     private DatabaseConnection dbConnection = new DatabaseConnection();
 
-    private DatabaseQuery() {
+    private UserDAO() {
     }
 
-    public static DatabaseQuery getInstance() {
+    public static UserDAO getInstance() {
         if (instance == null) {
-            instance = new DatabaseQuery();
+            instance = new UserDAO();
         }
         return instance;
     }
