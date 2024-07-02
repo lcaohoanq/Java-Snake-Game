@@ -2,6 +2,14 @@
 # Setup
 ![image](https://github.com/lcaohoanq/Java-Snake-Game/assets/136492579/e197c7f3-d4eb-4ba1-ba20-33fef4abbcee)
   - `JDK`   : need `JDK 18` to run this application.
+  - `Docker`
+```bash
+docker build -t <image_name> .
+docker container run --env-file .env <image_name>
+docker exec -it <container_id> /bin/bash
+mysql -u root -p
+mysql -u lcaohoanq -p
+```
   - `MySql` : check my table structure `db.sql` at `src/main/resources`
 ```shell
 CREATE DATABASE IF NOT EXISTS snake_game_app;
