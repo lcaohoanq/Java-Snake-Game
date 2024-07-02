@@ -4,11 +4,14 @@
   - `JDK`   : need `JDK 18` to run this application.
   - `Docker`
 ```bash
-docker build -t <image_name> .
-docker container run --env-file .env <image_name>
-docker exec -it <container_id> /bin/bash
-mysql -u root -p
-mysql -u lcaohoanq -p
+# init connection
+chmod +x init.sh
+./init-db.sh
+
+# verify connection
+mysql -h 127.0.0.1 -P 3307 -u lcaohoanq -p
+use snake_game_app;
+select * from users;
 ```
   - `MySql` : check my table structure `db.sql` at `src/main/resources`
 ```shell
