@@ -7,7 +7,13 @@
 # init connection
 chmod +x init.sh
 ./init-db.sh
+```
 
+```bash
+docker-compose up -d
+```
+
+```bash
 # verify connection
 mysql -h 127.0.0.1 -P 3307 -u lcaohoanq -p
 use snake_game_app;
