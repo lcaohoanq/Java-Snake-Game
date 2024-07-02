@@ -22,7 +22,6 @@ INSERT INTO users (username, password) VALUES
 ('bao', '$31$16$CrqpO_WzDPLWh9jCpPcKeqKv1VEHswyq3d7G6wZQpQg'),
 ('minhnhu', '$31$16$xEeCSM_NeDhbLzpvpXAJpxdxGUR-dGI46UEH1paLa90');
 
--------------------------------------------------------------------------------------------------------
 --  ===========================================Procedure==============================================
 -- 1. selectUsernameAndScore
 DELIMITER $
