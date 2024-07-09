@@ -4,7 +4,9 @@ public class UILabels {
     public static final String WINDOW = "Snake Game";
     public static final String LOGIN = "Login";
     public static final String REGISTER = "Register";
-    public static final String USERNAME = "Username";
+    public static final String EMAIL = "Email";
+    public static final String FIRST_NAME = "First Name";
+    public static final String LAST_NAME = "Last Name";
     public static final String PASSWORD = "Password";
     public static final String CONFIRM_PASSWORD = "Confirm Password";
     public static final String SUBMIT = "Submit";

@@ -10,7 +10,7 @@ import java.awt.event.MouseListener;
 
 public final class LoginController implements ActionListener, MouseListener {
 
-    public static String username = "";
+    public static String email = "";
     private final LoginView loginView;
     public String password = "";
 
@@ -21,10 +21,10 @@ public final class LoginController implements ActionListener, MouseListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        username = loginView.getLogin().username();
+        email = loginView.getLogin().email();
         password = loginView.getLogin().password();
 
-        System.out.println("Data: " + username + " " + password);
+        System.out.println("Data: " + email + " " + password);
         if (loginView.isAdmin()) {
             loginView.handleSuccess();
             return;
@@ -59,11 +59,25 @@ public final class LoginController implements ActionListener, MouseListener {
 
     @Override
     public void mouseEntered(MouseEvent e) {
-        if (e.getSource() == loginView.jTextField_Right_Middle_Username) {
+        if (e.getSource() == loginView.jTextField_Right_Middle_Email) {
             if (!loginView.getStatusToggle()) {
-                loginView.setHoverUsername(true, "light");
+                loginView.setHoverEmail(true, "light");
             } else {
-                loginView.setHoverUsername(true, "dark");
+                loginView.setHoverEmail(true, "dark");
+            }
+        }
+        if (e.getSource() == loginView.jTextField_Right_Middle_FirstName) {
+            if (!loginView.getStatusToggle()) {
+                loginView.setHoverFirstName(true, "light");
+            } else {
+                loginView.setHoverFirstName(true, "dark");
+            }
+        }
+        if (e.getSource() == loginView.jTextField_Right_Middle_LastName) {
+            if (!loginView.getStatusToggle()) {
+                loginView.setHoverLastName(true, "light");
+            } else {
+                loginView.setHoverLastName(true, "dark");
             }
         }
         if (e.getSource() == loginView.jPasswordField_Right_Middle_Password) {
@@ -87,11 +101,25 @@ public final class LoginController implements ActionListener, MouseListener {
 
     @Override
     public void mouseExited(MouseEvent e) {
-        if (e.getSource() == loginView.jTextField_Right_Middle_Username) {
+        if (e.getSource() == loginView.jTextField_Right_Middle_Email) {
             if (!loginView.getStatusToggle()) {
-                loginView.setHoverUsername(false, "light");
+                loginView.setHoverEmail(false, "light");
             } else {
-                loginView.setHoverUsername(false, "dark");
+                loginView.setHoverEmail(false, "dark");
+            }
+        }
+        if (e.getSource() == loginView.jTextField_Right_Middle_FirstName) {
+            if (!loginView.getStatusToggle()) {
+                loginView.setHoverFirstName(false, "light");
+            } else {
+                loginView.setHoverFirstName(false, "dark");
+            }
+        }
+        if (e.getSource() == loginView.jTextField_Right_Middle_LastName) {
+            if (!loginView.getStatusToggle()) {
+                loginView.setHoverLastName(false, "light");
+            } else {
+                loginView.setHoverLastName(false, "dark");
             }
         }
         if (e.getSource() == loginView.jPasswordField_Right_Middle_Password) {

@@ -135,10 +135,6 @@ public non-sealed class MenuView extends JFrame implements ToggleHandler, HoverH
     }
 
     @Override
-    public void setHoverUsername(boolean isInside, String mode) {
-    }
-
-    @Override
     public void setHoverPassword(boolean isInside, String mode) {
     }
 
@@ -292,11 +288,6 @@ public non-sealed class MenuView extends JFrame implements ToggleHandler, HoverH
             if (e.getActionCommand() == "Apartment") {
                 System.out.println("Apartment");
             }
-        }
-
-        @Override
-        public void setHoverUsername(boolean isInside, String mode) {
-
         }
 
         @Override
