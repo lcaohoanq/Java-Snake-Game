@@ -54,8 +54,8 @@ public abstract sealed class MyFrame extends JFrame implements ToggleHandler, Ho
     protected AudioHandler audioHandler = new AudioHandler();
     private JPanel jPanel_Left;
     private JLabel jLabel_Left_Icon;
-    // MenuBar
     private JMenuBar jMenuBar;
+    protected Cursor cursor = new Cursor(Cursor.HAND_CURSOR);
 
     public MyFrame() {
         setTitle(UILabels.WINDOW);
@@ -82,6 +82,10 @@ public abstract sealed class MyFrame extends JFrame implements ToggleHandler, Ho
         jMenu_Play_Here.add(jMenuItem_Go);
         jMenuBar.setLayout(new FlowLayout(FlowLayout.LEFT));
         jMenuBar.setBorder(UIBorders.LINE_MENU_BAR);
+
+        jMenu.setCursor(cursor);
+        jMenu_Play_Here.setCursor(cursor);
+
         jMenuBar.add(jMenu);
         jMenuBar.add(jMenu_Play_Here);
         jMenu.add(jMenuItem_AboutMe);

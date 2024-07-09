@@ -35,7 +35,7 @@ public record RegisterModel(String username, String password, String confirmPass
         return password.equals(confirmPassword);
     }
 
-    public boolean isDuplicateUsername(String username) {
+    public boolean isDuplicateEmail(String username) {
         UserDTO db;
         UserDAO executeQuery = UserDAO.getInstance();
         try {
