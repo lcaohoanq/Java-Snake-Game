@@ -3,4 +3,5 @@ module Java.Snake.Game {
     requires java.sql;
     requires io.github.cdimascio.dotenv.java;
     requires jdk.httpserver;
+    requires javax.mail.api;
 }
