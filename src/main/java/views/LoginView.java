@@ -1,19 +1,18 @@
 package views;
 
-import utils.UIUtils;
 import constants.ResourcePaths;
 import styles.UISizes;
 import styles.UILabels;
 import controllers.LoginController;
 import controllers.PlayController;
-import models.data.Account;
+import modules.user.UserDTO;
 import models.data.LoginData;
 import models.ui.LoginModel;
 import styles.UIBorders;
 import styles.UIColors;
 import styles.UIFonts;
-import utils.HoverHandler;
-import utils.ToggleHandler;
+import controllers.HoverHandler;
+import controllers.ToggleHandler;
 
 import javax.swing.*;
 import java.awt.*;
@@ -187,10 +186,10 @@ public non-sealed class LoginView extends MyFrame implements ToggleHandler, Hove
     }
 
     //xu li cac ham o day
-    public Account getLogin() {
+    public UserDTO getLogin() {
         username = jTextField_Right_Middle_Email.getText();
         password = String.valueOf(jPasswordField_Right_Middle_Password.getPassword());
-        return new Account(username, password);
+        return new UserDTO(username, password);
     }
 
     public boolean isEmpty() {
@@ -198,11 +197,11 @@ public non-sealed class LoginView extends MyFrame implements ToggleHandler, Hove
     }
 
     public void handleEmpty() {
-        UIUtils.IS_EMPTY_USERNAME_OR_PASSWORD();
+        UIPrompts.IS_EMPTY_USERNAME_OR_PASSWORD();
     }
 
     public void handleNotMatchingPasswordAndConfirmPassword() {
-        UIUtils.IS_WRONG_USERNAME_OR_PASSWORD();
+        UIPrompts.IS_WRONG_USERNAME_OR_PASSWORD();
     }
 
     public boolean isAdmin() {
@@ -214,7 +213,7 @@ public non-sealed class LoginView extends MyFrame implements ToggleHandler, Hove
     }
 
     public void handleSuccess() {
-        UIUtils.IS_LOGIN_SUCCESS();
+        UIPrompts.IS_LOGIN_SUCCESS();
         // Switch to the play button card using static methods
         CardLayout cardLayout = LoginView.cardLayout;
         cardLayout.next(LoginView.jPanel_Right_Bottom_Button);

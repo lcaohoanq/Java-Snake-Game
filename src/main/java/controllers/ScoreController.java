@@ -1,6 +1,6 @@
 package controllers;
 
-import services.UserDAO;
+import modules.user.UserDAO;
 import views.ScoreView;
 
 import java.awt.event.ActionEvent;

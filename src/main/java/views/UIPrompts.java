@@ -1,8 +1,8 @@
-package utils;
+package views;
 
 import javax.swing.JOptionPane;
 
-public class UIUtils {
+public class UIPrompts {
     public static void IS_NOT_SUPPORT() {
         JOptionPane.showMessageDialog(null, "This function is not supported", "Error", JOptionPane.ERROR_MESSAGE);
     }

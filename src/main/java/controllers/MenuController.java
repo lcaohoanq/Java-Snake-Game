@@ -2,9 +2,9 @@ package controllers;
 
 import java.util.Arrays;
 import java.util.List;
-import utils.UIUtils;
+import views.UIPrompts;
 import constants.ResourcePaths;
-import utils.AudioHandler;
+import modules.sound.AudioHandler;
 import views.MenuView;
 import views.Snake;
 
@@ -120,7 +120,7 @@ public class MenuController implements MouseListener, ActionListener {
     private void prepareUnsupportFeature() {
         InputStream unsupported = getClass().getResourceAsStream(ResourcePaths.URL_EATING);
         audioHandler.playAudio(unsupported);
-        UIUtils.IS_NOT_SUPPORT();
+        UIPrompts.IS_NOT_SUPPORT();
     }
 
     public static class MenuModernController extends JFrame implements MouseListener {
@@ -272,7 +272,7 @@ public class MenuController implements MouseListener, ActionListener {
         private void prepareUnsupportFeature() {
             InputStream unsupported = getClass().getResourceAsStream(ResourcePaths.URL_EATING);
             audioHandler.playAudio(unsupported);
-            UIUtils.IS_NOT_SUPPORT();
+            UIPrompts.IS_NOT_SUPPORT();
         }
     }
 }
