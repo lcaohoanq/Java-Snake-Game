@@ -157,6 +157,9 @@ public non-sealed class RegisterView extends MyFrame implements ToggleHandler, H
         jButton_Right_Bottom_Submit.setForeground(UIColors.PRIMARY_COLOR_L);
         jButton_Right_Bottom_Submit.setFont(UIFonts.BUTTON);
         jButton_Right_Bottom_Submit.setPreferredSize(UISizes.SIZE_BUTTON);
+
+        jButton_Right_Bottom_Submit.setCursor(cursor);
+
         jPanel_Right_Bottom_Button.setBackground(UIColors.PRIMARY_COLOR_L);
         jPanel_Right_Bottom_Button.add(jButton_Right_Bottom_Submit);
         jPanel_Right_Bottom_Button.setBorder(UIBorders.BUTTON);
@@ -186,6 +189,8 @@ public non-sealed class RegisterView extends MyFrame implements ToggleHandler, H
         jButton_Right_Bottom_Others.setForeground(UIColors.OTHER_OPTIONS_L);
         jButton_Right_Bottom_Others.setFont(UIFonts.OTHERS);
         jButton_Right_Bottom_Others.setBorder(null);
+
+        jButton_Right_Bottom_Others.setCursor(cursor);
 
         jPanel_Right_Bottom_Option.setBackground(UIColors.PRIMARY_COLOR_L);
         jPanel_Right_Bottom_Option.add(jLabel_Right_Bottom_Option);
@@ -252,7 +257,7 @@ public non-sealed class RegisterView extends MyFrame implements ToggleHandler, H
 
     @Override
     public boolean isDuplicateEmail() {
-        return this.registerModel.isDuplicateUsername(this.getRegister().email());
+        return this.registerModel.isDuplicateEmail(this.getRegister().email());
     }
 
     @Override

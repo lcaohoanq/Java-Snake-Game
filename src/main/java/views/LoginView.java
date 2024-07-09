@@ -123,6 +123,10 @@ public non-sealed class LoginView extends MyFrame implements ToggleHandler, Hove
         jButton_Right_Play.setForeground(UIColors.PRIMARY_COLOR_L);
         jButton_Right_Play.setFont(UIFonts.BUTTON);
         jButton_Right_Play.setPreferredSize(UISizes.SIZE_BUTTON);
+
+        jButton_Right_Bottom_Submit.setCursor(cursor);
+        jButton_Right_Play.setCursor(cursor);
+
         jPanel_Right_Bottom_Button.setLayout(cardLayout);
         jPanel_Right_Bottom_Button.add(jButton_Right_Bottom_Submit, "Card1");
         jPanel_Right_Bottom_Button.add(jButton_Right_Play, "Card2");
@@ -151,6 +155,8 @@ public non-sealed class LoginView extends MyFrame implements ToggleHandler, Hove
         jButton_Right_Bottom_Others.setForeground(UIColors.OTHER_OPTIONS_L);
         jButton_Right_Bottom_Others.setFont(UIFonts.OTHERS);
         jButton_Right_Bottom_Others.setBorder(null);
+
+        jButton_Right_Bottom_Others.setCursor(cursor);
 
         jPanel_Right_Bottom_Option.setBackground(UIColors.PRIMARY_COLOR_L);
         jPanel_Right_Bottom_Option.add(jLabel_Right_Bottom_Option);
