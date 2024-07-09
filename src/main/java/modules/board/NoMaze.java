@@ -1,4 +1,4 @@
-package models.board;
+package modules.board;
 
 import constants.ResourcePaths;
 import styles.UISizes;

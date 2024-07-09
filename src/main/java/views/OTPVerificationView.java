@@ -10,6 +10,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import styles.UIColors;
+import styles.UIFonts;
 
 public class OTPVerificationView extends JFrame implements ActionListener {
 
@@ -44,6 +46,9 @@ public class OTPVerificationView extends JFrame implements ActionListener {
         bottomPanel = new JPanel(new FlowLayout());
 
         otpLabel = new JLabel("Enter OTP to verify your account");
+        otpLabel.setFont(UIFonts.INPUT_SMALL);
+        otpLabel.setForeground(UIColors.TEXT_COLOR_L);
+
         otpField = new JTextField(null, 20);
         verifyButton = new JButton("Submit");
         resendButton = new JButton("Resend");

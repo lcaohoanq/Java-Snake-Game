@@ -1,4 +1,4 @@
-package models.board;
+package modules.board;
 
 public class Campaign extends Board {
     @Override

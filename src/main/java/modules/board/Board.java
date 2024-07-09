@@ -1,15 +1,15 @@
-package models.board;
+package modules.board;
 
-import utils.UIUtils;
+import views.UIPrompts;
 import constants.ResourcePaths;
 import styles.UISizes;
 import styles.UILabels;
 import controllers.LoginController;
-import services.UserDAO;
+import modules.user.UserDAO;
 import styles.UIBorders;
 import styles.UIColors;
 import styles.UIFonts;
-import utils.AudioHandler;
+import modules.sound.AudioHandler;
 import views.MenuView;
 
 import javax.swing.*;
@@ -171,7 +171,7 @@ public abstract class Board extends JPanel implements ActionListener {
         exitButton.setBackground(UIColors.PROGRESS_BAR_LOADING);
         exitButton.setForeground(UIColors.PRIMARY_COLOR_L);
         exitButton.addActionListener(e -> {
-            if (UIUtils.IS_CONFIRM_EXIT() == JOptionPane.YES_OPTION) {
+            if (UIPrompts.IS_CONFIRM_EXIT() == JOptionPane.YES_OPTION) {
                 SwingUtilities.getWindowAncestor(this).dispose();
             }
         });

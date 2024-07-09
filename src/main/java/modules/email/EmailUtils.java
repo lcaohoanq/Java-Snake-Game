@@ -1,4 +1,4 @@
-package utils;
+package modules.email;
 
 import javax.mail.Authenticator;
 import javax.mail.PasswordAuthentication;
@@ -9,6 +9,8 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import utils.EnvUtils;
+import modules.otp.OTPUtils;
 
 public class EmailUtils {
 
@@ -77,7 +79,7 @@ public class EmailUtils {
             + "          font-size:14px;\n"
             + "          line-height:20px;\n"
             + "          color: #444;\n"
-            + "          background:#f2f2f2;\">\n"
+            + "          background:#19b719;\">\n"
             + "        <table width=\"100%\" class=\"wrapper\" style=\" margin:20px 0;\">\n"
             + "            <tr>\n"
             + "                <td class=\"container\"> \n"
@@ -136,7 +138,7 @@ public class EmailUtils {
             + "          font-size:14px;\n"
             + "          line-height:20px;\n"
             + "          color: #444;\n"
-            + "          background:#f2f2f2;\">\n"
+            + "          background:#19b719;\">\n"
             + "        <table width=\"100%\" class=\"wrapper\" style=\" margin:20px 0;\">\n"
             + "            <tr>\n"
             + "                <td class=\"container\"> \n"

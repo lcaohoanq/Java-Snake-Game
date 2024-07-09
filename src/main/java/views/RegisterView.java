@@ -1,17 +1,16 @@
 package views;
 
-import utils.UIUtils;
 import styles.UISizes;
 import styles.UILabels;
 import controllers.RegisterController;
-import models.data.Account;
+import modules.user.UserDTO;
 import models.data.RegisterData;
 import models.ui.RegisterModel;
 import styles.UIBorders;
 import styles.UIColors;
 import styles.UIFonts;
-import utils.HoverHandler;
-import utils.ToggleHandler;
+import controllers.HoverHandler;
+import controllers.ToggleHandler;
 
 import javax.swing.*;
 import java.awt.*;
@@ -234,13 +233,13 @@ public non-sealed class RegisterView extends MyFrame implements ToggleHandler, H
         boolean isMatching = false;
         //matching accept both email and phonenumber from Vietnam
         if(!this.registerModel.isEmailFormat(this.getRegister().email())){
-            UIUtils.IS_WRONG_FORMAT_EMAIL();
+            UIPrompts.IS_WRONG_FORMAT_EMAIL();
         } else if (!this.registerModel.isNameFormat(this.getRegister().firstName())) {
-            UIUtils.IS_WRONG_FORMAT_NAME();
+            UIPrompts.IS_WRONG_FORMAT_NAME();
         } else if (!this.registerModel.isNameFormat(this.getRegister().lastName())) {
-            UIUtils.IS_WRONG_FORMAT_NAME();
+            UIPrompts.IS_WRONG_FORMAT_NAME();
         } else if (!this.registerModel.isPasswordFormat(this.getRegister().password())) {
-            UIUtils.IS_WRONG_FORMAT_PASSWORD();
+            UIPrompts.IS_WRONG_FORMAT_PASSWORD();
         } else {
             isMatching = true;
         }
@@ -262,13 +261,13 @@ public non-sealed class RegisterView extends MyFrame implements ToggleHandler, H
     }
 
     //xu li cac ham o day
-    public Account getRegister() {
+    public UserDTO getRegister() {
         email_phone = jTextField_Right_Middle_Email.getText();
         firstName = jTextField_Right_Middle_FirstName.getText();
         lastName = jTextField_Right_Middle_LastName.getText();
         password = String.valueOf(jPasswordField_Right_Middle_Password.getPassword());
         confirmPassword = String.valueOf(jPasswordField_Right_Middle_Confirm_Password.getPassword());
-        return new Account(email_phone, firstName, lastName, password, confirmPassword);
+        return new UserDTO(email_phone, firstName, lastName, password, confirmPassword);
     }
 
     public void insertMail() {
@@ -276,21 +275,21 @@ public non-sealed class RegisterView extends MyFrame implements ToggleHandler, H
     }
 
     public void handleSuccess() {
-        UIUtils.IS_REGISTER_SUCCESS();
+        UIPrompts.IS_REGISTER_SUCCESS();
     }
 
     public void handleEmpty() {
-        UIUtils.IS_EMPTY_FIELD();
+        UIPrompts.IS_EMPTY_FIELD();
     }
 
     public void handleNotMatchingPasswordAndConfirmPassword() {
-        UIUtils.IS_NOT_MATCH_PASSWORD_AND_CONFIRM_PASSWORD();
+        UIPrompts.IS_NOT_MATCH_PASSWORD_AND_CONFIRM_PASSWORD();
     }
 
 
 
     public void handleDuplicateEmail() {
-        UIUtils.IS_EXISTED_EMAIL();
+        UIPrompts.IS_EXISTED_EMAIL();
     }
 
     //this method for test getRegister above

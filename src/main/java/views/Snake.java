@@ -4,8 +4,14 @@ import javax.swing.*;
 
 import controllers.MenuController;
 import controllers.PlayController;
-import models.board.*;
-import models.board.Box;
+import modules.board.*;
+import modules.board.Apartment;
+import modules.board.Box;
+import modules.board.Campaign;
+import modules.board.Mill;
+import modules.board.NoMaze;
+import modules.board.Rails;
+import modules.board.Tunnel;
 import styles.UIBorders;
 import styles.UIImages;
 

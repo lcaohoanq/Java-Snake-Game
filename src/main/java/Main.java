@@ -1,5 +1,3 @@
-package runtime;
-
 import java.awt.EventQueue;
 
 import views.LoginView;

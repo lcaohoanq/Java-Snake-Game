@@ -1,8 +1,7 @@
-package services;
+package modules.user;
 
 import constants.ErrorMessages;
 import errors.DBException;
-import models.data.Account;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -10,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import services.DatabaseConnection;
 
 public class UserDAO {
     private static UserDAO instance;
@@ -40,14 +40,14 @@ public class UserDAO {
         return resultList;
     }
 
-    public Account selectEmailAndPasswordByEmail(String email) {
+    public UserDTO selectEmailAndPasswordByEmail(String email) {
         try {
             Connection connection = dbConnection.getConnection();
             CallableStatement cStatement = connection.prepareCall("{CALL proc_select_email_password(?)}");
             cStatement.setString(1, email);
             ResultSet resultSet = cStatement.executeQuery();
             while (resultSet.next()) {
-                return new Account(resultSet.getString("email"), resultSet.getString("password"));
+                return new UserDTO(resultSet.getString("email"), resultSet.getString("password"));
             }
         } catch (SQLException e) {
             System.out.println(ErrorMessages.ERROR_SELECT_EMAIL_AND_PASSWORD + e.getMessage());
@@ -55,7 +55,7 @@ public class UserDAO {
         return null;
     }
 
-    public Account selectEmailAndScoreByEmail(String email) {
+    public UserDTO selectEmailAndScoreByEmail(String email) {
         try {
             Connection connection = dbConnection.getConnection();
 
@@ -65,7 +65,7 @@ public class UserDAO {
 
             ResultSet resultSet = cStatement.executeQuery();
             while (resultSet.next()) {
-                return new Account(resultSet.getString("email"), resultSet.getInt("score"));
+                return new UserDTO(resultSet.getString("email"), resultSet.getInt("score"));
             }
         } catch (SQLException e) {
             System.out.println(ErrorMessages.ERROR_SELECT_USERNAME_AND_SCORE + e.getMessage());

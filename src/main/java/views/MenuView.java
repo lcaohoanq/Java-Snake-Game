@@ -7,9 +7,9 @@ import styles.UIBorders;
 import styles.UIColors;
 import styles.UIFonts;
 import styles.UIImages;
-import utils.AudioHandler;
-import utils.HoverHandler;
-import utils.ToggleHandler;
+import modules.sound.AudioHandler;
+import controllers.HoverHandler;
+import controllers.ToggleHandler;
 
 import javax.swing.*;
 import java.awt.*;

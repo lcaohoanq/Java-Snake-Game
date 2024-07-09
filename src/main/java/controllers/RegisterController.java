@@ -4,8 +4,8 @@ import java.util.Arrays;
 import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JTextField;
-import utils.EmailUtils;
-import utils.OTPUtils;
+import modules.email.EmailUtils;
+import modules.otp.OTPUtils;
 import views.OTPVerificationView;
 import views.RegisterView;
 
@@ -54,6 +54,7 @@ public class RegisterController implements ActionListener, MouseListener {
                             public void onOtpVerified() {
                                 registerView.insertMail();
                                 registerView.handleSuccess();
+                                registerView.setEnabled(true);
                             }
 
                             @Override
