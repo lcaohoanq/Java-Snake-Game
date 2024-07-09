@@ -18,7 +18,7 @@ public record LoginModel(String username, String password) {
         Account db;
         UserDAO executeQuery = UserDAO.getInstance();
         try {
-            db = executeQuery.selectUsernameAndPasswordByUsername(username);
+            db = executeQuery.selectEmailAndPasswordByEmail(username);
             if (db != null) {
                 return new PasswordHandler().authenticate(password.toCharArray(), db.password());
             } else {

@@ -15,6 +15,10 @@ public class UIUtils {
         JOptionPane.showMessageDialog(null, "Register success", "Success", JOptionPane.INFORMATION_MESSAGE);
     }
 
+    public static void IS_WRONG_FORMAT_EMAIL(){
+        JOptionPane.showMessageDialog(null, "Email must be in the correct format", "Error", JOptionPane.WARNING_MESSAGE);
+    }
+
     public static void IS_WRONG_USERNAME_OR_PASSWORD() {
         JOptionPane.showMessageDialog(null, "Wrong username or password", "Error", JOptionPane.ERROR_MESSAGE);
     }
@@ -33,12 +37,12 @@ public class UIUtils {
                 JOptionPane.WARNING_MESSAGE);
     }
 
-    public static void IS_EXISTED_USERNAME() {
-        JOptionPane.showMessageDialog(null, "Username is existed", "Error", JOptionPane.WARNING_MESSAGE);
+    public static void IS_EXISTED_EMAIL() {
+        JOptionPane.showMessageDialog(null, "Email already existed, please try with another email", "Error", JOptionPane.WARNING_MESSAGE);
     }
 
-    public static void IS_WRONG_FORMAT_USERNAME() {
-        JOptionPane.showMessageDialog(null, "Username must be 1-20 characters and no special characters", "Error", JOptionPane.WARNING_MESSAGE);
+    public static void IS_WRONG_FORMAT_NAME() {
+        JOptionPane.showMessageDialog(null, "Name must be 1-20 characters, no special character, no number", "Error", JOptionPane.WARNING_MESSAGE);
     }
 
     public static void IS_WRONG_FORMAT_PASSWORD() {

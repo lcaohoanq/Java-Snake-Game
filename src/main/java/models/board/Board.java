@@ -283,20 +283,20 @@ public abstract class Board extends JPanel implements ActionListener {
     public int handleScore(String username) {
         UserDAO executeQuery = UserDAO.getInstance();
         int currentScore = this.score;
-        int dbScore = Objects.requireNonNull(executeQuery.selectUsernameAndScoreByUsername(username)).score();
+        int dbScore = Objects.requireNonNull(executeQuery.selectEmailAndScoreByEmail(username)).score();
         return compareDatabaseAndCurrentScore(dbScore, currentScore);
     }
 
     public void updateScore() {
         UserDAO executeQuery = UserDAO.getInstance();
-        String username = LoginController.username;
+        String username = LoginController.email;
         if (username.isEmpty()) {
             return;
         }
         // if the current score > db score, update the score in the database
         if (handleScore(username) < 0) {
             executeQuery.setSafeUpdate();
-            executeQuery.updateUsernameScore(username, String.valueOf(this.score));
+            executeQuery.updateEmailScore(username, String.valueOf(this.score));
         }
     }
 

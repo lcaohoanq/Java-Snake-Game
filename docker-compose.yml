@@ -1,7 +1,7 @@
 version: '2.28.1'
 services:
   db:
-    image: lcaohoanq/snake_game_app
+    image: lcaohoanq/snake_game_app:1.0
     container_name: snake_game
     ports:
       - "3307:3306"

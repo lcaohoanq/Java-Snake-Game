@@ -25,7 +25,9 @@ public abstract sealed class MyFrame extends JFrame implements ToggleHandler, Ho
     private final JMenuItem jMenuItem_AboutMe = new JMenuItem("About me");
     private final JMenuItem jMenuItem_Score = new JMenuItem("Show Score");
     private final JMenuItem jMenuItem_Go = new JMenuItem("Go!!!");
-    public JTextField jTextField_Right_Middle_Username; // 20 is the number of columns
+    public JTextField jTextField_Right_Middle_Email; // 20 is the number of columns
+    public JTextField jTextField_Right_Middle_FirstName; // 20 is the number of columns
+    public JTextField jTextField_Right_Middle_LastName; // 20 is the number of columns
     public JPasswordField jPasswordField_Right_Middle_Password;
     public JPasswordField jPasswordField_Right_Middle_Confirm_Password;
     public JButton jButton_Right_Bottom_Submit;
@@ -34,8 +36,12 @@ public abstract sealed class MyFrame extends JFrame implements ToggleHandler, Ho
     protected JPanel jPanel_Right;
     protected JPanel jPanel_Right_Top_Tittle;
     protected JLabel jLabel_Right_Top_Tittle;
-    protected JPanel jPanel_Right_Middle_Username;
-    protected JLabel jLabel_Right_Middle_Username;
+    protected JPanel jPanel_Right_Middle_Email;
+    protected JPanel jPanel_Right_Middle_FirstName;
+    protected JPanel jPanel_Right_Middle_LastName;
+    protected JLabel jLabel_Right_Middle_Email;
+    protected JLabel jLabel_Right_Middle_FirstName;
+    protected JLabel jLabel_Right_Middle_LastName;
     protected JPanel jPanel_Right_Middle_Password;
     protected JLabel jLabel_Right_Middle_Password;
     protected JLabel jLabel_Right_Middle_Confirm_Password;
@@ -56,7 +62,7 @@ public abstract sealed class MyFrame extends JFrame implements ToggleHandler, Ho
         setSize(UISizes.WIDTH_MY_FRAME, UISizes.HEIGHT_MY_FRAME);
         setIconImage(UIImages.icon);
         setLocationRelativeTo(null);
-        setResizable(false);
+        setResizable(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         initUI();
     }
@@ -113,9 +119,15 @@ public abstract sealed class MyFrame extends JFrame implements ToggleHandler, Ho
     protected void initToggle() {
         toggleButton.addEventSelected(selected -> {
             if (selected) {
-                jLabel_Right_Middle_Username.setForeground(UIColors.TEXT_COLOR_D);
-                jTextField_Right_Middle_Username.setForeground(UIColors.TEXT_COLOR_D);
-                jTextField_Right_Middle_Username.setBackground(UIColors.SECONDARY_COLOR_D);
+                jLabel_Right_Middle_Email.setForeground(UIColors.TEXT_COLOR_D);
+                jLabel_Right_Middle_FirstName.setForeground(UIColors.TEXT_COLOR_D);
+                jLabel_Right_Middle_LastName.setForeground(UIColors.TEXT_COLOR_D);
+                jTextField_Right_Middle_Email.setForeground(UIColors.TEXT_COLOR_D);
+                jTextField_Right_Middle_Email.setBackground(UIColors.SECONDARY_COLOR_D);
+                jTextField_Right_Middle_FirstName.setForeground(UIColors.TEXT_COLOR_D);
+                jTextField_Right_Middle_FirstName.setBackground(UIColors.SECONDARY_COLOR_D);
+                jTextField_Right_Middle_LastName.setForeground(UIColors.TEXT_COLOR_D);
+                jTextField_Right_Middle_LastName.setBackground(UIColors.SECONDARY_COLOR_D);
                 jLabel_Right_Middle_Password.setForeground(UIColors.TEXT_COLOR_D);
                 jLabel_Right_Top_Tittle.setForeground(UIColors.TEXT_COLOR_D);
                 jPasswordField_Right_Middle_Password.setBackground(UIColors.SECONDARY_COLOR_D);
@@ -124,7 +136,9 @@ public abstract sealed class MyFrame extends JFrame implements ToggleHandler, Ho
                 jButton_Right_Bottom_Submit.setBackground(UIColors.TEXT_COLOR_D);
                 jButton_Right_Bottom_Others.setForeground(UIColors.OTHER_OPTIONS_D);
                 jButton_Right_Bottom_Others.setBackground(UIColors.PRIMARY_COLOR_D);
-                jPanel_Right_Middle_Username.setBackground(UIColors.PRIMARY_COLOR_D);
+                jPanel_Right_Middle_Email.setBackground(UIColors.PRIMARY_COLOR_D);
+                jPanel_Right_Middle_FirstName.setBackground(UIColors.PRIMARY_COLOR_D);
+                jPanel_Right_Middle_LastName.setBackground(UIColors.PRIMARY_COLOR_D);
                 jPanel_Right_Middle_Password.setBackground(UIColors.PRIMARY_COLOR_D);
                 jPanel_Right_Bottom_Button.setBackground(UIColors.PRIMARY_COLOR_D);
                 jPanel_Right_Middle_Data.setBackground(UIColors.PRIMARY_COLOR_D);
@@ -138,13 +152,21 @@ public abstract sealed class MyFrame extends JFrame implements ToggleHandler, Ho
                 jPanel_Container.setBackground(UIColors.TEXT_COLOR_D);
                 jPanel_Right.setBackground(UIColors.PRIMARY_COLOR_D);
             } else {
-                jLabel_Right_Middle_Username.setForeground(UIColors.TEXT_COLOR_L);
-                jTextField_Right_Middle_Username.setForeground(UIColors.TEXT_COLOR_L);
-                jTextField_Right_Middle_Username.setBackground(UIColors.SECONDARY_COLOR_L);
+                jLabel_Right_Middle_Email.setForeground(UIColors.TEXT_COLOR_D);
+                jLabel_Right_Middle_FirstName.setForeground(UIColors.TEXT_COLOR_D);
+                jLabel_Right_Middle_LastName.setForeground(UIColors.TEXT_COLOR_D);
+                jTextField_Right_Middle_Email.setForeground(UIColors.TEXT_COLOR_L);
+                jTextField_Right_Middle_Email.setBackground(UIColors.SECONDARY_COLOR_L);
+                jTextField_Right_Middle_FirstName.setForeground(UIColors.TEXT_COLOR_L);
+                jTextField_Right_Middle_FirstName.setBackground(UIColors.SECONDARY_COLOR_L);
+                jTextField_Right_Middle_LastName.setForeground(UIColors.TEXT_COLOR_L);
+                jTextField_Right_Middle_LastName.setBackground(UIColors.SECONDARY_COLOR_L);
                 jLabel_Right_Middle_Password.setForeground(UIColors.TEXT_COLOR_L);
                 jPasswordField_Right_Middle_Password.setBackground(UIColors.SECONDARY_COLOR_L);
                 jPasswordField_Right_Middle_Password.setForeground(UIColors.TEXT_COLOR_L);
-                jPanel_Right_Middle_Username.setBackground(UIColors.PRIMARY_COLOR_L);
+                jPanel_Right_Middle_Email.setBackground(UIColors.PRIMARY_COLOR_L);
+                jPanel_Right_Middle_FirstName.setBackground(UIColors.PRIMARY_COLOR_L);
+                jPanel_Right_Middle_LastName.setBackground(UIColors.PRIMARY_COLOR_L);
                 jPanel_Right_Middle_Password.setBackground(UIColors.PRIMARY_COLOR_L);
                 jButton_Right_Bottom_Submit.setForeground(UIColors.PRIMARY_COLOR_L);
                 jButton_Right_Bottom_Submit.setBackground(UIColors.TEXT_COLOR_L);
@@ -166,18 +188,50 @@ public abstract sealed class MyFrame extends JFrame implements ToggleHandler, Ho
         jPanel_Right_Bottom_Option.add(toggleButton, FlowLayout.RIGHT);
     }
 
-    public void setHoverUsername(boolean isInside, String mode) {
+    public void setHoverEmail(boolean isInside, String mode) {
         if (isInside) {
             if (mode.equals("light")) {
-                jTextField_Right_Middle_Username.setBackground(UIColors.SECONDARY_COLOR_L_HOVER);
+                jTextField_Right_Middle_Email.setBackground(UIColors.SECONDARY_COLOR_L_HOVER);
             } else {
-                jTextField_Right_Middle_Username.setBackground(UIColors.SECONDARY_COLOR_D_HOVER);
+                jTextField_Right_Middle_Email.setBackground(UIColors.SECONDARY_COLOR_D_HOVER);
             }
         } else {
             if (mode.equals("light")) {
-                jTextField_Right_Middle_Username.setBackground(UIColors.SECONDARY_COLOR_L);
+                jTextField_Right_Middle_Email.setBackground(UIColors.SECONDARY_COLOR_L);
             } else {
-                jTextField_Right_Middle_Username.setBackground(UIColors.SECONDARY_COLOR_D);
+                jTextField_Right_Middle_Email.setBackground(UIColors.SECONDARY_COLOR_D);
+            }
+        }
+    }
+
+    public void setHoverFirstName(boolean isInside, String mode) {
+        if (isInside) {
+            if (mode.equals("light")) {
+                jTextField_Right_Middle_FirstName.setBackground(UIColors.SECONDARY_COLOR_L_HOVER);
+            } else {
+                jTextField_Right_Middle_FirstName.setBackground(UIColors.SECONDARY_COLOR_D_HOVER);
+            }
+        } else {
+            if (mode.equals("light")) {
+                jTextField_Right_Middle_FirstName.setBackground(UIColors.SECONDARY_COLOR_L);
+            } else {
+                jTextField_Right_Middle_FirstName.setBackground(UIColors.SECONDARY_COLOR_D);
+            }
+        }
+    }
+
+    public void setHoverLastName(boolean isInside, String mode) {
+        if (isInside) {
+            if (mode.equals("light")) {
+                jTextField_Right_Middle_LastName.setBackground(UIColors.SECONDARY_COLOR_L_HOVER);
+            } else {
+                jTextField_Right_Middle_LastName.setBackground(UIColors.SECONDARY_COLOR_D_HOVER);
+            }
+        } else {
+            if (mode.equals("light")) {
+                jTextField_Right_Middle_LastName.setBackground(UIColors.SECONDARY_COLOR_L);
+            } else {
+                jTextField_Right_Middle_LastName.setBackground(UIColors.SECONDARY_COLOR_D);
             }
         }
     }

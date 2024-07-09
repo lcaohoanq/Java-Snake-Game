@@ -11,16 +11,24 @@ public record RegisterModel(String username, String password, String confirmPass
         this("", "", "");
     }
 
-    public boolean isUsernameFormat(String username) {
-        return username.matches(Regex.USERNAME);
+    public boolean isNameFormat(String name) {
+        return name.matches(Regex.NAME);
+    }
+
+    public boolean isEmailFormat(String email) {
+        return email.matches(Regex.EMAIL);
+    }
+
+    public boolean isPhoneNumberFormat(String phoneNumber) {
+        return phoneNumber.matches(Regex.PHONE_NUMBER);
     }
 
     public boolean isPasswordFormat(String password) {
         return password.matches(Regex.PASSWORD);
     }
 
-    public boolean isEmpty(String username, String password, String confirmPassword) {
-        return username.isEmpty() || password.isEmpty() || confirmPassword.isEmpty();
+    public boolean isEmpty(String email_phoneNumber , String firstName, String lastName, String password, String confirmPassword) {
+        return email_phoneNumber.isEmpty() || firstName.isEmpty() || lastName.isEmpty() || password.isEmpty() || confirmPassword.isEmpty();
     }
 
     public boolean isMatching(String password, String confirmPassword) {
@@ -31,7 +39,7 @@ public record RegisterModel(String username, String password, String confirmPass
         Account db;
         UserDAO executeQuery = UserDAO.getInstance();
         try {
-            db = executeQuery.selectUsernameAndPasswordByUsername(username);
+            db = executeQuery.selectEmailAndPasswordByEmail(username);
             if (db == null) {
                 return false;
             } else {
@@ -43,9 +51,9 @@ public record RegisterModel(String username, String password, String confirmPass
         return true;
     }
 
-    public void insert(String username, String password) {
+    public void insertMail(String email, String firstName, String lastName, String password) {
         UserDAO executeQuery = UserDAO.getInstance();
         password = new PasswordHandler().hash(password); // replace password with the hashed
-        executeQuery.insert(username, password);
+        executeQuery.insertMail(email,null, firstName,lastName, password);
     }
 }
