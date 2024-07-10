@@ -4,12 +4,10 @@ import styles.UISizes;
 import styles.UILabels;
 import controllers.RegisterController;
 import modules.user.UserDTO;
-import models.data.RegisterData;
-import models.ui.RegisterModel;
+import models.RegisterModel;
 import styles.UIBorders;
 import styles.UIColors;
 import styles.UIFonts;
-import controllers.HoverHandler;
 import controllers.ToggleHandler;
 
 import javax.swing.*;

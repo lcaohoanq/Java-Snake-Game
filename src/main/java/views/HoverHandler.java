@@ -1,9 +1,4 @@
-package controllers;
-
-import views.LoginView;
-import views.MenuView;
-import views.MyFrame;
-import views.RegisterView;
+package views;
 
 import javax.swing.*;
 

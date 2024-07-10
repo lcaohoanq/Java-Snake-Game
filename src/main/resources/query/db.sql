@@ -1,8 +1,9 @@
 -- Create the database if it doesn't exist
 CREATE DATABASE IF NOT EXISTS snake_game_app;
-DROP DATABASE IF EXISTS snake_game_app;
+
 -- Use the database
 USE snake_game_app;
+
 
 -- Create the users table
 CREATE TABLE IF NOT EXISTS users

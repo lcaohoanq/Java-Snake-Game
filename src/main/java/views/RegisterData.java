@@ -1,6 +1,4 @@
-package models.data;
-
-import views.RegisterView;
+package views;
 
 public sealed interface RegisterData extends LoginData permits RegisterView {
     boolean isEmpty();

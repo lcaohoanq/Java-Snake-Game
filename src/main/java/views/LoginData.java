@@ -1,6 +1,4 @@
-package models.data;
-
-import views.LoginView;
+package views;
 
 sealed public interface LoginData permits RegisterData, LoginView {
     void handleEmpty();

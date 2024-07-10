@@ -1,4 +1,4 @@
-package models.ui;
+package models;
 
 import constants.Regex;
 import errors.DataException;

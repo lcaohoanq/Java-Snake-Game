@@ -6,12 +6,10 @@ import styles.UILabels;
 import controllers.LoginController;
 import controllers.PlayController;
 import modules.user.UserDTO;
-import models.data.LoginData;
-import models.ui.LoginModel;
+import models.LoginModel;
 import styles.UIBorders;
 import styles.UIColors;
 import styles.UIFonts;
-import controllers.HoverHandler;
 import controllers.ToggleHandler;
 
 import javax.swing.*;
