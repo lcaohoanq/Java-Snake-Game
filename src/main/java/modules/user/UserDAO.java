@@ -9,11 +9,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import services.DatabaseConnection;
+import services.DatabaseService;
 
 public class UserDAO {
     private static UserDAO instance;
-    private DatabaseConnection dbConnection = new DatabaseConnection();
+    private DatabaseService dbConnection = new DatabaseService();
 
     private UserDAO() {
     }

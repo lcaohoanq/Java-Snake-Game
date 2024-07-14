@@ -7,12 +7,12 @@ import javax.swing.JTextField;
 import modules.email.EmailUtils;
 import modules.otp.OTPUtils;
 import views.OTPVerificationView;
-import views.RegisterView;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import views.RegisterView;
 
 public class RegisterController implements ActionListener, MouseListener {
 

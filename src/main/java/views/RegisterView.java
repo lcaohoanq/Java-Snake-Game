@@ -1,19 +1,20 @@
 package views;
 
+import controllers.RegisterController;
+import controllers.ToggleHandler;
 import styles.UISizes;
 import styles.UILabels;
-import controllers.RegisterController;
 import modules.user.UserDTO;
 import models.RegisterModel;
 import styles.UIBorders;
 import styles.UIColors;
 import styles.UIFonts;
-import controllers.ToggleHandler;
 
 import javax.swing.*;
 import java.awt.*;
 
-public non-sealed class RegisterView extends MyFrame implements ToggleHandler, HoverHandler, RegisterData {
+public non-sealed class RegisterView extends MyFrame implements ToggleHandler, HoverHandler,
+    RegisterData {
 
     private String email_phone;
     private String firstName;
