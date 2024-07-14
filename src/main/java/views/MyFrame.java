@@ -31,6 +31,7 @@ public abstract sealed class MyFrame extends JFrame implements ToggleHandler, Ho
     public JPasswordField jPasswordField_Right_Middle_Password;
     public JPasswordField jPasswordField_Right_Middle_Confirm_Password;
     public JButton jButton_Right_Bottom_Submit;
+    public JButton jButton_Right_Bottom_Forgot_Password;
     public JButton jButton_Right_Bottom_Others;
     protected JPanel jPanel_Container;
     protected JPanel jPanel_Right;
@@ -277,6 +278,14 @@ public abstract sealed class MyFrame extends JFrame implements ToggleHandler, Ho
             jButton_Right_Bottom_Others.setFont(UIFonts.OTHERS_HOVER);
         } else {
             jButton_Right_Bottom_Others.setFont(UIFonts.OTHERS);
+        }
+    }
+
+    public void setHoverForgotPassword(boolean isInside) {
+        if (isInside) {
+            jButton_Right_Bottom_Forgot_Password.setFont(UIFonts.OTHERS_HOVER);
+        } else {
+            jButton_Right_Bottom_Forgot_Password.setFont(UIFonts.OTHERS);
         }
     }
 

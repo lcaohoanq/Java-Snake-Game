@@ -1,6 +1,11 @@
 package views;
 
 import constants.ResourcePaths;
+import java.awt.event.ActionListener;
+import models.RegisterModel;
+import modules.email.EmailCategories;
+import modules.email.EmailUtils;
+import modules.otp.OTPUtils;
 import styles.UISizes;
 import styles.UILabels;
 import controllers.LoginController;
@@ -16,7 +21,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.InputStream;
 
-public non-sealed class LoginView extends MyFrame implements ToggleHandler, HoverHandler, LoginData {
+public non-sealed class LoginView extends MyFrame implements ToggleHandler, HoverHandler,
+    LoginData {
 
     public static CardLayout cardLayout;
     private LoginModel loginModel;
@@ -46,7 +52,8 @@ public non-sealed class LoginView extends MyFrame implements ToggleHandler, Hove
         initRightBottom();
 
         jPanel_Right = new JPanel(new BorderLayout());
-        jPanel_Right.setPreferredSize(new Dimension(UISizes.WIDTH_MY_RIGHT_FRAME, UISizes.HEIGHT_MY_RIGHT_FRAME));
+        jPanel_Right.setPreferredSize(
+            new Dimension(UISizes.WIDTH_MY_RIGHT_FRAME, UISizes.HEIGHT_MY_RIGHT_FRAME));
         jPanel_Right.setBackground(UIColors.PRIMARY_COLOR_L);
         jPanel_Right.setBorder(UIBorders.MID_FIELD);
 
@@ -101,13 +108,15 @@ public non-sealed class LoginView extends MyFrame implements ToggleHandler, Hove
         jPasswordField_Right_Middle_Password.setBackground(UIColors.SECONDARY_COLOR_L);
         jPasswordField_Right_Middle_Password.setForeground(UIColors.TEXT_COLOR_L);
 
-        jPanel_Right_Middle_Email.setLayout(new BoxLayout(jPanel_Right_Middle_Email, BoxLayout.Y_AXIS));
+        jPanel_Right_Middle_Email.setLayout(
+            new BoxLayout(jPanel_Right_Middle_Email, BoxLayout.Y_AXIS));
         jPanel_Right_Middle_Email.setBackground(UIColors.PRIMARY_COLOR_L);
         jPanel_Right_Middle_Email.add(jLabel_Right_Middle_Email);
         jPanel_Right_Middle_Email.add(jTextField_Right_Middle_Email);
         jPanel_Right_Middle_Email.setBorder(UIBorders.MIDDLE);
 
-        jPanel_Right_Middle_Password.setLayout(new BoxLayout(jPanel_Right_Middle_Password, BoxLayout.Y_AXIS));
+        jPanel_Right_Middle_Password.setLayout(
+            new BoxLayout(jPanel_Right_Middle_Password, BoxLayout.Y_AXIS));
         jPanel_Right_Middle_Password.setBackground(UIColors.PRIMARY_COLOR_L);
         jPanel_Right_Middle_Password.add(jLabel_Right_Middle_Password);
         jPanel_Right_Middle_Password.add(jPasswordField_Right_Middle_Password);
@@ -144,6 +153,7 @@ public non-sealed class LoginView extends MyFrame implements ToggleHandler, Hove
     public void initRightBottom() {
         jLabel_Right_Bottom_Option = new JLabel(UILabels.DONT_HAVE_ACCOUNT);
         jButton_Right_Bottom_Others = new JButton(UILabels.SIGN_UP_HERE);
+        jButton_Right_Bottom_Forgot_Password = new JButton(UILabels.FORGOT_PASSWORD);
         jPanel_Right_Bottom_Option = new JPanel();
 
         jLabel_Right_Bottom_Option.setForeground(UIColors.TEXT_COLOR_L);
@@ -156,9 +166,17 @@ public non-sealed class LoginView extends MyFrame implements ToggleHandler, Hove
 
         jButton_Right_Bottom_Others.setCursor(cursor);
 
+        jButton_Right_Bottom_Forgot_Password.setBackground(UIColors.PRIMARY_COLOR_L);
+        jButton_Right_Bottom_Forgot_Password.setForeground(UIColors.OTHER_OPTIONS_L);
+        jButton_Right_Bottom_Forgot_Password.setFont(UIFonts.OTHERS);
+        jButton_Right_Bottom_Forgot_Password.setBorder(null);
+
+        jButton_Right_Bottom_Forgot_Password.setCursor(cursor);
+
         jPanel_Right_Bottom_Option.setBackground(UIColors.PRIMARY_COLOR_L);
         jPanel_Right_Bottom_Option.add(jLabel_Right_Bottom_Option);
         jPanel_Right_Bottom_Option.add(jButton_Right_Bottom_Others);
+        jPanel_Right_Bottom_Option.add(jButton_Right_Bottom_Forgot_Password);
     }
 
     @Override
@@ -187,6 +205,7 @@ public non-sealed class LoginView extends MyFrame implements ToggleHandler, Hove
         jButton_Right_Play.addActionListener(new PlayController(this));
         jPasswordField_Right_Middle_Password.addActionListener(new PressEnter());
         jButton_Right_Bottom_Others.addActionListener(new ClickOtherOption());
+        jButton_Right_Bottom_Forgot_Password.addActionListener(new ClickForgotPassword());
     }
 
     //xu li cac ham o day
@@ -248,5 +267,30 @@ public non-sealed class LoginView extends MyFrame implements ToggleHandler, Hove
     @Override
     public void changeColorBaseOnToggle() {
 
+    }
+
+    public class ClickForgotPassword implements ActionListener {
+        @Override
+        public void actionPerformed(java.awt.event.ActionEvent e) {
+            if (jButton_Right_Bottom_Forgot_Password.getText().equals("Forgot password?")) {
+                String data = jTextField_Right_Middle_Email.getText();
+                if (data.isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Please enter your email", "Error",
+                        JOptionPane.ERROR_MESSAGE);
+                } else {
+                    // need to check if the user is in the database or not
+                    if (!new RegisterModel().isDuplicateEmail(data)) {
+                        JOptionPane.showMessageDialog(null, "Account not existed", "Error",
+                            JOptionPane.ERROR_MESSAGE);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Please check your email for OTP",
+                            "Success",
+                            JOptionPane.INFORMATION_MESSAGE);
+                        new EmailUtils().checkEmailIsValidAndSendEmail(
+                            EmailCategories.FORGOT_PASSWORD.getType(), data, "Hoang");
+                    }
+                }
+            }
+        }
     }
 }

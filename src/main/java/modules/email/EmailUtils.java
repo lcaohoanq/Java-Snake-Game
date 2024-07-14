@@ -9,6 +9,7 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import models.RegisterModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import utils.EnvUtils;
@@ -35,7 +36,8 @@ public class EmailUtils {
     }
 
     public boolean isValidEmail(String email) {
-        return Pattern.compile("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Z|a-z]{2,}$", Pattern.CASE_INSENSITIVE).matcher(email).matches();
+        return Pattern.compile("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Z|a-z]{2,}$",
+            Pattern.CASE_INSENSITIVE).matcher(email).matches();
     }
 
     private Authenticator getAuthenticator() {
@@ -98,12 +100,36 @@ public class EmailUtils {
     public static void main(String[] args) {
         EmailUtils emailUtils = new EmailUtils();
         String email = "hoangclw@gmail.com";
-        if (emailUtils.isValidEmail(email)) {
-            String subject = emailUtils.subjectGreeting("Hoang");
-            String message = emailUtils.emailSendForgotPassword("Hoang", OTPUtils.generateOTP());
-            emailUtils.sendEmail(subject, message, email);
-        } else {
-            logger.error("Invalid email address: {}", email);
-        }
+        emailUtils.checkEmailIsValidAndSendEmail("sendOtp", email, "Hoang", "123", "12312");
     }
+
+    public void checkEmailIsValidAndSendEmail(String emailType, String email, String name,
+        String... reason) {
+        if (!isValidEmail(email)) {
+            logger.error("Invalid email address: {}", email);
+            return;
+        }
+
+        String subject = subjectGreeting(name);
+        String message;
+
+        switch (emailType) {
+            case "sendOtp":
+                message = emailSendOtp(name, OTPUtils.generateOTP());
+                break;
+            case "blockAccount":
+                message = emailSendBlockAccount(email,
+                    reason.length > 0 ? reason[0] : "No specific reason provided.");
+                break;
+            case "forgotPassword":
+                message = emailSendForgotPassword(name, OTPUtils.generateOTP());
+                break;
+            default:
+                logger.error("Unknown email type: {}", emailType);
+                return;
+        }
+
+        sendEmail(subject, message, email);
+    }
+
 }
