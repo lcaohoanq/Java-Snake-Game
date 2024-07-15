@@ -1,7 +1,7 @@
 package models;
 
 import errors.DataException;
-import modules.user.UserDTO;
+import modules.user.UserEntity;
 import modules.user.UserDAO;
 import utils.PasswordHandler;
 
@@ -15,12 +15,12 @@ public record LoginModel(String username, String password) {
     }
 
     public boolean isMatching(String username, String password) {
-        UserDTO db;
+        UserEntity db;
         UserDAO executeQuery = UserDAO.getInstance();
         try {
             db = executeQuery.selectEmailAndPasswordByEmail(username);
             if (db != null) {
-                return new PasswordHandler().authenticate(password.toCharArray(), db.password());
+                return new PasswordHandler().authenticate(password.toCharArray(), db.getPassword());
             } else {
                 throw new DataException("Error authenticate, password do not match");
             }

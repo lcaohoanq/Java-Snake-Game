@@ -2,6 +2,7 @@ package views;
 
 import controllers.RegisterController;
 import controllers.ToggleHandler;
+import modules.user.UserEntity;
 import styles.UISizes;
 import styles.UILabels;
 import modules.user.UserDTO;
@@ -236,13 +237,13 @@ public non-sealed class RegisterView extends MyFrame implements ToggleHandler, H
     public boolean isMatchingPattern() {
         boolean isMatching = false;
         //matching accept both email and phonenumber from Vietnam
-        if(!this.registerModel.isEmailFormat(this.getRegister().email())){
+        if(!this.registerModel.isEmailFormat(this.getRegister().getEmail())){
             UIPrompts.IS_WRONG_FORMAT_EMAIL();
-        } else if (!this.registerModel.isNameFormat(this.getRegister().firstName())) {
+        } else if (!this.registerModel.isNameFormat(this.getRegister().getFirstName())) {
             UIPrompts.IS_WRONG_FORMAT_NAME();
-        } else if (!this.registerModel.isNameFormat(this.getRegister().lastName())) {
+        } else if (!this.registerModel.isNameFormat(this.getRegister().getLastName())) {
             UIPrompts.IS_WRONG_FORMAT_NAME();
-        } else if (!this.registerModel.isPasswordFormat(this.getRegister().password())) {
+        } else if (!this.registerModel.isPasswordFormat(this.getRegister().getPassword())) {
             UIPrompts.IS_WRONG_FORMAT_PASSWORD();
         } else {
             isMatching = true;
@@ -251,31 +252,31 @@ public non-sealed class RegisterView extends MyFrame implements ToggleHandler, H
     }
 
     public boolean isMatchingPasswordAndConfirmPassword() {
-        return this.registerModel.isMatching(this.getRegister().password(), this.getRegister().confirmPassword());
+        return this.registerModel.isMatching(this.getRegister().getPassword(), this.getRegister().getConfirmPassword());
     }
 
     @Override
     public boolean isDuplicateEmail() {
-        return this.registerModel.isDuplicateEmail(this.getRegister().email());
+        return this.registerModel.isDuplicateEmail(this.getRegister().getEmail());
     }
 
     @Override
     public boolean isEmpty() {
-        return this.registerModel.isEmpty(this.getRegister().email(), this.getRegister().firstName() ,this.getRegister().lastName(), this.getRegister().password(), this.getRegister().confirmPassword());
+        return this.registerModel.isEmpty(this.getRegister().getEmail(), this.getRegister().getFirstName() ,this.getRegister().getLastName(), this.getRegister().getPassword(), this.getRegister().getConfirmPassword());
     }
 
     //xu li cac ham o day
-    public UserDTO getRegister() {
+    public UserEntity getRegister() {
         email_phone = jTextField_Right_Middle_Email.getText();
         firstName = jTextField_Right_Middle_FirstName.getText();
         lastName = jTextField_Right_Middle_LastName.getText();
         password = String.valueOf(jPasswordField_Right_Middle_Password.getPassword());
         confirmPassword = String.valueOf(jPasswordField_Right_Middle_Confirm_Password.getPassword());
-        return new UserDTO(email_phone, firstName, lastName, password, confirmPassword);
+        return new UserEntity(email_phone, firstName, lastName, password, confirmPassword);
     }
 
     public void insertMail() {
-        registerModel.insertMail(this.getRegister().email(), this.getRegister().firstName(), this.getRegister().lastName(), this.getRegister().password());
+        registerModel.insertMail(this.getRegister().getEmail(), this.getRegister().getFirstName(), this.getRegister().getLastName(), this.getRegister().getPassword());
     }
 
     public void handleSuccess() {

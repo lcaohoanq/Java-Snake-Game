@@ -6,6 +6,9 @@ import javax.swing.JButton;
 import javax.swing.JTextField;
 import modules.email.EmailUtils;
 import modules.otp.OTPUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import utils.LogsUtils;
 import views.OTPVerificationView;
 
 import java.awt.event.ActionEvent;
@@ -20,6 +23,7 @@ public class RegisterController implements ActionListener, MouseListener {
     private List<JTextField> inputFieldList;
     private List<JButton> buttonList;
     private OTPVerificationView otpVerificationView;
+    private static final Logger logger = LoggerFactory.getLogger(LogsUtils.class);
 
     public RegisterController(RegisterView registerView) {
         super();
@@ -43,10 +47,10 @@ public class RegisterController implements ActionListener, MouseListener {
                 if (registerView.isMatchingPasswordAndConfirmPassword()) {
                     if (!registerView.isDuplicateEmail()) {
                         EmailUtils handleEmail = new EmailUtils();
-                        String email = registerView.getRegister().email();
+                        String email = registerView.getRegister().getEmail();
                         String otp = OTPUtils.generateOTP();
-                        handleEmail.sendEmail(handleEmail.subjectGreeting(registerView.getRegister().firstName()),
-                            handleEmail.emailSendOtp(registerView.getRegister().firstName(), otp), email);
+                        handleEmail.sendEmail(handleEmail.subjectGreeting(registerView.getRegister().getFirstName()),
+                            handleEmail.emailSendOtp(registerView.getRegister().getFirstName(), otp), email);
 
                         OTPUtils.IS_NOTIFY_VERIFY_ACCOUNT();
                         otpVerificationView = new OTPVerificationView(otp, new OTPVerificationView.OTPVerificationListener() {
@@ -55,35 +59,40 @@ public class RegisterController implements ActionListener, MouseListener {
                                 registerView.insertMail();
                                 registerView.handleSuccess();
                                 registerView.setEnabled(true);
+                                logger.info("User {} registered successfully", email);
                             }
 
                             @Override
                             public void onResendOtp() {
                                 // Handle resending OTP
                                 String newOtp = OTPUtils.generateOTP();
-                                handleEmail.sendEmail(handleEmail.subjectGreeting(registerView.getRegister().firstName()),
-                                    handleEmail.emailSendOtp(registerView.getRegister().firstName(), newOtp), email);
+                                handleEmail.sendEmail(handleEmail.subjectGreeting(registerView.getRegister().getFirstName()),
+                                    handleEmail.emailSendOtp(registerView.getRegister().getFirstName(), newOtp), email);
                                 otpVerificationView.setGeneratedOtp(newOtp);
+                                logger.info("Resend OTP to email {}", email);
                             }
 
                             @Override
                             public void onBlockUser() {
-                                handleEmail.sendEmail(handleEmail.subjectGreeting(registerView.getRegister().firstName()),
-                                    handleEmail.emailSendBlockAccount(registerView.getRegister().firstName(), "Too many request, maybe abuse action, we added you to application blacklist"), email);
-                                System.exit(0);
+                                handleEmail.sendEmail(handleEmail.subjectGreeting(registerView.getRegister().getFirstName()),
+                                    handleEmail.emailSendBlockAccount(registerView.getRegister().getFirstName(), "Too many request, maybe abuse action, we added you to application blacklist"), email);
+                                logger.warn("Blocked user with email {}, too many request in time", email);
                             }
                         });
                         otpVerificationView.setVisible(true);
                         registerView.setEnabled(false);
                     } else {
                         registerView.handleDuplicateEmail();
+                        logger.error("Email already exists, please try again");
                     }
                 } else {
                     registerView.handleNotMatchingPasswordAndConfirmPassword();
+                    logger.error("Password and confirm password do not match, please try again");
                 }
             }
         } else {
             registerView.handleEmpty();
+            logger.error("Empty field when register, please try again");
         }
 
     }

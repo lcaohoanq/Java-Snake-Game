@@ -1,19 +1,23 @@
 package modules.user;
 
 import constants.ErrorMessages;
-import errors.DBException;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.ParameterMode;
+import jakarta.persistence.Persistence;
 
-import java.sql.CallableStatement;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+import jakarta.persistence.StoredProcedureQuery;
+
 import java.util.ArrayList;
 import java.util.List;
-import services.DatabaseService;
+import org.hibernate.query.Query;
 
 public class UserDAO {
+
     private static UserDAO instance;
-    private DatabaseService dbConnection = new DatabaseService();
+    private final EntityManagerFactory emf = Persistence.createEntityManagerFactory("UserPU");
 
     private UserDAO() {
     }
@@ -25,118 +29,184 @@ public class UserDAO {
         return instance;
     }
 
+    private EntityManager getEntityManager() {
+        return emf.createEntityManager();
+    }
+
     public List<String> selectFirstNameAndScore() {
         List<String> resultList = new ArrayList<>();
-        try (Connection connection = dbConnection.getConnection();
-             CallableStatement cStatement = connection.prepareCall("{CALL proc_select_first_name_score()}");
-             ResultSet resultSet = cStatement.executeQuery()) {
+        EntityManager entityManager = getEntityManager();
+        Session session = entityManager.unwrap(Session.class);
+        Transaction transaction = null;
 
-            while (resultSet.next()) {
-                resultList.add(resultSet.getString("first_name") + " " + resultSet.getInt("score"));
+        try {
+            transaction = session.beginTransaction();
+            StoredProcedureQuery query = session.createStoredProcedureQuery(
+                "proc_select_first_name_score");
+
+            List<Object[]> results = query.getResultList();
+            for (Object[] result : results) {
+                resultList.add(result[0] + " " + result[1]);
             }
-        } catch (SQLException e) {
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
             System.out.println(ErrorMessages.ERROR_SELECT_FIRST_NAME_AND_SCORE + e.getMessage());
+        } finally {
+            session.close();
         }
         return resultList;
     }
 
-    public UserDTO selectEmailAndPasswordByEmail(String email) {
+    public UserEntity selectEmailAndPasswordByEmail(String email) {
+        UserEntity user = null;
+        EntityManager entityManager = getEntityManager();
+        Session session = entityManager.unwrap(Session.class);
+        Transaction transaction = null;
+
         try {
-            Connection connection = dbConnection.getConnection();
-            CallableStatement cStatement = connection.prepareCall("{CALL proc_select_email_password(?)}");
-            cStatement.setString(1, email);
-            ResultSet resultSet = cStatement.executeQuery();
-            while (resultSet.next()) {
-                return new UserDTO(resultSet.getString("email"), resultSet.getString("password"));
+            transaction = session.beginTransaction();
+            Query<UserEntity> query =  session.createQuery(
+                "FROM UserEntity WHERE email = :email", UserEntity.class);
+
+            query.setParameter("email", email);
+            query.setMaxResults(1);
+            List<UserEntity> results = query.getResultList(); // Get directly as UserEntity
+            if (!results.isEmpty()) {
+                user = results.get(0); // No need for manual mapping
             }
-        } catch (SQLException e) {
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
             System.out.println(ErrorMessages.ERROR_SELECT_EMAIL_AND_PASSWORD + e.getMessage());
+        } finally {
+            session.close();
         }
-        return null;
+        return user;
     }
 
-    public UserDTO selectEmailAndScoreByEmail(String email) {
+    public UserEntity selectEmailAndScoreByEmail(String email) {
+        UserEntity user = null;
+        EntityManager entityManager = getEntityManager();
+        Session session = entityManager.unwrap(Session.class);
+        Transaction transaction = null;
+
         try {
-            Connection connection = dbConnection.getConnection();
+            transaction = session.beginTransaction();
+            StoredProcedureQuery query = session.createStoredProcedureQuery(
+                    "proc_select_email_score_by_email")
+                .registerStoredProcedureParameter(1, String.class, ParameterMode.IN);
 
-            CallableStatement cStatement = connection.prepareCall(
-                "{CALL proc_select_email_score_by_email(?)}");
-            cStatement.setString(1, email);
-
-            ResultSet resultSet = cStatement.executeQuery();
-            while (resultSet.next()) {
-                return new UserDTO(resultSet.getString("email"), resultSet.getInt("score"));
+            query.setParameter(1, email);
+            query.setMaxResults(1);
+            List<Object[]> results = query.getResultList();
+            if (!results.isEmpty()) {
+                Object[] result = results.get(0);
+                user = new UserEntity((String) result[0], (Integer) result[1]);
             }
-        } catch (SQLException e) {
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
             System.out.println(ErrorMessages.ERROR_SELECT_USERNAME_AND_SCORE + e.getMessage());
+        } finally {
+            session.close();
         }
-        return null;
+        return user;
     }
 
-    //set safe updates
-    public boolean setSafeUpdate() {
+    public int setSafeUpdate() {
+        EntityManager entityManager = getEntityManager();
+        Session session = entityManager.unwrap(Session.class);
+        Transaction transaction = null;
+        int rowsAffected = 0;
         try {
-            Connection connection = dbConnection.getConnection();
+            transaction = session.beginTransaction();
+            StoredProcedureQuery query = session.createStoredProcedureQuery("proc_set_safe_update");
 
-            CallableStatement cStatement = connection.prepareCall("{CALL proc_set_safe_update()}");
-
-            int rowsAffected = cStatement.executeUpdate();
-            if (rowsAffected == 0) {
-                return true;
+            rowsAffected = query.executeUpdate();
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
             }
-            throw new DBException("Error execute sql safe updates");
-        } catch (SQLException e) {
             System.out.println(e.getMessage());
+        } finally {
+            session.close();
         }
-        return false;
+        return rowsAffected;
     }
 
-    public boolean updateEmailScore(String email, String score) {
+    public int updateEmailScore(String email, String score) {
+        EntityManager entityManager = getEntityManager();
+        Session session = entityManager.unwrap(Session.class);
+        Transaction transaction = null;
+        int rowsAffected = 0;
         try {
-            Connection connection = dbConnection.getConnection();
+            transaction = session.beginTransaction();
+            StoredProcedureQuery query = session.createStoredProcedureQuery(
+                    "proc_update_score_by_email")
+                .registerStoredProcedureParameter(1, String.class, ParameterMode.IN)
+                .registerStoredProcedureParameter(2, Integer.class, ParameterMode.IN);
 
-            CallableStatement cStatement = connection.prepareCall("{CALL proc_update_score_by_email(?,?)}");
-            cStatement.setString(1, email);
-            cStatement.setString(2, score);
-
-            int rowsAffected = cStatement.executeUpdate();
-            if (rowsAffected > 0) {
-                System.out.println("Update success for " + email);
-                return true;
+            query.setParameter(1, email);
+            query.setParameter(2, score);
+            rowsAffected = query.executeUpdate();
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
             }
-            throw new DBException("Update failed for " + email);
-        } catch (SQLException e) {
             System.out.println(e.getMessage());
+        } finally {
+            session.close();
         }
-        return false;
+        return rowsAffected;
     }
 
-    public boolean insertMail(String email, String phone_number, String first_name, String last_name, String password) {
+    public int insertMail(String email, String phoneNumber, String firstName, String lastName,
+        String password) {
+        EntityManager entityManager = getEntityManager();
+        Session session = entityManager.unwrap(Session.class);
+        Transaction transaction = null;
+        int rowsAffected = 0;
         try {
-            Connection connection = dbConnection.getConnection();
+            transaction = session.beginTransaction();
+            StoredProcedureQuery query = session.createStoredProcedureQuery(
+                    "proc_insert_user_new(?,?,?,?,?)")
+                .registerStoredProcedureParameter(1, String.class, ParameterMode.IN)
+                .registerStoredProcedureParameter(2, String.class, ParameterMode.IN)
+                .registerStoredProcedureParameter(3, String.class, ParameterMode.IN)
+                .registerStoredProcedureParameter(4, String.class, ParameterMode.IN)
+                .registerStoredProcedureParameter(5, String.class, ParameterMode.IN);
 
-            CallableStatement cStatement = connection.prepareCall(
-                "{CALL proc_insert_user_new(?,?,?,?,?)}");
-
-            cStatement.setString(1, email);
-            cStatement.setString(2, phone_number);
-            cStatement.setString(3, first_name);
-            cStatement.setString(4, last_name);
-            cStatement.setString(5, password);
-
-            int rowsAffected = cStatement.executeUpdate();
-            if (rowsAffected > 0) {
-                System.out.println("Insert success for " + email);
-                return true;
+            query.setParameter(1, email);
+            query.setParameter(2, phoneNumber);
+            query.setParameter(3, firstName);
+            query.setParameter(4, lastName);
+            query.setParameter(5, password);
+            rowsAffected = query.executeUpdate();
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
             }
-            throw new DBException("Insert failed for " + email);
-        } catch (SQLException e) {
             System.out.println(e.getMessage());
+        } finally {
+            session.close();
         }
-        return false;
+        return rowsAffected;
     }
 
     public static void main(String[] args) {
-        UserDAO.getInstance().insertMail("hoangclw@gmail.com", "", "Hoang", "Luu", "123456");
+//        UserDAO.getInstance().insertMail("hoangclw@gmail.com", "", "Hoang", "Luu", "123456");
+//        UserDAO.getInstance().selectFirstNameAndScore().forEach(System.out::println);
+        System.out.println(
+            UserDAO.getInstance().selectEmailAndPasswordByEmail("hoanglcse181513@fpt.edu.vn").getPassword());
     }
 }
