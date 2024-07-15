@@ -8,7 +8,7 @@ import org.junit.Test;
 
 public class EnvUtilsTest {
     private Dotenv dotenv;
-    private String DB_URL = "jdbc:mysql://localhost:3306/snake_game_app";
+    private String DB_URL_DOCKER = "jdbc:mysql://localhost:3307/snake_game_app";
 
     @Before
     public void setUp() throws Exception {
@@ -17,6 +17,6 @@ public class EnvUtilsTest {
 
     @Test
     public void get() {
-        assertEquals(DB_URL, dotenv.get("DB_URL"));
+        assertEquals(DB_URL_DOCKER, dotenv.get("DB_URL_DOCKER"));
     }
 }

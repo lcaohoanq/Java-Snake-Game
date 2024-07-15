@@ -10,14 +10,14 @@ import styles.UIColors;
 import styles.UIFonts;
 import styles.UIImages;
 import modules.sound.AudioHandler;
-import controllers.HoverHandler;
 import controllers.ToggleHandler;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
-public abstract sealed class MyFrame extends JFrame implements ToggleHandler, HoverHandler permits LoginView, RegisterView {
+public abstract sealed class MyFrame extends JFrame implements ToggleHandler, HoverHandler permits
+    LoginView, RegisterView {
 
     public static JPanel jPanel_Right_Bottom_Button;
     private final JMenu jMenu = new JMenu("HELP");
@@ -31,6 +31,7 @@ public abstract sealed class MyFrame extends JFrame implements ToggleHandler, Ho
     public JPasswordField jPasswordField_Right_Middle_Password;
     public JPasswordField jPasswordField_Right_Middle_Confirm_Password;
     public JButton jButton_Right_Bottom_Submit;
+    public JButton jButton_Right_Bottom_Forgot_Password;
     public JButton jButton_Right_Bottom_Others;
     protected JPanel jPanel_Container;
     protected JPanel jPanel_Right;
@@ -280,6 +281,14 @@ public abstract sealed class MyFrame extends JFrame implements ToggleHandler, Ho
         }
     }
 
+    public void setHoverForgotPassword(boolean isInside) {
+        if (isInside) {
+            jButton_Right_Bottom_Forgot_Password.setFont(UIFonts.OTHERS_HOVER);
+        } else {
+            jButton_Right_Bottom_Forgot_Password.setFont(UIFonts.OTHERS);
+        }
+    }
+
     protected void initContainer() {
         jPanel_Container = new JPanel();
         jPanel_Container.setLayout(new BorderLayout());
@@ -295,7 +304,7 @@ public abstract sealed class MyFrame extends JFrame implements ToggleHandler, Ho
         jMenuItem_Score.addActionListener(new ScoreController(new ScoreView()));
     }
 
-    protected class ClickOtherOption implements ActionListener {
+    public class ClickOtherOption implements ActionListener {
         @Override
         public void actionPerformed(java.awt.event.ActionEvent e) {
             if (jButton_Right_Bottom_Others.getText().equals("Sign in here")) {
@@ -311,7 +320,7 @@ public abstract sealed class MyFrame extends JFrame implements ToggleHandler, Ho
         }
     }
 
-    protected class PressEnter implements ActionListener {
+    public class PressEnter implements ActionListener {
 
         @Override
         public void actionPerformed(java.awt.event.ActionEvent e) {

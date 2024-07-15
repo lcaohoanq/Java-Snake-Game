@@ -97,6 +97,9 @@ public final class LoginController implements ActionListener, MouseListener {
         if (e.getSource() == loginView.jButton_Right_Bottom_Others) {
             loginView.setHoverOther(true);
         }
+        if(e.getSource() == loginView.jButton_Right_Bottom_Forgot_Password){
+            loginView.setHoverForgotPassword(true);
+        }
     }
 
     @Override
@@ -138,6 +141,9 @@ public final class LoginController implements ActionListener, MouseListener {
         }
         if (e.getSource() == loginView.jButton_Right_Bottom_Others) {
             loginView.setHoverOther(false);
+        }
+        if(e.getSource() == loginView.jButton_Right_Bottom_Forgot_Password){
+            loginView.setHoverForgotPassword(false);
         }
     }
 }

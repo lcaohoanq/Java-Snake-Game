@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Welcome to Java Snake Game</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body style="font-family:arial, helvetica, sans-serif;
+          font-size:14px;
+          line-height:20px;
+          color: #444;
+          background:#19b719;">
+<table width="100%" class="wrapper" style=" margin:20px 0;">
+  <tr>
+    <td class="container">
+      <div class="content" style="display: block!important;
+                         max-width: 600px!important;
+                         margin: 0 auto!important;
+                         clear: both!important;
+                         background:white;">
+        <table cellspacing="20" width="100%">
+          <tr>
+            <td>
+              <p class="brand" style="margin:5px 0 0; font-size:30px;
+                                       margin:20px 0;"><span style="color:#19b719;">Java Snake Game</span> Corporation</p>
+            </td>
+          </tr>
+          <tr>
+            <td class="border" style="border-top:2px solid #19b719;
+                                    border-bottom:2px solid #19b719;">
+              <h1 style=" font-size:24px;
+                                        color:#19b719;
+                                        margin:30px 0;">WELCOME TO JAVA SNAKE GAME!</h1>
+              <p style="margin:5px 0 0">Dear <strong th:text="${name}"></strong>,</p>
+              <p style="margin:5px 0 0">Thank you for joining Java Snake Game! We're excited to have you on board. Please verify your email address to complete your registration.</p>
+              <p style="margin:5px 0 0">Your OTP is: <strong style="color:#19b719;" th:text="${otp}"></strong></p>
+              <p style="margin:5px 0 0">Use the OTP to verify your account and start playing right away!</p>
+              <p style="margin:5px 0 0">If you have any questions, feel free to contact our support team at support@example.com.</p>
+              <p style="margin:5px 0 0">Happy gaming!</p>
+              <p style="margin:5px 0 0">Best regards,</p>
+              <p style="margin:5px 0 0">The Java Snake Game Team</p>
+            </td>
+          </tr>
+          <tr class="contact" style="font-size:11px; color:#999;">
+            <td align="center">
+              Java Snake Game Corporation - 0123 456 789 - support@example.com
+            </td>
+          </tr>
+        </table>
+      </div>
+    </td>
+  </tr>
+</table>
+</body>
+</html>

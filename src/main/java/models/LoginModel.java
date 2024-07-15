@@ -1,4 +1,4 @@
-package models.ui;
+package models;
 
 import errors.DataException;
 import modules.user.UserDTO;

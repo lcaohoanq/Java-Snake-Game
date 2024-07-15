@@ -1,4 +1,4 @@
-package models.ui;
+package models;
 
 import constants.Regex;
 import errors.DataException;
@@ -43,7 +43,7 @@ public record RegisterModel(String username, String password, String confirmPass
             if (db == null) {
                 return false;
             } else {
-                throw new DataException("Error, is duplicated username");
+                throw new DataException("Error, email is duplicated");
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());

@@ -20,4 +20,5 @@ public class UILabels {
     public static final String PLAY_AGAIN = "Play again";
     public static final String EXIT = "Exit";
     public static final String BACK_TO_MAIN_MENU = "Back to main menu";
+    public static final String FORGOT_PASSWORD = "Forgot password?";
 }

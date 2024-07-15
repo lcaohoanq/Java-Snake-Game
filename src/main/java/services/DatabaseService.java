@@ -8,7 +8,7 @@ import constants.ErrorMessages;
 import errors.DBException;
 import utils.EnvUtils;
 
-public class DatabaseConnection {
+public class DatabaseService {
 
     public Connection getConnection() throws SQLException {
         try {

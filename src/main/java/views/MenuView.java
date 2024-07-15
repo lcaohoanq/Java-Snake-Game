@@ -2,13 +2,12 @@ package views;
 
 import styles.UISizes;
 import controllers.MenuController;
-import models.ui.MenuModel;
+import models.MenuModel;
 import styles.UIBorders;
 import styles.UIColors;
 import styles.UIFonts;
 import styles.UIImages;
 import modules.sound.AudioHandler;
-import controllers.HoverHandler;
 import controllers.ToggleHandler;
 
 import javax.swing.*;
