@@ -2,8 +2,8 @@ package models;
 
 import constants.Regex;
 import errors.DataException;
-import modules.user.UserDTO;
 import modules.user.UserDAO;
+import modules.user.UserEntity;
 import utils.PasswordHandler;
 
 public record RegisterModel(String username, String password, String confirmPassword) {
@@ -36,7 +36,7 @@ public record RegisterModel(String username, String password, String confirmPass
     }
 
     public boolean isDuplicateEmail(String username) {
-        UserDTO db;
+        UserEntity db;
         UserDAO executeQuery = UserDAO.getInstance();
         try {
             db = executeQuery.selectEmailAndPasswordByEmail(username);

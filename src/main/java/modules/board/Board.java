@@ -89,7 +89,8 @@ public abstract class Board extends JPanel implements ActionListener {
     }
 
     private void initLine() {
-        lineBottom = UISizes.HEIGHT_BOARD - UISizes.LINE_SPACE_FROM_BOTTOM; // Adjust this value as needed
+        lineBottom =
+            UISizes.HEIGHT_BOARD - UISizes.LINE_SPACE_FROM_BOTTOM; // Adjust this value as needed
     }
 
     private void initScoreLabel() {
@@ -147,7 +148,8 @@ public abstract class Board extends JPanel implements ActionListener {
         gameOverLabel.setForeground(UIColors.PRIMARY_COLOR_L);
         gameOverLabel.setBackground(UIColors.OTHER_OPTIONS_L);
         gameOverLabel.setFont(UIFonts.GAME_OVER);
-        gameOverLabel.setBounds((UISizes.WIDTH_BOARD - 260) / 2, (UISizes.HEIGHT_BOARD - 50) / 2 - 50, 260, 50);
+        gameOverLabel.setBounds((UISizes.WIDTH_BOARD - 260) / 2,
+            (UISizes.HEIGHT_BOARD - 50) / 2 - 50, 260, 50);
         gameOverPanel.add(gameOverLabel);
     }
 
@@ -283,7 +285,8 @@ public abstract class Board extends JPanel implements ActionListener {
     public int handleScore(String username) {
         UserDAO executeQuery = UserDAO.getInstance();
         int currentScore = this.score;
-        int dbScore = Objects.requireNonNull(executeQuery.selectEmailAndScoreByEmail(username)).score();
+        int dbScore = Objects.requireNonNull(executeQuery.selectEmailAndScoreByEmail(username))
+            .getScore();
         return compareDatabaseAndCurrentScore(dbScore, currentScore);
     }
 
@@ -295,8 +298,9 @@ public abstract class Board extends JPanel implements ActionListener {
         }
         // if the current score > db score, update the score in the database
         if (handleScore(username) < 0) {
-            executeQuery.setSafeUpdate();
-            executeQuery.updateEmailScore(username, String.valueOf(this.score));
+            if (executeQuery.setSafeUpdate() == 0) {
+                executeQuery.updateEmailScore(username, String.valueOf(this.score));
+            }
         }
     }
 
@@ -350,14 +354,15 @@ public abstract class Board extends JPanel implements ActionListener {
             locateApple();
             if (score % 5 != 0) {
                 if (isOnSound()) {
-                    InputStream inputStream = getClass().getResourceAsStream(ResourcePaths.URL_EATING2);
+                    InputStream inputStream = getClass().getResourceAsStream(
+                        ResourcePaths.URL_EATING2);
                     audioHandler.playAudio(inputStream);
                 }
             }
             return;
         }
         if ((x[0] >= bigApple_x) && (x[0] <= bigApple_x + 2 * DOT_SIZE)
-                && (y[0] >= bigApple_y) && (y[0] <= bigApple_y + 2 * DOT_SIZE)) {
+            && (y[0] >= bigApple_y) && (y[0] <= bigApple_y + 2 * DOT_SIZE)) {
             dots += 5;
             checkBigScore();
 
@@ -430,7 +435,8 @@ public abstract class Board extends JPanel implements ActionListener {
         bigAppleTimer = new Timer(BIG_APPLE_TIMER, e -> {
             bigAppleTimer.stop();
             if (isOnSound()) {
-                InputStream inputStream = getClass().getResourceAsStream(ResourcePaths.URL_BIG_APPLE_DIS);
+                InputStream inputStream = getClass().getResourceAsStream(
+                    ResourcePaths.URL_BIG_APPLE_DIS);
                 audioHandler.playAudio(inputStream);
             }
             apple_count = 0;

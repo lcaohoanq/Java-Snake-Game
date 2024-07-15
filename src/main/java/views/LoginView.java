@@ -6,6 +6,7 @@ import models.RegisterModel;
 import modules.email.EmailCategories;
 import modules.email.EmailUtils;
 import modules.otp.OTPUtils;
+import modules.user.UserEntity;
 import styles.UISizes;
 import styles.UILabels;
 import controllers.LoginController;
@@ -209,14 +210,14 @@ public non-sealed class LoginView extends MyFrame implements ToggleHandler, Hove
     }
 
     //xu li cac ham o day
-    public UserDTO getLogin() {
+    public UserEntity getLogin() {
         username = jTextField_Right_Middle_Email.getText();
         password = String.valueOf(jPasswordField_Right_Middle_Password.getPassword());
-        return new UserDTO(username, password);
+        return new UserEntity(username, password);
     }
 
     public boolean isEmpty() {
-        return this.loginModel.isEmpty(this.getLogin().email(), this.getLogin().password());
+        return this.loginModel.isEmpty(this.getLogin().getEmail(), this.getLogin().getPassword());
     }
 
     public void handleEmpty() {
@@ -228,11 +229,11 @@ public non-sealed class LoginView extends MyFrame implements ToggleHandler, Hove
     }
 
     public boolean isAdmin() {
-        return this.loginModel.isAdmin(this.getLogin().email(), this.getLogin().password());
+        return this.loginModel.isAdmin(this.getLogin().getEmail(), this.getLogin().getPassword());
     }
 
     public boolean isMatching() {
-        return this.loginModel.isMatching(this.getLogin().email(), this.getLogin().password());
+        return this.loginModel.isMatching(this.getLogin().getEmail(), this.getLogin().getPassword());
     }
 
     public void handleSuccess() {

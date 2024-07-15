@@ -121,7 +121,7 @@ DELIMITER ;
 -- 2.
 -- CALL proc_select_user_password('hoang');
 -- 3.
--- CALL proc_select_username_score_by_username('hoang');
+CALL proc_select_email_score_by_email('hoangdz1604@gmail.com');
 -- 4.
 -- CALL proc_insert_user('hoang', '1', @status);
 -- SELECT @status as `insert status`;
