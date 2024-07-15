@@ -271,6 +271,11 @@ public non-sealed class LoginView extends MyFrame implements ToggleHandler, Hove
     }
 
     public class ClickForgotPassword implements ActionListener {
+        private OTPVerificationView otpVerificationView;
+
+        public ClickForgotPassword() {
+        }
+
         @Override
         public void actionPerformed(java.awt.event.ActionEvent e) {
             if (jButton_Right_Bottom_Forgot_Password.getText().equals("Forgot password?")) {
@@ -287,8 +292,34 @@ public non-sealed class LoginView extends MyFrame implements ToggleHandler, Hove
                         JOptionPane.showMessageDialog(null, "Please check your email for OTP",
                             "Success",
                             JOptionPane.INFORMATION_MESSAGE);
-                        new EmailUtils().checkEmailIsValidAndSendEmail(
-                            EmailCategories.FORGOT_PASSWORD.getType(), data, "Hoang");
+
+//                        new EmailUtils().checkEmailIsValidAndSendEmail(
+//                            EmailCategories.FORGOT_PASSWORD.getType(), data, "Hoang");
+
+                        String otp = OTPUtils.generateOTP();
+                        EmailUtils handleEmail = new EmailUtils();
+                        //find the first name of this email
+                        handleEmail.sendEmail(handleEmail.subjectGreeting(data),
+                            handleEmail.emailSendOtp(data, otp), data);
+                        otpVerificationView = new OTPVerificationView(otp, new OTPVerificationView.OTPVerificationListener(){
+
+                            @Override
+                            public void onOtpVerified() {
+                                System.out.println("OTP verified");
+                            }
+
+                            @Override
+                            public void onResendOtp() {
+                                System.out.println("Resend OTP");
+
+                            }
+
+                            @Override
+                            public void onBlockUser() {
+                                System.out.println("Block user");
+                            }
+                        });
+
                     }
                 }
             }

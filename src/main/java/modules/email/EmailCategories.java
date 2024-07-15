@@ -1,5 +1,8 @@
 package modules.email;
 
+import lombok.Getter;
+
+@Getter
 public enum EmailCategories {
     OTP("sendOtp"),
     BLOCK_ACCOUNT("blockAccount"),
@@ -9,10 +12,6 @@ public enum EmailCategories {
 
     EmailCategories(String type) {
         this.type = type;
-    }
-
-    public String getType() {
-        return type;
     }
 
 }
