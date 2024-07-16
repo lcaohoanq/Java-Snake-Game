@@ -1,8 +1,6 @@
 package controllers;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import utils.LogsUtils;
+import lombok.extern.slf4j.Slf4j;
 import views.LoginView;
 
 import javax.swing.*;
@@ -11,12 +9,12 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+@Slf4j
 public final class LoginController implements ActionListener, MouseListener {
 
     public static String email = "";
     private final LoginView loginView;
     public String password = "";
-    private static final Logger logger = LoggerFactory.getLogger(LogsUtils.class);
 
     public LoginController(LoginView loginView) {
         super();
@@ -30,20 +28,20 @@ public final class LoginController implements ActionListener, MouseListener {
 
         if (loginView.isAdmin()) {
             loginView.handleSuccess();
-            logger.info("Admin login successful");
+            log.info("Admin login successful");
             return;
         }
         //prevent empty field when click submit button, but not when click on the menu
         if (loginView.isEmpty() && e.getSource() instanceof JButton) {
             loginView.handleEmpty();
-            logger.error("Empty field when login, please try again");
+            log.error("Empty field when login, please try again");
         } else {
             if (!loginView.isMatching()) {
                 loginView.handleNotMatchingPasswordAndConfirmPassword();
-                logger.error("Password do not match, please try again");
+                log.error("Password do not match, please try again");
             } else {
                 loginView.handleSuccess();
-                logger.info("User {} login successful", email);
+                log.info("User {} login successful", email);
             }
         }
 

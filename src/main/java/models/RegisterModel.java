@@ -53,7 +53,6 @@ public record RegisterModel(String username, String password, String confirmPass
 
     public void insertMail(String email, String firstName, String lastName, String password) {
         UserDAO executeQuery = UserDAO.getInstance();
-        password = new PasswordHandler().hash(password); // replace password with the hashed
-        executeQuery.insertMail(email,null, firstName,lastName, password);
+        executeQuery.insertMail(email,null, firstName,lastName, new PasswordHandler().hash(password.toCharArray()));
     }
 }

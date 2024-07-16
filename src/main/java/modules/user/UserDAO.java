@@ -13,6 +13,7 @@ import jakarta.persistence.StoredProcedureQuery;
 import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.query.Query;
+import utils.PasswordHandler;
 
 public class UserDAO {
 
@@ -169,6 +170,42 @@ public class UserDAO {
         return rowsAffected;
     }
 
+    public int updatePassword(String email, String newPassword) {
+        EntityManager entityManager = getEntityManager();
+        Session session = entityManager.unwrap(Session.class);
+        Transaction transaction = null;
+        int rowsAffected = 0;
+
+        try {
+            transaction = session.beginTransaction();
+
+            // Find the user by email
+            UserEntity user = (UserEntity) session.createQuery("FROM UserEntity WHERE email = :email")
+                .setParameter("email", email)
+                .uniqueResult();
+
+            if (user != null) {
+                // Update the password
+                user.setPassword(newPassword);
+
+                // Save the changes
+                session.update(user);
+                rowsAffected = 1;
+            }
+
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+
+        return rowsAffected;
+    }
+
     public int insertMail(String email, String phoneNumber, String firstName, String lastName,
         String password) {
         EntityManager entityManager = getEntityManager();
@@ -178,7 +215,7 @@ public class UserDAO {
         try {
             transaction = session.beginTransaction();
             StoredProcedureQuery query = session.createStoredProcedureQuery(
-                    "proc_insert_user_new(?,?,?,?,?)")
+                    "proc_insert_user_new")
                 .registerStoredProcedureParameter(1, String.class, ParameterMode.IN)
                 .registerStoredProcedureParameter(2, String.class, ParameterMode.IN)
                 .registerStoredProcedureParameter(3, String.class, ParameterMode.IN)
@@ -208,5 +245,12 @@ public class UserDAO {
 //        UserDAO.getInstance().selectFirstNameAndScore().forEach(System.out::println);
         System.out.println(
             UserDAO.getInstance().selectEmailAndPasswordByEmail("hoanglcse181513@fpt.edu.vn").getPassword());
+
+//        PasswordHandler pwd = new PasswordHandler();
+//        String data = pwd.hash("12345");
+//        System.out.println(UserDAO.getInstance().updatePassword("hoanglcse181513@fpt.edu.vn", data));;
+
+        System.out.println(new PasswordHandler().authenticate("12345", UserDAO.getInstance().selectEmailAndPasswordByEmail("hoanglcse181513@fpt.edu.vn").getPassword()));
+
     }
 }

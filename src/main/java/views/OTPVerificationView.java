@@ -1,8 +1,10 @@
 package views;
 
+import controllers.OTPVerificationListener;
 import java.awt.Cursor;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.Duration;
@@ -37,6 +39,17 @@ public class OTPVerificationView extends JFrame implements ActionListener {
     public OTPVerificationView(String generatedOtp, OTPVerificationListener listener) {
         this.generatedOtp = generatedOtp;
         this.listener = listener;
+        setTitle("OTP Verification");
+        setSize(350, 170);
+        setLocationRelativeTo(null);
+        setResizable(true);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setLayout(new GridLayout(3, 1));
+        initComponents();
+        doAction();
+    }
+
+    public OTPVerificationView(){
         setTitle("OTP Verification");
         setSize(350, 170);
         setLocationRelativeTo(null);
@@ -153,15 +166,6 @@ public class OTPVerificationView extends JFrame implements ActionListener {
 
     public void setGeneratedOtp(String otp) {
         this.generatedOtp = otp;
-    }
-
-    public interface OTPVerificationListener {
-
-        void onOtpVerified();
-
-        void onResendOtp();
-
-        void onBlockUser();
     }
 
     public static void main(String[] args) {

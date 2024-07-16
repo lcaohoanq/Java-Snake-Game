@@ -4,11 +4,9 @@ import java.util.Arrays;
 import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JTextField;
+import lombok.extern.slf4j.Slf4j;
 import modules.email.EmailUtils;
 import modules.otp.OTPUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import utils.LogsUtils;
 import views.OTPVerificationView;
 
 import java.awt.event.ActionEvent;
@@ -17,13 +15,13 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import views.RegisterView;
 
+@Slf4j
 public class RegisterController implements ActionListener, MouseListener {
 
     private RegisterView registerView;
     private List<JTextField> inputFieldList;
     private List<JButton> buttonList;
     private OTPVerificationView otpVerificationView;
-    private static final Logger logger = LoggerFactory.getLogger(LogsUtils.class);
 
     public RegisterController(RegisterView registerView) {
         super();
@@ -53,13 +51,13 @@ public class RegisterController implements ActionListener, MouseListener {
                             handleEmail.emailSendOtp(registerView.getRegister().getFirstName(), otp), email);
 
                         OTPUtils.IS_NOTIFY_VERIFY_ACCOUNT();
-                        otpVerificationView = new OTPVerificationView(otp, new OTPVerificationView.OTPVerificationListener() {
+                        otpVerificationView = new OTPVerificationView(otp, new OTPVerificationListener() {
                             @Override
                             public void onOtpVerified() {
                                 registerView.insertMail();
                                 registerView.handleSuccess();
                                 registerView.setEnabled(true);
-                                logger.info("User {} registered successfully", email);
+                                log.info("User {} registered successfully", email);
                             }
 
                             @Override
@@ -69,30 +67,30 @@ public class RegisterController implements ActionListener, MouseListener {
                                 handleEmail.sendEmail(handleEmail.subjectGreeting(registerView.getRegister().getFirstName()),
                                     handleEmail.emailSendOtp(registerView.getRegister().getFirstName(), newOtp), email);
                                 otpVerificationView.setGeneratedOtp(newOtp);
-                                logger.info("Resend OTP to email {}", email);
+                                log.info("Resend OTP to email {}", email);
                             }
 
                             @Override
                             public void onBlockUser() {
                                 handleEmail.sendEmail(handleEmail.subjectGreeting(registerView.getRegister().getFirstName()),
                                     handleEmail.emailSendBlockAccount(registerView.getRegister().getFirstName(), "Too many request, maybe abuse action, we added you to application blacklist"), email);
-                                logger.warn("Blocked user with email {}, too many request in time", email);
+                                log.warn("Blocked user with email {}, too many request register in time", email);
                             }
                         });
                         otpVerificationView.setVisible(true);
                         registerView.setEnabled(false);
                     } else {
                         registerView.handleDuplicateEmail();
-                        logger.error("Email already exists, please try again");
+                        log.error("Email already exists, please try again");
                     }
                 } else {
                     registerView.handleNotMatchingPasswordAndConfirmPassword();
-                    logger.error("Password and confirm password do not match, please try again");
+                    log.error("Password and confirm password do not match, please try again");
                 }
             }
         } else {
             registerView.handleEmpty();
-            logger.error("Empty field when register, please try again");
+            log.error("Empty field when register, please try again");
         }
 
     }
