@@ -14,6 +14,7 @@ mysql -h 127.0.0.1 -P 3307 -u lcaohoanq -p
 use snake_game_app;
 select * from users;
 ```
+
 - MySQL: 
  - DB_USER=lcaohoanq
  - DB_PASSWORD=Luucaohoang1604^^
