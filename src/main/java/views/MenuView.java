@@ -2,14 +2,13 @@ package views;
 
 import styles.UISizes;
 import controllers.MenuController;
-import models.ui.MenuModel;
+import models.MenuModel;
 import styles.UIBorders;
 import styles.UIColors;
 import styles.UIFonts;
 import styles.UIImages;
-import utils.AudioHandler;
-import utils.HoverHandler;
-import utils.ToggleHandler;
+import modules.sound.AudioHandler;
+import controllers.ToggleHandler;
 
 import javax.swing.*;
 import java.awt.*;
@@ -132,10 +131,6 @@ public non-sealed class MenuView extends JFrame implements ToggleHandler, HoverH
 
     public void setUnHoverButton(JButton jButton) {
         jButton.setBackground(UIColors.TEXT_COLOR_L);
-    }
-
-    @Override
-    public void setHoverUsername(boolean isInside, String mode) {
     }
 
     @Override
@@ -292,11 +287,6 @@ public non-sealed class MenuView extends JFrame implements ToggleHandler, HoverH
             if (e.getActionCommand() == "Apartment") {
                 System.out.println("Apartment");
             }
-        }
-
-        @Override
-        public void setHoverUsername(boolean isInside, String mode) {
-
         }
 
         @Override

@@ -8,11 +8,11 @@ import org.junit.Test;
 
 public class DatabaseConnectionTest {
 
-    private DatabaseConnection databaseConnection;
+    private DatabaseService databaseService;
 
     @Before
     public void setUp() throws Exception {
-        databaseConnection = new DatabaseConnection();
+        databaseService = new DatabaseService();
     }
 
     @After
@@ -21,6 +21,6 @@ public class DatabaseConnectionTest {
 
     @Test
     public void getConnection() {
-        assertNotNull(databaseConnection);
+        assertNotNull(databaseService);
     }
 }

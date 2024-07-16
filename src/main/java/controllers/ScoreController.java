@@ -1,6 +1,6 @@
 package controllers;
 
-import services.UserDAO;
+import modules.user.UserDAO;
 import views.ScoreView;
 
 import java.awt.event.ActionEvent;
@@ -19,7 +19,7 @@ public class ScoreController implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         scoreView.clearTextArea();
         scoreView.setVisible(true);
-        String tmp = executeQuery.selectUsernameAndScore().toString().substring(1, executeQuery.selectUsernameAndScore().toString().length() - 1).replaceAll(", ", "\n");
+        String tmp = executeQuery.selectFirstNameAndScore().toString().substring(1, executeQuery.selectFirstNameAndScore().toString().length() - 1).replaceAll(", ", "\n");
         scoreView.appendTextArea(tmp);
     }
 }

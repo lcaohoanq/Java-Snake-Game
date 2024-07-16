@@ -88,4 +88,5 @@ manifest.mf
 
 src/main/ts/.env
 
+logs/app.log
 .env

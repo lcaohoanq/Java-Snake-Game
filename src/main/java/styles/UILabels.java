@@ -4,7 +4,9 @@ public class UILabels {
     public static final String WINDOW = "Snake Game";
     public static final String LOGIN = "Login";
     public static final String REGISTER = "Register";
-    public static final String USERNAME = "Username";
+    public static final String EMAIL = "Email";
+    public static final String FIRST_NAME = "First Name";
+    public static final String LAST_NAME = "Last Name";
     public static final String PASSWORD = "Password";
     public static final String CONFIRM_PASSWORD = "Confirm Password";
     public static final String SUBMIT = "Submit";
@@ -18,4 +20,5 @@ public class UILabels {
     public static final String PLAY_AGAIN = "Play again";
     public static final String EXIT = "Exit";
     public static final String BACK_TO_MAIN_MENU = "Back to main menu";
+    public static final String FORGOT_PASSWORD = "Forgot password?";
 }

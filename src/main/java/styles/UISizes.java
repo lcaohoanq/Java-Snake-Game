@@ -8,11 +8,11 @@ public class UISizes {
     public static final int WIDTH_BOARD = 500;
     public static final int HEIGHT_BOARD = 550;
     public static final int WIDTH_MY_FRAME = 830;
-    public static final int HEIGHT_MY_FRAME = 600;
+    public static final int HEIGHT_MY_FRAME = 700;
     public static final int WIDTH_MY_LEFT_FRAME = 300;
-    public static final int HEIGHT_MY_LEFT_FRAME = 550;
+    public static final int HEIGHT_MY_LEFT_FRAME = 650;
     public static final int WIDTH_MY_RIGHT_FRAME = 500;
-    public static final int HEIGHT_MY_RIGHT_FRAME = 550;
+    public static final int HEIGHT_MY_RIGHT_FRAME = 650;
     public static final int MIN_PROGRESS_BAR = 0;
     public static final int MAX_PROGRESS_BAR = 100;
     public static final int LINE_SPACE_FROM_BOTTOM = 50;
