@@ -15,4 +15,8 @@ public class UIFonts {
     public static final Font SCORE_LIVE = new Font("Dialog", Font.BOLD, 15);
     public static final Font GAME_OVER = new Font("Dialog", Font.BOLD, 50);
     public static final Font PLAY_EXIT_BUTTON = new Font("Dialog", Font.BOLD, 15);
+
+    public static Font getFontWithSize(Font originalFont, int size) {
+        return new Font(originalFont.getName(), originalFont.getStyle(), size);
+    }
 }

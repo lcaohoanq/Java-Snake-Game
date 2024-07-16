@@ -1,6 +1,8 @@
 package views;
 
 import constants.ResourcePaths;
+import controllers.ForgotPasswordController;
+import controllers.OTPVerificationListener;
 import java.awt.event.ActionListener;
 import models.RegisterModel;
 import modules.email.EmailCategories;
@@ -30,12 +32,14 @@ public non-sealed class LoginView extends MyFrame implements ToggleHandler, Hove
 
     private String username;
     private String password;
+    private OTPVerificationView otpVerificationView;
 
     public LoginView() {
         super();
         this.loginModel = new LoginModel();
         InputStream inputStream = getClass().getResourceAsStream(ResourcePaths.URL_INTRO);
         audioHandler.playAudio(inputStream);
+        // Initialize OTPVerificationView
     }
 
     public String getUsername() {
@@ -206,7 +210,7 @@ public non-sealed class LoginView extends MyFrame implements ToggleHandler, Hove
         jButton_Right_Play.addActionListener(new PlayController(this));
         jPasswordField_Right_Middle_Password.addActionListener(new PressEnter());
         jButton_Right_Bottom_Others.addActionListener(new ClickOtherOption());
-        jButton_Right_Bottom_Forgot_Password.addActionListener(new ClickForgotPassword());
+        jButton_Right_Bottom_Forgot_Password.addActionListener(new ForgotPasswordController(this, otpVerificationView));
     }
 
     //xu li cac ham o day
@@ -270,28 +274,4 @@ public non-sealed class LoginView extends MyFrame implements ToggleHandler, Hove
 
     }
 
-    public class ClickForgotPassword implements ActionListener {
-        @Override
-        public void actionPerformed(java.awt.event.ActionEvent e) {
-            if (jButton_Right_Bottom_Forgot_Password.getText().equals("Forgot password?")) {
-                String data = jTextField_Right_Middle_Email.getText();
-                if (data.isEmpty()) {
-                    JOptionPane.showMessageDialog(null, "Please enter your email", "Error",
-                        JOptionPane.ERROR_MESSAGE);
-                } else {
-                    // need to check if the user is in the database or not
-                    if (!new RegisterModel().isDuplicateEmail(data)) {
-                        JOptionPane.showMessageDialog(null, "Account not existed", "Error",
-                            JOptionPane.ERROR_MESSAGE);
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Please check your email for OTP",
-                            "Success",
-                            JOptionPane.INFORMATION_MESSAGE);
-                        new EmailUtils().checkEmailIsValidAndSendEmail(
-                            EmailCategories.FORGOT_PASSWORD.getType(), data, "Hoang");
-                    }
-                }
-            }
-        }
-    }
 }

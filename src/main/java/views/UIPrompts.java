@@ -15,6 +15,10 @@ public class UIPrompts {
         JOptionPane.showMessageDialog(null, "Register success", "Success", JOptionPane.INFORMATION_MESSAGE);
     }
 
+    public static void IS_CHANGE_PASSWORD_SUCCESS(){
+        JOptionPane.showMessageDialog(null, "Change password success", "Success", JOptionPane.INFORMATION_MESSAGE);
+    }
+
     public static void IS_WRONG_FORMAT_EMAIL(){
         JOptionPane.showMessageDialog(null, "Email must be in the correct format", "Error", JOptionPane.WARNING_MESSAGE);
     }

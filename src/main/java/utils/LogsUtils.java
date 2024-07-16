@@ -1,12 +1,10 @@
 package utils;
 
 import java.io.File;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class LogsUtils {
-
-    private static final Logger logger = LoggerFactory.getLogger(LogsUtils.class);
 
     /**
      * Checks if a "logs" folder exists in the project's root directory. If it does not exist, the
@@ -20,9 +18,9 @@ public class LogsUtils {
         if (!logsFolder.exists()) {
             boolean wasCreated = logsFolder.mkdir();
             if (wasCreated) {
-                logger.info("Folder logs was created successfully.");
+                log.info("Folder logs was created successfully.");
             } else {
-                logger.error("Failed to create folder logs.");
+                log.error("Failed to create folder logs.");
             }
         }
     }

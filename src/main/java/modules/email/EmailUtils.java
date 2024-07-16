@@ -9,18 +9,15 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import models.RegisterModel;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import utils.EnvUtils;
 import modules.otp.OTPUtils;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 
+@Slf4j
 public class EmailUtils {
-
-    private static final Logger logger = LoggerFactory.getLogger(EmailUtils.class);
 
     private final String eFrom = EnvUtils.get("MAIL_HOST");
     private final String ePass = EnvUtils.get("MAIL_PASS");
@@ -66,9 +63,9 @@ public class EmailUtils {
             msg.setSubject(subject, "UTF-8");
             msg.setContent(message, "text/html; charset=UTF-8");
             Transport.send(msg);
-            logger.info("Email sent successfully to {}", to);
+            log.info("Email sent successfully to {}", to);
         } catch (Exception e) {
-            logger.error("Failed to send email to {}: {}", to, e.getMessage());
+            log.error("Failed to send email to {}: {}", to, e.getMessage());
         }
     }
 
@@ -95,8 +92,8 @@ public class EmailUtils {
 
     public String subjectGreeting(String name) {
         return """
-           Java Snake Game Corporation - Welcome %s, thanks for joining us!
-           """.formatted(name);
+            Java Snake Game Corporation - Welcome %s, thanks for joining us!
+            """.formatted(name);
     }
 
     public static void main(String[] args) {
@@ -108,7 +105,7 @@ public class EmailUtils {
     public void checkEmailIsValidAndSendEmail(String emailType, String email, String name,
         String... reason) {
         if (!isValidEmail(email)) {
-            logger.error("Invalid email address: {}", email);
+            log.error("Invalid email address: {}", email);
             return;
         }
 
@@ -127,7 +124,7 @@ public class EmailUtils {
                 message = emailSendForgotPassword(name, OTPUtils.generateOTP());
                 break;
             default:
-                logger.error("Unknown email type: {}", emailType);
+                log.error("Unknown email type: {}", emailType);
                 return;
         }
 

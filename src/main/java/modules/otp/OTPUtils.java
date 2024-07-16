@@ -8,6 +8,6 @@ public class OTPUtils {
     };
 
     public static void IS_NOTIFY_VERIFY_ACCOUNT() {
-        JOptionPane.showMessageDialog(null, "We've send your otp to your email, please provide OTP to authenticate!", "Snake Game", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, "We've send OTP verification to your email, please provide to authenticate!", "Snake Game", JOptionPane.INFORMATION_MESSAGE);
     }
 }
