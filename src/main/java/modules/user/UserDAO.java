@@ -44,7 +44,6 @@ public class UserDAO {
             transaction = session.beginTransaction();
             StoredProcedureQuery query = session.createStoredProcedureQuery(
                 "proc_select_first_name_score");
-
             List<Object[]> results = query.getResultList();
             for (Object[] result : results) {
                 resultList.add(result[0] + " " + result[1]);
@@ -101,7 +100,7 @@ public class UserDAO {
             StoredProcedureQuery query = session.createStoredProcedureQuery(
                     "proc_select_email_score_by_email")
                 .registerStoredProcedureParameter(1, String.class, ParameterMode.IN);
-
+          
             query.setParameter(1, email);
             query.setMaxResults(1);
             List<Object[]> results = query.getResultList();
@@ -251,6 +250,5 @@ public class UserDAO {
 //        System.out.println(UserDAO.getInstance().updatePassword("hoanglcse181513@fpt.edu.vn", data));;
 
         System.out.println(new PasswordHandler().authenticate("12345", UserDAO.getInstance().selectEmailAndPasswordByEmail("hoanglcse181513@fpt.edu.vn").getPassword()));
-
     }
 }
