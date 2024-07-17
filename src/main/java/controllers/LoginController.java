@@ -15,7 +15,6 @@ public final class LoginController implements ActionListener, MouseListener {
     public static String email = "";
     private final LoginView loginView;
     public String password = "";
-    private static final Logger logger = LoggerFactory.getLogger(LogsUtils.class);
 
     public LoginController(LoginView loginView) {
         super();
