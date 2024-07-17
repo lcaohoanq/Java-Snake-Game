@@ -1,46 +1,35 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <title>Account Blocked</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../../css/style.css">
 </head>
-<body style="font-family:arial, helvetica, sans-serif;
-          font-size:14px;
-          line-height:20px;
-          color: #444;
-          background:#19b719;">
-<table width="100%" class="wrapper" style=" margin:20px 0;">
+<body>
+<table id="Block-Account-Page">
   <tr>
     <td class="container">
-      <div class="content" style="display: block!important;
-                         max-width: 600px!important;
-                         margin: 0 auto!important;
-                         clear: both!important;
-                         background:white;">
-        <table cellspacing="20" width="100%">
+      <div class="content">
+        <table>
           <tr>
             <td>
-              <p class="brand" style="margin:5px 0 0; font-size:30px;
-                                       margin:20px 0;"><span style="color:#ff0000;">Java Snake Game</span> Corporation</p>
+              <p class="brand"><span style="color:#ff0000;">Java Snake Game</span> Corporation</p>
             </td>
           </tr>
           <tr>
-            <td class="border" style="border-top:2px solid #ff0000;
-                                    border-bottom:2px solid #ff0000;">
-              <h1 style=" font-size:24px;
-                                        color:#ff0000;
-                                        margin:30px 0;">ACCOUNT BLOCKED</h1>
-              <p style="margin:5px 0 0">Dear user,</p>
-              <p style="margin:5px 0 0">We regret to inform you that your account associated with the email <strong th:text="${email}"></strong> has been blocked.</p>
-              <p style="margin:5px 0 0">Reason: <strong style="color:#ff0000;" th:text="${reason}"></strong></p>
-              <p style="margin:5px 0 0">If you believe this is a mistake, please contact our support team at support@example.com for further assistance.</p>
-              <p style="margin:5px 0 0">Best regards,</p>
-              <p style="margin:5px 0 0">The Java Snake Game Team</p>
+            <td class="border" id="border-fail">
+              <h1 class="title" id="title-fail">ACCOUNT BLOCKED</h1>
+              <p>Dear User,</p>
+              <p>We regret to inform you that your account associated with the email <strong th:text="${email}"></strong> has been blocked.</p>
+              <p>Reason: <strong style="color:#ff0000;" th:text="${reason}"></strong></p>
+              <p>If you believe this is a mistake, please contact our support team at support@example.com for further assistance.</p>
+              <p>Best regards,</p>
+              <p>The Java Snake Game Team</p>
             </td>
           </tr>
-          <tr class="contact" style="font-size:11px; color:#999;">
-            <td align="center">
+          <tr class="contact">
+            <td>
               Java Snake Game Corporation - 0123 456 789 - support@example.com
             </td>
           </tr>
