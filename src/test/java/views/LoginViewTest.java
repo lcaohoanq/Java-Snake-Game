@@ -1,6 +1,7 @@
 package views;
 
 import modules.user.UserDTO;
+import modules.user.UserEntity;
 import org.junit.Before;
 import org.junit.Test;
 import utils.EnvUtils;
@@ -20,13 +21,24 @@ public class LoginViewTest {
         this.password = EnvUtils.get("TEST_PASSWORD");
     }
 
+    private void assertUserEntityEqualsExceptCreated(UserEntity expected, UserEntity actual) {
+        assertEquals(expected.getUserId(), actual.getUserId());
+        assertEquals(expected.getEmail(), actual.getEmail());
+        assertEquals(expected.getPhoneNumber(), actual.getPhoneNumber());
+        assertEquals(expected.getFirstName(), actual.getFirstName());
+        assertEquals(expected.getLastName(), actual.getLastName());
+        assertEquals(expected.getPassword(), actual.getPassword());
+        assertEquals(expected.getConfirmPassword(), actual.getConfirmPassword());
+        assertEquals(expected.getScore(), actual.getScore());
+    }
+
 
     @Test
     public void getLogin() {
-        UserDTO expectedResult = new UserDTO(email_phone, password);
+        UserEntity expectedResult = new UserEntity(email_phone, password);
         loginView.setLogin(email_phone, password);
-        UserDTO actualResult = loginView.getLogin();
-        assertEquals(expectedResult, actualResult);
+        UserEntity actualResult = loginView.getLogin();
+        assertUserEntityEqualsExceptCreated(expectedResult, actualResult);
     }
 
 }

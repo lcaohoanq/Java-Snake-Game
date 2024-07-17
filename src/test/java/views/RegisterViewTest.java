@@ -1,6 +1,7 @@
 package views;
 
 import modules.user.UserDTO;
+import modules.user.UserEntity;
 import org.junit.Before;
 import org.junit.Test;
 import utils.EnvUtils;
@@ -26,15 +27,15 @@ public class RegisterViewTest {
 
     @Test
     public void getRegister() {
-        UserDTO expectedResult = new UserDTO(email, firstName, lastName,password, password);
+        UserEntity expectedResult = new UserEntity(email, firstName, lastName,password, password);
 
         //reg_date above and below is different because the constructor of Account class has a reg_date parameter
         //depend on the current time, so we can't compare the whole object
         registerView.setRegister(email, firstName, lastName, password, password);
-        UserDTO actualUserDTO = registerView.getRegister();
+        UserEntity actualUserDTO = registerView.getRegister();
 
-        boolean actualResult = expectedResult.email().equals(actualUserDTO.email()) && expectedResult.password().equals(
-            actualUserDTO.password());
+        boolean actualResult = expectedResult.getEmail().equals(actualUserDTO.getEmail()) && expectedResult.getPassword().equals(
+            actualUserDTO.getPassword());
         assertTrue(actualResult);
     }
 }

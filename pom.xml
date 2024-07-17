@@ -112,6 +112,30 @@
                             <warSourceDirectory>${basedir}/src/main/webapp</warSourceDirectory>
                         </configuration>
                     </plugin>
+                    <plugin>
+                        <groupId>nl.geodienstencentrum.maven</groupId>
+                        <artifactId>sass-maven-plugin</artifactId>
+                        <version>2.25</version>
+                        <executions>
+                            <execution>
+                                <id>package</id>
+                                <phase>compile</phase>
+                                <goals>
+                                    <goal>update-stylesheets</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <resources>
+                                <resource>
+                                    <source>
+                                        <directory>${basedir}/src/main/resources/sass</directory>
+                                    </source>
+                                    <destination>${project.basedir}/src/main/resources/css</destination>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </plugin>
                 </plugins>
             </build>
         </profile>
