@@ -1,0 +1,66 @@
+*{
+
+}
+
+html{
+
+}
+
+body{
+  font-family:arial, helvetica, sans-serif;
+  font-size:14px;
+  line-height:20px;
+  color: #444;
+  background:#19b719;
+}
+
+table#Block-Account-Page,#Forgot-Password-Page,#Send-Otp-Page{
+  margin:20px 0;
+  width: 100%;
+}
+
+.content{
+  display: block!important;
+  max-width: 600px!important;
+  margin: 0 auto!important;
+  clear: both!important;
+  background:white;
+}
+
+.brand{
+  font-size:30px;
+  margin:20px 0;
+}
+
+.border#border-fail{
+  border-top:2px solid #ff0000;
+  border-bottom:2px solid #ff0000;
+}
+
+.border#border-success{
+  border-top:2px solid #19b719;
+  border-bottom:2px solid #19b719;
+}
+
+.title{
+  font-size:24px;
+  margin:30px 0;
+}
+
+#title-success{
+  color:#19b719;
+}
+
+#title-fail{
+  color:#ff0000;
+}
+
+.border p{
+  margin:5px 0 0;
+}
+
+.contact{
+  font-size:11px;
+  color:#999;
+}
+
