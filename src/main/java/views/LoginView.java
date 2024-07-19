@@ -2,18 +2,13 @@ package views;
 
 import constants.ResourcePaths;
 import controllers.ForgotPasswordController;
-import controllers.OTPVerificationListener;
-import java.awt.event.ActionListener;
-import models.RegisterModel;
-import modules.email.EmailCategories;
-import modules.email.EmailUtils;
-import modules.otp.OTPUtils;
+import lombok.Getter;
+import lombok.Setter;
 import modules.user.UserEntity;
 import styles.UISizes;
 import styles.UILabels;
 import controllers.LoginController;
 import controllers.PlayController;
-import modules.user.UserDTO;
 import models.LoginModel;
 import styles.UIBorders;
 import styles.UIColors;
@@ -24,6 +19,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.InputStream;
 
+@Getter
+@Setter
 public non-sealed class LoginView extends MyFrame implements ToggleHandler, HoverHandler,
     LoginData {
 
@@ -40,14 +37,6 @@ public non-sealed class LoginView extends MyFrame implements ToggleHandler, Hove
         InputStream inputStream = getClass().getResourceAsStream(ResourcePaths.URL_INTRO);
         audioHandler.playAudio(inputStream);
         // Initialize OTPVerificationView
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public String getPassword() {
-        return password;
     }
 
     @Override
@@ -222,14 +211,6 @@ public non-sealed class LoginView extends MyFrame implements ToggleHandler, Hove
 
     public boolean isEmpty() {
         return this.loginModel.isEmpty(this.getLogin().getEmail(), this.getLogin().getPassword());
-    }
-
-    public void handleEmpty() {
-        UIPrompts.IS_EMPTY_USERNAME_OR_PASSWORD();
-    }
-
-    public void handleNotMatchingPasswordAndConfirmPassword() {
-        UIPrompts.IS_WRONG_USERNAME_OR_PASSWORD();
     }
 
     public boolean isAdmin() {

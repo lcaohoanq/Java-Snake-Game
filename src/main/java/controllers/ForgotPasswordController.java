@@ -40,7 +40,7 @@ public class ForgotPasswordController implements ActionListener {
                     EmailUtils handleEmail = new EmailUtils();
                     //find the first name of this email
                     handleEmail.sendEmail(handleEmail.subjectGreeting(data),
-                        handleEmail.emailSendOtp(data, otp), data);
+                        handleEmail.emailSendForgotPassword(data, otp), data);
                     otpVerificationView = new OTPVerificationView(otp,
                         new OTPVerificationListener() {
 

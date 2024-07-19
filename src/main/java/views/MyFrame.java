@@ -193,6 +193,18 @@ public abstract sealed class MyFrame extends JFrame implements ToggleHandler, Ho
         jPanel_Right_Bottom_Option.add(toggleButton, FlowLayout.RIGHT);
     }
 
+    public void setHover(String type, boolean isInside, String ...mode) {
+        switch (type) {
+            case "email" -> setHoverEmail(isInside, mode[0]);
+            case "firstName" -> setHoverFirstName(isInside, mode[0]);
+            case "lastName" -> setHoverLastName(isInside, mode[0]);
+            case "password" -> setHoverPassword(isInside, mode[0]);
+            case "button" -> setHoverButton(isInside, mode[0]);
+            case "others" -> setHoverOther(isInside);
+            case "forgotPassword" -> setHoverForgotPassword(isInside);
+        }
+    }
+
     public void setHoverEmail(boolean isInside, String mode) {
         if (isInside) {
             if (mode.equals("light")) {

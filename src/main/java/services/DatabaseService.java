@@ -12,13 +12,19 @@ public class DatabaseService {
 
     public Connection getConnection() throws SQLException {
         try {
-            String dbUrl = EnvUtils.get("DB_URL_DOCKER");
-            String dbUsername = EnvUtils.get("MYSQL_USER");
-            String dbPassword = EnvUtils.get("MYSQL_PASSWORD");
-            return DriverManager.getConnection(dbUrl, dbUsername, dbPassword);
+            String url = EnvUtils.get("DB_URL_DOCKER");
+            String user = EnvUtils.get("MYSQL_USER");
+            String pass = EnvUtils.get("MYSQL_PASSWORD");
+
+            if(url == null || user == null || pass == null) {
+                throw new DBException(ErrorMessages.ERROR_READ_FILE_ENV);
+            }
+
+            return DriverManager.getConnection(url, user, pass);
         } catch (Exception e) {
-            throw new DBException(ErrorMessages.ERROR_READ_FILE_ENV + e.getMessage());
+            System.out.println(e.getMessage());
         }
+        return null;
     }
 
 }

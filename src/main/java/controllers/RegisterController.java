@@ -14,6 +14,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import views.RegisterView;
+import views.UIPrompts;
 
 @Slf4j
 public class RegisterController implements ActionListener, MouseListener {
@@ -80,16 +81,16 @@ public class RegisterController implements ActionListener, MouseListener {
                         otpVerificationView.setVisible(true);
                         registerView.setEnabled(false);
                     } else {
-                        registerView.handleDuplicateEmail();
+                        UIPrompts.IS_EXISTED_EMAIL();
                         log.error("Email already exists, please try again");
                     }
                 } else {
-                    registerView.handleNotMatchingPasswordAndConfirmPassword();
+                    UIPrompts.IS_NOT_MATCH_PASSWORD_AND_CONFIRM_PASSWORD();
                     log.error("Password and confirm password do not match, please try again");
                 }
             }
         } else {
-            registerView.handleEmpty();
+            UIPrompts.IS_EMPTY_FIELD();
             log.error("Empty field when register, please try again");
         }
 
@@ -117,16 +118,16 @@ public class RegisterController implements ActionListener, MouseListener {
             .filter(inputField -> e.getSource() == inputField)
             .forEach(inputField -> {
                 if (!registerView.getStatusToggle()) {
-                    registerView.setHoverEmail(true, "light");
-                    registerView.setHoverFirstName(true, "light");
-                    registerView.setHoverLastName(true, "light");
-                    registerView.setHoverPassword(true, "light");
+                    registerView.setHover("email",true, "light");
+                    registerView.setHover("firstName",true, "light");
+                    registerView.setHover("lastname",true, "light");
+                    registerView.setHover("password",true, "light");
                     registerView.setHoverConfirmPassword(true, "light");
                 } else {
-                    registerView.setHoverEmail(true, "dark");
-                    registerView.setHoverFirstName(true, "dark");
-                    registerView.setHoverLastName(true, "dark");
-                    registerView.setHoverPassword(true, "dark");
+                    registerView.setHover("email",true, "dark");
+                    registerView.setHover("firstName",true, "dark");
+                    registerView.setHover("lastname", true, "dark");
+                    registerView.setHover("password",true, "dark");
                     registerView.setHoverConfirmPassword(true, "dark");
                 }
             });
@@ -136,12 +137,12 @@ public class RegisterController implements ActionListener, MouseListener {
             .forEach(button -> {
                 if (button.getText().equals("Submit")) {
                     if (!registerView.getStatusToggle()) {
-                        registerView.setHoverButton(true, "light");
+                        registerView.setHover("button",true, "light");
                     } else {
-                        registerView.setHoverButton(true, "dark");
+                        registerView.setHover("button",true, "dark");
                     }
                 } else {
-                    registerView.setHoverOther(true);
+                    registerView.setHover("others",true);
                 }
             });
     }
@@ -152,16 +153,16 @@ public class RegisterController implements ActionListener, MouseListener {
             .filter(inputField -> e.getSource() == inputField)
             .forEach(inputField -> {
                 if (!registerView.getStatusToggle()) {
-                    registerView.setHoverEmail(false, "light");
-                    registerView.setHoverFirstName(false, "light");
-                    registerView.setHoverLastName(false, "light");
-                    registerView.setHoverPassword(false, "light");
+                    registerView.setHover("email",false, "light");
+                    registerView.setHover("firstName",false, "light");
+                    registerView.setHover("lastname", false, "light");
+                    registerView.setHover("password",false, "light");
                     registerView.setHoverConfirmPassword(false, "light");
                 } else {
-                    registerView.setHoverEmail(false, "dark");
-                    registerView.setHoverFirstName(false, "dark");
-                    registerView.setHoverLastName(false, "dark");
-                    registerView.setHoverPassword(false, "dark");
+                    registerView.setHover("email",false, "dark");
+                    registerView.setHover("firstName",false, "dark");
+                    registerView.setHover("lastname", false, "dark");
+                    registerView.setHover("password",false, "dark");
                     registerView.setHoverConfirmPassword(false, "dark");
 
                 }
@@ -172,12 +173,12 @@ public class RegisterController implements ActionListener, MouseListener {
             .forEach(button -> {
                 if (button.getText().equals("Submit")) {
                     if (!registerView.getStatusToggle()) {
-                        registerView.setHoverButton(false, "light");
+                        registerView.setHover("button",false, "light");
                     } else {
-                        registerView.setHoverButton(false, "dark");
+                        registerView.setHover("button",false, "dark");
                     }
                 } else {
-                    registerView.setHoverOther(false);
+                    registerView.setHover("others",false);
                 }
             });
     }

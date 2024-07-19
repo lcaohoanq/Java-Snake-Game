@@ -283,20 +283,6 @@ public non-sealed class RegisterView extends MyFrame implements ToggleHandler, H
         UIPrompts.IS_REGISTER_SUCCESS();
     }
 
-    public void handleEmpty() {
-        UIPrompts.IS_EMPTY_FIELD();
-    }
-
-    public void handleNotMatchingPasswordAndConfirmPassword() {
-        UIPrompts.IS_NOT_MATCH_PASSWORD_AND_CONFIRM_PASSWORD();
-    }
-
-
-
-    public void handleDuplicateEmail() {
-        UIPrompts.IS_EXISTED_EMAIL();
-    }
-
     //this method for test getRegister above
     public void setRegister(String email, String firstName, String lastName, String password, String confirmPassword) {
         jTextField_Right_Middle_Email.setText(email);
