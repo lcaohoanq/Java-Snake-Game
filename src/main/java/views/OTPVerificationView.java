@@ -15,6 +15,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import styles.UIColors;
 import styles.UIFonts;
@@ -70,6 +71,7 @@ public class OTPVerificationView extends JFrame implements ActionListener {
         otpLabel.setForeground(UIColors.TEXT_COLOR_L);
 
         otpField = new JTextField(null, 10);
+        otpField.setHorizontalAlignment(SwingConstants.CENTER);
         otpField.setFont(UIFonts.INPUT_SMALL);
 
         verifyButton = new JButton("Submit");

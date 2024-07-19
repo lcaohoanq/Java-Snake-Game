@@ -7,7 +7,7 @@ import javax.swing.JTextField;
 import lombok.extern.slf4j.Slf4j;
 import modules.email.EmailUtils;
 import modules.otp.OTPUtils;
-import styles.UILabels;
+import styles.UIHovers;
 import views.OTPVerificationView;
 
 import java.awt.event.ActionEvent;
@@ -24,6 +24,7 @@ public class RegisterController implements ActionListener, MouseListener {
     private final List<JTextField> inputFieldList;
     private final List<JButton> buttonList;
     private OTPVerificationView otpVerificationView;
+    private UIHovers<RegisterView> uiHovers;
 
     public RegisterController(RegisterView registerView) {
         super();
@@ -37,6 +38,7 @@ public class RegisterController implements ActionListener, MouseListener {
         this.buttonList = Arrays.asList(
             registerView.getJButton_Right_Bottom_Submit(),
             registerView.getJButton_Right_Bottom_Others());
+        this.uiHovers = new UIHovers<>(registerView);
     }
 
     @Override
@@ -46,11 +48,11 @@ public class RegisterController implements ActionListener, MouseListener {
                 if (registerView.isMatchingPasswordAndConfirmPassword()) {
                     if (!registerView.isDuplicateEmail()) {
                         EmailUtils handleEmail = new EmailUtils();
-                        String email = registerView.getRegister().getEmail();
+                        String email = registerView.getDataWhenRegister().getEmail();
                         String otp = OTPUtils.generateOTP();
                         handleEmail.sendEmail(
-                            handleEmail.subjectGreeting(registerView.getRegister().getFirstName()),
-                            handleEmail.emailSendOtp(registerView.getRegister().getFirstName(),
+                            handleEmail.subjectGreeting(registerView.getDataWhenRegister().getFirstName()),
+                            handleEmail.emailSendOtp(registerView.getDataWhenRegister().getFirstName(),
                                 otp), email);
 
                         OTPUtils.IS_NOTIFY_VERIFY_ACCOUNT();
@@ -59,7 +61,7 @@ public class RegisterController implements ActionListener, MouseListener {
                                 @Override
                                 public void onOtpVerified() {
                                     registerView.insertMail();
-                                    registerView.handleSuccess();
+                                    UIPrompts.IS_REGISTER_SUCCESS();
                                     registerView.setEnabled(true);
                                     log.info("User {} registered successfully", email);
                                 }
@@ -69,9 +71,9 @@ public class RegisterController implements ActionListener, MouseListener {
                                     // Handle resending OTP
                                     String newOtp = OTPUtils.generateOTP();
                                     handleEmail.sendEmail(handleEmail.subjectGreeting(
-                                            registerView.getRegister().getFirstName()),
+                                            registerView.getDataWhenRegister().getFirstName()),
                                         handleEmail.emailSendOtp(
-                                            registerView.getRegister().getFirstName(), newOtp),
+                                            registerView.getDataWhenRegister().getFirstName(), newOtp),
                                         email);
                                     otpVerificationView.setGeneratedOtp(newOtp);
                                     log.info("Resend OTP to email {}", email);
@@ -80,9 +82,9 @@ public class RegisterController implements ActionListener, MouseListener {
                                 @Override
                                 public void onBlockUser() {
                                     handleEmail.sendEmail(handleEmail.subjectGreeting(
-                                            registerView.getRegister().getFirstName()),
+                                            registerView.getDataWhenRegister().getFirstName()),
                                         handleEmail.emailSendBlockAccount(
-                                            registerView.getRegister().getFirstName(),
+                                            registerView.getDataWhenRegister().getFirstName(),
                                             "Too many request, maybe abuse action, we added you to application blacklist"),
                                         email);
                                     log.warn(
@@ -131,36 +133,36 @@ public class RegisterController implements ActionListener, MouseListener {
             .forEach(inputField -> {
                 if (!registerView.getStatusToggle()) {
                     if (inputField == registerView.getJTextField_Right_Middle_Email()) {
-                        registerView.setHoverEmail(true, "light");
+                        uiHovers.setHoverEmail(true, "light");
                     }
                     if (inputField == registerView.getJTextField_Right_Middle_FirstName()) {
-                        registerView.setHoverFirstName(true, "light");
+                        uiHovers.setHoverFirstName(true, "light");
                     }
                     if (inputField == registerView.getJTextField_Right_Middle_LastName()) {
-                        registerView.setHoverLastName(true, "light");
+                        uiHovers.setHoverLastName(true, "light");
                     }
                     if (inputField == registerView.getJPasswordField_Right_Middle_Password()) {
-                        registerView.setHoverPassword(true, "light");
+                        uiHovers.setHoverPassword(true, "light");
                     }
                     if (inputField
                         == registerView.getJPasswordField_Right_Middle_Confirm_Password()) {
-                        registerView.setHoverConfirmPassword(true, "light");
+                        uiHovers.setHoverConfirmPassword(true, "light");
                     }
                 } else {
                     if(inputField == registerView.getJTextField_Right_Middle_Email()){
-                        registerView.setHoverEmail(true, "dark");
+                        uiHovers.setHoverEmail(true, "dark");
                     }
                     if(inputField == registerView.getJTextField_Right_Middle_FirstName()){
-                        registerView.setHoverFirstName(true,"dark");
+                        uiHovers.setHoverFirstName(true,"dark");
                     }
                     if(inputField == registerView.getJTextField_Right_Middle_LastName()){
-                        registerView.setHoverLastName(true, "dark");
+                        uiHovers.setHoverLastName(true, "dark");
                     }
                     if(inputField == registerView.getJPasswordField_Right_Middle_Password()){
-                        registerView.setHoverPassword(true, "dark");
+                        uiHovers.setHoverPassword(true, "dark");
                     }
                     if(inputField == registerView.getJPasswordField_Right_Middle_Confirm_Password()){
-                        registerView.setHoverConfirmPassword(true, "dark");
+                        uiHovers.setHoverConfirmPassword(true, "dark");
                     }
                 }
             });
@@ -170,12 +172,12 @@ public class RegisterController implements ActionListener, MouseListener {
             .forEach(button -> {
                 if (button.getText().equals("Submit")) {
                     if (!registerView.getStatusToggle()) {
-                        registerView.setHoverButton(true, "light");
+                        uiHovers.setHoverButton(true, "light");
                     } else {
-                        registerView.setHoverButton(true, "dark");
+                        uiHovers.setHoverButton(true, "dark");
                     }
                 } else {
-                    registerView.setHoverOther(true);
+                    uiHovers.setHoverOther(true);
                 }
             });
     }
@@ -186,17 +188,17 @@ public class RegisterController implements ActionListener, MouseListener {
             .filter(inputField -> e.getSource() == inputField)
             .forEach(inputField -> {
                 if (!registerView.getStatusToggle()) {
-                    registerView.setHoverEmail(false, "light");
-                    registerView.setHoverFirstName(false, "light");
-                    registerView.setHoverLastName(false, "light");
-                    registerView.setHoverPassword(false, "light");
-                    registerView.setHoverConfirmPassword(false, "light");
+                    uiHovers.setHoverEmail(false, "light");
+                    uiHovers.setHoverFirstName(false, "light");
+                    uiHovers.setHoverLastName(false, "light");
+                    uiHovers.setHoverPassword(false, "light");
+                    uiHovers.setHoverConfirmPassword(false, "light");
                 } else {
-                    registerView.setHoverEmail(false, "dark");
-                    registerView.setHoverFirstName(false, "dark");
-                    registerView.setHoverLastName(false, "dark");
-                    registerView.setHoverPassword(false, "dark");
-                    registerView.setHoverConfirmPassword(false, "dark");
+                    uiHovers.setHoverEmail(false, "dark");
+                    uiHovers.setHoverFirstName(false, "dark");
+                    uiHovers.setHoverLastName(false, "dark");
+                    uiHovers.setHoverPassword(false, "dark");
+                    uiHovers.setHoverConfirmPassword(false, "dark");
 
                 }
             });
@@ -206,12 +208,12 @@ public class RegisterController implements ActionListener, MouseListener {
             .forEach(button -> {
                 if (button.getText().equals("Submit")) {
                     if (!registerView.getStatusToggle()) {
-                        registerView.setHoverButton(false, "light");
+                        uiHovers.setHoverButton(false, "light");
                     } else {
-                        registerView.setHoverButton(false, "dark");
+                        uiHovers.setHoverButton(false, "dark");
                     }
                 } else {
-                    registerView.setHoverOther(false);
+                    uiHovers.setHoverOther(false);
                 }
             });
     }

@@ -3,7 +3,6 @@ package views;
 import controllers.RegisterController;
 import controllers.ToggleHandler;
 import lombok.Getter;
-import lombok.Setter;
 import modules.user.UserEntity;
 import styles.UISizes;
 import styles.UILabels;
@@ -16,8 +15,7 @@ import javax.swing.*;
 import java.awt.*;
 
 @Getter
-public non-sealed class RegisterView extends MyFrame implements ToggleHandler, HoverHandler,
-    RegisterData {
+public non-sealed class RegisterView extends MyFrame implements ToggleHandler{
 
     private String email_phone;
     private String firstName;
@@ -36,28 +34,19 @@ public non-sealed class RegisterView extends MyFrame implements ToggleHandler, H
         initRightTop();
         initRightMiddle();
         initRightBottom();
-
-        jPanel_Right = new JPanel(new BorderLayout());
-        jPanel_Right.setPreferredSize(new Dimension(UISizes.WIDTH_MY_RIGHT_FRAME, UISizes.HEIGHT_MY_RIGHT_FRAME));
-        jPanel_Right.setBackground(UIColors.PRIMARY_COLOR_L);
-        jPanel_Right.setBorder(UIBorders.MID_FIELD);
-
-        jPanel_Right.add(jPanel_Right_Top_Tittle, BorderLayout.NORTH);
-        jPanel_Right.add(jPanel_Right_Middle_Data, BorderLayout.CENTER);
-        jPanel_Right.add(jPanel_Right_Bottom_Option, BorderLayout.SOUTH);
-
+        initRightPanel();
     }
 
     @Override
     public void initRightTop() {
-        jPanel_Right_Top_Tittle = new JPanel();
-        jLabel_Right_Top_Tittle = new JLabel(UILabels.REGISTER, JLabel.CENTER);
-        jLabel_Right_Top_Tittle.setForeground(UIColors.TEXT_COLOR_L);
-        jLabel_Right_Top_Tittle.setFont(UIFonts.RIGHT_TITLE);
+        jPanel_Right_Top_Title = new JPanel();
+        jLabel_Right_Top_Title = new JLabel(UILabels.REGISTER, JLabel.CENTER);
+        jLabel_Right_Top_Title.setForeground(UIColors.TEXT_COLOR_L);
+        jLabel_Right_Top_Title.setFont(UIFonts.RIGHT_TITLE);
 
-        jPanel_Right_Top_Tittle.setBackground(UIColors.PRIMARY_COLOR_L);
-        jPanel_Right_Top_Tittle.add(jLabel_Right_Top_Tittle);
-        jPanel_Right_Top_Tittle.setBorder(UIBorders.TITLE);
+        jPanel_Right_Top_Title.setBackground(UIColors.PRIMARY_COLOR_L);
+        jPanel_Right_Top_Title.add(jLabel_Right_Top_Title);
+        jPanel_Right_Top_Title.setBorder(UIBorders.TITLE);
     }
 
     @Override
@@ -201,6 +190,18 @@ public non-sealed class RegisterView extends MyFrame implements ToggleHandler, H
     }
 
     @Override
+    public void initRightPanel(){
+        jPanel_Right = new JPanel(new BorderLayout());
+        jPanel_Right.setPreferredSize(new Dimension(UISizes.WIDTH_MY_RIGHT_FRAME, UISizes.HEIGHT_MY_RIGHT_FRAME));
+        jPanel_Right.setBackground(UIColors.PRIMARY_COLOR_L);
+        jPanel_Right.setBorder(UIBorders.MID_FIELD);
+
+        jPanel_Right.add(jPanel_Right_Top_Title, BorderLayout.NORTH);
+        jPanel_Right.add(jPanel_Right_Middle_Data, BorderLayout.CENTER);
+        jPanel_Right.add(jPanel_Right_Bottom_Option, BorderLayout.SOUTH);
+    }
+
+    @Override
     public void initToggle() {
         super.initToggle();
         toggleButton.addEventSelected(selected -> {
@@ -239,13 +240,13 @@ public non-sealed class RegisterView extends MyFrame implements ToggleHandler, H
     public boolean isMatchingPattern() {
         boolean isMatching = false;
         //matching accept both email and phonenumber from Vietnam
-        if(!this.registerModel.isEmailFormat(this.getRegister().getEmail())){
+        if(!this.registerModel.isEmailFormat(this.getDataWhenRegister().getEmail())){
             UIPrompts.IS_WRONG_FORMAT_EMAIL();
-        } else if (!this.registerModel.isNameFormat(this.getRegister().getFirstName())) {
+        } else if (!this.registerModel.isNameFormat(this.getDataWhenRegister().getFirstName())) {
             UIPrompts.IS_WRONG_FORMAT_NAME();
-        } else if (!this.registerModel.isNameFormat(this.getRegister().getLastName())) {
+        } else if (!this.registerModel.isNameFormat(this.getDataWhenRegister().getLastName())) {
             UIPrompts.IS_WRONG_FORMAT_NAME();
-        } else if (!this.registerModel.isPasswordFormat(this.getRegister().getPassword())) {
+        } else if (!this.registerModel.isPasswordFormat(this.getDataWhenRegister().getPassword())) {
             UIPrompts.IS_WRONG_FORMAT_PASSWORD();
         } else {
             isMatching = true;
@@ -254,21 +255,19 @@ public non-sealed class RegisterView extends MyFrame implements ToggleHandler, H
     }
 
     public boolean isMatchingPasswordAndConfirmPassword() {
-        return this.registerModel.isMatching(this.getRegister().getPassword(), this.getRegister().getConfirmPassword());
+        return this.registerModel.isMatching(this.getDataWhenRegister().getPassword(), this.getDataWhenRegister().getConfirmPassword());
     }
 
-    @Override
     public boolean isDuplicateEmail() {
-        return this.registerModel.isDuplicateEmail(this.getRegister().getEmail());
+        return this.registerModel.isDuplicateEmail(this.getDataWhenRegister().getEmail());
     }
 
-    @Override
     public boolean isEmpty() {
-        return this.registerModel.isEmpty(this.getRegister().getEmail(), this.getRegister().getFirstName() ,this.getRegister().getLastName(), this.getRegister().getPassword(), this.getRegister().getConfirmPassword());
+        return this.registerModel.isEmpty(this.getDataWhenRegister().getEmail(), this.getDataWhenRegister().getFirstName() ,this.getDataWhenRegister().getLastName(), this.getDataWhenRegister().getPassword(), this.getDataWhenRegister().getConfirmPassword());
     }
 
     //xu li cac ham o day
-    public UserEntity getRegister() {
+    public UserEntity getDataWhenRegister() {
         email_phone = jTextField_Right_Middle_Email.getText();
         firstName = jTextField_Right_Middle_FirstName.getText();
         lastName = jTextField_Right_Middle_LastName.getText();
@@ -278,15 +277,7 @@ public non-sealed class RegisterView extends MyFrame implements ToggleHandler, H
     }
 
     public void insertMail() {
-        registerModel.insertMail(this.getRegister().getEmail(), this.getRegister().getFirstName(), this.getRegister().getLastName(), this.getRegister().getPassword());
-    }
-
-    public void handleSuccess() {
-        UIPrompts.IS_REGISTER_SUCCESS();
-    }
-
-    public void handleEmpty() {
-        UIPrompts.IS_EMPTY_FIELD();
+        registerModel.insertMail(this.getDataWhenRegister().getEmail(), this.getDataWhenRegister().getFirstName(), this.getDataWhenRegister().getLastName(), this.getDataWhenRegister().getPassword());
     }
 
     public void handleNotMatchingPasswordAndConfirmPassword() {
@@ -316,11 +307,6 @@ public non-sealed class RegisterView extends MyFrame implements ToggleHandler, H
                 jPasswordField_Right_Middle_Confirm_Password.setBackground(UIColors.SECONDARY_COLOR_D);
             }
         }
-    }
-
-    @Override
-    public void setHoverButton(boolean isInside, String mode, JButton button) {
-
     }
 
     @Override

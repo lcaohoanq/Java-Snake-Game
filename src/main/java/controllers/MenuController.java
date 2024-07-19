@@ -2,6 +2,8 @@ package controllers;
 
 import java.util.Arrays;
 import java.util.List;
+import styles.UIColors;
+import styles.UIHovers;
 import views.UIPrompts;
 import constants.ResourcePaths;
 import modules.sound.AudioHandler;
@@ -24,6 +26,7 @@ public class MenuController implements MouseListener, ActionListener {
     private final AudioHandler audioHandler;
 
     private final List<JButton> jButtonList;
+//    private UIHovers<MenuView> uiHovers;
 
     public MenuController(MenuView menuView) {
         MenuController.menuView = menuView;
@@ -32,6 +35,7 @@ public class MenuController implements MouseListener, ActionListener {
             menuView.jButton_1,
             menuView.jButton_2,
             menuView.jButton_3);
+
     }
 
     @Override
@@ -173,6 +177,23 @@ public class MenuController implements MouseListener, ActionListener {
             }
         }
 
+        public void setHoverButton(boolean isInside, String mode, JButton button) {
+            if (isInside) {
+                if (mode.equals("light")) {
+                    button.setBackground(UIColors.TEXT_COLOR_L_HOVER);
+                } else {
+                    button.setBackground(UIColors.TEXT_COLOR_D_HOVER);
+                }
+            } else {
+                if (mode.equals("light")) {
+                    button.setBackground(UIColors.TEXT_COLOR_L);
+                } else {
+                    button.setBackground(UIColors.TEXT_COLOR_D);
+                }
+            }
+
+        }
+
         @Override
         public void mousePressed(MouseEvent e) {
 
@@ -275,4 +296,5 @@ public class MenuController implements MouseListener, ActionListener {
             UIPrompts.IS_NOT_SUPPORT();
         }
     }
+
 }

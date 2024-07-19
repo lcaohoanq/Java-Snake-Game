@@ -26,13 +26,13 @@ public class RegisterViewTest {
     }
 
     @Test
-    public void getRegister() {
+    public void getDataWhenRegister() {
         UserDTO expectedResult = new UserDTO(email, firstName, lastName,password, password);
 
         //reg_date above and below is different because the constructor of Account class has a reg_date parameter
         //depend on the current time, so we can't compare the whole object
         registerView.setRegister(email, firstName, lastName, password, password);
-        UserEntity actualUserDTO = registerView.getRegister();
+        UserEntity actualUserDTO = registerView.getDataWhenRegister();
 
         boolean actualResult = expectedResult.email().equals(actualUserDTO.getEmail()) && expectedResult.password().equals(
             actualUserDTO.getPassword());

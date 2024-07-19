@@ -1,6 +1,7 @@
 package views;
 
 import modules.user.UserDTO;
+import modules.user.UserEntity;
 import org.junit.Before;
 import org.junit.Test;
 import utils.EnvUtils;
@@ -22,10 +23,10 @@ public class LoginViewTest {
 
 
     @Test
-    public void getLogin() {
-        UserDTO expectedResult = new UserDTO(email_phone, password);
+    public void getDataWhenLogin() {
+        UserEntity expectedResult = new UserEntity(email_phone, password);
         loginView.setLogin(email_phone, password);
-        UserDTO actualResult = loginView.getLogin();
+        UserEntity actualResult = loginView.getDataWhenLogin();
         assertEquals(expectedResult, actualResult);
     }
 

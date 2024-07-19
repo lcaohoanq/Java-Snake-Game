@@ -125,48 +125,6 @@ public non-sealed class MenuView extends JFrame implements ToggleHandler, HoverH
         jButton_3.addMouseListener(new MenuController(this));
     }
 
-    public void setHoverButton(JButton jButton) {
-        jButton.setBackground(UIColors.TEXT_COLOR_L_HOVER);
-    }
-
-    public void setUnHoverButton(JButton jButton) {
-        jButton.setBackground(UIColors.TEXT_COLOR_L);
-    }
-
-    @Override
-    public void setHoverPassword(boolean isInside, String mode) {
-    }
-
-    @Override
-    public void setHoverConfirmPassword(boolean isInside, String mode) {
-    }
-
-    @Override
-    public void setHoverButton(boolean isInside, String mode) {
-
-    }
-
-    @Override
-    public void setHoverButton(boolean isInside, String mode, JButton button) {
-        if (isInside) {
-            if (mode.equals("light")) {
-                button.setBackground(UIColors.TEXT_COLOR_L_HOVER);
-            } else {
-                button.setBackground(UIColors.TEXT_COLOR_D_HOVER);
-            }
-        } else {
-            if (mode.equals("light")) {
-                button.setBackground(UIColors.TEXT_COLOR_L);
-            } else {
-                button.setBackground(UIColors.TEXT_COLOR_D);
-            }
-        }
-    }
-
-    @Override
-    public void setHoverOther(boolean isInside) {
-    }
-
     public void setAudio(boolean msg) {
         if (!msg) {
             AudioHandler.path = false;
@@ -289,22 +247,6 @@ public non-sealed class MenuView extends JFrame implements ToggleHandler, HoverH
             }
         }
 
-        @Override
-        public void setHoverPassword(boolean isInside, String mode) {
-
-        }
-
-        @Override
-        public void setHoverConfirmPassword(boolean isInside, String mode) {
-
-        }
-
-        @Override
-        public void setHoverButton(boolean isInside, String mode) {
-
-        }
-
-        @Override
         public void setHoverButton(boolean isInside, String mode, JButton button) {
             if (isInside) {
                 if (mode.equals("light")) {
@@ -319,10 +261,6 @@ public non-sealed class MenuView extends JFrame implements ToggleHandler, HoverH
                     button.setBackground(UIColors.TEXT_COLOR_D);
                 }
             }
-        }
-
-        @Override
-        public void setHoverOther(boolean isInside) {
 
         }
 
@@ -376,6 +314,23 @@ public non-sealed class MenuView extends JFrame implements ToggleHandler, HoverH
                 new LoginView().setVisible(true);
             });
         }
+    }
+
+    public void setHoverButton(boolean isInside, String mode, JButton button) {
+        if (isInside) {
+            if (mode.equals("light")) {
+                button.setBackground(UIColors.TEXT_COLOR_L_HOVER);
+            } else {
+                button.setBackground(UIColors.TEXT_COLOR_D_HOVER);
+            }
+        } else {
+            if (mode.equals("light")) {
+                button.setBackground(UIColors.TEXT_COLOR_L);
+            } else {
+                button.setBackground(UIColors.TEXT_COLOR_D);
+            }
+        }
+
     }
 }
 

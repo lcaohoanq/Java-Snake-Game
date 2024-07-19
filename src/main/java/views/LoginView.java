@@ -2,6 +2,7 @@ package views;
 
 import constants.ResourcePaths;
 import controllers.ForgotPasswordController;
+import lombok.Getter;
 import modules.user.UserEntity;
 import styles.UISizes;
 import styles.UILabels;
@@ -17,14 +18,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.InputStream;
 
-public non-sealed class LoginView extends MyFrame implements ToggleHandler, HoverHandler,
-    LoginData {
+@Getter
+public non-sealed class LoginView extends MyFrame implements ToggleHandler{
 
-    public static CardLayout cardLayout;
+    private CardLayout cardLayout;
     private final LoginModel loginModel;
-
-    private String username;
-    private String password;
+    private LoginController loginController;
     private OTPVerificationView otpVerificationView;
 
     public LoginView() {
@@ -35,42 +34,24 @@ public non-sealed class LoginView extends MyFrame implements ToggleHandler, Hove
         // Initialize OTPVerificationView
     }
 
-    public String getUsername() {
-        return username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
     @Override
     public void initRight() {
         initRightTop();
         initRightMiddle();
         initRightBottom();
-
-        jPanel_Right = new JPanel(new BorderLayout());
-        jPanel_Right.setPreferredSize(
-            new Dimension(UISizes.WIDTH_MY_RIGHT_FRAME, UISizes.HEIGHT_MY_RIGHT_FRAME));
-        jPanel_Right.setBackground(UIColors.PRIMARY_COLOR_L);
-        jPanel_Right.setBorder(UIBorders.MID_FIELD);
-
-        jPanel_Right.add(jPanel_Right_Top_Tittle, BorderLayout.NORTH);
-        jPanel_Right.add(jPanel_Right_Middle_Data, BorderLayout.CENTER);
-        jPanel_Right.add(jPanel_Right_Bottom_Option, BorderLayout.SOUTH);
-
+        initRightPanel();
     }
 
     @Override
     public void initRightTop() {
-        jPanel_Right_Top_Tittle = new JPanel();
-        jLabel_Right_Top_Tittle = new JLabel(UILabels.LOGIN, JLabel.CENTER);
-        jLabel_Right_Top_Tittle.setForeground(UIColors.TEXT_COLOR_L);
-        jLabel_Right_Top_Tittle.setFont(UIFonts.RIGHT_TITLE);
+        jPanel_Right_Top_Title = new JPanel();
+        jLabel_Right_Top_Title = new JLabel(UILabels.LOGIN, JLabel.CENTER);
+        jLabel_Right_Top_Title.setForeground(UIColors.TEXT_COLOR_L);
+        jLabel_Right_Top_Title.setFont(UIFonts.RIGHT_TITLE);
 
-        jPanel_Right_Top_Tittle.setBackground(UIColors.PRIMARY_COLOR_L);
-        jPanel_Right_Top_Tittle.add(jLabel_Right_Top_Tittle);
-        jPanel_Right_Top_Tittle.setBorder(UIBorders.TITLE);
+        jPanel_Right_Top_Title.setBackground(UIColors.PRIMARY_COLOR_L);
+        jPanel_Right_Top_Title.add(jLabel_Right_Top_Title);
+        jPanel_Right_Top_Title.setBorder(UIBorders.TITLE);
     }
 
     @Override
@@ -178,6 +159,19 @@ public non-sealed class LoginView extends MyFrame implements ToggleHandler, Hove
     }
 
     @Override
+    public void initRightPanel(){
+        jPanel_Right = new JPanel(new BorderLayout());
+        jPanel_Right.setPreferredSize(
+            new Dimension(UISizes.WIDTH_MY_RIGHT_FRAME, UISizes.HEIGHT_MY_RIGHT_FRAME));
+        jPanel_Right.setBackground(UIColors.PRIMARY_COLOR_L);
+        jPanel_Right.setBorder(UIBorders.MID_FIELD);
+
+        jPanel_Right.add(jPanel_Right_Top_Title, BorderLayout.NORTH);
+        jPanel_Right.add(jPanel_Right_Middle_Data, BorderLayout.CENTER);
+        jPanel_Right.add(jPanel_Right_Bottom_Option, BorderLayout.SOUTH);
+    }
+
+    @Override
     public void initToggle() {
         super.initToggle();
         toggleButton.addEventSelected(selected -> {
@@ -195,42 +189,42 @@ public non-sealed class LoginView extends MyFrame implements ToggleHandler, Hove
     protected void doAction() {
         // TODO Auto-generated method stub
         super.doAction();
-        jTextField_Right_Middle_Email.addMouseListener(new LoginController(this));
-        jPasswordField_Right_Middle_Password.addMouseListener(new LoginController(this));
-        jButton_Right_Bottom_Submit.addMouseListener(new LoginController(this));
-        jButton_Right_Bottom_Others.addMouseListener(new LoginController(this));
-        jButton_Right_Bottom_Submit.addActionListener(new LoginController(this));
+
+        loginController = new LoginController(this);
+
+        jTextField_Right_Middle_Email.addMouseListener(loginController);
+        jPasswordField_Right_Middle_Password.addMouseListener(loginController);
+        jButton_Right_Bottom_Submit.addMouseListener(loginController);
+        jButton_Right_Bottom_Others.addMouseListener(loginController);
+        jButton_Right_Bottom_Submit.addActionListener(loginController);
         jButton_Right_Play.addActionListener(new PlayController(this));
         jPasswordField_Right_Middle_Password.addActionListener(new PressEnter());
         jButton_Right_Bottom_Others.addActionListener(new ClickOtherOption());
         jButton_Right_Bottom_Forgot_Password.addActionListener(new ForgotPasswordController(this, otpVerificationView));
-        jButton_Right_Bottom_Forgot_Password.addMouseListener(new LoginController(this));
+        jButton_Right_Bottom_Forgot_Password.addMouseListener(loginController);
     }
 
     //xu li cac ham o day
-    public UserEntity getLogin() {
-        username = jTextField_Right_Middle_Email.getText();
-        password = String.valueOf(jPasswordField_Right_Middle_Password.getPassword());
-        return new UserEntity(username, password);
+    public UserEntity getDataWhenLogin() {
+        return new UserEntity(jTextField_Right_Middle_Email.getText(), String.valueOf(jPasswordField_Right_Middle_Password.getPassword()));
     }
 
     public boolean isEmpty() {
-        return this.loginModel.isEmpty(this.getLogin().getEmail(), this.getLogin().getPassword());
+        return this.loginModel.isEmpty(this.getDataWhenLogin().getEmail(), this.getDataWhenLogin().getPassword());
     }
 
     public boolean isAdmin() {
-        return this.loginModel.isAdmin(this.getLogin().getEmail(), this.getLogin().getPassword());
+        return this.loginModel.isAdmin(this.getDataWhenLogin().getEmail(), this.getDataWhenLogin().getPassword());
     }
 
     public boolean isMatching() {
-        return this.loginModel.isMatching(this.getLogin().getEmail(), this.getLogin().getPassword());
+        return this.loginModel.isMatching(this.getDataWhenLogin().getEmail(), this.getDataWhenLogin().getPassword());
     }
 
     public void handleSuccess() {
         UIPrompts.IS_LOGIN_SUCCESS();
-        // Switch to the play button card using static methods
-        CardLayout cardLayout = LoginView.cardLayout;
-        cardLayout.next(LoginView.jPanel_Right_Bottom_Button);
+        // Switch to the play button card
+        this.getCardLayout().next(LoginView.jPanel_Right_Bottom_Button);
         //hidden the username and password input field
         this.setStatusInputData(false);
     }
@@ -244,23 +238,6 @@ public non-sealed class LoginView extends MyFrame implements ToggleHandler, Hove
     public void setStatusInputData(boolean status) {
         jTextField_Right_Middle_Email.setEnabled(status);
         jPasswordField_Right_Middle_Password.setEnabled(status);
-    }
-
-    public void setHoverForgotPassword(boolean isInside) {
-        if (isInside) {
-            jButton_Right_Bottom_Forgot_Password.setFont(UIFonts.OTHERS_HOVER);
-        } else {
-            jButton_Right_Bottom_Forgot_Password.setFont(UIFonts.OTHERS);
-        }
-    }
-
-    @Override
-    public void setHoverConfirmPassword(boolean isInside, String mode) {
-    }
-
-    @Override
-    public void setHoverButton(boolean isInside, String mode, JButton button) {
-
     }
 
     @Override
