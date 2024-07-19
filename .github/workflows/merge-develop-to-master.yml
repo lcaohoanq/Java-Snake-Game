@@ -21,7 +21,7 @@ jobs:
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
 
       - name: Checkout master branch
-        run: git checkout master
+        run: git checkout origin/master
 
       - name: Merge develop into master
         run: |
