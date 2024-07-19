@@ -18,9 +18,9 @@ import styles.UIImages;
 import java.awt.*;
 
 public class Snake extends JFrame {
-    private JMenuBar jMenuBar = new JMenuBar();
-    private JMenu jMenu = new JMenu("HELP");
-    private JMenuItem jMenuItem_Back_To_Main_Menu = new JMenuItem("Back to main menu");
+    private final JMenuBar jMenuBar = new JMenuBar();
+    private final JMenu jMenu = new JMenu("HELP");
+    private final JMenuItem jMenuItem_Back_To_Main_Menu = new JMenuItem("Back to main menu");
 
     public Snake(String mode) {
         initMenu();

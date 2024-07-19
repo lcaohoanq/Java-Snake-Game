@@ -2,6 +2,7 @@ package views;
 
 import constants.Info;
 import constants.ResourcePaths;
+import lombok.Getter;
 import styles.UISizes;
 import styles.UILabels;
 import controllers.ScoreController;
@@ -16,6 +17,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
+@Getter
 public abstract sealed class MyFrame extends JFrame implements ToggleHandler, HoverHandler permits
     LoginView, RegisterView {
 
@@ -25,14 +27,14 @@ public abstract sealed class MyFrame extends JFrame implements ToggleHandler, Ho
     private final JMenuItem jMenuItem_AboutMe = new JMenuItem("About me");
     private final JMenuItem jMenuItem_Score = new JMenuItem("Show Score");
     private final JMenuItem jMenuItem_Go = new JMenuItem("Go!!!");
-    public JTextField jTextField_Right_Middle_Email; // 20 is the number of columns
-    public JTextField jTextField_Right_Middle_FirstName; // 20 is the number of columns
-    public JTextField jTextField_Right_Middle_LastName; // 20 is the number of columns
-    public JPasswordField jPasswordField_Right_Middle_Password;
-    public JPasswordField jPasswordField_Right_Middle_Confirm_Password;
-    public JButton jButton_Right_Bottom_Submit;
-    public JButton jButton_Right_Bottom_Forgot_Password;
-    public JButton jButton_Right_Bottom_Others;
+    protected JTextField jTextField_Right_Middle_Email; // 20 is the number of columns
+    protected JTextField jTextField_Right_Middle_FirstName; // 20 is the number of columns
+    protected JTextField jTextField_Right_Middle_LastName; // 20 is the number of columns
+    protected JPasswordField jPasswordField_Right_Middle_Password;
+    protected JPasswordField jPasswordField_Right_Middle_Confirm_Password;
+    protected JButton jButton_Right_Bottom_Submit;
+    protected JButton jButton_Right_Bottom_Forgot_Password;
+    protected JButton jButton_Right_Bottom_Others;
     protected JPanel jPanel_Container;
     protected JPanel jPanel_Right;
     protected JPanel jPanel_Right_Top_Tittle;
@@ -278,14 +280,6 @@ public abstract sealed class MyFrame extends JFrame implements ToggleHandler, Ho
             jButton_Right_Bottom_Others.setFont(UIFonts.OTHERS_HOVER);
         } else {
             jButton_Right_Bottom_Others.setFont(UIFonts.OTHERS);
-        }
-    }
-
-    public void setHoverForgotPassword(boolean isInside) {
-        if (isInside) {
-            jButton_Right_Bottom_Forgot_Password.setFont(UIFonts.OTHERS_HOVER);
-        } else {
-            jButton_Right_Bottom_Forgot_Password.setFont(UIFonts.OTHERS);
         }
     }
 

@@ -2,10 +2,11 @@ package views;
 
 import controllers.RegisterController;
 import controllers.ToggleHandler;
+import lombok.Getter;
+import lombok.Setter;
 import modules.user.UserEntity;
 import styles.UISizes;
 import styles.UILabels;
-import modules.user.UserDTO;
 import models.RegisterModel;
 import styles.UIBorders;
 import styles.UIColors;
@@ -14,6 +15,7 @@ import styles.UIFonts;
 import javax.swing.*;
 import java.awt.*;
 
+@Getter
 public non-sealed class RegisterView extends MyFrame implements ToggleHandler, HoverHandler,
     RegisterData {
 
@@ -68,7 +70,7 @@ public non-sealed class RegisterView extends MyFrame implements ToggleHandler, H
         jPanel_Right_Middle_Confirm_Password = new JPanel();
         jPanel_Right_Bottom_Button = new JPanel();
 
-        jLabel_Right_Middle_Email = new JLabel(UILabels.EMAIL);
+        jLabel_Right_Middle_Email = new JLabel(UILabels.EMAIL_PHONE);
         jLabel_Right_Middle_FirstName = new JLabel(UILabels.FIRST_NAME);
         jLabel_Right_Middle_LastName = new JLabel(UILabels.LAST_NAME);
         jLabel_Right_Middle_Password = new JLabel(UILabels.PASSWORD);
@@ -289,12 +291,6 @@ public non-sealed class RegisterView extends MyFrame implements ToggleHandler, H
 
     public void handleNotMatchingPasswordAndConfirmPassword() {
         UIPrompts.IS_NOT_MATCH_PASSWORD_AND_CONFIRM_PASSWORD();
-    }
-
-
-
-    public void handleDuplicateEmail() {
-        UIPrompts.IS_EXISTED_EMAIL();
     }
 
     //this method for test getRegister above

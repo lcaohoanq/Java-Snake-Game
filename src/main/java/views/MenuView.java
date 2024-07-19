@@ -24,16 +24,16 @@ public non-sealed class MenuView extends JFrame implements ToggleHandler, HoverH
     JLabel jLabel_Title = new JLabel("Snake Game", JLabel.CENTER);
     JPanel jPanel_Button = new JPanel(new GridLayout(3, 1, 30, 20));
     boolean isActive;
-    private JMenuBar jMenuBar = new JMenuBar();
+    private final JMenuBar jMenuBar = new JMenuBar();
     //    private JMenu jMenu = new JMenu("HELP");
     //change
-    private JMenu jMenu_Back_To_Main_Menu = new JMenu("Back to");
-    private JMenuItem jMenuItem_Back_To_Main_Menu = new JMenuItem("main menu");
-    private JMenu jMenu_Sound = new JMenu("Turn Sound");
-    private JMenuItem jMenuItem_Sound_On = new JMenuItem("On");
-    private JMenuItem jMenuItem_Sound_Off = new JMenuItem("Off");
-    private MenuModel menuModel;
-    private AudioHandler audioHandler = new AudioHandler();
+    private final JMenu jMenu_Back_To_Main_Menu = new JMenu("Back to");
+    private final JMenuItem jMenuItem_Back_To_Main_Menu = new JMenuItem("main menu");
+    private final JMenu jMenu_Sound = new JMenu("Turn Sound");
+    private final JMenuItem jMenuItem_Sound_On = new JMenuItem("On");
+    private final JMenuItem jMenuItem_Sound_Off = new JMenuItem("Off");
+    private final MenuModel menuModel;
+    private final AudioHandler audioHandler = new AudioHandler();
 
     public MenuView() {
         menuModel = new MenuModel();

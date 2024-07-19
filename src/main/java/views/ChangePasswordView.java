@@ -26,9 +26,9 @@ public class ChangePasswordView extends JFrame implements ActionListener {
     private JPasswordField newPasswordField;
     private JPasswordField confirmNewPasswordField;
     private JButton submitButton;
-    private Cursor cursor = new Cursor(Cursor.HAND_CURSOR);
+    private final Cursor cursor = new Cursor(Cursor.HAND_CURSOR);
     private JPanel topPanel, midPanel, bottomPanel;
-    private String email;
+    private final String email;
 
     public ChangePasswordView(String email) {
         this.email = email;

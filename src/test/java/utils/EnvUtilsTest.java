@@ -8,7 +8,7 @@ import org.junit.Test;
 
 public class EnvUtilsTest {
     private Dotenv dotenv;
-    private String DB_URL_DOCKER = "jdbc:mysql://localhost:3307/snake_game_app";
+    private final String DB_URL_DOCKER = "jdbc:mysql://localhost:3307/snake_game_app";
 
     @Before
     public void setUp() throws Exception {

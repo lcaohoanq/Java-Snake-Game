@@ -2,18 +2,11 @@ package views;
 
 import constants.ResourcePaths;
 import controllers.ForgotPasswordController;
-import controllers.OTPVerificationListener;
-import java.awt.event.ActionListener;
-import models.RegisterModel;
-import modules.email.EmailCategories;
-import modules.email.EmailUtils;
-import modules.otp.OTPUtils;
 import modules.user.UserEntity;
 import styles.UISizes;
 import styles.UILabels;
 import controllers.LoginController;
 import controllers.PlayController;
-import modules.user.UserDTO;
 import models.LoginModel;
 import styles.UIBorders;
 import styles.UIColors;
@@ -28,7 +21,7 @@ public non-sealed class LoginView extends MyFrame implements ToggleHandler, Hove
     LoginData {
 
     public static CardLayout cardLayout;
-    private LoginModel loginModel;
+    private final LoginModel loginModel;
 
     private String username;
     private String password;
@@ -88,7 +81,7 @@ public non-sealed class LoginView extends MyFrame implements ToggleHandler, Hove
         jPanel_Right_Bottom_Button = new JPanel();
         cardLayout = new CardLayout();
 
-        jLabel_Right_Middle_Email = new JLabel(UILabels.EMAIL);
+        jLabel_Right_Middle_Email = new JLabel(UILabels.EMAIL_PHONE);
         jLabel_Right_Middle_Password = new JLabel(UILabels.PASSWORD);
 
         jTextField_Right_Middle_Email = new JTextField(20);
@@ -211,6 +204,7 @@ public non-sealed class LoginView extends MyFrame implements ToggleHandler, Hove
         jPasswordField_Right_Middle_Password.addActionListener(new PressEnter());
         jButton_Right_Bottom_Others.addActionListener(new ClickOtherOption());
         jButton_Right_Bottom_Forgot_Password.addActionListener(new ForgotPasswordController(this, otpVerificationView));
+        jButton_Right_Bottom_Forgot_Password.addMouseListener(new LoginController(this));
     }
 
     //xu li cac ham o day
@@ -222,14 +216,6 @@ public non-sealed class LoginView extends MyFrame implements ToggleHandler, Hove
 
     public boolean isEmpty() {
         return this.loginModel.isEmpty(this.getLogin().getEmail(), this.getLogin().getPassword());
-    }
-
-    public void handleEmpty() {
-        UIPrompts.IS_EMPTY_USERNAME_OR_PASSWORD();
-    }
-
-    public void handleNotMatchingPasswordAndConfirmPassword() {
-        UIPrompts.IS_WRONG_USERNAME_OR_PASSWORD();
     }
 
     public boolean isAdmin() {
@@ -258,6 +244,14 @@ public non-sealed class LoginView extends MyFrame implements ToggleHandler, Hove
     public void setStatusInputData(boolean status) {
         jTextField_Right_Middle_Email.setEnabled(status);
         jPasswordField_Right_Middle_Password.setEnabled(status);
+    }
+
+    public void setHoverForgotPassword(boolean isInside) {
+        if (isInside) {
+            jButton_Right_Bottom_Forgot_Password.setFont(UIFonts.OTHERS_HOVER);
+        } else {
+            jButton_Right_Bottom_Forgot_Password.setFont(UIFonts.OTHERS);
+        }
     }
 
     @Override

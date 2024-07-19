@@ -65,8 +65,8 @@ public abstract class Board extends JPanel implements ActionListener {
     private JLabel scoreLabel;                 // Label to display the player's score
     private int lineBottom;                    // Bottom line
     private JProgressBar bigAppleProgressBar;  // Progress bar for big apple timer
-    private JPanel bottomPanel = new JPanel(); // Panel for UI components at the bottom
-    private JPanel gameOverButtonPanel = new JPanel(); // Panel for UI components at the game over
+    private final JPanel bottomPanel = new JPanel(); // Panel for UI components at the bottom
+    private final JPanel gameOverButtonPanel = new JPanel(); // Panel for UI components at the game over
 
     public Board() {
         initBoard();

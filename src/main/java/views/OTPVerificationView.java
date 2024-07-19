@@ -25,7 +25,7 @@ public class OTPVerificationView extends JFrame implements ActionListener {
     private JTextField otpField;
     private JButton verifyButton;
     private JButton resendButton;
-    private Cursor cursor = new Cursor(Cursor.HAND_CURSOR);
+    private final Cursor cursor = new Cursor(Cursor.HAND_CURSOR);
     private JPanel topPanel, midPanel, bottomPanel;
     private OTPVerificationListener listener;
     private int incorrectOtpAttempts = 0;

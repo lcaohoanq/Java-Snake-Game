@@ -12,7 +12,7 @@ import views.OTPVerificationView;
 
 @Slf4j
 public class ForgotPasswordController implements ActionListener {
-    private LoginView loginView;
+    private final LoginView loginView;
     private OTPVerificationView otpVerificationView;
     public ForgotPasswordController(LoginView loginView, OTPVerificationView otpVerificationView) {
         this.loginView = loginView;
@@ -21,8 +21,8 @@ public class ForgotPasswordController implements ActionListener {
 
     @Override
     public void actionPerformed(java.awt.event.ActionEvent e) {
-        if (loginView.jButton_Right_Bottom_Forgot_Password.getText().equals("Forgot password?")) {
-            String data = loginView.jTextField_Right_Middle_Email.getText();
+        if (loginView.getJButton_Right_Bottom_Forgot_Password().getText().equals("Forgot password?")) {
+            String data = loginView.getJTextField_Right_Middle_Email().getText();
             if (data.isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Please enter your email", "Error",
                     JOptionPane.ERROR_MESSAGE);

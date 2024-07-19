@@ -21,7 +21,7 @@ public class ScoreView extends JFrame {
     JScrollPane jScrollPane_Score = new JScrollPane(jTextArea_Score);
     JLabel jLabel_Title = new JLabel("SCORE BOARD", JLabel.CENTER);
 
-    private ScoreController scoreFormController;
+    private final ScoreController scoreFormController;
 
     public ScoreView() {
         this.scoreFormController = new ScoreController(this);

@@ -21,7 +21,7 @@ public class EmailUtils {
 
     private final String eFrom = EnvUtils.get("MAIL_HOST");
     private final String ePass = EnvUtils.get("MAIL_PASS");
-    private TemplateEngine templateEngine;
+    private final TemplateEngine templateEngine;
 
     public EmailUtils() {
         ClassLoaderTemplateResolver templateResolver = new ClassLoaderTemplateResolver();

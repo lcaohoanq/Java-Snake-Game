@@ -5,5 +5,4 @@ public sealed interface RegisterData extends LoginData permits RegisterView {
 
     boolean isDuplicateEmail();
 
-    void handleDuplicateEmail();
 }

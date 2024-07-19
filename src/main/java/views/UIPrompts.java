@@ -27,11 +27,6 @@ public class UIPrompts {
         JOptionPane.showMessageDialog(null, "Wrong username or password", "Error", JOptionPane.ERROR_MESSAGE);
     }
 
-    public static void IS_EMPTY_USERNAME_OR_PASSWORD() {
-        JOptionPane.showMessageDialog(null, "Username or password cannot be empty", "Error",
-                JOptionPane.WARNING_MESSAGE);
-    }
-
     public static void IS_EMPTY_FIELD() {
         JOptionPane.showMessageDialog(null, "Field cannot be empty", "Error", JOptionPane.WARNING_MESSAGE);
     }

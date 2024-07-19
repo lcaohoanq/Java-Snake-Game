@@ -21,12 +21,12 @@ public class MenuController implements MouseListener, ActionListener {
     public static MenuView menuView;
     public static MenuView.MenuModern menuModern;
     private boolean isMenuModern = true;
-    private AudioHandler audioHandler;
+    private final AudioHandler audioHandler;
 
-    private List<JButton> jButtonList;
+    private final List<JButton> jButtonList;
 
     public MenuController(MenuView menuView) {
-        this.menuView = menuView;
+        MenuController.menuView = menuView;
         this.audioHandler = new AudioHandler();
         this.jButtonList = Arrays.asList(
             menuView.jButton_1,
@@ -125,8 +125,8 @@ public class MenuController implements MouseListener, ActionListener {
 
     public static class MenuModernController extends JFrame implements MouseListener {
 
-        private MenuView.MenuModern menuModern;
-        private AudioHandler audioHandler;
+        private final MenuView.MenuModern menuModern;
+        private final AudioHandler audioHandler;
 
         public MenuModernController(MenuView.MenuModern menuModern) {
             this.menuModern = menuModern;

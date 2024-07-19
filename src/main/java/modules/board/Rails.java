@@ -9,7 +9,7 @@ import java.io.InputStream;
 
 public class Rails extends Board {
 
-    private int wallThickness = 20;
+    private final int wallThickness = 20;
     private Image wall;
 
     public Rails() {

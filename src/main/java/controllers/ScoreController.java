@@ -8,8 +8,8 @@ import java.awt.event.ActionListener;
 
 public class ScoreController implements ActionListener {
 
-    private ScoreView scoreView;
-    private UserDAO executeQuery = UserDAO.getInstance();
+    private final ScoreView scoreView;
+    private final UserDAO executeQuery = UserDAO.getInstance();
 
     public ScoreController(ScoreView scoreView) {
         this.scoreView = scoreView;

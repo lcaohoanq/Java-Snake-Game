@@ -13,12 +13,12 @@ import java.util.List;
 
 public class Toggle extends Component {
 
-    private Timer timer;
+    private final Timer timer;
     private float location;
     private boolean selected;
     private boolean mouseOver;
-    private float speed = 1.5f;
-    private List<EventSwitchSelected> events;
+    private final float speed = 1.5f;
+    private final List<EventSwitchSelected> events;
 
     public Toggle() {
         setBackground(Color.decode("#01C380"));
