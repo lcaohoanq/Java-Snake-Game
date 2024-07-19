@@ -249,6 +249,6 @@ public class UserDAO {
 //        String data = pwd.hash("12345");
 //        System.out.println(UserDAO.getInstance().updatePassword("hoanglcse181513@fpt.edu.vn", data));;
 
-        System.out.println(new PBKDF2().authenticate("12345", UserDAO.getInstance().selectEmailAndPasswordByEmail("hoanglcse181513@fpt.edu.vn").getPassword()));
+        System.out.println(new PBKDF2().authenticate("12345".toCharArray(), UserDAO.getInstance().selectEmailAndPasswordByEmail("hoanglcse181513@fpt.edu.vn").getPassword()));
     }
 }
