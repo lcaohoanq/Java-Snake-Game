@@ -1,15 +1,20 @@
 package modules.user;
 
-import jakarta.persistence.*;
+                import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Table(name = "users")
-@Data
+@Getter
+@Setter
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserEntity {
@@ -19,7 +24,7 @@ public class UserEntity {
     @Column(name = "user_id")
     private Integer userId;
 
-    @Column(name = "email", unique = true, length = 45)
+    @Column(name = "email", unique =                             true, length = 45)
     private String email;
 
     @Column(name = "phone_number", unique = true, length = 15)

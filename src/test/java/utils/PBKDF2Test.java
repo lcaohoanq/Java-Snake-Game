@@ -7,15 +7,15 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class PasswordHandlerTest {
+public class PBKDF2Test {
 
     String password;
-    PasswordHandler pwdHandler;
+    PBKDF2 pwdHandler;
 
     @Before
     public void setUp() throws Exception {
         this.password = EnvUtils.get("TEST_PASSWORD");
-        this.pwdHandler = new PasswordHandler();
+        this.pwdHandler = new PBKDF2();
     }
 
     @After

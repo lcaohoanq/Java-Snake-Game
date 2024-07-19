@@ -4,7 +4,7 @@ import constants.Regex;
 import errors.DataException;
 import modules.user.UserDAO;
 import modules.user.UserEntity;
-import utils.PasswordHandler;
+import utils.PBKDF2;
 
 public record RegisterModel(String username, String password, String confirmPassword) {
     public RegisterModel() {
@@ -53,6 +53,6 @@ public record RegisterModel(String username, String password, String confirmPass
 
     public void insertMail(String email, String firstName, String lastName, String password) {
         UserDAO executeQuery = UserDAO.getInstance();
-        executeQuery.insertMail(email,null, firstName,lastName, new PasswordHandler().hash(password.toCharArray()));
+        executeQuery.insertMail(email,null, firstName,lastName, new PBKDF2().hash(password.toCharArray()));
     }
 }

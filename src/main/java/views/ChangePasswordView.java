@@ -18,7 +18,7 @@ import org.jdesktop.swingx.prompt.PromptSupport;
 import styles.UIBorders;
 import styles.UIColors;
 import styles.UIFonts;
-import utils.PasswordHandler;
+import utils.PBKDF2;
 @Slf4j
 public class ChangePasswordView extends JFrame implements ActionListener {
 
@@ -97,7 +97,7 @@ public class ChangePasswordView extends JFrame implements ActionListener {
                 if (newPassword.equals(confirmNewPassword)) {
                     if (new RegisterModel().isPasswordFormat(newPassword)) {
                         // update password in database
-                        UserDAO.getInstance().updatePassword(email, new PasswordHandler().hash(newPassword.toCharArray()));
+                        UserDAO.getInstance().updatePassword(email, new PBKDF2().hash(newPassword.toCharArray()));
                         UIPrompts.IS_CHANGE_PASSWORD_SUCCESS();
                         log.info("Updated password for user: {}", email);
                     } else {

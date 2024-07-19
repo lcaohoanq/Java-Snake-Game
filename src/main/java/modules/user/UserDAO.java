@@ -13,7 +13,7 @@ import jakarta.persistence.StoredProcedureQuery;
 import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.query.Query;
-import utils.PasswordHandler;
+import utils.PBKDF2;
 
 public class UserDAO {
 
@@ -249,6 +249,6 @@ public class UserDAO {
 //        String data = pwd.hash("12345");
 //        System.out.println(UserDAO.getInstance().updatePassword("hoanglcse181513@fpt.edu.vn", data));;
 
-        System.out.println(new PasswordHandler().authenticate("12345", UserDAO.getInstance().selectEmailAndPasswordByEmail("hoanglcse181513@fpt.edu.vn").getPassword()));
+        System.out.println(new PBKDF2().authenticate("12345", UserDAO.getInstance().selectEmailAndPasswordByEmail("hoanglcse181513@fpt.edu.vn").getPassword()));
     }
 }

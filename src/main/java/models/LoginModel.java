@@ -3,7 +3,7 @@ package models;
 import errors.DataException;
 import modules.user.UserEntity;
 import modules.user.UserDAO;
-import utils.PasswordHandler;
+import utils.PBKDF2;
 
 public record LoginModel(String username, String password) {
     public LoginModel() {
@@ -20,7 +20,7 @@ public record LoginModel(String username, String password) {
         try {
             db = executeQuery.selectEmailAndPasswordByEmail(username);
             if (db != null) {
-                return new PasswordHandler().authenticate(password.toCharArray(), db.getPassword());
+                return new PBKDF2().authenticate(password.toCharArray(), db.getPassword());
             } else {
                 throw new DataException("Error authenticate, password do not match");
             }
