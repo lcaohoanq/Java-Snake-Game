@@ -1,42 +1,29 @@
 package views;
 
-import styles.UISizes;
 import controllers.MenuController;
-import models.MenuModel;
+import controllers.ToggleHandler;
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JMenuBar;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+import modules.sound.AudioHandler;
 import styles.UIBorders;
 import styles.UIColors;
 import styles.UIFonts;
 import styles.UIImages;
-import modules.sound.AudioHandler;
-import controllers.ToggleHandler;
+import styles.UISizes;
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-public non-sealed class MenuView extends JFrame implements ToggleHandler, HoverHandler {
-    public JButton jButton_1 = new JButton("Classic");
-    public JButton jButton_2 = new JButton("Modern");
-    public JButton jButton_3 = new JButton("Campaign");
-
-    JPanel jPanel_Container;
-    JLabel jLabel_Title = new JLabel("Snake Game", JLabel.CENTER);
-    JPanel jPanel_Button = new JPanel(new GridLayout(3, 1, 30, 20));
+public non-sealed class MenuView extends AbstractView implements ToggleHandler, HoverHandler {
     boolean isActive;
-    private final JMenuBar jMenuBar = new JMenuBar();
-    //    private JMenu jMenu = new JMenu("HELP");
-    //change
-    private final JMenu jMenu_Back_To_Main_Menu = new JMenu("Back to");
-    private final JMenuItem jMenuItem_Back_To_Main_Menu = new JMenuItem("main menu");
-    private final JMenu jMenu_Sound = new JMenu("Turn Sound");
-    private final JMenuItem jMenuItem_Sound_On = new JMenuItem("On");
-    private final JMenuItem jMenuItem_Sound_Off = new JMenuItem("Off");
-    private final MenuModel menuModel;
-    private final AudioHandler audioHandler = new AudioHandler();
-
     public MenuView() {
-        menuModel = new MenuModel();
         setTitle("Snake Game");
         setSize(UISizes.HEIGHT_MY_FRAME, UISizes.HEIGHT_MY_FRAME);
         setIconImage(UIImages.icon);
@@ -44,6 +31,11 @@ public non-sealed class MenuView extends JFrame implements ToggleHandler, HoverH
         setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         initUI();
+    }
+
+    @Override
+    public void initComponents() {
+
     }
 
     private void initUI() {
@@ -59,70 +51,83 @@ public non-sealed class MenuView extends JFrame implements ToggleHandler, HoverH
         jMenu_Back_To_Main_Menu.add(jMenuItem_Back_To_Main_Menu);
         jMenu_Sound.add(jMenuItem_Sound_On);
         jMenu_Sound.add(jMenuItem_Sound_Off);
-        jMenuBar.setLayout(new FlowLayout(FlowLayout.LEFT));
-        jMenuBar.setBorder(UIBorders.LINE_MENU_BAR);
-        jMenuBar.add(jMenu_Back_To_Main_Menu);
-        jMenuBar.add(jMenu_Sound);
+
+        jMenuBar_MenuView = new JMenuBar();
+
+        jMenuBar_MenuView.setLayout(new FlowLayout(FlowLayout.LEFT));
+        jMenuBar_MenuView.setBorder(UIBorders.LINE_MENU_BAR);
+        jMenuBar_MenuView.add(jMenu_Back_To_Main_Menu);
+        jMenuBar_MenuView.add(jMenu_Sound);
 //        jMenu.add(jMenu_Sound);
-        this.setJMenuBar(jMenuBar);
+        this.setJMenuBar(jMenuBar_MenuView);
     }
 
     private void initTitle() {
-        jLabel_Title.setFont(UIFonts.RIGHT_TITLE);
-        jLabel_Title.setBorder(UIBorders.CONTAINER_MENU);
+        jLabel_Title_MenuView = new JLabel("Snake Game", JLabel.CENTER);
+
+        jLabel_Title_MenuView.setFont(UIFonts.RIGHT_TITLE);
+        jLabel_Title_MenuView.setBorder(UIBorders.CONTAINER_MENU);
     }
 
     private void initButton() {
-        jButton_1.setFont(UIFonts.BUTTON);
-        jButton_2.setFont(UIFonts.BUTTON);
-        jButton_3.setFont(UIFonts.BUTTON);
-        jPanel_Button.add(jButton_1);
-        jPanel_Button.add(jButton_2);
-        jPanel_Button.add(jButton_3);
+        jButton_Mode_Classic = new JButton("Classic");
+        jButton_Mode_Modern = new JButton("Modern");
+        jButton_Mode_Campaign = new JButton("Campaign");
+
+        jButton_Mode_Classic.setFont(UIFonts.BUTTON);
+        jButton_Mode_Modern.setFont(UIFonts.BUTTON);
+        jButton_Mode_Campaign.setFont(UIFonts.BUTTON);
+
+        jPanel_Button_MenuView = new JPanel(new GridLayout(3, 1, 30, 20));
+
+        jPanel_Button_MenuView.add(jButton_Mode_Classic);
+        jPanel_Button_MenuView.add(jButton_Mode_Modern);
+        jPanel_Button_MenuView.add(jButton_Mode_Campaign);
     }
 
     private void initContainer() {
-        jPanel_Container = new JPanel(new BorderLayout());
+        jPanel_Container_MenuView = new JPanel(new BorderLayout());
 
-        jPanel_Container.add(jLabel_Title, BorderLayout.NORTH);
-        jPanel_Container.add(jPanel_Button, BorderLayout.CENTER);
-        add(jPanel_Container);
+        jPanel_Container_MenuView.add(jLabel_Title_MenuView, BorderLayout.NORTH);
+        jPanel_Container_MenuView.add(jPanel_Button_MenuView, BorderLayout.CENTER);
+        add(jPanel_Container_MenuView);
     }
 
     @Override
     public void changeColorBaseOnToggle() {
         //if toggle is on, change color to dark
         if (getStatusToggle()) {
-            jLabel_Title.setForeground(UIColors.TEXT_COLOR_D);
-            jButton_1.setBackground(UIColors.TEXT_COLOR_D);
-            jButton_1.setForeground(UIColors.PRIMARY_COLOR_D);
-            jButton_2.setBackground(UIColors.TEXT_COLOR_D);
-            jButton_2.setForeground(UIColors.PRIMARY_COLOR_D);
-            jButton_3.setBackground(UIColors.TEXT_COLOR_D);
-            jButton_3.setForeground(UIColors.PRIMARY_COLOR_D);
-            jPanel_Button.setBackground(UIColors.PRIMARY_COLOR_D);
-            jPanel_Container.setBackground(UIColors.PRIMARY_COLOR_D);
+            jLabel_Title_MenuView.setForeground(UIColors.TEXT_COLOR_D);
+            jButton_Mode_Classic.setBackground(UIColors.TEXT_COLOR_D);
+            jButton_Mode_Classic.setForeground(UIColors.PRIMARY_COLOR_D);
+            jButton_Mode_Modern.setBackground(UIColors.TEXT_COLOR_D);
+            jButton_Mode_Modern.setForeground(UIColors.PRIMARY_COLOR_D);
+            jButton_Mode_Campaign.setBackground(UIColors.TEXT_COLOR_D);
+            jButton_Mode_Campaign.setForeground(UIColors.PRIMARY_COLOR_D);
+            jPanel_Button_MenuView.setBackground(UIColors.PRIMARY_COLOR_D);
+            jPanel_Container_MenuView.setBackground(UIColors.PRIMARY_COLOR_D);
         } else {
-            jLabel_Title.setForeground(UIColors.TEXT_COLOR_L);
-            jButton_1.setBackground(UIColors.TEXT_COLOR_L);
-            jButton_1.setForeground(UIColors.PRIMARY_COLOR_L);
-            jButton_2.setBackground(UIColors.TEXT_COLOR_L);
-            jButton_2.setForeground(UIColors.PRIMARY_COLOR_L);
-            jButton_3.setBackground(UIColors.TEXT_COLOR_L);
-            jButton_3.setForeground(UIColors.PRIMARY_COLOR_L);
-            jPanel_Button.setBackground(UIColors.PRIMARY_COLOR_L);
-            jPanel_Container.setBackground(UIColors.PRIMARY_COLOR_L);
+            jLabel_Title_MenuView.setForeground(UIColors.TEXT_COLOR_L);
+            jButton_Mode_Classic.setBackground(UIColors.TEXT_COLOR_L);
+            jButton_Mode_Classic.setForeground(UIColors.PRIMARY_COLOR_L);
+            jButton_Mode_Modern.setBackground(UIColors.TEXT_COLOR_L);
+            jButton_Mode_Modern.setForeground(UIColors.PRIMARY_COLOR_L);
+            jButton_Mode_Campaign.setBackground(UIColors.TEXT_COLOR_L);
+            jButton_Mode_Campaign.setForeground(UIColors.PRIMARY_COLOR_L);
+            jPanel_Button_MenuView.setBackground(UIColors.PRIMARY_COLOR_L);
+            jPanel_Container_MenuView.setBackground(UIColors.PRIMARY_COLOR_L);
         }
     }
 
-    private void doAction() {
+    @Override
+    public void doAction() {
 //        jMenuItem_Back_To_Main_Menu.addActionListener(new BackToMainMenu());
         jMenuItem_Back_To_Main_Menu.addActionListener(new BackToMainMenu());
         jMenuItem_Sound_On.addActionListener(new MenuController(this));
         jMenuItem_Sound_Off.addActionListener(new MenuController(this));
-        jButton_1.addMouseListener(new MenuController(this));
-        jButton_2.addMouseListener(new MenuController(this));
-        jButton_3.addMouseListener(new MenuController(this));
+        jButton_Mode_Classic.addMouseListener(new MenuController(this));
+        jButton_Mode_Modern.addMouseListener(new MenuController(this));
+        jButton_Mode_Campaign.addMouseListener(new MenuController(this));
     }
 
     public void setAudio(boolean msg) {

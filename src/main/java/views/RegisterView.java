@@ -222,7 +222,7 @@ public non-sealed class RegisterView extends MyFrame implements ToggleHandler{
     }
 
     @Override
-    protected void doAction() {
+    public void doAction() {
         // TODO Auto-generated method stub
         super.doAction();
         jTextField_Right_Middle_Email.addMouseListener(new RegisterController(this));

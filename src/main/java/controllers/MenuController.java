@@ -3,7 +3,6 @@ package controllers;
 import java.util.Arrays;
 import java.util.List;
 import styles.UIColors;
-import styles.UIHovers;
 import views.UIPrompts;
 import constants.ResourcePaths;
 import modules.sound.AudioHandler;
@@ -32,21 +31,21 @@ public class MenuController implements MouseListener, ActionListener {
         MenuController.menuView = menuView;
         this.audioHandler = new AudioHandler();
         this.jButtonList = Arrays.asList(
-            menuView.jButton_1,
-            menuView.jButton_2,
-            menuView.jButton_3);
+            menuView.jButton_Mode_Classic,
+            menuView.jButton_Mode_Modern,
+            menuView.jButton_Mode_Campaign);
 
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        if (e.getSource() == menuView.jButton_1) {
+        if (e.getSource() == menuView.jButton_Mode_Classic) {
             EventQueue.invokeLater(() -> {
                 menuView.dispose();
                 new Snake("Classic").startGame();
             });
         }
-        if (e.getSource() == menuView.jButton_2) {
+        if (e.getSource() == menuView.jButton_Mode_Modern) {
             EventQueue.invokeLater(() -> {
 
                 if (isMenuModern) {
@@ -60,7 +59,7 @@ public class MenuController implements MouseListener, ActionListener {
                 }
             });
         }
-        if (e.getSource() == menuView.jButton_3) {
+        if (e.getSource() == menuView.jButton_Mode_Campaign) {
             EventQueue.invokeLater(() -> {
 //                menuView.dispose();
 //                new Snake("Campaign").startGame();

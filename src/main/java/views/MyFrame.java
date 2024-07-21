@@ -2,65 +2,33 @@ package views;
 
 import constants.Info;
 import constants.ResourcePaths;
+import controllers.ScoreController;
+import controllers.ToggleHandler;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.Map;
+import javax.swing.ImageIcon;
+import javax.swing.JComponent;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JMenuBar;
+import javax.swing.JPanel;
 import lombok.Getter;
-import styles.UISizes;
-import styles.UILabels;
-import controllers.ScoreController;
 import styles.UIBorders;
 import styles.UIColors;
-import styles.UIFonts;
 import styles.UIImages;
-import modules.sound.AudioHandler;
-import controllers.ToggleHandler;
-
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionListener;
+import styles.UILabels;
+import styles.UISizes;
 
 @Getter
-public abstract sealed class MyFrame extends JFrame implements ToggleHandler permits
+public abstract sealed class MyFrame extends AbstractView implements ToggleHandler permits
     LoginView, RegisterView {
-
-    public static JPanel jPanel_Right_Bottom_Button;
-    private final JMenu jMenu = new JMenu("HELP");
-    private final JMenu jMenu_Play_Here = new JMenu("Play here");
-    private final JMenuItem jMenuItem_AboutMe = new JMenuItem("About me");
-    private final JMenuItem jMenuItem_Score = new JMenuItem("Show Score");
-    private final JMenuItem jMenuItem_Go = new JMenuItem("Go!!!");
-    protected JTextField jTextField_Right_Middle_Email; // 20 is the number of columns
-    protected JTextField jTextField_Right_Middle_FirstName; // 20 is the number of columns
-    protected JTextField jTextField_Right_Middle_LastName; // 20 is the number of columns
-    protected JPasswordField jPasswordField_Right_Middle_Password;
-    protected JPasswordField jPasswordField_Right_Middle_Confirm_Password;
-    protected JButton jButton_Right_Bottom_Submit;
-    protected JButton jButton_Right_Bottom_Forgot_Password;
-    protected JButton jButton_Right_Bottom_Others;
-    protected JPanel jPanel_Container;
-    protected JPanel jPanel_Right;
-    protected JPanel jPanel_Right_Top_Title;
-    protected JLabel jLabel_Right_Top_Title;
-    protected JPanel jPanel_Right_Middle_Email;
-    protected JPanel jPanel_Right_Middle_FirstName;
-    protected JPanel jPanel_Right_Middle_LastName;
-    protected JLabel jLabel_Right_Middle_Email;
-    protected JLabel jLabel_Right_Middle_FirstName;
-    protected JLabel jLabel_Right_Middle_LastName;
-    protected JPanel jPanel_Right_Middle_Password;
-    protected JLabel jLabel_Right_Middle_Password;
-    protected JLabel jLabel_Right_Middle_Confirm_Password;
-    protected JPanel jPanel_Right_Middle_Confirm_Password;
-    protected JPanel jPanel_Right_Middle_Data;
-    protected JButton jButton_Right_Play;
-    protected JPanel jPanel_Right_Bottom_Option;
-    protected JLabel jLabel_Right_Bottom_Option;
-    protected JPanel jPanel_Left_Icon;
-    protected AudioHandler audioHandler = new AudioHandler();
-    private JPanel jPanel_Left;
-    private JLabel jLabel_Left_Icon;
-    private JMenuBar jMenuBar;
-    protected Cursor cursor = new Cursor(Cursor.HAND_CURSOR);
 
     public MyFrame() {
         setTitle(UILabels.WINDOW);
@@ -73,12 +41,17 @@ public abstract sealed class MyFrame extends JFrame implements ToggleHandler per
     }
 
     protected void initUI() {
+        initComponents();
+        doAction();
+    }
+
+    @Override
+    public void initComponents(){
         initMenu();
         initLeft();
         initRight();
         initToggle();
         initContainer();
-        doAction();
     }
 
     private void initMenu() {
@@ -218,7 +191,8 @@ public abstract sealed class MyFrame extends JFrame implements ToggleHandler per
         this.add(jPanel_Container);
     }
 
-    protected void doAction() {
+    @Override
+    public void doAction() {
         jMenuItem_Go.addActionListener(new ClickPlayNow());
         jMenuItem_AboutMe.addActionListener(new Info());
         jMenuItem_Score.addActionListener(new ScoreController(new ScoreView()));

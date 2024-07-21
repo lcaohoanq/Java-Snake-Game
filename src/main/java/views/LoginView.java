@@ -186,7 +186,7 @@ public non-sealed class LoginView extends MyFrame implements ToggleHandler{
     }
 
     @Override
-    protected void doAction() {
+    public void doAction() {
         // TODO Auto-generated method stub
         super.doAction();
 

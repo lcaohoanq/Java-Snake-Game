@@ -1,6 +1,5 @@
 package views;
 
-import modules.user.UserDTO;
 import modules.user.UserEntity;
 import org.junit.Before;
 import org.junit.Test;
