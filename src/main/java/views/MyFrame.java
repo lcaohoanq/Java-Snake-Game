@@ -19,14 +19,12 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenuBar;
 import javax.swing.JPanel;
-import lombok.Getter;
 import styles.UIBorders;
 import styles.UIColors;
 import styles.UIImages;
 import styles.UILabels;
 import styles.UISizes;
 
-@Getter
 public abstract sealed class MyFrame extends AbstractView implements ToggleHandler permits
     LoginView, RegisterView {
 

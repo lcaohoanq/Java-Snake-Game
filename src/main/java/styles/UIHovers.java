@@ -69,4 +69,21 @@ public record UIHovers<T extends AbstractView>(T frame) {
         applyHoverEffect(frame.getJButton_Right_Bottom_Forgot_Password(), isInside, "light");
     }
 
+    public void setHoverButton(boolean isInside, String mode, JButton button) {
+        if (isInside) {
+            if (mode.equals("light")) {
+                button.setBackground(UIColors.TEXT_COLOR_L_HOVER);
+            } else {
+                button.setBackground(UIColors.TEXT_COLOR_D_HOVER);
+            }
+        } else {
+            if (mode.equals("light")) {
+                button.setBackground(UIColors.TEXT_COLOR_L);
+            } else {
+                button.setBackground(UIColors.TEXT_COLOR_D);
+            }
+        }
+
+    }
+
 }

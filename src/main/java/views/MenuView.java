@@ -18,11 +18,13 @@ import modules.sound.AudioHandler;
 import styles.UIBorders;
 import styles.UIColors;
 import styles.UIFonts;
+import styles.UIHovers;
 import styles.UIImages;
 import styles.UISizes;
 
 public non-sealed class MenuView extends AbstractView implements ToggleHandler, HoverHandler {
     boolean isActive;
+    private UIHovers<MenuView> uiHovers;
     public MenuView() {
         setTitle("Snake Game");
         setSize(UISizes.HEIGHT_MY_FRAME, UISizes.HEIGHT_MY_FRAME);
@@ -31,6 +33,7 @@ public non-sealed class MenuView extends AbstractView implements ToggleHandler, 
         setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         initUI();
+        this.uiHovers = new UIHovers<>(this);
     }
 
     @Override
@@ -145,17 +148,7 @@ public non-sealed class MenuView extends AbstractView implements ToggleHandler, 
         return isActive = value;
     }
 
-    public non-sealed class MenuModern extends JFrame implements ActionListener, ToggleHandler, HoverHandler {
-        //6 button: No Maze, Box, Tunnel, Mill, Rails, Apartment
-        public JPanel jPanel_Container = new JPanel();
-        public JPanel jPanel_Menu_Modern = new JPanel(new GridLayout(6, 1, 30, 20));
-        public JLabel jLabel_Title = new JLabel("Snake Game");
-        public JButton jButton_4 = new JButton("No Maze");
-        public JButton jButton_5 = new JButton("Box");
-        public JButton jButton_6 = new JButton("Tunnel");
-        public JButton jButton_7 = new JButton("Mill");
-        public JButton jButton_8 = new JButton("Rails");
-        public JButton jButton_9 = new JButton("Apartment");
+    public non-sealed class MenuModern extends AbstractView implements ActionListener, ToggleHandler, HoverHandler {
 
         public MenuModern() {
             setTitle("Modern Menu");
@@ -168,6 +161,16 @@ public non-sealed class MenuView extends AbstractView implements ToggleHandler, 
             initUIMenuModern();
         }
 
+        @Override
+        public void initComponents() {
+
+        }
+
+        @Override
+        public void doAction() {
+
+        }
+
         private void initUIMenuModern() {
             initLabel();
             initButtonMenuModern();
@@ -177,57 +180,57 @@ public non-sealed class MenuView extends AbstractView implements ToggleHandler, 
         }
 
         private void initLabel() {
-            jLabel_Title.setFont(UIFonts.RIGHT_TITLE);
-            jLabel_Title.setBackground(UIColors.PRIMARY_COLOR_L);
-            jLabel_Title.setForeground(UIColors.TEXT_COLOR_L);
-            jLabel_Title.setBorder(UIBorders.TITLE);
-            jLabel_Title.setHorizontalAlignment(SwingConstants.CENTER);
+            jLabel_Title_Modern.setFont(UIFonts.RIGHT_TITLE);
+            jLabel_Title_Modern.setBackground(UIColors.PRIMARY_COLOR_L);
+            jLabel_Title_Modern.setForeground(UIColors.TEXT_COLOR_L);
+            jLabel_Title_Modern.setBorder(UIBorders.TITLE);
+            jLabel_Title_Modern.setHorizontalAlignment(SwingConstants.CENTER);
         }
 
         private void initButtonMenuModern() {
-            jButton_4.setFont(UIFonts.BUTTON);
-            jButton_5.setFont(UIFonts.BUTTON);
-            jButton_6.setFont(UIFonts.BUTTON);
-            jButton_7.setFont(UIFonts.BUTTON);
-            jButton_8.setFont(UIFonts.BUTTON);
-            jButton_9.setFont(UIFonts.BUTTON);
-            jButton_4.setBackground(UIColors.TEXT_COLOR_L);
-            jButton_4.setForeground(UIColors.PRIMARY_COLOR_L);
-            jButton_5.setBackground(UIColors.TEXT_COLOR_L);
-            jButton_5.setForeground(UIColors.PRIMARY_COLOR_L);
-            jButton_6.setBackground(UIColors.TEXT_COLOR_L);
-            jButton_6.setForeground(UIColors.PRIMARY_COLOR_L);
-            jButton_7.setBackground(UIColors.TEXT_COLOR_L);
-            jButton_7.setForeground(UIColors.PRIMARY_COLOR_L);
-            jButton_8.setBackground(UIColors.TEXT_COLOR_L);
-            jButton_8.setForeground(UIColors.PRIMARY_COLOR_L);
-            jButton_9.setBackground(UIColors.TEXT_COLOR_L);
-            jButton_9.setForeground(UIColors.PRIMARY_COLOR_L);
-            jPanel_Menu_Modern.add(jButton_4);
-            jPanel_Menu_Modern.add(jButton_5);
-            jPanel_Menu_Modern.add(jButton_6);
-            jPanel_Menu_Modern.add(jButton_7);
-            jPanel_Menu_Modern.add(jButton_8);
-            jPanel_Menu_Modern.add(jButton_9);
+            jButton_NoMaze.setFont(UIFonts.BUTTON);
+            jButton_Box.setFont(UIFonts.BUTTON);
+            jButton_Tunnel.setFont(UIFonts.BUTTON);
+            jButton_Mill.setFont(UIFonts.BUTTON);
+            jButton_Rails.setFont(UIFonts.BUTTON);
+            jButton_Apartment.setFont(UIFonts.BUTTON);
+            jButton_NoMaze.setBackground(UIColors.TEXT_COLOR_L);
+            jButton_NoMaze.setForeground(UIColors.PRIMARY_COLOR_L);
+            jButton_Box.setBackground(UIColors.TEXT_COLOR_L);
+            jButton_Box.setForeground(UIColors.PRIMARY_COLOR_L);
+            jButton_Tunnel.setBackground(UIColors.TEXT_COLOR_L);
+            jButton_Tunnel.setForeground(UIColors.PRIMARY_COLOR_L);
+            jButton_Mill.setBackground(UIColors.TEXT_COLOR_L);
+            jButton_Mill.setForeground(UIColors.PRIMARY_COLOR_L);
+            jButton_Rails.setBackground(UIColors.TEXT_COLOR_L);
+            jButton_Rails.setForeground(UIColors.PRIMARY_COLOR_L);
+            jButton_Apartment.setBackground(UIColors.TEXT_COLOR_L);
+            jButton_Apartment.setForeground(UIColors.PRIMARY_COLOR_L);
+            jPanel_Menu_Modern.add(jButton_NoMaze);
+            jPanel_Menu_Modern.add(jButton_Box);
+            jPanel_Menu_Modern.add(jButton_Tunnel);
+            jPanel_Menu_Modern.add(jButton_Mill);
+            jPanel_Menu_Modern.add(jButton_Rails);
+            jPanel_Menu_Modern.add(jButton_Apartment);
         }
 
         private void initContainerMenuModern() {
             jPanel_Menu_Modern.setBorder(UIBorders.TITLE);
             jPanel_Menu_Modern.setBackground(UIColors.PRIMARY_COLOR_L);
-            jPanel_Container.setBackground(UIColors.PRIMARY_COLOR_L);
-            jPanel_Container.setLayout(new BorderLayout());
-            jPanel_Container.add(jLabel_Title, BorderLayout.NORTH);
-            jPanel_Container.add(jPanel_Menu_Modern, BorderLayout.CENTER);
-            add(jPanel_Container);
+            jPanel_Container_MenuModern.setBackground(UIColors.PRIMARY_COLOR_L);
+            jPanel_Container_MenuModern.setLayout(new BorderLayout());
+            jPanel_Container_MenuModern.add(jLabel_Title_Modern, BorderLayout.NORTH);
+            jPanel_Container_MenuModern.add(jPanel_Menu_Modern, BorderLayout.CENTER);
+            add(jPanel_Container_MenuModern);
         }
 
         private void doActionMenuModern() {
-            jButton_4.addMouseListener(new MenuController.MenuModernController(this));
-            jButton_5.addMouseListener(new MenuController.MenuModernController(this));
-            jButton_6.addMouseListener(new MenuController.MenuModernController(this));
-            jButton_7.addMouseListener(new MenuController.MenuModernController(this));
-            jButton_8.addMouseListener(new MenuController.MenuModernController(this));
-            jButton_9.addMouseListener(new MenuController.MenuModernController(this));
+            jButton_NoMaze.addMouseListener(new MenuController.MenuModernController(this));
+            jButton_Box.addMouseListener(new MenuController.MenuModernController(this));
+            jButton_Tunnel.addMouseListener(new MenuController.MenuModernController(this));
+            jButton_Mill.addMouseListener(new MenuController.MenuModernController(this));
+            jButton_Rails.addMouseListener(new MenuController.MenuModernController(this));
+            jButton_Apartment.addMouseListener(new MenuController.MenuModernController(this));
         }
 
         @Override
@@ -252,59 +255,42 @@ public non-sealed class MenuView extends AbstractView implements ToggleHandler, 
             }
         }
 
-        public void setHoverButton(boolean isInside, String mode, JButton button) {
-            if (isInside) {
-                if (mode.equals("light")) {
-                    button.setBackground(UIColors.TEXT_COLOR_L_HOVER);
-                } else {
-                    button.setBackground(UIColors.TEXT_COLOR_D_HOVER);
-                }
-            } else {
-                if (mode.equals("light")) {
-                    button.setBackground(UIColors.TEXT_COLOR_L);
-                } else {
-                    button.setBackground(UIColors.TEXT_COLOR_D);
-                }
-            }
-
-        }
-
         @Override
         public void changeColorBaseOnToggle() {
             if (MenuView.this.getStatusToggle()) {
-                jLabel_Title.setBackground(UIColors.PRIMARY_COLOR_D);
-                jLabel_Title.setForeground(UIColors.TEXT_COLOR_D);
-                jButton_4.setBackground(UIColors.TEXT_COLOR_D);
-                jButton_4.setForeground(UIColors.PRIMARY_COLOR_D);
-                jButton_5.setBackground(UIColors.TEXT_COLOR_D);
-                jButton_5.setForeground(UIColors.PRIMARY_COLOR_D);
-                jButton_6.setBackground(UIColors.TEXT_COLOR_D);
-                jButton_6.setForeground(UIColors.PRIMARY_COLOR_D);
-                jButton_7.setBackground(UIColors.TEXT_COLOR_D);
-                jButton_7.setForeground(UIColors.PRIMARY_COLOR_D);
-                jButton_8.setBackground(UIColors.TEXT_COLOR_D);
-                jButton_8.setForeground(UIColors.PRIMARY_COLOR_D);
-                jButton_9.setBackground(UIColors.TEXT_COLOR_D);
-                jButton_9.setForeground(UIColors.PRIMARY_COLOR_D);
+                jLabel_Title_Modern.setBackground(UIColors.PRIMARY_COLOR_D);
+                jLabel_Title_Modern.setForeground(UIColors.TEXT_COLOR_D);
+                jButton_NoMaze.setBackground(UIColors.TEXT_COLOR_D);
+                jButton_NoMaze.setForeground(UIColors.PRIMARY_COLOR_D);
+                jButton_Box.setBackground(UIColors.TEXT_COLOR_D);
+                jButton_Box.setForeground(UIColors.PRIMARY_COLOR_D);
+                jButton_Tunnel.setBackground(UIColors.TEXT_COLOR_D);
+                jButton_Tunnel.setForeground(UIColors.PRIMARY_COLOR_D);
+                jButton_Mill.setBackground(UIColors.TEXT_COLOR_D);
+                jButton_Mill.setForeground(UIColors.PRIMARY_COLOR_D);
+                jButton_Rails.setBackground(UIColors.TEXT_COLOR_D);
+                jButton_Rails.setForeground(UIColors.PRIMARY_COLOR_D);
+                jButton_Apartment.setBackground(UIColors.TEXT_COLOR_D);
+                jButton_Apartment.setForeground(UIColors.PRIMARY_COLOR_D);
                 jPanel_Menu_Modern.setBackground(UIColors.PRIMARY_COLOR_D);
-                jPanel_Container.setBackground(UIColors.PRIMARY_COLOR_D);
+                jPanel_Container_MenuModern.setBackground(UIColors.PRIMARY_COLOR_D);
             } else {
-                jLabel_Title.setBackground(UIColors.PRIMARY_COLOR_L);
-                jLabel_Title.setForeground(UIColors.TEXT_COLOR_L);
-                jButton_4.setBackground(UIColors.TEXT_COLOR_L);
-                jButton_4.setForeground(UIColors.PRIMARY_COLOR_L);
-                jButton_5.setBackground(UIColors.TEXT_COLOR_L);
-                jButton_5.setForeground(UIColors.PRIMARY_COLOR_L);
-                jButton_6.setBackground(UIColors.TEXT_COLOR_L);
-                jButton_6.setForeground(UIColors.PRIMARY_COLOR_L);
-                jButton_7.setBackground(UIColors.TEXT_COLOR_L);
-                jButton_7.setForeground(UIColors.PRIMARY_COLOR_L);
-                jButton_8.setBackground(UIColors.TEXT_COLOR_L);
-                jButton_8.setForeground(UIColors.PRIMARY_COLOR_L);
-                jButton_9.setBackground(UIColors.TEXT_COLOR_L);
-                jButton_9.setForeground(UIColors.PRIMARY_COLOR_L);
+                jLabel_Title_Modern.setBackground(UIColors.PRIMARY_COLOR_L);
+                jLabel_Title_Modern.setForeground(UIColors.TEXT_COLOR_L);
+                jButton_NoMaze.setBackground(UIColors.TEXT_COLOR_L);
+                jButton_NoMaze.setForeground(UIColors.PRIMARY_COLOR_L);
+                jButton_Box.setBackground(UIColors.TEXT_COLOR_L);
+                jButton_Box.setForeground(UIColors.PRIMARY_COLOR_L);
+                jButton_Tunnel.setBackground(UIColors.TEXT_COLOR_L);
+                jButton_Tunnel.setForeground(UIColors.PRIMARY_COLOR_L);
+                jButton_Mill.setBackground(UIColors.TEXT_COLOR_L);
+                jButton_Mill.setForeground(UIColors.PRIMARY_COLOR_L);
+                jButton_Rails.setBackground(UIColors.TEXT_COLOR_L);
+                jButton_Rails.setForeground(UIColors.PRIMARY_COLOR_L);
+                jButton_Apartment.setBackground(UIColors.TEXT_COLOR_L);
+                jButton_Apartment.setForeground(UIColors.PRIMARY_COLOR_L);
                 jPanel_Menu_Modern.setBackground(UIColors.PRIMARY_COLOR_L);
-                jPanel_Container.setBackground(UIColors.PRIMARY_COLOR_L);
+                jPanel_Container_MenuModern.setBackground(UIColors.PRIMARY_COLOR_L);
             }
         }
     }
@@ -319,23 +305,6 @@ public non-sealed class MenuView extends AbstractView implements ToggleHandler, 
                 new LoginView().setVisible(true);
             });
         }
-    }
-
-    public void setHoverButton(boolean isInside, String mode, JButton button) {
-        if (isInside) {
-            if (mode.equals("light")) {
-                button.setBackground(UIColors.TEXT_COLOR_L_HOVER);
-            } else {
-                button.setBackground(UIColors.TEXT_COLOR_D_HOVER);
-            }
-        } else {
-            if (mode.equals("light")) {
-                button.setBackground(UIColors.TEXT_COLOR_L);
-            } else {
-                button.setBackground(UIColors.TEXT_COLOR_D);
-            }
-        }
-
     }
 }
 

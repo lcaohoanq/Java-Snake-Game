@@ -1,6 +1,7 @@
 package views;
 
 import java.awt.Cursor;
+import java.awt.GridLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -68,6 +69,18 @@ public abstract class AbstractView extends JFrame {
     protected final JMenu jMenu_Sound = new JMenu("Turn Sound");
     protected final JMenuItem jMenuItem_Sound_On = new JMenuItem("On");
     protected final JMenuItem jMenuItem_Sound_Off = new JMenuItem("Off");
+
+    // MenuModern
+    //6 button: No Maze, Box, Tunnel, Mill, Rails, Apartment
+    public JPanel jPanel_Container_MenuModern = new JPanel();
+    public JPanel jPanel_Menu_Modern = new JPanel(new GridLayout(6, 1, 30, 20));
+    public JLabel jLabel_Title_Modern = new JLabel("Snake Game");
+    public JButton jButton_NoMaze = new JButton("No Maze");
+    public JButton jButton_Box = new JButton("Box");
+    public JButton jButton_Tunnel = new JButton("Tunnel");
+    public JButton jButton_Mill = new JButton("Mill");
+    public JButton jButton_Rails = new JButton("Rails");
+    public JButton jButton_Apartment = new JButton("Apartment");
 
     public AbstractView() {
         super();
