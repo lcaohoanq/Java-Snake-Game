@@ -18,6 +18,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import lombok.Getter;
 import modules.sound.AudioHandler;
 import styles.UIBorders;
@@ -71,12 +72,12 @@ public abstract class AppComponent extends JFrame {
     protected Cursor cursor = new Cursor(Cursor.HAND_CURSOR);
 
     // MenuView
-    public JButton jButton_Mode_Classic;
-    public JButton jButton_Mode_Modern;
-    public JButton jButton_Mode_Campaign;
-    protected JPanel jPanel_Container_MenuView;
-    protected JLabel jLabel_Title_MenuView;
-    protected JPanel jPanel_Button_MenuView;
+    public JButton jButton_Mode_Classic = new JButton("Classic");;
+    public JButton jButton_Mode_Modern = new JButton("Modern");;
+    public JButton jButton_Mode_Campaign = new JButton("Campaign");;
+    protected JPanel jPanel_Container_MenuView = new JPanel(new BorderLayout());;
+    protected JLabel jLabel_Title_MenuView = new JLabel("Snake Game", JLabel.CENTER);;
+    protected JPanel jPanel_Button_MenuView = new JPanel(new GridLayout(3, 1, 30, 20));;
     protected JMenuBar jMenuBar_MenuView;
     protected final JMenu jMenu_Back_To_Main_Menu = new JMenu("Back to");
     protected final JMenuItem jMenuItem_Back_To_Main_Menu = new JMenuItem("main menu");
@@ -143,6 +144,55 @@ public abstract class AppComponent extends JFrame {
         jButton_Right_Bottom_Submit.setFont(UIFonts.BUTTON);
         jButton_Right_Bottom_Submit.setPreferredSize(UISizes.SIZE_BUTTON);
         jButton_Right_Bottom_Submit.setCursor(cursor);
+
+        stylingMenuView();
+        stylingMenuModern();
+    }
+
+    private void stylingMenuView(){
+        jLabel_Title_MenuView.setFont(UIFonts.RIGHT_TITLE);
+        jLabel_Title_MenuView.setBorder(UIBorders.CONTAINER_MENU);
+
+        jButton_Mode_Classic.setFont(UIFonts.BUTTON);
+        jButton_Mode_Modern.setFont(UIFonts.BUTTON);
+        jButton_Mode_Campaign.setFont(UIFonts.BUTTON);
+    }
+
+    private void stylingMenuModern(){
+        jLabel_Title_Modern.setFont(UIFonts.RIGHT_TITLE);
+        jLabel_Title_Modern.setBackground(UIColors.PRIMARY_COLOR_L);
+        jLabel_Title_Modern.setForeground(UIColors.TEXT_COLOR_L);
+        jLabel_Title_Modern.setBorder(UIBorders.TITLE);
+        jLabel_Title_Modern.setHorizontalAlignment(SwingConstants.CENTER);
+
+        jButton_NoMaze.setFont(UIFonts.BUTTON);
+        jButton_NoMaze.setBackground(UIColors.TEXT_COLOR_L);
+        jButton_NoMaze.setForeground(UIColors.PRIMARY_COLOR_L);
+
+        jButton_Box.setFont(UIFonts.BUTTON);
+        jButton_Box.setBackground(UIColors.TEXT_COLOR_L);
+        jButton_Box.setForeground(UIColors.PRIMARY_COLOR_L);
+
+        jButton_Tunnel.setFont(UIFonts.BUTTON);
+        jButton_Tunnel.setBackground(UIColors.TEXT_COLOR_L);
+        jButton_Tunnel.setForeground(UIColors.PRIMARY_COLOR_L);
+
+        jButton_Mill.setFont(UIFonts.BUTTON);
+        jButton_Mill.setBackground(UIColors.TEXT_COLOR_L);
+        jButton_Mill.setForeground(UIColors.PRIMARY_COLOR_L);
+
+        jButton_Rails.setFont(UIFonts.BUTTON);
+        jButton_Rails.setBackground(UIColors.TEXT_COLOR_L);
+        jButton_Rails.setForeground(UIColors.PRIMARY_COLOR_L);
+
+        jButton_Apartment.setFont(UIFonts.BUTTON);
+        jButton_Apartment.setBackground(UIColors.TEXT_COLOR_L);
+        jButton_Apartment.setForeground(UIColors.PRIMARY_COLOR_L);
+
+        jPanel_Menu_Modern.setBorder(UIBorders.TITLE);
+        jPanel_Menu_Modern.setBackground(UIColors.PRIMARY_COLOR_L);
+
+        jPanel_Container_MenuModern.setBackground(UIColors.PRIMARY_COLOR_L);
     }
 
 }

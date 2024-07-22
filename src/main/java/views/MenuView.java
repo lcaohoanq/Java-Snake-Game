@@ -5,20 +5,14 @@ import controllers.ToggleHandler;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.FlowLayout;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Objects;
-import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JMenuBar;
-import javax.swing.JPanel;
-import javax.swing.SwingConstants;
 import modules.sound.AudioHandler;
 import styles.UIBorders;
 import styles.UIColors;
-import styles.UIFonts;
 import styles.UIHovers;
 import styles.UIImages;
 import styles.UISizes;
@@ -44,7 +38,6 @@ public non-sealed class MenuView extends AppComponent implements ToggleHandler, 
 
     private void initUI() {
         initMenu();
-        initTitle();
         initButton();
         initContainer();
         changeColorBaseOnToggle();
@@ -66,32 +59,13 @@ public non-sealed class MenuView extends AppComponent implements ToggleHandler, 
         this.setJMenuBar(jMenuBar_MenuView);
     }
 
-    private void initTitle() {
-        jLabel_Title_MenuView = new JLabel("Snake Game", JLabel.CENTER);
-
-        jLabel_Title_MenuView.setFont(UIFonts.RIGHT_TITLE);
-        jLabel_Title_MenuView.setBorder(UIBorders.CONTAINER_MENU);
-    }
-
     private void initButton() {
-        jButton_Mode_Classic = new JButton("Classic");
-        jButton_Mode_Modern = new JButton("Modern");
-        jButton_Mode_Campaign = new JButton("Campaign");
-
-        jButton_Mode_Classic.setFont(UIFonts.BUTTON);
-        jButton_Mode_Modern.setFont(UIFonts.BUTTON);
-        jButton_Mode_Campaign.setFont(UIFonts.BUTTON);
-
-        jPanel_Button_MenuView = new JPanel(new GridLayout(3, 1, 30, 20));
-
         jPanel_Button_MenuView.add(jButton_Mode_Classic);
         jPanel_Button_MenuView.add(jButton_Mode_Modern);
         jPanel_Button_MenuView.add(jButton_Mode_Campaign);
     }
 
     private void initContainer() {
-        jPanel_Container_MenuView = new JPanel(new BorderLayout());
-
         jPanel_Container_MenuView.add(jLabel_Title_MenuView, BorderLayout.NORTH);
         jPanel_Container_MenuView.add(jPanel_Button_MenuView, BorderLayout.CENTER);
         add(jPanel_Container_MenuView);
@@ -145,10 +119,6 @@ public non-sealed class MenuView extends AppComponent implements ToggleHandler, 
         }
     }
 
-    public boolean isActiveMenu(boolean value) {
-        return isActive = value;
-    }
-
     public non-sealed class MenuModern extends AppComponent implements ActionListener, ToggleHandler, HoverHandler {
 
         public MenuModern() {
@@ -175,39 +145,12 @@ public non-sealed class MenuView extends AppComponent implements ToggleHandler, 
 
         @Override
         public void initComponents() {
-            initLabel();
             initButtonMenuModern();
             initContainerMenuModern();
             changeColorBaseOnToggle();
         }
 
-        private void initLabel() {
-            jLabel_Title_Modern.setFont(UIFonts.RIGHT_TITLE);
-            jLabel_Title_Modern.setBackground(UIColors.PRIMARY_COLOR_L);
-            jLabel_Title_Modern.setForeground(UIColors.TEXT_COLOR_L);
-            jLabel_Title_Modern.setBorder(UIBorders.TITLE);
-            jLabel_Title_Modern.setHorizontalAlignment(SwingConstants.CENTER);
-        }
-
         private void initButtonMenuModern() {
-            jButton_NoMaze.setFont(UIFonts.BUTTON);
-            jButton_Box.setFont(UIFonts.BUTTON);
-            jButton_Tunnel.setFont(UIFonts.BUTTON);
-            jButton_Mill.setFont(UIFonts.BUTTON);
-            jButton_Rails.setFont(UIFonts.BUTTON);
-            jButton_Apartment.setFont(UIFonts.BUTTON);
-            jButton_NoMaze.setBackground(UIColors.TEXT_COLOR_L);
-            jButton_NoMaze.setForeground(UIColors.PRIMARY_COLOR_L);
-            jButton_Box.setBackground(UIColors.TEXT_COLOR_L);
-            jButton_Box.setForeground(UIColors.PRIMARY_COLOR_L);
-            jButton_Tunnel.setBackground(UIColors.TEXT_COLOR_L);
-            jButton_Tunnel.setForeground(UIColors.PRIMARY_COLOR_L);
-            jButton_Mill.setBackground(UIColors.TEXT_COLOR_L);
-            jButton_Mill.setForeground(UIColors.PRIMARY_COLOR_L);
-            jButton_Rails.setBackground(UIColors.TEXT_COLOR_L);
-            jButton_Rails.setForeground(UIColors.PRIMARY_COLOR_L);
-            jButton_Apartment.setBackground(UIColors.TEXT_COLOR_L);
-            jButton_Apartment.setForeground(UIColors.PRIMARY_COLOR_L);
             jPanel_Menu_Modern.add(jButton_NoMaze);
             jPanel_Menu_Modern.add(jButton_Box);
             jPanel_Menu_Modern.add(jButton_Tunnel);
@@ -217,9 +160,6 @@ public non-sealed class MenuView extends AppComponent implements ToggleHandler, 
         }
 
         private void initContainerMenuModern() {
-            jPanel_Menu_Modern.setBorder(UIBorders.TITLE);
-            jPanel_Menu_Modern.setBackground(UIColors.PRIMARY_COLOR_L);
-            jPanel_Container_MenuModern.setBackground(UIColors.PRIMARY_COLOR_L);
             jPanel_Container_MenuModern.setLayout(new BorderLayout());
             jPanel_Container_MenuModern.add(jLabel_Title_Modern, BorderLayout.NORTH);
             jPanel_Container_MenuModern.add(jPanel_Menu_Modern, BorderLayout.CENTER);
