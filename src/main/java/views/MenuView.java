@@ -17,7 +17,7 @@ import styles.UIHovers;
 import styles.UIImages;
 import styles.UISizes;
 
-public non-sealed class MenuView extends AppComponent implements ToggleHandler, HoverHandler {
+public class MenuView extends AppComponent implements ToggleHandler {
     boolean isActive;
     private UIHovers<MenuView> uiHovers;
     public MenuView() {
@@ -119,7 +119,7 @@ public non-sealed class MenuView extends AppComponent implements ToggleHandler, 
         }
     }
 
-    public non-sealed class MenuModern extends AppComponent implements ActionListener, ToggleHandler, HoverHandler {
+    public class MenuModern extends AppComponent implements ActionListener, ToggleHandler {
 
         public MenuModern() {
             setTitle("Modern Menu");

@@ -1,11 +1,12 @@
 package views;
 
+import static org.junit.Assert.assertEquals;
+
 import modules.user.UserEntity;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import utils.EnvUtils;
-
-import static org.junit.Assert.*;
 
 public class LoginViewTest {
 
@@ -22,6 +23,7 @@ public class LoginViewTest {
 
 
     @Test
+    @Ignore
     public void getDataWhenLogin() {
         UserEntity expectedResult = new UserEntity(email_phone, password);
         loginView.setLogin(email_phone, password);

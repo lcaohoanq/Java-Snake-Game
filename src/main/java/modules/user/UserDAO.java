@@ -18,7 +18,7 @@ import utils.PBKDF2;
 public class UserDAO {
 
     private static UserDAO instance;
-    private final EntityManagerFactory emf = Persistence.createEntityManagerFactory("UserPU");
+    private final EntityManagerFactory emf = Persistence.createEntityManagerFactory("Java-Snake-Game");
 
     private UserDAO() {
     }
