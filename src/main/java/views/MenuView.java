@@ -8,6 +8,7 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Objects;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -22,7 +23,7 @@ import styles.UIHovers;
 import styles.UIImages;
 import styles.UISizes;
 
-public non-sealed class MenuView extends AbstractView implements ToggleHandler, HoverHandler {
+public non-sealed class MenuView extends AppComponent implements ToggleHandler, HoverHandler {
     boolean isActive;
     private UIHovers<MenuView> uiHovers;
     public MenuView() {
@@ -148,7 +149,7 @@ public non-sealed class MenuView extends AbstractView implements ToggleHandler, 
         return isActive = value;
     }
 
-    public non-sealed class MenuModern extends AbstractView implements ActionListener, ToggleHandler, HoverHandler {
+    public non-sealed class MenuModern extends AppComponent implements ActionListener, ToggleHandler, HoverHandler {
 
         public MenuModern() {
             setTitle("Modern Menu");
@@ -158,25 +159,26 @@ public non-sealed class MenuView extends AbstractView implements ToggleHandler, 
             setResizable(false);
             setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             setVisible(false);
-            initUIMenuModern();
-        }
-
-        @Override
-        public void initComponents() {
-
+            initComponents();
+            doAction();
         }
 
         @Override
         public void doAction() {
-
+            jButton_NoMaze.addMouseListener(new MenuController.MenuModernController(this));
+            jButton_Box.addMouseListener(new MenuController.MenuModernController(this));
+            jButton_Tunnel.addMouseListener(new MenuController.MenuModernController(this));
+            jButton_Mill.addMouseListener(new MenuController.MenuModernController(this));
+            jButton_Rails.addMouseListener(new MenuController.MenuModernController(this));
+            jButton_Apartment.addMouseListener(new MenuController.MenuModernController(this));
         }
 
-        private void initUIMenuModern() {
+        @Override
+        public void initComponents() {
             initLabel();
             initButtonMenuModern();
             initContainerMenuModern();
             changeColorBaseOnToggle();
-            doActionMenuModern();
         }
 
         private void initLabel() {
@@ -224,33 +226,24 @@ public non-sealed class MenuView extends AbstractView implements ToggleHandler, 
             add(jPanel_Container_MenuModern);
         }
 
-        private void doActionMenuModern() {
-            jButton_NoMaze.addMouseListener(new MenuController.MenuModernController(this));
-            jButton_Box.addMouseListener(new MenuController.MenuModernController(this));
-            jButton_Tunnel.addMouseListener(new MenuController.MenuModernController(this));
-            jButton_Mill.addMouseListener(new MenuController.MenuModernController(this));
-            jButton_Rails.addMouseListener(new MenuController.MenuModernController(this));
-            jButton_Apartment.addMouseListener(new MenuController.MenuModernController(this));
-        }
-
         @Override
         public void actionPerformed(ActionEvent e) {
-            if (e.getActionCommand() == "No Maze") {
+            if (Objects.equals(e.getActionCommand(), "No Maze")) {
                 System.out.println("No Maze");
             }
-            if (e.getActionCommand() == "Box") {
+            if (Objects.equals(e.getActionCommand(), "Box")) {
                 System.out.println("Box");
             }
-            if (e.getActionCommand() == "Tunnel") {
+            if (Objects.equals(e.getActionCommand(), "Tunnel")) {
                 System.out.println("Tunnel");
             }
-            if (e.getActionCommand() == "Mill") {
+            if (Objects.equals(e.getActionCommand(), "Mill")) {
                 System.out.println("Mill");
             }
-            if (e.getActionCommand() == "Rails") {
+            if (Objects.equals(e.getActionCommand(), "Rails")) {
                 System.out.println("Rails");
             }
-            if (e.getActionCommand() == "Apartment") {
+            if (Objects.equals(e.getActionCommand(), "Apartment")) {
                 System.out.println("Apartment");
             }
         }

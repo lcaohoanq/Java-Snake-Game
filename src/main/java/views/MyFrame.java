@@ -1,31 +1,24 @@
 package views;
 
 import constants.Info;
-import constants.ResourcePaths;
 import controllers.ScoreController;
 import controllers.ToggleHandler;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Image;
-import java.awt.Toolkit;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.Map;
-import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JMenuBar;
-import javax.swing.JPanel;
 import styles.UIBorders;
 import styles.UIColors;
 import styles.UIImages;
 import styles.UILabels;
 import styles.UISizes;
 
-public abstract sealed class MyFrame extends AbstractView implements ToggleHandler permits
+public abstract sealed class MyFrame extends AppComponent implements ToggleHandler permits
     LoginView, RegisterView {
 
     public MyFrame() {
@@ -53,8 +46,6 @@ public abstract sealed class MyFrame extends AbstractView implements ToggleHandl
     }
 
     private void initMenu() {
-        // Menu bar setup
-        jMenuBar = new JMenuBar();
         jMenu_Play_Here.add(jMenuItem_Go);
         jMenuBar.setLayout(new FlowLayout(FlowLayout.LEFT));
         jMenuBar.setBorder(UIBorders.LINE_MENU_BAR);
@@ -70,15 +61,10 @@ public abstract sealed class MyFrame extends AbstractView implements ToggleHandl
     }
 
     private void initLeft() {
-        jPanel_Left = new JPanel(new BorderLayout());
-
-        jPanel_Left_Icon = new JPanel(new BorderLayout());
         jPanel_Left_Icon.setPreferredSize(new Dimension(100, 100));
         jPanel_Left_Icon.setBackground(UIColors.TEXT_COLOR_L);
 
         // Use the new image "250-250.png"
-        jLabel_Left_Icon = new JLabel(
-                new ImageIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage(MyFrame.class.getResource(ResourcePaths.URL_SNAKE_LOGO))).getImage().getScaledInstance(250, 250, Image.SCALE_SMOOTH)));
         jPanel_Left_Icon.add(jLabel_Left_Icon, BorderLayout.CENTER);
 
         jPanel_Left.setPreferredSize(new Dimension(UISizes.WIDTH_MY_LEFT_FRAME, UISizes.HEIGHT_MY_LEFT_FRAME));
@@ -181,7 +167,6 @@ public abstract sealed class MyFrame extends AbstractView implements ToggleHandl
 
 
     protected void initContainer() {
-        jPanel_Container = new JPanel();
         jPanel_Container.setLayout(new BorderLayout());
         jPanel_Container.setBackground(UIColors.PRIMARY_COLOR_L);
         jPanel_Container.add(jPanel_Left, BorderLayout.WEST);

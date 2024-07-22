@@ -3,7 +3,7 @@ package controllers;
 import java.util.Arrays;
 import java.util.List;
 import styles.UIHovers;
-import views.AbstractView;
+import views.AppComponent;
 import views.UIPrompts;
 import constants.ResourcePaths;
 import modules.sound.AudioHandler;
@@ -129,7 +129,7 @@ public class MenuController implements MouseListener, ActionListener {
         UIPrompts.IS_NOT_SUPPORT();
     }
 
-    public static class MenuModernController extends AbstractView implements MouseListener {
+    public static class MenuModernController extends AppComponent implements MouseListener {
 
         private final MenuView.MenuModern menuModern;
         private final AudioHandler audioHandler;
@@ -143,37 +143,37 @@ public class MenuController implements MouseListener, ActionListener {
 
         @Override
         public void mouseClicked(MouseEvent e) {
-            if (e.getSource() == menuModern.jButton_NoMaze) {
+            if (e.getSource() == menuModern.getJButton_NoMaze()) {
                 EventQueue.invokeLater(() -> {
                     menuView.dispose();
                     new Snake("NoMaze").startGame();
                 });
             }
-            if (e.getSource() == menuModern.jButton_Box) {
+            if (e.getSource() == menuModern.getJButton_Box()) {
                 EventQueue.invokeLater(() -> {
                     menuView.dispose();
                     new Snake("Box").startGame();
                 });
             }
-            if (e.getSource() == menuModern.jButton_Tunnel) {
+            if (e.getSource() == menuModern.getJButton_Tunnel()) {
                 EventQueue.invokeLater(() -> {
                     menuView.dispose();
                     new Snake("Tunnel").startGame();
                 });
             }
-            if (e.getSource() == menuModern.jButton_Mill) {
+            if (e.getSource() == menuModern.getJButton_Mill()) {
                 EventQueue.invokeLater(() -> {
                     menuView.dispose();
                     new Snake("Mill").startGame();
                 });
             }
-            if (e.getSource() == menuModern.jButton_Rails) {
+            if (e.getSource() == menuModern.getJButton_Rails()) {
                 EventQueue.invokeLater(() -> {
                     menuView.dispose();
                     new Snake("Rails").startGame();
                 });
             }
-            if (e.getSource() == menuModern.jButton_Apartment) {
+            if (e.getSource() == menuModern.getJButton_Apartment()) {
                 EventQueue.invokeLater(() -> {
                     menuView.dispose();
                     new Snake("Apartment").startGame();
@@ -194,42 +194,42 @@ public class MenuController implements MouseListener, ActionListener {
         @Override
         public void mouseEntered(MouseEvent e) {
             if (menuModern.getStatusToggle()) {
-                if (e.getSource() == menuModern.jButton_NoMaze) {
-                    uiHovers.setHoverButton(true, "dark", menuModern.jButton_NoMaze);
+                if (e.getSource() == menuModern.getJButton_NoMaze()) {
+                    uiHovers.setHoverButton(true, "dark", menuModern.getJButton_NoMaze());
                 }
-                if (e.getSource() == menuModern.jButton_Box) {
-                    uiHovers.setHoverButton(true, "dark", menuModern.jButton_Box);
+                if (e.getSource() == menuModern.getJButton_Box()) {
+                    uiHovers.setHoverButton(true, "dark", menuModern.getJButton_Box());
                 }
-                if (e.getSource() == menuModern.jButton_Tunnel) {
-                    uiHovers.setHoverButton(true, "dark", menuModern.jButton_Tunnel);
+                if (e.getSource() == menuModern.getJButton_Tunnel()) {
+                    uiHovers.setHoverButton(true, "dark", menuModern.getJButton_Tunnel());
                 }
-                if (e.getSource() == menuModern.jButton_Mill) {
-                    uiHovers.setHoverButton(true, "dark", menuModern.jButton_Mill);
+                if (e.getSource() == menuModern.getJButton_Mill()) {
+                    uiHovers.setHoverButton(true, "dark", menuModern.getJButton_Mill());
                 }
-                if (e.getSource() == menuModern.jButton_Rails) {
-                    uiHovers.setHoverButton(true, "dark", menuModern.jButton_Rails);
+                if (e.getSource() == menuModern.getJButton_Rails()) {
+                    uiHovers.setHoverButton(true, "dark", menuModern.getJButton_Rails());
                 }
-                if (e.getSource() == menuModern.jButton_Apartment) {
-                    uiHovers.setHoverButton(true, "dark", menuModern.jButton_Apartment);
+                if (e.getSource() == menuModern.getJButton_Apartment()) {
+                    uiHovers.setHoverButton(true, "dark", menuModern.getJButton_Apartment());
                 }
             } else {
-                if (e.getSource() == menuModern.jButton_NoMaze) {
-                    uiHovers.setHoverButton(true, "light", menuModern.jButton_NoMaze);
+                if (e.getSource() == menuModern.getJButton_NoMaze()) {
+                    uiHovers.setHoverButton(true, "light", menuModern.getJButton_NoMaze());
                 }
-                if (e.getSource() == menuModern.jButton_Box) {
-                    uiHovers.setHoverButton(true, "light", menuModern.jButton_Box);
+                if (e.getSource() == menuModern.getJButton_Box()) {
+                    uiHovers.setHoverButton(true, "light", menuModern.getJButton_Box());
                 }
-                if (e.getSource() == menuModern.jButton_Tunnel) {
-                    uiHovers.setHoverButton(true, "light", menuModern.jButton_Tunnel);
+                if (e.getSource() == menuModern.getJButton_Tunnel()) {
+                    uiHovers.setHoverButton(true, "light", menuModern.getJButton_Tunnel());
                 }
-                if (e.getSource() == menuModern.jButton_Mill) {
-                    uiHovers.setHoverButton(true, "light", menuModern.jButton_Mill);
+                if (e.getSource() == menuModern.getJButton_Mill()) {
+                    uiHovers.setHoverButton(true, "light", menuModern.getJButton_Mill());
                 }
-                if (e.getSource() == menuModern.jButton_Rails) {
-                    uiHovers.setHoverButton(true, "light", menuModern.jButton_Rails);
+                if (e.getSource() == menuModern.getJButton_Rails()) {
+                    uiHovers.setHoverButton(true, "light", menuModern.getJButton_Rails());
                 }
-                if (e.getSource() == menuModern.jButton_Apartment) {
-                    uiHovers.setHoverButton(true, "light", menuModern.jButton_Apartment);
+                if (e.getSource() == menuModern.getJButton_Apartment()) {
+                    uiHovers.setHoverButton(true, "light", menuModern.getJButton_Apartment());
                 }
             }
         }
@@ -237,42 +237,42 @@ public class MenuController implements MouseListener, ActionListener {
         @Override
         public void mouseExited(MouseEvent e) {
             if (menuModern.getStatusToggle()) {
-                if (e.getSource() == menuModern.jButton_NoMaze) {
-                    uiHovers.setHoverButton(false, "dark", menuModern.jButton_NoMaze);
+                if (e.getSource() == menuModern.getJButton_NoMaze()) {
+                    uiHovers.setHoverButton(false, "dark", menuModern.getJButton_NoMaze());
                 }
-                if (e.getSource() == menuModern.jButton_Box) {
-                    uiHovers.setHoverButton(false, "dark", menuModern.jButton_Box);
+                if (e.getSource() == menuModern.getJButton_Box()) {
+                    uiHovers.setHoverButton(false, "dark", menuModern.getJButton_Box());
                 }
-                if (e.getSource() == menuModern.jButton_Tunnel) {
-                    uiHovers.setHoverButton(false, "dark", menuModern.jButton_Tunnel);
+                if (e.getSource() == menuModern.getJButton_Tunnel()) {
+                    uiHovers.setHoverButton(false, "dark", menuModern.getJButton_Tunnel());
                 }
-                if (e.getSource() == menuModern.jButton_Mill) {
-                    uiHovers.setHoverButton(false, "dark", menuModern.jButton_Mill);
+                if (e.getSource() == menuModern.getJButton_Mill()) {
+                    uiHovers.setHoverButton(false, "dark", menuModern.getJButton_Mill());
                 }
-                if (e.getSource() == menuModern.jButton_Rails) {
-                    uiHovers.setHoverButton(false, "dark", menuModern.jButton_Rails);
+                if (e.getSource() == menuModern.getJButton_Rails()) {
+                    uiHovers.setHoverButton(false, "dark", menuModern.getJButton_Rails());
                 }
-                if (e.getSource() == menuModern.jButton_Apartment) {
-                    uiHovers.setHoverButton(false, "dark", menuModern.jButton_Apartment);
+                if (e.getSource() == menuModern.getJButton_Apartment()) {
+                    uiHovers.setHoverButton(false, "dark", menuModern.getJButton_Apartment());
                 }
             } else {
-                if (e.getSource() == menuModern.jButton_NoMaze) {
-                    uiHovers.setHoverButton(false, "light", menuModern.jButton_NoMaze);
+                if (e.getSource() == menuModern.getJButton_NoMaze()) {
+                    uiHovers.setHoverButton(false, "light", menuModern.getJButton_NoMaze());
                 }
-                if (e.getSource() == menuModern.jButton_Box) {
-                    uiHovers.setHoverButton(false, "light", menuModern.jButton_Box);
+                if (e.getSource() == menuModern.getJButton_Box()) {
+                    uiHovers.setHoverButton(false, "light", menuModern.getJButton_Box());
                 }
-                if (e.getSource() == menuModern.jButton_Tunnel) {
-                    uiHovers.setHoverButton(false, "light", menuModern.jButton_Tunnel);
+                if (e.getSource() == menuModern.getJButton_Tunnel()) {
+                    uiHovers.setHoverButton(false, "light", menuModern.getJButton_Tunnel());
                 }
-                if (e.getSource() == menuModern.jButton_Mill) {
-                    uiHovers.setHoverButton(false, "light", menuModern.jButton_Mill);
+                if (e.getSource() == menuModern.getJButton_Mill()) {
+                    uiHovers.setHoverButton(false, "light", menuModern.getJButton_Mill());
                 }
-                if (e.getSource() == menuModern.jButton_Rails) {
-                    uiHovers.setHoverButton(false, "light", menuModern.jButton_Rails);
+                if (e.getSource() == menuModern.getJButton_Rails()) {
+                    uiHovers.setHoverButton(false, "light", menuModern.getJButton_Rails());
                 }
-                if (e.getSource() == menuModern.jButton_Apartment) {
-                    uiHovers.setHoverButton(false, "light", menuModern.jButton_Apartment);
+                if (e.getSource() == menuModern.getJButton_Apartment()) {
+                    uiHovers.setHoverButton(false, "light", menuModern.getJButton_Apartment());
                 }
             }
         }

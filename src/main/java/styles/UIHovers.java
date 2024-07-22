@@ -5,9 +5,9 @@ import java.awt.Font;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JTextField;
-import views.AbstractView;
+import views.AppComponent;
 
-public record UIHovers<T extends AbstractView>(T frame) {
+public record UIHovers<T extends AppComponent>(T frame) {
 
     private void applyHoverEffect(JComponent component, boolean isInside, String mode) {
         Color normalColor;

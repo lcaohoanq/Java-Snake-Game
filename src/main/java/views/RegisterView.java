@@ -2,26 +2,23 @@ package views;
 
 import controllers.RegisterController;
 import controllers.ToggleHandler;
+import java.awt.BorderLayout;
+import java.awt.GridLayout;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import lombok.Getter;
-import modules.user.UserEntity;
-import styles.UISizes;
-import styles.UILabels;
 import models.RegisterModel;
+import modules.user.UserEntity;
 import styles.UIBorders;
 import styles.UIColors;
 import styles.UIFonts;
-
-import javax.swing.*;
-import java.awt.*;
+import styles.UILabels;
 
 @Getter
-public non-sealed class RegisterView extends MyFrame implements ToggleHandler{
+public non-sealed class RegisterView extends MyFrame implements ToggleHandler {
 
-    private String email_phone;
-    private String firstName;
-    private String lastName;
-    private String password;
-    private String confirmPassword;
     private RegisterModel registerModel;
 
     public RegisterView() {
@@ -39,47 +36,21 @@ public non-sealed class RegisterView extends MyFrame implements ToggleHandler{
 
     @Override
     public void initRightTop() {
-        jPanel_Right_Top_Title = new JPanel();
         jLabel_Right_Top_Title = new JLabel(UILabels.REGISTER, JLabel.CENTER);
         jLabel_Right_Top_Title.setForeground(UIColors.TEXT_COLOR_L);
         jLabel_Right_Top_Title.setFont(UIFonts.RIGHT_TITLE);
-
-        jPanel_Right_Top_Title.setBackground(UIColors.PRIMARY_COLOR_L);
         jPanel_Right_Top_Title.add(jLabel_Right_Top_Title);
-        jPanel_Right_Top_Title.setBorder(UIBorders.TITLE);
     }
 
     @Override
     public void initRightMiddle() {
         jPanel_Right_Middle_Data = new JPanel(new GridLayout(0, 1));
-        jPanel_Right_Middle_Email = new JPanel();
-        jPanel_Right_Middle_FirstName = new JPanel();
-        jPanel_Right_Middle_LastName = new JPanel();
-        jPanel_Right_Middle_Password = new JPanel();
-        jPanel_Right_Middle_Confirm_Password = new JPanel();
-        jPanel_Right_Bottom_Button = new JPanel();
 
-        jLabel_Right_Middle_Email = new JLabel(UILabels.EMAIL_PHONE);
         jLabel_Right_Middle_FirstName = new JLabel(UILabels.FIRST_NAME);
         jLabel_Right_Middle_LastName = new JLabel(UILabels.LAST_NAME);
-        jLabel_Right_Middle_Password = new JLabel(UILabels.PASSWORD);
         jLabel_Right_Middle_Confirm_Password = new JLabel(UILabels.CONFIRM_PASSWORD);
 
-        jTextField_Right_Middle_Email = new JTextField(20);
-        jTextField_Right_Middle_FirstName = new JTextField(20);
-        jTextField_Right_Middle_LastName = new JTextField(20);
-        jPasswordField_Right_Middle_Password = new JPasswordField(20);
-        jPasswordField_Right_Middle_Confirm_Password = new JPasswordField(20);
-
-        jButton_Right_Bottom_Submit = new JButton(UILabels.SUBMIT);
-
-        jLabel_Right_Middle_Email.setForeground(UIColors.TEXT_COLOR_L);
-        jLabel_Right_Middle_Email.setFont(UIFonts.LABEL);
-        jLabel_Right_Middle_Email.setBorder(UIBorders.MID_LABEL);
         jTextField_Right_Middle_Email.setFont(UIFonts.TEXT_FIELD_REGISTER);
-        jTextField_Right_Middle_Email.setBorder(UIBorders.DATA_FIELD);
-        jTextField_Right_Middle_Email.setBackground(UIColors.SECONDARY_COLOR_L);
-        jTextField_Right_Middle_Email.setForeground(UIColors.TEXT_COLOR_L);
 
         jLabel_Right_Middle_FirstName.setForeground(UIColors.TEXT_COLOR_L);
         jLabel_Right_Middle_FirstName.setFont(UIFonts.LABEL);
@@ -97,13 +68,7 @@ public non-sealed class RegisterView extends MyFrame implements ToggleHandler{
         jTextField_Right_Middle_LastName.setBackground(UIColors.SECONDARY_COLOR_L);
         jTextField_Right_Middle_LastName.setForeground(UIColors.TEXT_COLOR_L);
 
-        jLabel_Right_Middle_Password.setForeground(UIColors.TEXT_COLOR_L);
-        jLabel_Right_Middle_Password.setFont(UIFonts.LABEL);
-        jLabel_Right_Middle_Password.setBorder(UIBorders.MID_LABEL);
         jPasswordField_Right_Middle_Password.setFont(UIFonts.TEXT_FIELD_REGISTER);
-        jPasswordField_Right_Middle_Password.setBorder(UIBorders.DATA_FIELD);
-        jPasswordField_Right_Middle_Password.setBackground(UIColors.SECONDARY_COLOR_L);
-        jPasswordField_Right_Middle_Password.setForeground(UIColors.TEXT_COLOR_L);
 
         jLabel_Right_Middle_Confirm_Password.setForeground(UIColors.TEXT_COLOR_L);
         jLabel_Right_Middle_Confirm_Password.setFont(UIFonts.LABEL);
@@ -113,48 +78,34 @@ public non-sealed class RegisterView extends MyFrame implements ToggleHandler{
         jPasswordField_Right_Middle_Confirm_Password.setBackground(UIColors.SECONDARY_COLOR_L);
         jPasswordField_Right_Middle_Confirm_Password.setForeground(UIColors.TEXT_COLOR_L);
 
-        jPanel_Right_Middle_Email.setLayout(new BoxLayout(jPanel_Right_Middle_Email, BoxLayout.Y_AXIS));
-        jPanel_Right_Middle_Email.setBackground(UIColors.PRIMARY_COLOR_L);
         jPanel_Right_Middle_Email.add(jLabel_Right_Middle_Email);
         jPanel_Right_Middle_Email.add(jTextField_Right_Middle_Email);
-        jPanel_Right_Middle_Email.setBorder(UIBorders.MIDDLE);
 
-        jPanel_Right_Middle_FirstName.setLayout(new BoxLayout(jPanel_Right_Middle_FirstName, BoxLayout.Y_AXIS));
+        jPanel_Right_Middle_FirstName.setLayout(
+            new BoxLayout(jPanel_Right_Middle_FirstName, BoxLayout.Y_AXIS));
         jPanel_Right_Middle_FirstName.setBackground(UIColors.PRIMARY_COLOR_L);
         jPanel_Right_Middle_FirstName.add(jLabel_Right_Middle_FirstName);
         jPanel_Right_Middle_FirstName.add(jTextField_Right_Middle_FirstName);
         jPanel_Right_Middle_FirstName.setBorder(UIBorders.MIDDLE);
 
-        jPanel_Right_Middle_LastName.setLayout(new BoxLayout(jPanel_Right_Middle_LastName, BoxLayout.Y_AXIS));
+        jPanel_Right_Middle_LastName.setLayout(
+            new BoxLayout(jPanel_Right_Middle_LastName, BoxLayout.Y_AXIS));
         jPanel_Right_Middle_LastName.setBackground(UIColors.PRIMARY_COLOR_L);
         jPanel_Right_Middle_LastName.add(jLabel_Right_Middle_LastName);
         jPanel_Right_Middle_LastName.add(jTextField_Right_Middle_LastName);
         jPanel_Right_Middle_LastName.setBorder(UIBorders.MIDDLE);
 
-        jPanel_Right_Middle_Password.setLayout(new BoxLayout(jPanel_Right_Middle_Password, BoxLayout.Y_AXIS));
-        jPanel_Right_Middle_Password.setBackground(UIColors.PRIMARY_COLOR_L);
         jPanel_Right_Middle_Password.add(jLabel_Right_Middle_Password);
         jPanel_Right_Middle_Password.add(jPasswordField_Right_Middle_Password);
-        jPanel_Right_Middle_Password.setBorder(UIBorders.MIDDLE);
 
         jPanel_Right_Middle_Confirm_Password
-                .setLayout(new BoxLayout(jPanel_Right_Middle_Confirm_Password, BoxLayout.Y_AXIS));
+            .setLayout(new BoxLayout(jPanel_Right_Middle_Confirm_Password, BoxLayout.Y_AXIS));
         jPanel_Right_Middle_Confirm_Password.setBackground(UIColors.PRIMARY_COLOR_L);
         jPanel_Right_Middle_Confirm_Password.add(jLabel_Right_Middle_Confirm_Password);
         jPanel_Right_Middle_Confirm_Password.add(jPasswordField_Right_Middle_Confirm_Password);
         jPanel_Right_Middle_Confirm_Password.setBorder(UIBorders.MIDDLE);
 
-        jButton_Right_Bottom_Submit.setBackground(UIColors.TEXT_COLOR_L);
-        jButton_Right_Bottom_Submit.setForeground(UIColors.PRIMARY_COLOR_L);
-        jButton_Right_Bottom_Submit.setFont(UIFonts.BUTTON);
-        jButton_Right_Bottom_Submit.setPreferredSize(UISizes.SIZE_BUTTON);
-
-        jButton_Right_Bottom_Submit.setCursor(cursor);
-
-        jPanel_Right_Bottom_Button.setBackground(UIColors.PRIMARY_COLOR_L);
         jPanel_Right_Bottom_Button.add(jButton_Right_Bottom_Submit);
-        jPanel_Right_Bottom_Button.setBorder(UIBorders.BUTTON);
-
         // Add jPanel_Right_Middle_Username and jPanel_Right_Middle_Password directly to
         // jPanel_Right
 
@@ -171,31 +122,23 @@ public non-sealed class RegisterView extends MyFrame implements ToggleHandler{
     public void initRightBottom() {
         jLabel_Right_Bottom_Option = new JLabel(UILabels.HAVE_ACCOUNT);
         jButton_Right_Bottom_Others = new JButton(UILabels.SIGN_IN_HERE);
-        jPanel_Right_Bottom_Option = new JPanel();
 
         jLabel_Right_Bottom_Option.setForeground(UIColors.TEXT_COLOR_L);
         jLabel_Right_Bottom_Option.setFont(UIFonts.OTHERS);
+        jPanel_Right_Bottom_Option.setBackground(UIColors.PRIMARY_COLOR_L);
 
         jButton_Right_Bottom_Others.setBackground(UIColors.PRIMARY_COLOR_L);
         jButton_Right_Bottom_Others.setForeground(UIColors.OTHER_OPTIONS_L);
         jButton_Right_Bottom_Others.setFont(UIFonts.OTHERS);
         jButton_Right_Bottom_Others.setBorder(null);
-
         jButton_Right_Bottom_Others.setCursor(cursor);
 
-        jPanel_Right_Bottom_Option.setBackground(UIColors.PRIMARY_COLOR_L);
         jPanel_Right_Bottom_Option.add(jLabel_Right_Bottom_Option);
         jPanel_Right_Bottom_Option.add(jButton_Right_Bottom_Others);
-
     }
 
     @Override
-    public void initRightPanel(){
-        jPanel_Right = new JPanel(new BorderLayout());
-        jPanel_Right.setPreferredSize(new Dimension(UISizes.WIDTH_MY_RIGHT_FRAME, UISizes.HEIGHT_MY_RIGHT_FRAME));
-        jPanel_Right.setBackground(UIColors.PRIMARY_COLOR_L);
-        jPanel_Right.setBorder(UIBorders.MID_FIELD);
-
+    public void initRightPanel() {
         jPanel_Right.add(jPanel_Right_Top_Title, BorderLayout.NORTH);
         jPanel_Right.add(jPanel_Right_Middle_Data, BorderLayout.CENTER);
         jPanel_Right.add(jPanel_Right_Bottom_Option, BorderLayout.SOUTH);
@@ -209,13 +152,15 @@ public non-sealed class RegisterView extends MyFrame implements ToggleHandler{
                 jLabel_Right_Middle_Confirm_Password.setForeground(UIColors.TEXT_COLOR_D);
                 jLabel_Right_Middle_Confirm_Password.setBackground(UIColors.PRIMARY_COLOR_D);
                 jPasswordField_Right_Middle_Confirm_Password.setForeground(UIColors.TEXT_COLOR_D);
-                jPasswordField_Right_Middle_Confirm_Password.setBackground(UIColors.SECONDARY_COLOR_D);
+                jPasswordField_Right_Middle_Confirm_Password.setBackground(
+                    UIColors.SECONDARY_COLOR_D);
                 jPanel_Right_Middle_Confirm_Password.setBackground(UIColors.PRIMARY_COLOR_D);
             } else {
                 jLabel_Right_Middle_Confirm_Password.setForeground(UIColors.TEXT_COLOR_L);
                 jLabel_Right_Middle_Confirm_Password.setBackground(UIColors.PRIMARY_COLOR_L);
                 jPasswordField_Right_Middle_Confirm_Password.setForeground(UIColors.TEXT_COLOR_L);
-                jPasswordField_Right_Middle_Confirm_Password.setBackground(UIColors.SECONDARY_COLOR_L);
+                jPasswordField_Right_Middle_Confirm_Password.setBackground(
+                    UIColors.SECONDARY_COLOR_L);
                 jPanel_Right_Middle_Confirm_Password.setBackground(UIColors.PRIMARY_COLOR_L);
             }
         });
@@ -240,7 +185,7 @@ public non-sealed class RegisterView extends MyFrame implements ToggleHandler{
     public boolean isMatchingPattern() {
         boolean isMatching = false;
         //matching accept both email and phonenumber from Vietnam
-        if(!this.registerModel.isEmailFormat(this.getDataWhenRegister().getEmail())){
+        if (!this.registerModel.isEmailFormat(this.getDataWhenRegister().getEmail())) {
             UIPrompts.IS_WRONG_FORMAT_EMAIL();
         } else if (!this.registerModel.isNameFormat(this.getDataWhenRegister().getFirstName())) {
             UIPrompts.IS_WRONG_FORMAT_NAME();
@@ -255,7 +200,8 @@ public non-sealed class RegisterView extends MyFrame implements ToggleHandler{
     }
 
     public boolean isMatchingPasswordAndConfirmPassword() {
-        return this.registerModel.isMatching(this.getDataWhenRegister().getPassword(), this.getDataWhenRegister().getConfirmPassword());
+        return this.registerModel.isMatching(this.getDataWhenRegister().getPassword(),
+            this.getDataWhenRegister().getConfirmPassword());
     }
 
     public boolean isDuplicateEmail() {
@@ -263,21 +209,26 @@ public non-sealed class RegisterView extends MyFrame implements ToggleHandler{
     }
 
     public boolean isEmpty() {
-        return this.registerModel.isEmpty(this.getDataWhenRegister().getEmail(), this.getDataWhenRegister().getFirstName() ,this.getDataWhenRegister().getLastName(), this.getDataWhenRegister().getPassword(), this.getDataWhenRegister().getConfirmPassword());
+        return this.registerModel.isEmpty(this.getDataWhenRegister().getEmail(),
+            this.getDataWhenRegister().getFirstName(), this.getDataWhenRegister().getLastName(),
+            this.getDataWhenRegister().getPassword(),
+            this.getDataWhenRegister().getConfirmPassword());
     }
 
     //xu li cac ham o day
     public UserEntity getDataWhenRegister() {
-        email_phone = jTextField_Right_Middle_Email.getText();
-        firstName = jTextField_Right_Middle_FirstName.getText();
-        lastName = jTextField_Right_Middle_LastName.getText();
-        password = String.valueOf(jPasswordField_Right_Middle_Password.getPassword());
-        confirmPassword = String.valueOf(jPasswordField_Right_Middle_Confirm_Password.getPassword());
-        return new UserEntity(email_phone, firstName, lastName, password, confirmPassword);
+        return new UserEntity(jTextField_Right_Middle_Email.getText(),
+            jTextField_Right_Middle_FirstName.getText(),
+            jTextField_Right_Middle_LastName.getText(),
+            String.valueOf(jPasswordField_Right_Middle_Password.getPassword()),
+            String.valueOf(
+                jPasswordField_Right_Middle_Confirm_Password.getPassword()));
     }
 
     public void insertMail() {
-        registerModel.insertMail(this.getDataWhenRegister().getEmail(), this.getDataWhenRegister().getFirstName(), this.getDataWhenRegister().getLastName(), this.getDataWhenRegister().getPassword());
+        registerModel.insertMail(this.getDataWhenRegister().getEmail(),
+            this.getDataWhenRegister().getFirstName(), this.getDataWhenRegister().getLastName(),
+            this.getDataWhenRegister().getPassword());
     }
 
     public void handleNotMatchingPasswordAndConfirmPassword() {
@@ -285,7 +236,8 @@ public non-sealed class RegisterView extends MyFrame implements ToggleHandler{
     }
 
     //this method for test getRegister above
-    public void setRegister(String email, String firstName, String lastName, String password, String confirmPassword) {
+    public void setRegister(String email, String firstName, String lastName, String password,
+        String confirmPassword) {
         jTextField_Right_Middle_Email.setText(email);
         jTextField_Right_Middle_FirstName.setText(firstName);
         jTextField_Right_Middle_LastName.setText(lastName);
@@ -296,15 +248,19 @@ public non-sealed class RegisterView extends MyFrame implements ToggleHandler{
     public void setHoverConfirmPassword(boolean isInside, String mode) {
         if (isInside) {
             if (mode.equals("light")) {
-                jPasswordField_Right_Middle_Confirm_Password.setBackground(UIColors.SECONDARY_COLOR_L_HOVER);
+                jPasswordField_Right_Middle_Confirm_Password.setBackground(
+                    UIColors.SECONDARY_COLOR_L_HOVER);
             } else {
-                jPasswordField_Right_Middle_Confirm_Password.setBackground(UIColors.SECONDARY_COLOR_D_HOVER);
+                jPasswordField_Right_Middle_Confirm_Password.setBackground(
+                    UIColors.SECONDARY_COLOR_D_HOVER);
             }
         } else {
             if (mode.equals("light")) {
-                jPasswordField_Right_Middle_Confirm_Password.setBackground(UIColors.SECONDARY_COLOR_L);
+                jPasswordField_Right_Middle_Confirm_Password.setBackground(
+                    UIColors.SECONDARY_COLOR_L);
             } else {
-                jPasswordField_Right_Middle_Confirm_Password.setBackground(UIColors.SECONDARY_COLOR_D);
+                jPasswordField_Right_Middle_Confirm_Password.setBackground(
+                    UIColors.SECONDARY_COLOR_D);
             }
         }
     }
