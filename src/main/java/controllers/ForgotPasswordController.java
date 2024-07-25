@@ -29,18 +29,19 @@ public class ForgotPasswordController implements ActionListener {
             } else {
                 // need to check if the user is in the database or not
                 if (!new RegisterModel().isDuplicateEmail(data)) {
-                    JOptionPane.showMessageDialog(null, "Account not existed", "Error",
+                    JOptionPane.showMessageDialog(null, "Account not register", "Error",
                         JOptionPane.ERROR_MESSAGE);
                 } else {
-                    JOptionPane.showMessageDialog(null, "Please check your email for OTP",
-                        "Success",
-                        JOptionPane.INFORMATION_MESSAGE);
-
                     String otp = OTPUtils.generateOTP();
                     EmailUtils handleEmail = new EmailUtils();
                     //find the first name of this email
                     handleEmail.sendEmail(handleEmail.subjectGreeting(data),
                         handleEmail.emailSendOtp(data, otp), data);
+
+                    JOptionPane.showMessageDialog(null, "Please check your email for OTP",
+                        null,
+                        JOptionPane.INFORMATION_MESSAGE);
+
                     otpVerificationView = new OTPVerificationView(otp,
                         new OTPVerificationListener() {
 

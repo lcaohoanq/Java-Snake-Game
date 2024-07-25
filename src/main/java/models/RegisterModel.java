@@ -1,11 +1,12 @@
 package models;
 
 import constants.Regex;
-import errors.DataException;
+import lombok.extern.slf4j.Slf4j;
 import modules.user.UserDAO;
 import modules.user.UserEntity;
 import utils.PBKDF2;
 
+@Slf4j
 public record RegisterModel(String username, String password, String confirmPassword) {
     public RegisterModel() {
         this("", "", "");
@@ -40,13 +41,9 @@ public record RegisterModel(String username, String password, String confirmPass
         UserDAO executeQuery = UserDAO.getInstance();
         try {
             db = executeQuery.selectEmailAndPasswordByEmail(username);
-            if (db == null) {
-                return false;
-            } else {
-                throw new DataException("Error, email is duplicated");
-            }
+            return db == null ? false : true;
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            log.error("Error while checking if email exists", e);
         }
         return true;
     }
