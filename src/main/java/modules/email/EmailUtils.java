@@ -25,7 +25,7 @@ public class EmailUtils {
 
     public EmailUtils() {
         ClassLoaderTemplateResolver templateResolver = new ClassLoaderTemplateResolver();
-        templateResolver.setTemplateMode("HTML");
+        templateResolver.setTemplateMode("HTML5");
         templateResolver.setPrefix("templates/email/");
         templateResolver.setSuffix(".html");
         templateEngine = new TemplateEngine();
