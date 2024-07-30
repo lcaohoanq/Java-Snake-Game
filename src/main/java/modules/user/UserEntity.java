@@ -1,12 +1,16 @@
 package modules.user;
 
-                import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
+import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import java.time.LocalDateTime;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -21,10 +25,10 @@ public class UserEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id")
+    @Column(name = "id")
     private Integer userId;
 
-    @Column(name = "email", unique =                             true, length = 45)
+    @Column(name = "email", unique = true, length = 45)
     private String email;
 
     @Column(name = "phone_number", unique = true, length = 15)
