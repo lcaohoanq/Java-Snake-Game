@@ -8,12 +8,14 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
+import lombok.Getter;
 import styles.UISizes;
 import controllers.ScoreController;
 import styles.UIBorders;
 import styles.UIColors;
 import styles.UIFonts;
 
+@Getter
 public class ScoreView extends JFrame {
 
     public JTextArea jTextArea_Score = new JTextArea();
@@ -27,7 +29,7 @@ public class ScoreView extends JFrame {
         this.scoreFormController = new ScoreController(this);
         setSize(UISizes.WIDTH_SCORE_FORM, UISizes.HEIGHT_SCORE_FORM);
         setLocationRelativeTo(null);
-        setResizable(false);
+        setResizable(true);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         initUI();
     }
