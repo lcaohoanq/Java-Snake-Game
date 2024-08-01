@@ -37,7 +37,7 @@ public class ScoreController implements ActionListener {
         new Thread(() -> {
             try {
                 //https://jsonplaceholder.typicode.com/posts/1
-                HttpResponse<String> response = ApiUtils.getRequest("http://localhost:8081/users");
+                HttpResponse<String> response = ApiUtils.getRequest("http://localhost:8081/scores");
 
                 if (response.statusCode() == 200) {
                     String responseBody = response.body();

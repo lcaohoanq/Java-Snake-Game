@@ -1,10 +1,12 @@
 package controllers;
 
-public interface OTPVerificationListener {
+import java.io.IOException;
+
+public interface OTPVerificationListener  {
 
     void onOtpVerified();
 
-    void onResendOtp();
+    void onResendOtp() throws IOException, InterruptedException;
 
-    void onBlockUser();
+    void onBlockUser() throws IOException, InterruptedException;
 }

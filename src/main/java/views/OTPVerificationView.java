@@ -4,9 +4,9 @@ import controllers.OTPVerificationListener;
 import java.awt.Cursor;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
-import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.time.Duration;
 import java.time.Instant;
 import javax.swing.JButton;
@@ -16,7 +16,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-import javax.swing.border.Border;
 import styles.UIColors;
 import styles.UIFonts;
 
@@ -129,7 +128,13 @@ public class OTPVerificationView extends JFrame implements ActionListener {
                         "You have entered the wrong OTP 3 times, please try again later!",
                         "Snake Game",
                         JOptionPane.ERROR_MESSAGE);
-                    listener.onBlockUser();
+                    try {
+                        listener.onBlockUser();
+                    } catch (IOException ex) {
+                        throw new RuntimeException(ex);
+                    } catch (InterruptedException ex) {
+                        throw new RuntimeException(ex);
+                    }
                     this.dispose();
                 } else {
                     JOptionPane.showMessageDialog(null,
@@ -157,10 +162,22 @@ public class OTPVerificationView extends JFrame implements ActionListener {
                         "You have requested to resend OTP 3 times, please try again later!",
                         "Snake Game",
                         JOptionPane.ERROR_MESSAGE);
-                    listener.onBlockUser();
+                    try {
+                        listener.onBlockUser();
+                    } catch (IOException ex) {
+                        throw new RuntimeException(ex);
+                    } catch (InterruptedException ex) {
+                        throw new RuntimeException(ex);
+                    }
                     this.dispose();
                 } else {
-                    listener.onResendOtp();
+                    try {
+                        listener.onResendOtp();
+                    } catch (IOException ex) {
+                        throw new RuntimeException(ex);
+                    } catch (InterruptedException ex) {
+                        throw new RuntimeException(ex);
+                    }
                 }
             }
         }
