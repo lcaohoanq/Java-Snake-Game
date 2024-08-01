@@ -5,9 +5,11 @@ import controllers.ScoreController;
 import controllers.ToggleHandler;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionListener;
+import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JComponent;
@@ -184,16 +186,16 @@ public abstract sealed class MyFrame extends AppComponent implements ToggleHandl
     public class ClickOtherOption implements ActionListener {
         @Override
         public void actionPerformed(java.awt.event.ActionEvent e) {
-            if (jButton_Right_Bottom_Others.getText().equals("Sign in here")) {
-                LoginView loginView = new LoginView();
-                loginView.setVisible(true);
-                dispose();
-            } else if (jButton_Right_Bottom_Others.getText().equals("Sign up here")) {
-                RegisterView registerView = new RegisterView();
-                registerView.setVisible(true);
-                dispose();
+            try {
+                // Specify the URL of the website
+                URI uri = new URI("http://localhost:3000/users/register");
+                // Open the website in the default browser
+                if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
+                    Desktop.getDesktop().browse(uri);
+                }
+            } catch (Exception ex) {
+                ex.printStackTrace();
             }
-
         }
     }
 
