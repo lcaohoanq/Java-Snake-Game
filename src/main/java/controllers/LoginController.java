@@ -8,15 +8,14 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.IOException;
-import java.net.URI;
 import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.Map;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import lombok.extern.slf4j.Slf4j;
 import styles.UIHovers;
+import utils.ApiUtils;
 import views.LoginView;
 import views.UIPrompts;
 
@@ -65,33 +64,26 @@ public final class LoginController implements ActionListener, MouseListener {
             try {
                 // Replace with your API URL
                 String apiUrl = "http://localhost:8081/users/login";
-                HttpClient httpClient = HttpClient.newHttpClient();
-                ObjectMapper objectMapper = new ObjectMapper();
-
                 // Create the payload as a map and convert it to JSON
                 Map<String, String> payload = Map.of(
                     "email_phone", email_phone, // Replace with actual value
                     "password", password // Replace with actual value
                 );
-                String jsonPayload = objectMapper.writeValueAsString(payload);
-
-                // Build the HTTP request
-                HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create(apiUrl))
-                    .header("Content-Type", "application/json")
-                    .POST(HttpRequest.BodyPublishers.ofString(jsonPayload))
-                    .build();
 
                 // Send the request and get the response
-                HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+                HttpResponse<String> response = ApiUtils.postRequest(apiUrl, payload);
 
                 // Handle the response
-                if (response.statusCode() == 200) {
-                    loginView.handleSuccess();
-                } else if(response.statusCode() == 400) {
-                    JOptionPane.showMessageDialog(null, "Wrong email, phone or password");
-                } else {
-                    JOptionPane.showMessageDialog(null, "Internal server error, please try again later!");
+                switch (response.statusCode()) {
+                    case 200:
+                        loginView.handleSuccess();
+                        break;
+                    case 400:
+                        JOptionPane.showMessageDialog(null, "Wrong email, phone or password");
+                        break;
+                    default:
+                        JOptionPane.showMessageDialog(null, "Internal server error, please try again later!");
+                        break;
                 }
             } catch (IOException | InterruptedException ex) {
                 JOptionPane.showMessageDialog(null, "An error occurred: " + ex.getMessage());
