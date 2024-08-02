@@ -16,6 +16,7 @@ import styles.UIColors;
 import styles.UIFonts;
 import styles.UILabels;
 
+@Deprecated
 @Getter
 public non-sealed class RegisterView extends MyFrame implements ToggleHandler {
 
