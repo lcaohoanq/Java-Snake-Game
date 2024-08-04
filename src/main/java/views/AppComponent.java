@@ -32,7 +32,7 @@ public abstract class AppComponent extends JFrame {
 
     public static JPanel jPanel_Right_Bottom_Button = new JPanel();;
     protected final JMenu jMenu = new JMenu("HELP");
-    protected final JMenu jMenu_Play_Here = new JMenu("Play here");
+    protected final JMenu jMenu_Play_Here = new JMenu("Play without login");
     protected final JMenuItem jMenuItem_AboutMe = new JMenuItem("About me");
     protected final JMenuItem jMenuItem_Score = new JMenuItem("Show Score");
     protected final JMenuItem jMenuItem_Go = new JMenuItem("Go!!!");

@@ -79,7 +79,7 @@ public final class LoginController implements ActionListener, MouseListener {
                         loginView.handleSuccess();
                         break;
                     case 400:
-                        JOptionPane.showMessageDialog(null, "Wrong email, phone or password");
+                        JOptionPane.showMessageDialog(null, "Username or password is incorrect, please try again!");
                         break;
                     default:
                         JOptionPane.showMessageDialog(null, "Internal server error, please try again later!");

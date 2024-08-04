@@ -28,7 +28,7 @@ public class UIPrompts {
     }
 
     public static void IS_EMPTY_FIELD() {
-        JOptionPane.showMessageDialog(null, "Field cannot be empty", "Error", JOptionPane.WARNING_MESSAGE);
+        JOptionPane.showMessageDialog(null, "Please fill in all field", "Error", JOptionPane.WARNING_MESSAGE);
     }
 
     public static void IS_NOT_MATCH_PASSWORD_AND_CONFIRM_PASSWORD() {
@@ -58,6 +58,6 @@ public class UIPrompts {
     }
 
     public static void IS_ABOUT_ME() {
-        JOptionPane.showMessageDialog(null, "This is a project of Java Swing", "About me", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, "This is a Java Swing project by lcaohoanq", "About me", JOptionPane.INFORMATION_MESSAGE);
     }
 }

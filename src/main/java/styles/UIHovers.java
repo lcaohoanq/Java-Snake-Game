@@ -27,9 +27,16 @@ public record UIHovers<T extends AppComponent>(T frame) {
                 || ((JButton) component).getText().equals(UILabels.SIGN_UP_HERE)
                 || ((JButton) component).getText().equals(UILabels.FORGOT_PASSWORD)) {
                 component.setFont(isInside ? hoverFont : normalFont);
+            } else if (((JButton) component).getText().equals(UILabels.SUBMIT)) {
+                //font follow the default setting, only need to change the color
+                normalColor = mode.equals("light") ? UIColors.TEXT_COLOR_L : UIColors.TEXT_COLOR_D;
+                hoverColor = mode.equals("light") ? UIColors.TEXT_COLOR_L_HOVER
+                    : UIColors.TEXT_COLOR_D_HOVER;
+                component.setBackground(isInside ? hoverColor : normalColor);
             } else {
                 normalColor = mode.equals("light") ? UIColors.TEXT_COLOR_L : UIColors.TEXT_COLOR_D;
-                hoverColor = mode.equals("light") ? UIColors.TEXT_COLOR_L_HOVER : UIColors.TEXT_COLOR_D_HOVER;
+                hoverColor = mode.equals("light") ? UIColors.TEXT_COLOR_L_HOVER
+                    : UIColors.TEXT_COLOR_D_HOVER;
                 component.setFont(isInside ? hoverFont : normalFont);
                 component.setBackground(isInside ? hoverColor : normalColor);
             }
