@@ -294,4 +294,12 @@ public class MenuController implements MouseListener, ActionListener {
         }
     }
 
+    public static void main(String[] args) {
+        EventQueue.invokeLater(() -> {
+            MenuView menuView = new MenuView();
+            MenuController menuController = new MenuController(menuView);
+            menuView.setVisible(true);
+        });
+    }
+
 }

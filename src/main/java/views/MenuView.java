@@ -48,6 +48,7 @@ public class MenuView extends AppComponent implements ToggleHandler {
         jMenu_Back_To_Main_Menu.add(jMenuItem_Back_To_Main_Menu);
         jMenu_Sound.add(jMenuItem_Sound_On);
         jMenu_Sound.add(jMenuItem_Sound_Off);
+        jMenu_Log_Out.add(jMenuItem_Log_Out);
 
         jMenuBar_MenuView = new JMenuBar();
 
@@ -55,6 +56,7 @@ public class MenuView extends AppComponent implements ToggleHandler {
         jMenuBar_MenuView.setBorder(UIBorders.LINE_MENU_BAR);
         jMenuBar_MenuView.add(jMenu_Back_To_Main_Menu);
         jMenuBar_MenuView.add(jMenu_Sound);
+        jMenuBar_MenuView.add(jMenu_Log_Out);
 //        jMenu.add(jMenu_Sound);
         this.setJMenuBar(jMenuBar_MenuView);
     }
@@ -103,6 +105,7 @@ public class MenuView extends AppComponent implements ToggleHandler {
         jMenuItem_Back_To_Main_Menu.addActionListener(new BackToMainMenu());
         jMenuItem_Sound_On.addActionListener(new MenuController(this));
         jMenuItem_Sound_Off.addActionListener(new MenuController(this));
+        jMenuItem_Log_Out.addActionListener(new LogOut());
         jButton_Mode_Classic.addMouseListener(new MenuController(this));
         jButton_Mode_Modern.addMouseListener(new MenuController(this));
         jButton_Mode_Campaign.addMouseListener(new MenuController(this));
@@ -234,6 +237,17 @@ public class MenuView extends AppComponent implements ToggleHandler {
             EventQueue.invokeLater(() -> {
                 dispose();
                 System.out.println("Back to main menu");
+                toggleButton.setSelected(false);
+                new LoginView().setVisible(true);
+            });
+        }
+    }
+
+    private class LogOut implements ActionListener{
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            EventQueue.invokeLater(() -> {
+                dispose();
                 toggleButton.setSelected(false);
                 new LoginView().setVisible(true);
             });

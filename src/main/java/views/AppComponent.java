@@ -84,6 +84,8 @@ public abstract class AppComponent extends JFrame {
     protected final JMenu jMenu_Sound = new JMenu("Turn Sound");
     protected final JMenuItem jMenuItem_Sound_On = new JMenuItem("On");
     protected final JMenuItem jMenuItem_Sound_Off = new JMenuItem("Off");
+    protected final JMenu jMenu_Log_Out = new JMenu("Others");
+    protected final JMenuItem jMenuItem_Log_Out = new JMenuItem("Logout");
 
     // MenuModern
     //6 button: No Maze, Box, Tunnel, Mill, Rails, Apartment
