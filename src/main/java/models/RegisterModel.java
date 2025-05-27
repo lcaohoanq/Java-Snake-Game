@@ -2,8 +2,7 @@ package models;
 
 import constants.Regex;
 import lombok.extern.slf4j.Slf4j;
-import modules.user.UserDAO;
-import modules.user.UserEntity;
+import modules.user.UserScore;
 import utils.PBKDF2;
 
 @Slf4j
@@ -36,20 +35,20 @@ public record RegisterModel(String username, String password, String confirmPass
         return password.equals(confirmPassword);
     }
 
-    public boolean isDuplicateEmail(String username) {
-        UserEntity db;
-        UserDAO executeQuery = UserDAO.getInstance();
-        try {
-            db = executeQuery.selectEmailAndPasswordByEmail(username);
-            return db == null ? false : true;
-        } catch (Exception e) {
-            log.error("Error while checking if email exists", e);
-        }
-        return true;
-    }
-
-    public void insertMail(String email, String firstName, String lastName, String password) {
-        UserDAO executeQuery = UserDAO.getInstance();
-        executeQuery.insertMail(email,null, firstName,lastName, new PBKDF2().hash(password.toCharArray()));
-    }
+//    public boolean isDuplicateEmail(String username) {
+//        UserScore db;
+//        UserDAO executeQuery = UserDAO.getInstance();
+//        try {
+//            db = executeQuery.selectEmailAndPasswordByEmail(username);
+//            return db == null ? false : true;
+//        } catch (Exception e) {
+//            log.error("Error while checking if email exists", e);
+//        }
+//        return true;
+//    }
+//
+//    public void insertMail(String email, String firstName, String lastName, String password) {
+//        UserDAO executeQuery = UserDAO.getInstance();
+//        executeQuery.insertMail(email,null, firstName,lastName, new PBKDF2().hash(password.toCharArray()));
+//    }
 }

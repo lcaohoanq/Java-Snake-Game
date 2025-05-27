@@ -13,7 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import lombok.extern.slf4j.Slf4j;
 import models.RegisterModel;
-import modules.user.UserDAO;
+//import modules.user.UserDAO;
 import org.jdesktop.swingx.prompt.PromptSupport;
 import styles.UIBorders;
 import styles.UIColors;
@@ -97,7 +97,7 @@ public class ChangePasswordView extends JFrame implements ActionListener {
                 if (newPassword.equals(confirmNewPassword)) {
                     if (new RegisterModel().isPasswordFormat(newPassword)) {
                         // update password in database
-                        UserDAO.getInstance().updatePassword(email, new PBKDF2().hash(newPassword.toCharArray()));
+//                        UserDAO.getInstance().updatePassword(email, new PBKDF2().hash(newPassword.toCharArray()));
                         UIPrompts.IS_CHANGE_PASSWORD_SUCCESS();
                         log.info("Updated password for user: {}", email);
                     } else {
@@ -113,11 +113,11 @@ public class ChangePasswordView extends JFrame implements ActionListener {
     public static void main(String[] args) {
 //        new ChangePasswordView("hoanglcse181513@fpt.edu.vn").setVisible(true);
 
-        System.out.println(UserDAO.getInstance().selectEmailAndPasswordByEmail("hoangdz1604@gmail.com").getPassword());
+//        System.out.println(UserDAO.getInstance().selectEmailAndPasswordByEmail("hoangdz1604@gmail.com").getPassword());
 
-        UserDAO.getInstance().updatePassword("hoangdz1604@gmail.com", "12345");
+//        UserDAO.getInstance().updatePassword("hoangdz1604@gmail.com", "12345");
 
-        System.out.println(UserDAO.getInstance().selectEmailAndPasswordByEmail("hoangdz1604@gmail.com").getPassword());
+//        System.out.println(UserDAO.getInstance().selectEmailAndPasswordByEmail("hoangdz1604@gmail.com").getPassword());
 
 //        System.out.println(new PasswordHandler().authenticate("Luucaohoang0612^^".toCharArray(), UserDAO.getInstance().selectEmailAndPasswordByEmail("hoangdz1604@gmail.com").getPassword()));
 

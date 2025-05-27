@@ -10,7 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import lombok.Getter;
 import models.RegisterModel;
-import modules.user.UserEntity;
+import modules.user.UserScore;
 import styles.UIBorders;
 import styles.UIColors;
 import styles.UIFonts;
@@ -187,51 +187,51 @@ public class RegisterView extends MyFrame implements ToggleHandler {
     public boolean isMatchingPattern() {
         boolean isMatching = false;
         //matching accept both email and phonenumber from Vietnam
-        if (!this.registerModel.isEmailFormat(this.getDataWhenRegister().getEmail())) {
-            UIPrompts.IS_WRONG_FORMAT_EMAIL();
-        } else if (!this.registerModel.isNameFormat(this.getDataWhenRegister().getFirstName())) {
-            UIPrompts.IS_WRONG_FORMAT_NAME();
-        } else if (!this.registerModel.isNameFormat(this.getDataWhenRegister().getLastName())) {
-            UIPrompts.IS_WRONG_FORMAT_NAME();
-        } else if (!this.registerModel.isPasswordFormat(this.getDataWhenRegister().getPassword())) {
-            UIPrompts.IS_WRONG_FORMAT_PASSWORD();
-        } else {
-            isMatching = true;
-        }
+//        if (!this.registerModel.isEmailFormat(this.getDataWhenRegister().getEmail())) {
+//            UIPrompts.IS_WRONG_FORMAT_EMAIL();
+//        } else if (!this.registerModel.isNameFormat(this.getDataWhenRegister().getFirstName())) {
+//            UIPrompts.IS_WRONG_FORMAT_NAME();
+//        } else if (!this.registerModel.isNameFormat(this.getDataWhenRegister().getLastName())) {
+//            UIPrompts.IS_WRONG_FORMAT_NAME();
+//        } else if (!this.registerModel.isPasswordFormat(this.getDataWhenRegister().getPassword())) {
+//            UIPrompts.IS_WRONG_FORMAT_PASSWORD();
+//        } else {
+//            isMatching = true;
+//        }
         return isMatching;
     }
 
-    public boolean isMatchingPasswordAndConfirmPassword() {
-        return this.registerModel.isMatching(this.getDataWhenRegister().getPassword(),
-            this.getDataWhenRegister().getConfirmPassword());
-    }
-
-    public boolean isDuplicateEmail() {
-        return this.registerModel.isDuplicateEmail(this.getDataWhenRegister().getEmail());
-    }
-
-    public boolean isEmpty() {
-        return this.registerModel.isEmpty(this.getDataWhenRegister().getEmail(),
-            this.getDataWhenRegister().getFirstName(), this.getDataWhenRegister().getLastName(),
-            this.getDataWhenRegister().getPassword(),
-            this.getDataWhenRegister().getConfirmPassword());
-    }
-
-    //xu li cac ham o day
-    public UserEntity getDataWhenRegister() {
-        return new UserEntity(jTextField_Right_Middle_Email.getText(),
-            jTextField_Right_Middle_FirstName.getText(),
-            jTextField_Right_Middle_LastName.getText(),
-            String.valueOf(jPasswordField_Right_Middle_Password.getPassword()),
-            String.valueOf(
-                jPasswordField_Right_Middle_Confirm_Password.getPassword()));
-    }
-
-    public void insertMail() {
-        registerModel.insertMail(this.getDataWhenRegister().getEmail(),
-            this.getDataWhenRegister().getFirstName(), this.getDataWhenRegister().getLastName(),
-            this.getDataWhenRegister().getPassword());
-    }
+//    public boolean isMatchingPasswordAndConfirmPassword() {
+//        return this.registerModel.isMatching(this.getDataWhenRegister().getPassword(),
+//            this.getDataWhenRegister().getConfirmPassword());
+//    }
+//
+//    public boolean isDuplicateEmail() {
+//        return this.registerModel.isDuplicateEmail(this.getDataWhenRegister().getEmail());
+//    }
+//
+//    public boolean isEmpty() {
+//        return this.registerModel.isEmpty(this.getDataWhenRegister().getEmail(),
+//            this.getDataWhenRegister().getFirstName(), this.getDataWhenRegister().getLastName(),
+//            this.getDataWhenRegister().getPassword(),
+//            this.getDataWhenRegister().getConfirmPassword());
+//    }
+//
+//    //xu li cac ham o day
+//    public UserScore getDataWhenRegister() {
+//        return new UserScore(jTextField_Right_Middle_Email.getText(),
+//                             jTextField_Right_Middle_FirstName.getText(),
+//                             jTextField_Right_Middle_LastName.getText(),
+//                             String.valueOf(jPasswordField_Right_Middle_Password.getPassword()),
+//                             String.valueOf(
+//                jPasswordField_Right_Middle_Confirm_Password.getPassword()));
+//    }
+//
+//    public void insertMail() {
+//        registerModel.insertMail(this.getDataWhenRegister().getEmail(),
+//            this.getDataWhenRegister().getFirstName(), this.getDataWhenRegister().getLastName(),
+//            this.getDataWhenRegister().getPassword());
+//    }
 
     public void handleNotMatchingPasswordAndConfirmPassword() {
         UIPrompts.IS_NOT_MATCH_PASSWORD_AND_CONFIRM_PASSWORD();

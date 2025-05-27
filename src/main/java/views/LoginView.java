@@ -13,8 +13,8 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import lombok.Getter;
-import models.LoginModel;
-import modules.user.UserEntity;
+//import models.LoginModel;
+import modules.user.UserScore;
 import styles.UIColors;
 import styles.UIFonts;
 import styles.UILabels;
@@ -25,13 +25,13 @@ import views.base.MyFrame;
 public class LoginView extends MyFrame implements ToggleHandler{
 
     private CardLayout cardLayout;
-    private final LoginModel loginModel;
+//    private final LoginModel loginModel;
     private LoginController loginController;
     private OTPVerificationView otpVerificationView;
 
     public LoginView() {
         super();
-        this.loginModel = new LoginModel();
+//        this.loginModel = new LoginModel();
         InputStream inputStream = getClass().getResourceAsStream(ResourcePaths.URL_INTRO);
         audioHandler.playAudio(inputStream);
         // Initialize OTPVerificationView
@@ -157,21 +157,21 @@ public class LoginView extends MyFrame implements ToggleHandler{
     }
 
     //xu li cac ham o day
-    public UserEntity getDataWhenLogin() {
-        return new UserEntity(jTextField_Right_Middle_Email.getText(), String.valueOf(jPasswordField_Right_Middle_Password.getPassword()));
-    }
+//    public UserScore getDataWhenLogin() {
+//        return new UserScore(jTextField_Right_Middle_Email.getText(), String.valueOf(jPasswordField_Right_Middle_Password.getPassword()));
+//    }
 
-    public boolean isEmpty() {
-        return this.loginModel.isEmpty(this.getDataWhenLogin().getEmail(), this.getDataWhenLogin().getPassword());
-    }
-
-    public boolean isAdmin() {
-        return this.loginModel.isAdmin(this.getDataWhenLogin().getEmail(), this.getDataWhenLogin().getPassword());
-    }
-
-    public boolean isMatching() {
-        return this.loginModel.isMatching(this.getDataWhenLogin().getEmail(), this.getDataWhenLogin().getPassword());
-    }
+//    public boolean isEmpty() {
+//        return this.loginModel.isEmpty(this.getDataWhenLogin().getEmail(), this.getDataWhenLogin().getPassword());
+//    }
+//
+//    public boolean isAdmin() {
+//        return this.loginModel.isAdmin(this.getDataWhenLogin().getEmail(), this.getDataWhenLogin().getPassword());
+//    }
+//
+//    public boolean isMatching() {
+//        return this.loginModel.isMatching(this.getDataWhenLogin().getEmail(), this.getDataWhenLogin().getPassword());
+//    }
 
     public void handleSuccess() {
         UIPrompts.IS_LOGIN_SUCCESS();

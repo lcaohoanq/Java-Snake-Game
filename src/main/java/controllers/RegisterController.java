@@ -6,7 +6,7 @@ import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import lombok.extern.slf4j.Slf4j;
-import modules.email.EmailUtils;
+//import modules.email.EmailUtils;
 import modules.otp.OTPUtils;
 import styles.UIHovers;
 import views.OTPVerificationView;
@@ -44,70 +44,70 @@ public class RegisterController implements ActionListener, MouseListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (!registerView.isEmpty()) {
-            if (registerView.isMatchingPattern()) {
-                if (registerView.isMatchingPasswordAndConfirmPassword()) {
-                    if (!registerView.isDuplicateEmail()) {
-                        EmailUtils handleEmail = new EmailUtils();
-                        String email = registerView.getDataWhenRegister().getEmail();
-                        String otp = OTPUtils.generateOTP();
-                        handleEmail.sendEmail(
-                            handleEmail.subjectGreeting(registerView.getDataWhenRegister().getFirstName()),
-                            handleEmail.emailSendOtp(registerView.getDataWhenRegister().getFirstName(),
-                                otp), email);
+//        if (!registerView.isEmpty()) {
+//            if (registerView.isMatchingPattern()) {
+//                if (registerView.isMatchingPasswordAndConfirmPassword()) {
+//                    if (!registerView.isDuplicateEmail()) {
+//                        EmailUtils handleEmail = new EmailUtils();
+//                        String email = registerView.getDataWhenRegister().getEmail();
+//                        String otp = OTPUtils.generateOTP();
+//                        handleEmail.sendEmail(
+//                            handleEmail.subjectGreeting(registerView.getDataWhenRegister().getFirstName()),
+//                            handleEmail.emailSendOtp(registerView.getDataWhenRegister().getFirstName(),
+//                                otp), email);
 
-                        OTPUtils.IS_NOTIFY_VERIFY_ACCOUNT();
-                        otpVerificationView = new OTPVerificationView(otp,
-                            new OTPVerificationListener() {
-                                @Override
-                                public void onOtpVerified() {
-                                    registerView.insertMail();
-                                    UIPrompts.IS_REGISTER_SUCCESS();
-                                    registerView.setEnabled(true);
-                                    log.info("User {} registered successfully", email);
-                                }
-
-                                @Override
-                                public void onResendOtp() {
-                                    // Handle resending OTP
-                                    String newOtp = OTPUtils.generateOTP();
-                                    handleEmail.sendEmail(handleEmail.subjectGreeting(
-                                            registerView.getDataWhenRegister().getFirstName()),
-                                        handleEmail.emailSendOtp(
-                                            registerView.getDataWhenRegister().getFirstName(), newOtp),
-                                        email);
-                                    otpVerificationView.setGeneratedOtp(newOtp);
-                                    log.info("Resend OTP to email {}", email);
-                                }
-
-                                @Override
-                                public void onBlockUser() {
-                                    handleEmail.sendEmail(handleEmail.subjectGreeting(
-                                            registerView.getDataWhenRegister().getFirstName()),
-                                        handleEmail.emailSendBlockAccount(
-                                            registerView.getDataWhenRegister().getFirstName(),
-                                            "Too many request, maybe abuse action, we added you to application blacklist"),
-                                        email);
-                                    log.warn(
-                                        "Blocked user with email {}, too many request register in time",
-                                        email);
-                                }
-                            });
-                        otpVerificationView.setVisible(true);
-                        registerView.setEnabled(false);
-                    } else {
-                        UIPrompts.IS_EXISTED_EMAIL();
-                        log.error("Email already exists, please try again");
-                    }
-                } else {
-                    UIPrompts.IS_WRONG_USERNAME_OR_PASSWORD();
-                    log.error("Password and confirm password do not match, please try again");
-                }
-            }
-        } else {
-            UIPrompts.IS_EMPTY_FIELD();
-            log.error("Empty field when register, please try again");
-        }
+//                        OTPUtils.IS_NOTIFY_VERIFY_ACCOUNT();
+//                        otpVerificationView = new OTPVerificationView(otp,
+//                            new OTPVerificationListener() {
+//                                @Override
+//                                public void onOtpVerified() {
+//                                    registerView.insertMail();
+//                                    UIPrompts.IS_REGISTER_SUCCESS();
+//                                    registerView.setEnabled(true);
+//                                    log.info("User {} registered successfully", email);
+//                                }
+//
+//                                @Override
+//                                public void onResendOtp() {
+//                                    // Handle resending OTP
+//                                    String newOtp = OTPUtils.generateOTP();
+//                                    handleEmail.sendEmail(handleEmail.subjectGreeting(
+//                                            registerView.getDataWhenRegister().getFirstName()),
+//                                        handleEmail.emailSendOtp(
+//                                            registerView.getDataWhenRegister().getFirstName(), newOtp),
+//                                        email);
+//                                    otpVerificationView.setGeneratedOtp(newOtp);
+//                                    log.info("Resend OTP to email {}", email);
+//                                }
+//
+//                                @Override
+//                                public void onBlockUser() {
+//                                    handleEmail.sendEmail(handleEmail.subjectGreeting(
+//                                            registerView.getDataWhenRegister().getFirstName()),
+//                                        handleEmail.emailSendBlockAccount(
+//                                            registerView.getDataWhenRegister().getFirstName(),
+//                                            "Too many request, maybe abuse action, we added you to application blacklist"),
+//                                        email);
+//                                    log.warn(
+//                                        "Blocked user with email {}, too many request register in time",
+//                                        email);
+//                                }
+//                            });
+//                        otpVerificationView.setVisible(true);
+//                        registerView.setEnabled(false);
+//                    } else {
+//                        UIPrompts.IS_EXISTED_EMAIL();
+//                        log.error("Email already exists, please try again");
+//                    }
+//                } else {
+//                    UIPrompts.IS_WRONG_USERNAME_OR_PASSWORD();
+//                    log.error("Password and confirm password do not match, please try again");
+//                }
+//            }
+//        } else {
+//            UIPrompts.IS_EMPTY_FIELD();
+//            log.error("Empty field when register, please try again");
+//        }
 
     }
 

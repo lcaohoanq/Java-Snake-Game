@@ -5,7 +5,6 @@ import constants.ResourcePaths;
 import styles.UISizes;
 import styles.UILabels;
 import controllers.LoginController;
-import modules.user.UserDAO;
 import styles.UIBorders;
 import styles.UIColors;
 import styles.UIFonts;
@@ -274,7 +273,7 @@ public abstract class Board extends JPanel implements ActionListener {
             Toolkit.getDefaultToolkit().sync();
         } else {
             gameOver(g);
-            updateScore();
+//            updateScore();
         }
     }
 
@@ -282,27 +281,27 @@ public abstract class Board extends JPanel implements ActionListener {
         return dbScore - currentScore;
     }
 
-    public int handleScore(String username) {
-        UserDAO executeQuery = UserDAO.getInstance();
-        int currentScore = this.score;
-        int dbScore = Objects.requireNonNull(executeQuery.selectEmailAndScoreByEmail(username))
-            .getScore();
-        return compareDatabaseAndCurrentScore(dbScore, currentScore);
-    }
+//    public int handleScore(String username) {
+//        UserDAO executeQuery = UserDAO.getInstance();
+//        int currentScore = this.score;
+//        int dbScore = Objects.requireNonNull(executeQuery.selectEmailAndScoreByEmail(username))
+//            .getScore();
+//        return compareDatabaseAndCurrentScore(dbScore, currentScore);
+//    }
 
-    public void updateScore() {
-        UserDAO executeQuery = UserDAO.getInstance();
-        String username = LoginController.email;
-        if (username.isEmpty()) {
-            return;
-        }
-        // if the current score > db score, update the score in the database
-        if (handleScore(username) < 0) {
-            if (executeQuery.setSafeUpdate() == 0) {
-                executeQuery.updateEmailScore(username, String.valueOf(this.score));
-            }
-        }
-    }
+//    public void updateScore() {
+//        UserDAO executeQuery = UserDAO.getInstance();
+//        String username = LoginController.email;
+//        if (username.isEmpty()) {
+//            return;
+//        }
+//        // if the current score > db score, update the score in the database
+//        if (handleScore(username) < 0) {
+//            if (executeQuery.setSafeUpdate() == 0) {
+//                executeQuery.updateEmailScore(username, String.valueOf(this.score));
+//            }
+//        }
+//    }
 
     private void gameOver(Graphics g) {
         // Show the "Play Again" and "Exit" button after displaying "Game Over" message

@@ -41,21 +41,21 @@ public final class LoginController implements ActionListener, MouseListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        email = loginView.getDataWhenLogin().getEmail();
-        password = loginView.getDataWhenLogin().getPassword();
-
-        if (loginView.isAdmin()) {
-            loginView.handleSuccess();
-            log.info("Admin login successful");
-            return;
-        }
-        //prevent empty field when click submit button, but not when click on the menu
-        if (loginView.isEmpty() && e.getSource() instanceof JButton) {
-            UIPrompts.IS_EMPTY_FIELD();
-            log.error("Empty field when login, please try again");
-        } else {
-            login(email, password);
-        }
+//        email = loginView.getDataWhenLogin().getEmail();
+//        password = loginView.getDataWhenLogin().getPassword();
+//
+//        if (loginView.isAdmin()) {
+//            loginView.handleSuccess();
+//            log.info("Admin login successful");
+//            return;
+//        }
+//        //prevent empty field when click submit button, but not when click on the menu
+//        if (loginView.isEmpty() && e.getSource() instanceof JButton) {
+//            UIPrompts.IS_EMPTY_FIELD();
+//            log.error("Empty field when login, please try again");
+//        } else {
+//            login(email, password);
+//        }
 
     }
 
