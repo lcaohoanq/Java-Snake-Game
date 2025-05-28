@@ -7,6 +7,8 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.io.IOException;
+import java.io.InputStream;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -30,51 +32,85 @@ import styles.UISizes;
 @Getter
 public abstract class AppComponent extends JFrame {
 
-    public static JPanel jPanel_Right_Bottom_Button = new JPanel();;
+    public static JPanel jPanel_Right_Bottom_Button = new JPanel();
+    ;
     protected final JMenu jMenu = new JMenu("HELP");
     protected final JMenu jMenu_Play_Here = new JMenu("Play without login");
     protected final JMenuItem jMenuItem_AboutMe = new JMenuItem("About me");
     protected final JMenuItem jMenuItem_Score = new JMenuItem("Show Score");
     protected final JMenuItem jMenuItem_Go = new JMenuItem("Go!!!");
-    protected JTextField jTextField_Right_Middle_Email = new JTextField(20); // 20 is the number of columns
-    protected JTextField  jTextField_Right_Middle_UserName = new JTextField(20);; // 20 is the number of columns
-    protected JPasswordField jPasswordField_Right_Middle_Password = new JPasswordField(20);;
-    protected JPasswordField jPasswordField_Right_Middle_Confirm_Password = new JPasswordField(20);;
-    protected JButton jButton_Right_Bottom_Submit = new JButton(UILabels.SUBMIT);;
-    protected JButton jButton_Right_Bottom_Forgot_Password = new JButton(UILabels.FORGOT_PASSWORD);;
+    protected JTextField jTextField_Right_Middle_Email = new JTextField(
+        20); // 20 is the number of columns
+    protected JTextField jTextField_Right_Middle_UserName = new JTextField(20);
+    ; // 20 is the number of columns
+    protected JPasswordField jPasswordField_Right_Middle_Password = new JPasswordField(20);
+    ;
+    protected JPasswordField jPasswordField_Right_Middle_Confirm_Password = new JPasswordField(20);
+    ;
+    protected JButton jButton_Right_Bottom_Submit = new JButton(UILabels.SUBMIT);
+    ;
+    protected JButton jButton_Right_Bottom_Forgot_Password = new JButton(UILabels.FORGOT_PASSWORD);
+    ;
     protected JButton jButton_Right_Bottom_Others;
     protected JPanel jPanel_Container = new JPanel();
     protected JPanel jPanel_Right = new JPanel(new BorderLayout());
-    protected JPanel jPanel_Right_Top_Title = new JPanel();;
+    protected JPanel jPanel_Right_Top_Title = new JPanel();
+    ;
     protected JLabel jLabel_Right_Top_Title;
     protected JPanel jPanel_Right_Middle_Email = new JPanel();
     protected JPanel jPanel_Right_Middle_UserName = new JPanel();
     protected JLabel jLabel_Right_Middle_Email;
     protected JLabel jLabel_Right_Middle_UserName;
-    protected JPanel jPanel_Right_Middle_Password = new JPanel();;
+    protected JPanel jPanel_Right_Middle_Password = new JPanel();
+    ;
     protected JLabel jLabel_Right_Middle_Password;
     protected JLabel jLabel_Right_Middle_Confirm_Password;
     protected JPanel jPanel_Right_Middle_Confirm_Password = new JPanel();
     protected JPanel jPanel_Right_Middle_Data;
-    protected JButton jButton_Right_Play = new JButton(UILabels.PLAY);;
-    protected JPanel jPanel_Right_Bottom_Option = new JPanel();;
+    protected JButton jButton_Right_Play = new JButton(UILabels.PLAY);
+    ;
+    protected JPanel jPanel_Right_Bottom_Option = new JPanel();
+    ;
     protected JLabel jLabel_Right_Bottom_Option;
-    protected JPanel jPanel_Left_Icon = new JPanel(new BorderLayout());;
+    protected JPanel jPanel_Left_Icon = new JPanel(new BorderLayout());
+    ;
     protected AudioHandler audioHandler = new AudioHandler();
-    protected JPanel jPanel_Left = new JPanel(new BorderLayout());;
-    protected JLabel jLabel_Left_Icon = new JLabel(
-        new ImageIcon(new ImageIcon(
-            Toolkit.getDefaultToolkit().getImage(MyFrame.class.getResource(ResourcePaths.URL_SNAKE_LOGO))).getImage().getScaledInstance(250, 250, Image.SCALE_SMOOTH)));;
-    protected JMenuBar jMenuBar = new JMenuBar();;
+    protected JPanel jPanel_Left = new JPanel(new BorderLayout());
+    ;
+
+    protected JLabel jLabel_Left_Icon = new JLabel();
+
+    {
+        try {
+            InputStream imageStream = getClass().getResourceAsStream(ResourcePaths.URL_SNAKE_LOGO);
+            if (imageStream != null) {
+                byte[] imageBytes = imageStream.readAllBytes();
+                ImageIcon icon = new ImageIcon(imageBytes);
+                Image scaledImage = icon.getImage().getScaledInstance(250, 250, Image.SCALE_SMOOTH);
+                jLabel_Left_Icon.setIcon(new ImageIcon(scaledImage));
+            }
+        } catch (IOException e) {
+            System.err.println("Could not load image: " + ResourcePaths.URL_SNAKE_LOGO);
+        }
+    }
+
+    protected JMenuBar jMenuBar = new JMenuBar();
+    ;
     protected Cursor cursor = new Cursor(Cursor.HAND_CURSOR);
 
     // MenuView
-    public JButton jButton_Mode_Classic = new JButton("Classic");;
-    public JButton jButton_Mode_Modern = new JButton("Modern");;
-    public JButton jButton_Mode_Campaign = new JButton("Campaign");;
-    protected JPanel jPanel_Container_MenuView = new JPanel(new BorderLayout());;
-    protected JLabel jLabel_Title_MenuView = new JLabel("Snake Game", JLabel.CENTER);;
-    protected JPanel jPanel_Button_MenuView = new JPanel(new GridLayout(3, 1, 30, 20));;
+    public JButton jButton_Mode_Classic = new JButton("Classic");
+    ;
+    public JButton jButton_Mode_Modern = new JButton("Modern");
+    ;
+    public JButton jButton_Mode_Campaign = new JButton("Campaign");
+    ;
+    protected JPanel jPanel_Container_MenuView = new JPanel(new BorderLayout());
+    ;
+    protected JLabel jLabel_Title_MenuView = new JLabel("Snake Game", JLabel.CENTER);
+    ;
+    protected JPanel jPanel_Button_MenuView = new JPanel(new GridLayout(3, 1, 30, 20));
+    ;
     protected JMenuBar jMenuBar_MenuView;
     protected final JMenu jMenu_Back_To_Main_Menu = new JMenu("Back to");
     protected final JMenuItem jMenuItem_Back_To_Main_Menu = new JMenuItem("main menu");
@@ -100,13 +136,17 @@ public abstract class AppComponent extends JFrame {
         super();
         doStyling();
     }
+
     public abstract void initComponents();
+
     public abstract void doAction();
-    private void doStyling(){
+
+    private void doStyling() {
         jPanel_Right_Bottom_Button.setBackground(UIColors.PRIMARY_COLOR_L);
         jPanel_Right_Bottom_Button.setBorder(UIBorders.BUTTON);
 
-        jPanel_Right.setPreferredSize(new Dimension(UISizes.WIDTH_MY_RIGHT_FRAME, UISizes.HEIGHT_MY_RIGHT_FRAME));
+        jPanel_Right.setPreferredSize(
+            new Dimension(UISizes.WIDTH_MY_RIGHT_FRAME, UISizes.HEIGHT_MY_RIGHT_FRAME));
         jPanel_Right.setBackground(UIColors.PRIMARY_COLOR_L);
         jPanel_Right.setBorder(UIBorders.MID_FIELD);
 
@@ -148,7 +188,7 @@ public abstract class AppComponent extends JFrame {
         stylingMenuModern();
     }
 
-    private void stylingMenuView(){
+    private void stylingMenuView() {
         jLabel_Title_MenuView.setFont(UIFonts.RIGHT_TITLE);
         jLabel_Title_MenuView.setBorder(UIBorders.CONTAINER_MENU);
 
@@ -157,7 +197,7 @@ public abstract class AppComponent extends JFrame {
         jButton_Mode_Campaign.setFont(UIFonts.BUTTON);
     }
 
-    private void stylingMenuModern(){
+    private void stylingMenuModern() {
         jLabel_Title_Modern.setFont(UIFonts.RIGHT_TITLE);
         jLabel_Title_Modern.setBackground(UIColors.PRIMARY_COLOR_L);
         jLabel_Title_Modern.setForeground(UIColors.TEXT_COLOR_L);

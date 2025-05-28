@@ -23,37 +23,37 @@
             <id>myProfile</id>
             <build>
                 <finalName>Snake-Game</finalName>
-                <resources>
-                    <resource>
-                        <directory>src/main/resources/assets/img</directory>
-                        <filtering>false</filtering>
-                        <includes>
-                            <include>*.png</include>
-                            <include>*.jpg</include>
-                        </includes>
-                    </resource>
-                    <resource>
-                        <directory>src/main/resources/assets/sound</directory>
-                        <filtering>false</filtering>
-                        <includes>
-                            <include>*.wav</include>
-                        </includes>
-                    </resource>
-                    <resource>
-                        <directory>src/main/resources/templates/email</directory>
-                        <filtering>false</filtering>
-                        <includes>
-                            <include>*.html</include>
-                        </includes>
-                    </resource>
-                    <resource>
-                        <directory>src/main/resources/templates/email</directory>
-                        <filtering>false</filtering>
-                        <includes>
-                            <include>*.html</include>
-                        </includes>
-                    </resource>
-                </resources>
+<!--                <resources>-->
+<!--                    <resource>-->
+<!--                        <directory>src/main/resources/assets/img</directory>-->
+<!--                        <filtering>false</filtering>-->
+<!--                        <includes>-->
+<!--                            <include>*.png</include>-->
+<!--                            <include>*.jpg</include>-->
+<!--                        </includes>-->
+<!--                    </resource>-->
+<!--                    <resource>-->
+<!--                        <directory>src/main/resources/assets/sound</directory>-->
+<!--                        <filtering>false</filtering>-->
+<!--                        <includes>-->
+<!--                            <include>*.wav</include>-->
+<!--                        </includes>-->
+<!--                    </resource>-->
+<!--                    <resource>-->
+<!--                        <directory>src/main/resources/templates/email</directory>-->
+<!--                        <filtering>false</filtering>-->
+<!--                        <includes>-->
+<!--                            <include>*.html</include>-->
+<!--                        </includes>-->
+<!--                    </resource>-->
+<!--                    <resource>-->
+<!--                        <directory>src/main/resources/templates/email</directory>-->
+<!--                        <filtering>false</filtering>-->
+<!--                        <includes>-->
+<!--                            <include>*.html</include>-->
+<!--                        </includes>-->
+<!--                    </resource>-->
+<!--                </resources>-->
 
                 <plugins>
 
