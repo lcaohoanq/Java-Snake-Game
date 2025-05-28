@@ -1,6 +1,7 @@
 package views.game;
 
 import constants.ResourcePaths;
+import models.UserScore;
 import styles.UISizes;
 
 import javax.swing.*;
@@ -13,8 +14,8 @@ public class Rails extends Board {
     private final int wallThickness = 20;
     private Image wall;
 
-    public Rails() {
-        super();
+    public Rails(UserScore user) {
+        super(user); // Pass user to parent class
     }
 
     @Override

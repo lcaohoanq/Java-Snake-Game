@@ -2,14 +2,20 @@ package models;
 
 import constants.Regex;
 import lombok.extern.slf4j.Slf4j;
-import modules.user.UserDAO;
-import modules.user.UserEntity;
-import utils.PBKDF2;
+import services.UserService;
+import services.UserServiceImpl;
 
 @Slf4j
-public record RegisterModel(String username, String password, String confirmPassword) {
+public class RegisterModel {
+    private final UserService userService;
+
     public RegisterModel() {
-        this("", "", "");
+        this.userService = new UserServiceImpl();
+    }
+
+    // Constructor for testing with dependency injection
+    public RegisterModel(UserService userService) {
+        this.userService = userService;
     }
 
     public boolean isNameFormat(String name) {
@@ -28,28 +34,22 @@ public record RegisterModel(String username, String password, String confirmPass
         return password.matches(Regex.PASSWORD);
     }
 
-    public boolean isEmpty(String email_phoneNumber , String firstName, String lastName, String password, String confirmPassword) {
-        return email_phoneNumber.isEmpty() || firstName.isEmpty() || lastName.isEmpty() || password.isEmpty() || confirmPassword.isEmpty();
+    public boolean isEmpty(String email, String password, String confirmPassword) {
+        return email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty();
     }
 
     public boolean isMatching(String password, String confirmPassword) {
         return password.equals(confirmPassword);
     }
 
-    public boolean isDuplicateEmail(String username) {
-        UserEntity db;
-        UserDAO executeQuery = UserDAO.getInstance();
-        try {
-            db = executeQuery.selectEmailAndPasswordByEmail(username);
-            return db == null ? false : true;
-        } catch (Exception e) {
-            log.error("Error while checking if email exists", e);
-        }
-        return true;
+    public boolean isDuplicateEmail(String email) {
+        // Check if any user with this email exists
+        return userService.getAll().stream()
+                .anyMatch(user -> user.getEmail().equals(email));
     }
 
-    public void insertMail(String email, String firstName, String lastName, String password) {
-        UserDAO executeQuery = UserDAO.getInstance();
-        executeQuery.insertMail(email,null, firstName,lastName, new PBKDF2().hash(password.toCharArray()));
+    public UserScore registerUser(String fullName, String email, String password) {
+        log.info("Registering user: {}", email);
+        return userService.register(fullName, email, password);
     }
 }

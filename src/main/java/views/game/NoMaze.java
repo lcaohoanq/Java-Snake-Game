@@ -1,6 +1,7 @@
 package views.game;
 
 import constants.ResourcePaths;
+import models.UserScore;
 import styles.UISizes;
 
 import java.io.InputStream;
@@ -8,8 +9,8 @@ import views.base.Board;
 
 public class NoMaze extends Board {
 
-    public NoMaze() {
-        super();
+    public NoMaze(UserScore user) {
+        super(user); // Pass user to parent class
     }
 
     @Override

@@ -10,14 +10,12 @@ import java.io.IOException;
 import java.net.http.HttpResponse;
 import java.util.List;
 import javax.swing.SwingUtilities;
-import modules.user.UserDAO;
 import utils.ApiUtils;
 import views.ScoreView;
 
 public class ScoreController implements ActionListener {
 
     private final ScoreView scoreView;
-    private final UserDAO executeQuery = UserDAO.getInstance();
     private ObjectMapper objectMapper;
     public ScoreController(ScoreView scoreView) {
         this.scoreView = scoreView;

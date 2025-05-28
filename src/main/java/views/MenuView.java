@@ -10,7 +10,8 @@ import java.awt.event.ActionListener;
 import java.util.Objects;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
-import modules.sound.AudioHandler;
+import lombok.extern.slf4j.Slf4j;
+import utils.AudioHandler;
 import styles.UIBorders;
 import styles.UIColors;
 import styles.UIHovers;
@@ -18,9 +19,12 @@ import styles.UIImages;
 import styles.UISizes;
 import views.base.AppComponent;
 
+@Slf4j
 public class MenuView extends AppComponent implements ToggleHandler {
     boolean isActive;
     private UIHovers<MenuView> uiHovers;
+    private MenuController controller;
+    
     public MenuView() {
         setTitle("Snake Game");
         setSize(UISizes.HEIGHT_MY_FRAME, UISizes.HEIGHT_MY_FRAME);
@@ -115,11 +119,11 @@ public class MenuView extends AppComponent implements ToggleHandler {
     public void setAudio(boolean msg) {
         if (!msg) {
             AudioHandler.path = false;
-            System.out.println("path update nek: " + AudioHandler.path);
-            System.out.println("set audio nhan gia tri null: " + msg);
+            log.info("path update nek: " + AudioHandler.path);
+            log.info("set audio nhan gia tri null: " + msg);
         } else {
             AudioHandler.path = true;
-            System.out.println("set audio nhan gia tri: " + msg);
+            log.info("set audio nhan gia tri: " + msg);
         }
     }
 
@@ -173,22 +177,22 @@ public class MenuView extends AppComponent implements ToggleHandler {
         @Override
         public void actionPerformed(ActionEvent e) {
             if (Objects.equals(e.getActionCommand(), "No Maze")) {
-                System.out.println("No Maze");
+                log.info("No Maze");
             }
             if (Objects.equals(e.getActionCommand(), "Box")) {
-                System.out.println("Box");
+                log.info("Box");
             }
             if (Objects.equals(e.getActionCommand(), "Tunnel")) {
-                System.out.println("Tunnel");
+                log.info("Tunnel");
             }
             if (Objects.equals(e.getActionCommand(), "Mill")) {
-                System.out.println("Mill");
+                log.info("Mill");
             }
             if (Objects.equals(e.getActionCommand(), "Rails")) {
-                System.out.println("Rails");
+                log.info("Rails");
             }
             if (Objects.equals(e.getActionCommand(), "Apartment")) {
-                System.out.println("Apartment");
+                log.info("Apartment");
             }
         }
 
@@ -237,7 +241,7 @@ public class MenuView extends AppComponent implements ToggleHandler {
         public void actionPerformed(ActionEvent e) {
             EventQueue.invokeLater(() -> {
                 dispose();
-                System.out.println("Back to main menu");
+                log.info("Back to main menu");
                 toggleButton.setSelected(false);
                 new LoginView().setVisible(true);
             });

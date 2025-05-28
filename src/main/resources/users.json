@@ -1,0 +1,34 @@
+[
+  {
+    "userId": 1,
+    "username": "hoang",
+    "email": "hoang@example.com",
+    "password": "$31$16$FeBHFH4l74NUAlCXfxlHi_BR8KxVKHvr-LS0IeC_ygc",
+    "score": 175,
+    "timestamp": "2025-05-28T07:22:39.349476540"
+  },
+  {
+    "userId": 2,
+    "username": "john",
+    "email": "john@example.com",
+    "password": "$31$16$f7edXuJYlheipP0A5Gv9YWKAYATQ5ogRBitD_5DUF6o",
+    "score": 200,
+    "timestamp": "2025-05-28T07:22:39.349504508"
+  },
+  {
+    "userId": 3,
+    "username": "Alice Johnson",
+    "email": "alice@gmail.com",
+    "password": "$31$16$jp0zhm1RWAA2NWerkRM0uIykJRrtRIfSwdu--HgYoj8",
+    "score": 0,
+    "timestamp": "2025-05-28T07:22:39.349510489"
+  },
+  {
+    "userId": 4,
+    "username": "Hoang",
+    "email": "test@gmail.com",
+    "password": "$31$16$4GFqcJe5m7zpCSLSY_i6gXiCaWydzahjurB0zxprNrI",
+    "score": 0,
+    "timestamp": "2025-05-28T07:32:46.319886647"
+  }
+]

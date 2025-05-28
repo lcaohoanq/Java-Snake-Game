@@ -1,45 +1,53 @@
 package controllers;
 
-import java.awt.EventQueue;
+import lombok.extern.slf4j.Slf4j;
+import models.UserScore;
+import views.MenuView;
+import views.LoginView;
+import views.game.Snake;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import views.LoginView;
-import views.MenuView;
-import views.game.Snake;
-
+@Slf4j
 public class PlayController implements ActionListener {
-    public static MenuView menuView;
-    private LoginView loginView;
-    private Snake snake;
-    private boolean isLoginView = false;
-    private boolean isSnake = false;
 
-    public PlayController(LoginView loginView) {
-        this.loginView = loginView;
-        isLoginView = true;
+    private final Object source;
+    private final UserScore currentUser;
+
+    // Constructor for login to menu transition
+    public PlayController(LoginView loginView, UserScore user) {
+        this.source = loginView;
+        this.currentUser = user;
+        log.info("PlayController created with user: " + 
+                          (user != null ? user.getUsername() : "null"));
     }
 
+    // Constructor for Snake game
     public PlayController(Snake snake) {
-        this.snake = snake;
-        isSnake = true;
+        this.source = snake;
+        this.currentUser = snake.getCurrentUser();
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (isLoginView) {
-            loginView.dispose();
-            EventQueue.invokeLater(() -> {
-                menuView = new MenuView();
-                menuView.setVisible(true);
-            });
-        }
-        if (isSnake) {
-            snake.dispose();
-            EventQueue.invokeLater(() -> {
-                menuView = new MenuView();
-                menuView.setVisible(true);
-            });
+        if (source instanceof LoginView) {
+            // From login view to menu
+            ((LoginView)source).dispose();
+            
+            // Create menu and pass the user
+            MenuView menuView = new MenuView();
+            MenuController menuController = new MenuController(menuView, currentUser);
+            log.info("Navigating to MenuView with user: " + 
+                              (currentUser != null ? currentUser.getUsername() : "null"));
+            menuView.setVisible(true);
+        } 
+        else if (source instanceof Snake) {
+            // Back to menu from game
+            ((Snake)source).dispose();
+            MenuView menuView = new MenuView();
+            MenuController menuController = new MenuController(menuView, currentUser);
+            menuView.setVisible(true);
         }
     }
 }

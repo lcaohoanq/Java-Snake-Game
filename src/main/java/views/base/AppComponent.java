@@ -20,7 +20,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import lombok.Getter;
-import modules.sound.AudioHandler;
+import utils.AudioHandler;
 import styles.UIBorders;
 import styles.UIColors;
 import styles.UIFonts;
@@ -37,8 +37,7 @@ public abstract class AppComponent extends JFrame {
     protected final JMenuItem jMenuItem_Score = new JMenuItem("Show Score");
     protected final JMenuItem jMenuItem_Go = new JMenuItem("Go!!!");
     protected JTextField jTextField_Right_Middle_Email = new JTextField(20); // 20 is the number of columns
-    protected JTextField  jTextField_Right_Middle_FirstName = new JTextField(20);; // 20 is the number of columns
-    protected JTextField jTextField_Right_Middle_LastName = new JTextField(20);; // 20 is the number of columns
+    protected JTextField  jTextField_Right_Middle_UserName = new JTextField(20);; // 20 is the number of columns
     protected JPasswordField jPasswordField_Right_Middle_Password = new JPasswordField(20);;
     protected JPasswordField jPasswordField_Right_Middle_Confirm_Password = new JPasswordField(20);;
     protected JButton jButton_Right_Bottom_Submit = new JButton(UILabels.SUBMIT);;
@@ -49,11 +48,9 @@ public abstract class AppComponent extends JFrame {
     protected JPanel jPanel_Right_Top_Title = new JPanel();;
     protected JLabel jLabel_Right_Top_Title;
     protected JPanel jPanel_Right_Middle_Email = new JPanel();
-    protected JPanel jPanel_Right_Middle_FirstName = new JPanel();
-    protected JPanel jPanel_Right_Middle_LastName = new JPanel();
+    protected JPanel jPanel_Right_Middle_UserName = new JPanel();
     protected JLabel jLabel_Right_Middle_Email;
-    protected JLabel jLabel_Right_Middle_FirstName;
-    protected JLabel jLabel_Right_Middle_LastName;
+    protected JLabel jLabel_Right_Middle_UserName;
     protected JPanel jPanel_Right_Middle_Password = new JPanel();;
     protected JLabel jLabel_Right_Middle_Password;
     protected JLabel jLabel_Right_Middle_Confirm_Password;

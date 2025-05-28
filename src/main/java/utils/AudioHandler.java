@@ -1,4 +1,4 @@
-package modules.sound;
+package utils;
 
 import exceptions.FileException;
 
@@ -8,7 +8,9 @@ import java.io.InputStream;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class AudioHandler {
     public static InputStream inputStreamCurrent;
     public static boolean path = true;
@@ -35,7 +37,7 @@ public class AudioHandler {
             clip.open(audioInputStream);
             clip.start();
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            log.info(e.getMessage());
         }
     }
 

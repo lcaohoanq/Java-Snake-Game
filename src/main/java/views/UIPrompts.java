@@ -60,4 +60,24 @@ public class UIPrompts {
     public static void IS_ABOUT_ME() {
         JOptionPane.showMessageDialog(null, "This is a Java Swing project by lcaohoanq", "About me", JOptionPane.INFORMATION_MESSAGE);
     }
+
+    public static void IS_REGISTER_FAILED() {
+        JOptionPane.showMessageDialog(
+            null,
+            "Registration failed. Please try again later.",
+            "Registration Error",
+            JOptionPane.ERROR_MESSAGE
+        );
+    }
+
+// Add this to UIPrompts if it doesn't exist
+public static void IS_INCORRECT_CREDENTIALS() {
+    JOptionPane.showMessageDialog(
+        null,
+        "Incorrect email or password. Please try again.",
+        "Login Failed",
+        JOptionPane.ERROR_MESSAGE
+    );
+}
+
 }
