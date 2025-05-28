@@ -1,6 +1,7 @@
+package views;
+
 import java.awt.EventQueue;
 import utils.LogsUtils;
-import views.LoginView;
 
 public class Main {
 

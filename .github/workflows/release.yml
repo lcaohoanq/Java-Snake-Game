@@ -3,7 +3,7 @@ name: Release JAR to GitHub
 on:
   push:
     tags:
-      - 'v*'  # Chỉ chạy khi push tag kiểu v1.0.0
+      - "v*" # Chỉ chạy khi push tag kiểu v1.0.0
 
 jobs:
   build:
@@ -16,11 +16,11 @@ jobs:
       - name: Set up Java
         uses: actions/setup-java@v4
         with:
-          java-version: '17'
-          distribution: 'temurin'
+          java-version: "17"
+          distribution: "temurin"
 
       - name: Build with Maven
-        run: mvn clean package -DskipTests=true
+        run: mvn clean package -DskipTests=true -PmyProfile
 
       - name: Upload .jar to GitHub Release
         uses: softprops/action-gh-release@v2
