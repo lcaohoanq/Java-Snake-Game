@@ -27,12 +27,12 @@ cd Java-Snake-Game
 2. Build the project
 
 ```bash
-mvn clean package
+mvn clean package -DskipTests=true -PmyProfile
 ```
 
 3. Run the game
 ```bash
-java -jar target/java-snake-game.jar
+java -jar target/Snake-Game.jar
 ```
 ✅ Make sure Java 17+ is installed.
 
