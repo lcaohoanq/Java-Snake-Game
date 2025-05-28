@@ -1,5 +1,4 @@
 import java.awt.EventQueue;
-
 import utils.LogsUtils;
 import views.LoginView;
 

@@ -49,11 +49,7 @@ public record UIHovers<T extends AppComponent>(T frame) {
     }
 
     public void setHoverFirstName(boolean isInside, String mode) {
-        applyHoverEffect(frame.getJTextField_Right_Middle_FirstName(), isInside, mode);
-    }
-
-    public void setHoverLastName(boolean isInside, String mode) {
-        applyHoverEffect(frame.getJTextField_Right_Middle_LastName(), isInside, mode);
+        applyHoverEffect(frame.getJTextField_Right_Middle_UserName(), isInside, mode);
     }
 
     public void setHoverPassword(boolean isInside, String mode) {

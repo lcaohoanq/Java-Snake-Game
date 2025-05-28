@@ -1,14 +1,19 @@
 package views.base;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
+import models.UserScore;
+import services.UserService;
+import services.UserServiceImpl;
 import views.UIPrompts;
 import constants.ResourcePaths;
 import styles.UISizes;
 import styles.UILabels;
-import controllers.LoginController;
 import styles.UIBorders;
 import styles.UIColors;
 import styles.UIFonts;
-import modules.sound.AudioHandler;
+import utils.AudioHandler;
 import views.MenuView;
 
 import javax.swing.*;
@@ -18,8 +23,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.InputStream;
-import java.util.Objects;
 
+@Slf4j
 public abstract class Board extends JPanel implements ActionListener {
 
     // Board dimensions and settings
@@ -67,7 +72,30 @@ public abstract class Board extends JPanel implements ActionListener {
     private final JPanel bottomPanel = new JPanel(); // Panel for UI components at the bottom
     private final JPanel gameOverButtonPanel = new JPanel(); // Panel for UI components at the game over
 
+    private UserService userService;
+    private UserScore currentUser;
+
+    public int getScore() {
+        return this.score;
+    }
+
+    // Method to set the current user
+    public void setCurrentUser(UserScore user) {
+        this.currentUser = user;
+    }
+
+    // Add a default constructor
     public Board() {
+        userService = new UserServiceImpl();
+        log.info("Board created with no user");
+        initBoard();
+    }
+
+    public Board(UserScore user) {
+        userService = new UserServiceImpl();
+        this.currentUser = user;
+        log.info("Board created with user: " + 
+                          (user != null ? user.getUsername() : "null"));
         initBoard();
     }
 
@@ -85,6 +113,13 @@ public abstract class Board extends JPanel implements ActionListener {
         initBottomPanel();
         initLine();
         initGameOverPanel();
+
+        // Print debug info
+    if (currentUser != null) {
+        log.info("Game initialized for user: " + currentUser.getUsername());
+    } else {
+        log.info("Game initialized with no user");
+    }
     }
 
     private void initLine() {
@@ -289,28 +324,50 @@ public abstract class Board extends JPanel implements ActionListener {
 //        return compareDatabaseAndCurrentScore(dbScore, currentScore);
 //    }
 
-//    public void updateScore() {
-//        UserDAO executeQuery = UserDAO.getInstance();
-//        String username = LoginController.email;
-//        if (username.isEmpty()) {
-//            return;
-//        }
-//        // if the current score > db score, update the score in the database
-//        if (handleScore(username) < 0) {
-//            if (executeQuery.setSafeUpdate() == 0) {
-//                executeQuery.updateEmailScore(username, String.valueOf(this.score));
-//            }
-//        }
-//    }
+    public void updateScore() {
+        if (currentUser == null) {
+            log.info("No user logged in, score not saved");
+            return;
+        }
 
+        try {
+            // Get the database score
+            UserScore dbUser = userService.findById(currentUser.getUserId());
+            if (dbUser == null) {
+                log.info("User not found in database, score not saved");
+                return;
+            }
+
+            // Only update if current score is higher than stored score
+            if (this.score > dbUser.getScore()) {
+                log.info("New high score! Updating from {} to {}", dbUser.getScore(), this.score);
+                userService.updateScore(currentUser, this.score);
+                
+                // Show a notification to the user
+                JOptionPane.showMessageDialog(
+                    this,
+                    "New high score: " + this.score + "!",
+                    "High Score",
+                    JOptionPane.INFORMATION_MESSAGE
+                );
+            } else {
+                log.info("Score not higher than previous best: {}", dbUser.getScore());
+            }
+        } catch (Exception e) {
+            log.error("Error updating score: {}", e.getMessage(), e);
+        }
+    }
+
+    // Make sure game over calls updateScore
     private void gameOver(Graphics g) {
-        // Show the "Play Again" and "Exit" button after displaying "Game Over" message
         gameOverButtonPanel.setVisible(true);
         playAgainButton.setVisible(true);
         exitButton.setVisible(true);
         backToMainMenuButton.setVisible(true);
-//         Hide the progress bar
         bigAppleProgressBar.setVisible(false);
+        
+        // Call updateScore to update the user's score
+        updateScore();
     }
 
     private void resetGame() {
@@ -447,7 +504,6 @@ public abstract class Board extends JPanel implements ActionListener {
     }
 
     protected boolean isOnSound() {
-        System.out.println("check is On Sound: " + !audioHandler.isEmptyPath());
         return !audioHandler.isEmptyPath();
     }
 

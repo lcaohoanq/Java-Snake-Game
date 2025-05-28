@@ -1,6 +1,7 @@
 package views.game;
 
 import constants.ResourcePaths;
+import models.UserScore;
 import styles.UISizes;
 
 import javax.swing.*;
@@ -12,18 +13,18 @@ public class Tunnel extends Board {
     protected int wallThickness = 20;
     private Image wall;
 
-    public Tunnel() {
-        super();
+    public Tunnel(UserScore user) {
+        super(user); // Pass user to parent class
     }
 
-    public static void main(String[] args) {
-        JFrame frame = new JFrame();
-        frame.add(new Tunnel());
-        frame.pack();
-        frame.setSize(UISizes.WIDTH_BOARD, UISizes.HEIGHT_BOARD);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setVisible(true);
-    }
+//    public static void main(String[] args) {
+//        JFrame frame = new JFrame();
+//        frame.add(new Tunnel());
+//        frame.pack();
+//        frame.setSize(UISizes.WIDTH_BOARD, UISizes.HEIGHT_BOARD);
+//        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        frame.setVisible(true);
+//    }
 
     @Override
     public void loadImages() {

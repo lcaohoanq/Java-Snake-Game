@@ -14,6 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
+import lombok.extern.slf4j.Slf4j;
 import styles.UIBorders;
 import styles.UIColors;
 import styles.UIImages;
@@ -22,6 +23,7 @@ import styles.UISizes;
 import views.MenuView;
 import views.ScoreView;
 
+@Slf4j
 public abstract class MyFrame extends AppComponent implements ToggleHandler{
 
     public MyFrame() {
@@ -100,16 +102,13 @@ public abstract class MyFrame extends AppComponent implements ToggleHandler{
     private Map<JComponent, Color[]> createLightModeMap() {
         Map<JComponent, Color[]> lightMode = new HashMap<>();
         lightMode.put(jLabel_Right_Middle_Email, new Color[]{UIColors.TEXT_COLOR_L, UIColors.PRIMARY_COLOR_L});
-        lightMode.put(jLabel_Right_Middle_FirstName, new Color[]{UIColors.TEXT_COLOR_L, UIColors.PRIMARY_COLOR_L});
-        lightMode.put(jLabel_Right_Middle_LastName, new Color[]{UIColors.TEXT_COLOR_L, UIColors.PRIMARY_COLOR_L});
+        lightMode.put(jLabel_Right_Middle_UserName, new Color[]{UIColors.TEXT_COLOR_L, UIColors.PRIMARY_COLOR_L});
         lightMode.put(jTextField_Right_Middle_Email, new Color[]{UIColors.SECONDARY_COLOR_L, UIColors.PRIMARY_COLOR_L});
-        lightMode.put(jTextField_Right_Middle_FirstName, new Color[]{UIColors.SECONDARY_COLOR_L, UIColors.PRIMARY_COLOR_L});
-        lightMode.put(jTextField_Right_Middle_LastName, new Color[]{UIColors.SECONDARY_COLOR_L, UIColors.PRIMARY_COLOR_L});
+        lightMode.put(jTextField_Right_Middle_UserName, new Color[]{UIColors.SECONDARY_COLOR_L, UIColors.PRIMARY_COLOR_L});
         lightMode.put(jLabel_Right_Middle_Password, new Color[]{UIColors.TEXT_COLOR_L, UIColors.PRIMARY_COLOR_L});
         lightMode.put(jPasswordField_Right_Middle_Password, new Color[]{UIColors.SECONDARY_COLOR_L, UIColors.PRIMARY_COLOR_L});
         lightMode.put(jPanel_Right_Middle_Email, new Color[]{UIColors.PRIMARY_COLOR_L, UIColors.PRIMARY_COLOR_L});
-        lightMode.put(jPanel_Right_Middle_FirstName, new Color[]{UIColors.PRIMARY_COLOR_L, UIColors.PRIMARY_COLOR_L});
-        lightMode.put(jPanel_Right_Middle_LastName, new Color[]{UIColors.PRIMARY_COLOR_L, UIColors.PRIMARY_COLOR_L});
+        lightMode.put(jPanel_Right_Middle_UserName, new Color[]{UIColors.PRIMARY_COLOR_L, UIColors.PRIMARY_COLOR_L});
         lightMode.put(jPanel_Right_Middle_Password, new Color[]{UIColors.PRIMARY_COLOR_L, UIColors.PRIMARY_COLOR_L});
         lightMode.put(jButton_Right_Bottom_Submit, new Color[]{UIColors.TEXT_COLOR_L, UIColors.PRIMARY_COLOR_L});
         lightMode.put(jPanel_Right_Bottom_Button, new Color[]{UIColors.PRIMARY_COLOR_L, UIColors.PRIMARY_COLOR_L});
@@ -129,16 +128,13 @@ public abstract class MyFrame extends AppComponent implements ToggleHandler{
     private Map<JComponent, Color[]> createDarkModeMap() {
         Map<JComponent, Color[]> darkMode = new HashMap<>();
         darkMode.put(jLabel_Right_Middle_Email, new Color[]{UIColors.TEXT_COLOR_D, UIColors.PRIMARY_COLOR_D});
-        darkMode.put(jLabel_Right_Middle_FirstName, new Color[]{UIColors.TEXT_COLOR_D, UIColors.PRIMARY_COLOR_D});
-        darkMode.put(jLabel_Right_Middle_LastName, new Color[]{UIColors.TEXT_COLOR_D, UIColors.PRIMARY_COLOR_D});
+        darkMode.put(jLabel_Right_Middle_UserName, new Color[]{UIColors.TEXT_COLOR_D, UIColors.PRIMARY_COLOR_D});
         darkMode.put(jTextField_Right_Middle_Email, new Color[]{UIColors.SECONDARY_COLOR_D, UIColors.PRIMARY_COLOR_D});
-        darkMode.put(jTextField_Right_Middle_FirstName, new Color[]{UIColors.SECONDARY_COLOR_D, UIColors.PRIMARY_COLOR_D});
-        darkMode.put(jTextField_Right_Middle_LastName, new Color[]{UIColors.SECONDARY_COLOR_D, UIColors.PRIMARY_COLOR_D});
+        darkMode.put(jTextField_Right_Middle_UserName, new Color[]{UIColors.SECONDARY_COLOR_D, UIColors.PRIMARY_COLOR_D});
         darkMode.put(jLabel_Right_Middle_Password, new Color[]{UIColors.TEXT_COLOR_D, UIColors.PRIMARY_COLOR_D});
         darkMode.put(jPasswordField_Right_Middle_Password, new Color[]{UIColors.SECONDARY_COLOR_D, UIColors.PRIMARY_COLOR_D});
         darkMode.put(jPanel_Right_Middle_Email, new Color[]{UIColors.PRIMARY_COLOR_D, UIColors.PRIMARY_COLOR_D});
-        darkMode.put(jPanel_Right_Middle_FirstName, new Color[]{UIColors.PRIMARY_COLOR_D, UIColors.PRIMARY_COLOR_D});
-        darkMode.put(jPanel_Right_Middle_LastName, new Color[]{UIColors.PRIMARY_COLOR_D, UIColors.PRIMARY_COLOR_D});
+        darkMode.put(jPanel_Right_Middle_UserName, new Color[]{UIColors.PRIMARY_COLOR_D, UIColors.PRIMARY_COLOR_D});
         darkMode.put(jPanel_Right_Middle_Password, new Color[]{UIColors.PRIMARY_COLOR_D, UIColors.PRIMARY_COLOR_D});
         darkMode.put(jButton_Right_Bottom_Submit, new Color[]{UIColors.TEXT_COLOR_D, UIColors.PRIMARY_COLOR_D});
         darkMode.put(jPanel_Right_Bottom_Button, new Color[]{UIColors.PRIMARY_COLOR_D, UIColors.PRIMARY_COLOR_D});
@@ -162,7 +158,7 @@ public abstract class MyFrame extends AppComponent implements ToggleHandler{
                 component.setBackground(colors[1]);
             });
         }else{
-            System.out.println("Error in change theme");
+            log.info("Error in change theme");
         }
     }
 
@@ -182,22 +178,6 @@ public abstract class MyFrame extends AppComponent implements ToggleHandler{
         jMenuItem_Go.addActionListener(new ClickPlayNow());
         jMenuItem_AboutMe.addActionListener(new Info());
         jMenuItem_Score.addActionListener(new ScoreController(new ScoreView()));
-    }
-
-    public class ClickOtherOption implements ActionListener {
-        @Override
-        public void actionPerformed(java.awt.event.ActionEvent e) {
-            try {
-                // Specify the URL of the website
-                URI uri = new URI("http://localhost:3000/users/register");
-                // Open the website in the default browser
-                if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
-                    Desktop.getDesktop().browse(uri);
-                }
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
-        }
     }
 
     public class PressEnter implements ActionListener {

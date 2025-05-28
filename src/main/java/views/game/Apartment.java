@@ -1,6 +1,7 @@
 package views.game;
 
 import constants.ResourcePaths;
+import models.UserScore;
 import styles.UISizes;
 
 import javax.swing.*;
@@ -12,8 +13,8 @@ public class Apartment extends Board {
     protected int wallThickness = 20;
     private Image wall;
 
-    public Apartment(){
-        super();
+    public Apartment(UserScore user) {
+        super(user); // Pass user to parent class
     }
 
     @Override

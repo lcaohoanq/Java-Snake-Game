@@ -6,15 +6,14 @@ import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import lombok.extern.slf4j.Slf4j;
-//import modules.email.EmailUtils;
-import modules.otp.OTPUtils;
+import models.UserScore;
 import styles.UIHovers;
-import views.OTPVerificationView;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import views.LoginView;
 import views.RegisterView;
 import views.UIPrompts;
 
@@ -24,7 +23,6 @@ public class RegisterController implements ActionListener, MouseListener {
     private final RegisterView registerView;
     private final List<JTextField> inputFieldList;
     private final List<JButton> buttonList;
-    private OTPVerificationView otpVerificationView;
     private UIHovers<RegisterView> uiHovers;
 
     public RegisterController(RegisterView registerView) {
@@ -32,8 +30,7 @@ public class RegisterController implements ActionListener, MouseListener {
         this.registerView = registerView;
         this.inputFieldList = Arrays.asList(
             registerView.getJTextField_Right_Middle_Email(),
-            registerView.getJTextField_Right_Middle_FirstName(),
-            registerView.getJTextField_Right_Middle_LastName(),
+            registerView.getJTextField_Right_Middle_UserName(),
             registerView.getJPasswordField_Right_Middle_Password(),
             registerView.getJPasswordField_Right_Middle_Confirm_Password());
         this.buttonList = Arrays.asList(
@@ -44,103 +41,92 @@ public class RegisterController implements ActionListener, MouseListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-//        if (!registerView.isEmpty()) {
-//            if (registerView.isMatchingPattern()) {
-//                if (registerView.isMatchingPasswordAndConfirmPassword()) {
-//                    if (!registerView.isDuplicateEmail()) {
-//                        EmailUtils handleEmail = new EmailUtils();
-//                        String email = registerView.getDataWhenRegister().getEmail();
-//                        String otp = OTPUtils.generateOTP();
-//                        handleEmail.sendEmail(
-//                            handleEmail.subjectGreeting(registerView.getDataWhenRegister().getFirstName()),
-//                            handleEmail.emailSendOtp(registerView.getDataWhenRegister().getFirstName(),
-//                                otp), email);
+        // Handle registration button click
+        if (e.getSource() == registerView.getJButton_Right_Bottom_Submit()) {
+            handleRegistration();
+        }
+        // Handle "Sign In Here" button click
+        else if (e.getSource() == registerView.getJButton_Right_Bottom_Others()) {
+            // Navigate to login view
+            registerView.dispose();
+            new LoginView().setVisible(true);
+        }
+    }
 
-//                        OTPUtils.IS_NOTIFY_VERIFY_ACCOUNT();
-//                        otpVerificationView = new OTPVerificationView(otp,
-//                            new OTPVerificationListener() {
-//                                @Override
-//                                public void onOtpVerified() {
-//                                    registerView.insertMail();
-//                                    UIPrompts.IS_REGISTER_SUCCESS();
-//                                    registerView.setEnabled(true);
-//                                    log.info("User {} registered successfully", email);
-//                                }
-//
-//                                @Override
-//                                public void onResendOtp() {
-//                                    // Handle resending OTP
-//                                    String newOtp = OTPUtils.generateOTP();
-//                                    handleEmail.sendEmail(handleEmail.subjectGreeting(
-//                                            registerView.getDataWhenRegister().getFirstName()),
-//                                        handleEmail.emailSendOtp(
-//                                            registerView.getDataWhenRegister().getFirstName(), newOtp),
-//                                        email);
-//                                    otpVerificationView.setGeneratedOtp(newOtp);
-//                                    log.info("Resend OTP to email {}", email);
-//                                }
-//
-//                                @Override
-//                                public void onBlockUser() {
-//                                    handleEmail.sendEmail(handleEmail.subjectGreeting(
-//                                            registerView.getDataWhenRegister().getFirstName()),
-//                                        handleEmail.emailSendBlockAccount(
-//                                            registerView.getDataWhenRegister().getFirstName(),
-//                                            "Too many request, maybe abuse action, we added you to application blacklist"),
-//                                        email);
-//                                    log.warn(
-//                                        "Blocked user with email {}, too many request register in time",
-//                                        email);
-//                                }
-//                            });
-//                        otpVerificationView.setVisible(true);
-//                        registerView.setEnabled(false);
-//                    } else {
-//                        UIPrompts.IS_EXISTED_EMAIL();
-//                        log.error("Email already exists, please try again");
-//                    }
-//                } else {
-//                    UIPrompts.IS_WRONG_USERNAME_OR_PASSWORD();
-//                    log.error("Password and confirm password do not match, please try again");
-//                }
-//            }
-//        } else {
-//            UIPrompts.IS_EMPTY_FIELD();
-//            log.error("Empty field when register, please try again");
-//        }
+    private void handleRegistration() {
+        log.info("Starting registration process...");
+        
+        // Check for empty fields
+        if (!registerView.isEmpty()) {
+            log.info("Fields are not empty, checking password match...");
+            
+            // Check if passwords match
+            if (registerView.isMatchingPasswordAndConfirmPassword()) {
+                log.info("Passwords match, checking for duplicate email...");
+                
+                // Check if email already exists
+                if (!registerView.isDuplicateEmail()) {
+                    log.info("Email is not duplicate, attempting to register user...");
+                    
+                    // Register the user
+                    UserScore newUser = registerView.registerUser();
+                    log.info("Register result: {}", newUser);
 
+                    if (newUser != null) {
+                        // Registration successful
+                        UIPrompts.IS_REGISTER_SUCCESS();
+                        log.info("User {} registered successfully", newUser.getEmail());
+
+                        // Navigate to login view
+                        registerView.dispose();
+                        new LoginView().setVisible(true);
+                    } else {
+                        // Registration failed
+                        UIPrompts.IS_REGISTER_FAILED();
+                        log.error("Registration failed for unknown reason");
+                    }
+                } else {
+                    UIPrompts.IS_EXISTED_EMAIL();
+                    log.error("Email already exists, please try again");
+                }
+            } else {
+                registerView.handleNotMatchingPasswordAndConfirmPassword();
+                log.error("Password and confirm password do not match, please try again");
+            }
+        } else {
+            UIPrompts.IS_EMPTY_FIELD();
+            log.error("Empty field when register, please try again");
+        }
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
-
+        // Handle "Sign In Here" button click
+        if (e.getSource() == registerView.getJButton_Right_Bottom_Others()) {
+            registerView.dispose();
+            new LoginView().setVisible(true);
+        }
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
-
+        // Not needed
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-
+        // Not needed
     }
-
 
     @Override
     public void mouseEntered(MouseEvent e) {
+        // Handle hover effects - keeping your existing code
         inputFieldList.stream()
             .filter(inputField -> e.getSource() == inputField)
             .forEach(inputField -> {
                 if (!registerView.getStatusToggle()) {
                     if (inputField == registerView.getJTextField_Right_Middle_Email()) {
                         uiHovers.setHoverEmail(Hover.ENABLE.isStatus(), "light");
-                    }
-                    if (inputField == registerView.getJTextField_Right_Middle_FirstName()) {
-                        uiHovers.setHoverFirstName(Hover.ENABLE.isStatus(), "light");
-                    }
-                    if (inputField == registerView.getJTextField_Right_Middle_LastName()) {
-                        uiHovers.setHoverLastName(Hover.ENABLE.isStatus(), "light");
                     }
                     if (inputField == registerView.getJPasswordField_Right_Middle_Password()) {
                         uiHovers.setHoverPassword(Hover.ENABLE.isStatus(), "light");
@@ -150,19 +136,14 @@ public class RegisterController implements ActionListener, MouseListener {
                         uiHovers.setHoverConfirmPassword(Hover.ENABLE.isStatus(), "light");
                     }
                 } else {
-                    if(inputField == registerView.getJTextField_Right_Middle_Email()){
+                    if (inputField == registerView.getJTextField_Right_Middle_Email()) {
                         uiHovers.setHoverEmail(Hover.ENABLE.isStatus(), "dark");
                     }
-                    if(inputField == registerView.getJTextField_Right_Middle_FirstName()){
-                        uiHovers.setHoverFirstName(Hover.ENABLE.isStatus(),"dark");
-                    }
-                    if(inputField == registerView.getJTextField_Right_Middle_LastName()){
-                        uiHovers.setHoverLastName(Hover.ENABLE.isStatus(), "dark");
-                    }
-                    if(inputField == registerView.getJPasswordField_Right_Middle_Password()){
+                    if (inputField == registerView.getJPasswordField_Right_Middle_Password()) {
                         uiHovers.setHoverPassword(Hover.ENABLE.isStatus(), "dark");
                     }
-                    if(inputField == registerView.getJPasswordField_Right_Middle_Confirm_Password()){
+                    if (inputField
+                        == registerView.getJPasswordField_Right_Middle_Confirm_Password()) {
                         uiHovers.setHoverConfirmPassword(Hover.ENABLE.isStatus(), "dark");
                     }
                 }
@@ -191,13 +172,11 @@ public class RegisterController implements ActionListener, MouseListener {
                 if (!registerView.getStatusToggle()) {
                     uiHovers.setHoverEmail(Hover.DISABLE.isStatus(), "light");
                     uiHovers.setHoverFirstName(Hover.DISABLE.isStatus(), "light");
-                    uiHovers.setHoverLastName(Hover.DISABLE.isStatus(), "light");
                     uiHovers.setHoverPassword(Hover.DISABLE.isStatus(), "light");
                     uiHovers.setHoverConfirmPassword(Hover.DISABLE.isStatus(), "light");
                 } else {
                     uiHovers.setHoverEmail(Hover.DISABLE.isStatus(), "dark");
                     uiHovers.setHoverFirstName(Hover.DISABLE.isStatus(), "dark");
-                    uiHovers.setHoverLastName(Hover.DISABLE.isStatus(), "dark");
                     uiHovers.setHoverPassword(Hover.DISABLE.isStatus(), "dark");
                     uiHovers.setHoverConfirmPassword(Hover.DISABLE.isStatus(), "dark");
 

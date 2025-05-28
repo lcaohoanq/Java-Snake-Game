@@ -9,6 +9,8 @@ import com.google.gson.reflect.TypeToken;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.lang.reflect.Type;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -16,13 +18,17 @@ import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import modules.user.UserScore;
+import lombok.extern.slf4j.Slf4j;
+import models.UserScore;
+import utils.PBKDF2;
 
+@Slf4j
 public class UserServiceImpl implements UserService {
 
     private List<UserScore> users;
     private final String JSON_FILE_PATH = "src/main/resources/users.json";
     private final Gson gson;
+    private final PBKDF2 passwordHasher;
 
     public UserServiceImpl() {
         this.gson = new GsonBuilder()
@@ -32,31 +38,51 @@ public class UserServiceImpl implements UserService {
                 (src, typeOfSrc, context) -> new JsonPrimitive(src.toString()))
             .setPrettyPrinting()
             .create();
+        this.passwordHasher = new PBKDF2();
         loadUsersFromJson();
     }
 
     private void loadUsersFromJson() {
-        try {
-            Path path = Paths.get(JSON_FILE_PATH);
-
-            // Create file if it doesn't exist
-            if (!Files.exists(path)) {
-                createDefaultUsersFile();
-                return;
-            }
-
-            // Read from file
-            try (FileReader reader = new FileReader(JSON_FILE_PATH)) {
+        Path jsonPath = Paths.get(JSON_FILE_PATH);
+        
+        // First try to read from file system
+        if (Files.exists(jsonPath)) {
+            try (FileReader reader = new FileReader(jsonPath.toFile())) {
                 Type listType = new TypeToken<List<UserScore>>() {}.getType();
                 this.users = gson.fromJson(reader, listType);
-
                 if (this.users == null) {
                     this.users = new ArrayList<>();
                 }
+                log.info("Loaded {} users from file: {}", users.size(), JSON_FILE_PATH);
+                return;
+            } catch (IOException e) {
+                log.error("Error reading file from disk: {}", e.getMessage());
+                // Continue to try classpath resources
             }
-
+        }
+        
+        // If file doesn't exist or can't be read, try classpath resources
+        try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream("users.json")) {
+            if (inputStream == null) {
+                log.info("Resource users.json not found in classpath, creating default users");
+                this.users = new ArrayList<>();
+                createDefaultUsersFile();
+                return;
+            }
+            
+            InputStreamReader reader = new InputStreamReader(inputStream);
+            Type listType = new TypeToken<List<UserScore>>() {}.getType();
+            this.users = gson.fromJson(reader, listType);
+            if (this.users == null) {
+                this.users = new ArrayList<>();
+            }
+            
+            // Copy resource to file for future use
+            saveUsersToFile();
+            log.info("Loaded {} users from classpath resource", users.size());
+            
         } catch (Exception e) {
-            System.err.println("Error loading users from JSON: " + e.getMessage());
+            log.error("Error loading users from JSON: {}", e.getMessage());
             this.users = new ArrayList<>();
             createDefaultUsersFile();
         }
@@ -75,7 +101,7 @@ public class UserServiceImpl implements UserService {
             saveUsersToFile();
 
         } catch (Exception e) {
-            System.err.println("Error creating default users file: " + e.getMessage());
+            log.error("Error creating default users file: {}", e.getMessage());
             this.users = new ArrayList<>();
         }
     }
@@ -83,10 +109,14 @@ public class UserServiceImpl implements UserService {
     private List<UserScore> createDefaultUsers() {
         List<UserScore> defaultUsers = new ArrayList<>();
 
-        // You'll need to adjust these constructors based on your UserScore class
-        defaultUsers.add(new UserScore(1, "John Doe", "john@example.com", "password123", 100, LocalDateTime.now()));
-        defaultUsers.add(new UserScore(2, "Jane Smith", "jane@example.com", "password456", 85, LocalDateTime.now()));
-        defaultUsers.add(new UserScore(3, "Bob Johnson", "bob@example.com", "password789", 92, LocalDateTime.now()));
+        // Store hashed passwords for default users
+        String hashedPassword1 = passwordHasher.hash("password123".toCharArray());
+        String hashedPassword2 = passwordHasher.hash("password456".toCharArray());
+        String hashedPassword3 = passwordHasher.hash("password789".toCharArray());
+
+        defaultUsers.add(new UserScore(1, "John Doe", "john@example.com", hashedPassword1, 100, LocalDateTime.now()));
+        defaultUsers.add(new UserScore(2, "Jane Smith", "jane@example.com", hashedPassword2, 85, LocalDateTime.now()));
+        defaultUsers.add(new UserScore(3, "Bob Johnson", "bob@example.com", hashedPassword3, 92, LocalDateTime.now()));
 
         return defaultUsers;
     }
@@ -94,7 +124,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<UserScore> getAll() {
         if (users == null || users.isEmpty()) {
-            System.out.println("No users found.");
+            log.info("No users found.");
             return new ArrayList<>();
         }
         return new ArrayList<>(users); // Return a copy to prevent external modification
@@ -119,15 +149,50 @@ public class UserServiceImpl implements UserService {
         }
 
         return users.stream()
-            .filter(user -> user.getEmail().equals(email) && user.getPassword().equals(password))
+            .filter(user -> user.getEmail().equals(email) && 
+                           verifyPassword(password, user.getPassword()))
             .findFirst()
             .orElse(null);
+    }
+
+    private boolean verifyPassword(String plainPassword, String storedHash) {
+        try {
+            return passwordHasher.authenticate(plainPassword.toCharArray(), storedHash);
+        } catch (Exception e) {
+            // If there's an error (e.g., invalid hash format), authentication fails
+            log.error("Password verification error: {}", e.getMessage());
+            return false;
+        }
+    }
+
+    @Override
+    public UserScore register(String username, String email, String password) {
+        if (username == null || email == null || password == null ||
+            username.trim().isEmpty() || email.trim().isEmpty() || password.trim().isEmpty()) {
+            return null;
+        }
+
+        // Check if user already exists
+        if (users.stream().anyMatch(user -> user.getEmail().equals(email))) {
+            log.info("User with email {} already exists.", email);
+            return null;
+        }
+
+        // Hash the password before storing
+        String hashedPassword = passwordHasher.hash(password.toCharArray());
+        
+        // Create new user with hashed password
+        UserScore newUser = new UserScore(users.size() + 1, username, email, hashedPassword, 0, LocalDateTime.now());
+        users.add(newUser);
+        saveUsersToFile();
+        log.info("New user registered: {}", username);
+        return newUser;
     }
 
     @Override
     public void updateScore(UserScore user, int score) {
         if (user == null) {
-            System.out.println("Cannot update score: user is null");
+            log.info("Cannot update score: user is null");
             return;
         }
 
@@ -138,39 +203,32 @@ public class UserServiceImpl implements UserService {
             existingUser.setTimestamp(LocalDateTime.now());
 
             saveUsersToFile();
-            System.out.println("Score updated for user " + existingUser.getUsername() +
-                                   ": " + oldScore + " -> " + existingUser.getScore());
+            log.info("Score updated for user {}: {} -> {}", 
+                  existingUser.getUsername(), oldScore, existingUser.getScore());
         } else {
-            System.out.println("User not found for updating score: ID " + user.getUserId());
+            log.info("User not found for updating score: ID {}", user.getUserId());
         }
-    }
-
-    @Override
-    public void saveUsersToJson(UserScore user) {
-        // This method seems to be intended for saving a single user,
-        // but based on the interface, we'll save all users
-        saveUsersToFile();
     }
 
     private void saveUsersToFile() {
-        try (FileWriter writer = new FileWriter(JSON_FILE_PATH)) {
-            gson.toJson(users, writer);
-            System.out.println("Users successfully saved to " + JSON_FILE_PATH);
+        Path jsonPath = Paths.get(JSON_FILE_PATH);
+        
+        try {
+            // Create parent directories if they don't exist
+            Path parent = jsonPath.getParent();
+            if (parent != null && !Files.exists(parent)) {
+                Files.createDirectories(parent);
+            }
+            
+            // Write to file
+            try (FileWriter writer = new FileWriter(jsonPath.toFile())) {
+                gson.toJson(users, writer);
+                log.info("Users successfully saved to {}", jsonPath);
+            }
         } catch (IOException e) {
-            System.err.println("Error saving users to JSON: " + e.getMessage());
-            throw new RuntimeException("Failed to save users to JSON", e);
+            log.error("Error saving users to JSON: {}", e.getMessage());
+            e.printStackTrace();
         }
-    }
-
-    // Additional utility methods
-    public boolean addUser(UserScore user) {
-        if (user == null || findById(user.getUserId()) != null) {
-            return false;
-        }
-
-        users.add(user);
-        saveUsersToFile();
-        return true;
     }
 
     public boolean removeUser(Integer userId) {
@@ -191,105 +249,125 @@ public class UserServiceImpl implements UserService {
     }
 
     public static void main(String[] args) {
-        System.out.println("=== UserService Implementation Test ===\n");
+        log.info("=== UserService Implementation Test ===");
 
         UserServiceImpl service = new UserServiceImpl();
 
         // Test 1: Get all users
-        System.out.println("1. Testing getAll():");
+        log.info("1. Testing getAll():");
         List<UserScore> allUsers = service.getAll();
-        System.out.println("Total users: " + allUsers.size());
-        allUsers.forEach(user -> System.out.println("  - " + user));
-        System.out.println();
+        log.info("Total users: {}", allUsers.size());
+        allUsers.forEach(user -> log.info("  - {}", user));
 
         // Test 2: Find user by ID
-        System.out.println("2. Testing findById():");
+        log.info("2. Testing findById():");
         UserScore foundUser = service.findById(1);
-        System.out.println("User with ID 1: " + foundUser);
+        log.info("User with ID 1: {}", foundUser);
 
         UserScore notFoundUser = service.findById(999);
-        System.out.println("User with ID 999: " + notFoundUser);
-        System.out.println();
+        log.info("User with ID 999: {}", notFoundUser);
 
         // Test 3: Login functionality
-        System.out.println("3. Testing login():");
+        log.info("3. Testing login():");
         UserScore loginUser = service.login("john@example.com", "password123");
-        System.out.println("Login with correct credentials: " +
-                               (loginUser != null ? loginUser.getUsername() : "Failed"));
+        log.info("Login with correct credentials: {}", 
+              (loginUser != null ? loginUser.getUsername() : "Failed"));
 
         UserScore failedLogin = service.login("john@example.com", "wrongpassword");
-        System.out.println("Login with wrong password: " +
-                               (failedLogin != null ? failedLogin.getUsername() : "Failed"));
+        log.info("Login with wrong password: {}", 
+              (failedLogin != null ? failedLogin.getUsername() : "Failed"));
 
         UserScore nullLogin = service.login("", "");
-        System.out.println("Login with empty credentials: " +
-                               (nullLogin != null ? nullLogin.getUsername() : "Failed"));
-        System.out.println();
+        log.info("Login with empty credentials: {}", 
+              (nullLogin != null ? nullLogin.getUsername() : "Failed"));
 
-        // Test 4: Update score
-        System.out.println("4. Testing updateScore():");
+        // Test 4: Register new user
+        log.info("4. Testing register():");
+        UserScore newUser = service.register("Alice Johnson", "alice@gmail.com", "alicepass");
+        log.info("New user registered: {}", (newUser != null ? newUser.getUsername() : "Failed"));
+        log.info("Total users after registration: {}", service.getAll().size());
+        UserScore duplicateUser = service.register("John Doe", "alice@gmail.com", "alicepass");
+        log.info("Attempt to register duplicate user: {}", 
+              (duplicateUser != null ? duplicateUser.getUsername() : "Failed"));
+
+        // Test 5: Update score
+        log.info("5. Testing updateScore():");
         if (foundUser != null) {
             int originalScore = foundUser.getScore();
-            System.out.println("Original score for " + foundUser.getUsername() + ": " + originalScore);
+            log.info("Original score for {}: {}", foundUser.getUsername(), originalScore);
 
             service.updateScore(foundUser, 25);
 
             // Reload user to see updated score
             UserScore updatedUser = service.findById(foundUser.getUserId());
-            System.out.println("Updated score: " + updatedUser.getScore());
-            System.out.println("Score difference: +" + (updatedUser.getScore() - originalScore));
+            log.info("Updated score: {}", updatedUser.getScore());
+            log.info("Score difference: +{}", (updatedUser.getScore() - originalScore));
         }
-        System.out.println();
 
-        // Test 5: Update score with null user
-        System.out.println("5. Testing updateScore() with null user:");
+        // Test 6: Update score with null user
+        log.info("6. Testing updateScore() with null user:");
         service.updateScore(null, 10);
-        System.out.println();
 
-        // Test 6: Top scorers
-        System.out.println("6. Testing getTopScorers():");
+        // Test 7: Top scorers
+        log.info("7. Testing getTopScorers():");
         List<UserScore> topScorers = service.getTopScorers(3);
-        System.out.println("Top 3 scorers:");
+        log.info("Top 3 scorers:");
         for (int i = 0; i < topScorers.size(); i++) {
             UserScore user = topScorers.get(i);
-            System.out.println("  " + (i + 1) + ". " + user.getUsername() + " - Score: " + user.getScore());
+            log.info("  {}. {} - Score: {}", (i + 1), user.getUsername(), user.getScore());
         }
-        System.out.println();
 
-        // Test 7: Add new user
-        System.out.println("7. Testing addUser():");
-        UserScore newUser = new UserScore(4, "Alice Wilson", "alice@example.com", "newpass", 0, LocalDateTime.now());
-        boolean added = service.addUser(newUser);
-        System.out.println("New user added: " + added);
-        if (added) {
-            System.out.println("Total users now: " + service.getAll().size());
-        }
-        System.out.println();
-
-        // Test 8: Try to add duplicate user
-        System.out.println("8. Testing addUser() with duplicate ID:");
-        UserScore duplicateUser = new UserScore(1, "Duplicate User", "dup@example.com", "pass", 0, LocalDateTime.now());
-        boolean duplicateAdded = service.addUser(duplicateUser);
-        System.out.println("Duplicate user added: " + duplicateAdded);
-        System.out.println();
-
-        // Test 9: Remove user
-        System.out.println("9. Testing removeUser():");
+        // Test 8: Remove user
+        log.info("8. Testing removeUser():");
         boolean removed = service.removeUser(4);
-        System.out.println("User with ID 4 removed: " + removed);
+        log.info("User with ID 4 removed: {}", removed);
         if (removed) {
-            System.out.println("Total users now: " + service.getAll().size());
+            log.info("Total users now: {}", service.getAll().size());
         }
-        System.out.println();
 
-        // Test 10: Save to JSON
-        System.out.println("10. Testing saveUsersToJson():");
-        service.saveUsersToJson(null); // This will save all users
-        System.out.println();
+        // Test 9: Save to JSON
+        log.info("9. Testing saveUsersToJson():");
+        try {
+            service.saveUsersToFile();
+            log.info("Users saved successfully to {}", service.JSON_FILE_PATH);
+        } catch (Exception e) {
+            log.error("Failed to save users: {}", e.getMessage());
+        }
 
         // Final state
-        System.out.println("=== Final Test Results ===");
-        System.out.println("Final user count: " + service.getAll().size());
-        System.out.println("All tests completed successfully!");
+        log.info("=== Final Test Results ===");
+        log.info("Final user count: {}", service.getAll().size());
+        log.info("All tests completed successfully!");
+
+        log.info("=== Resetting User Database ===");
+
+        // Uncomment if you need to reset user database
+        /*
+        // Clear existing users
+        service.users.clear();
+        log.info("Cleared all existing users.");
+
+        // Create new users with properly hashed passwords
+        String hoangPassword = service.passwordHasher.hash("123456".toCharArray());
+        String johnPassword = service.passwordHasher.hash("abcdef".toCharArray());
+        String alicePassword = service.passwordHasher.hash("alicepass".toCharArray());
+
+        // Add users with same IDs and data, but with hashed passwords
+        service.users.add(new UserScore(1, "hoang", "hoang@example.com", hoangPassword, 175, LocalDateTime.now()));
+        service.users.add(new UserScore(2, "john", "john@example.com", johnPassword, 200, LocalDateTime.now()));
+        service.users.add(new UserScore(3, "Alice Johnson", "alice@gmail.com", alicePassword, 0, LocalDateTime.now()));
+
+        // Save updated users to file
+        service.saveUsersToFile();
+
+        log.info("Created new users with hashed passwords:");
+        service.users.forEach(user -> log.info("  - {} ({})", user.getUsername(), user.getEmail()));
+
+        log.info("You can now log in with:");
+        log.info("  Email: hoang@example.com");
+        log.info("  Password: 123456");
+
+        log.info("All users saved to: {}", service.JSON_FILE_PATH);
+        */
     }
 }

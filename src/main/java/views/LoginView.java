@@ -1,20 +1,21 @@
 package views;
 
 import constants.ResourcePaths;
-import controllers.ForgotPasswordController;
 import controllers.LoginController;
 import controllers.PlayController;
 import controllers.ToggleHandler;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.InputStream;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import lombok.Getter;
-//import models.LoginModel;
-import modules.user.UserScore;
+import models.LoginModel;
+import models.UserScore;
 import styles.UIColors;
 import styles.UIFonts;
 import styles.UILabels;
@@ -22,19 +23,17 @@ import styles.UISizes;
 import views.base.MyFrame;
 
 @Getter
-public class LoginView extends MyFrame implements ToggleHandler{
+public class LoginView extends MyFrame implements ToggleHandler {
 
     private CardLayout cardLayout;
-//    private final LoginModel loginModel;
+    private final LoginModel loginModel;
     private LoginController loginController;
-    private OTPVerificationView otpVerificationView;
 
     public LoginView() {
         super();
-//        this.loginModel = new LoginModel();
+        this.loginModel = new LoginModel();
         InputStream inputStream = getClass().getResourceAsStream(ResourcePaths.URL_INTRO);
         audioHandler.playAudio(inputStream);
-        // Initialize OTPVerificationView
     }
 
     @Override
@@ -77,8 +76,8 @@ public class LoginView extends MyFrame implements ToggleHandler{
         jButton_Right_Play.setCursor(cursor);
 
         jPanel_Right_Bottom_Button.setLayout(cardLayout);
-        jPanel_Right_Bottom_Button.add(jButton_Right_Bottom_Submit, "Card1");
-        jPanel_Right_Bottom_Button.add(jButton_Right_Play, "Card2");
+        jPanel_Right_Bottom_Button.add(jButton_Right_Bottom_Submit, "submit");
+        jPanel_Right_Bottom_Button.add(jButton_Right_Play, "play");
 
         // Add jPanel_Right_Middle_Username and jPanel_Right_Middle_Password directly to
         // jPanel_Right
@@ -149,39 +148,46 @@ public class LoginView extends MyFrame implements ToggleHandler{
         jButton_Right_Bottom_Submit.addMouseListener(loginController);
         jButton_Right_Bottom_Others.addMouseListener(loginController);
         jButton_Right_Bottom_Submit.addActionListener(loginController);
-        jButton_Right_Play.addActionListener(new PlayController(this));
+        
         jPasswordField_Right_Middle_Password.addActionListener(new PressEnter());
         jButton_Right_Bottom_Others.addActionListener(new ClickOtherOption());
-        jButton_Right_Bottom_Forgot_Password.addActionListener(new ForgotPasswordController(this, otpVerificationView));
         jButton_Right_Bottom_Forgot_Password.addMouseListener(loginController);
     }
 
-    //xu li cac ham o day
-//    public UserScore getDataWhenLogin() {
-//        return new UserScore(jTextField_Right_Middle_Email.getText(), String.valueOf(jPasswordField_Right_Middle_Password.getPassword()));
-//    }
+    // Authentication methods
+    public UserScore getDataWhenLogin() {
+        return new UserScore(
+            jTextField_Right_Middle_Email.getText(), 
+            String.valueOf(jPasswordField_Right_Middle_Password.getPassword())
+        );
+    }
 
-//    public boolean isEmpty() {
-//        return this.loginModel.isEmpty(this.getDataWhenLogin().getEmail(), this.getDataWhenLogin().getPassword());
-//    }
-//
-//    public boolean isAdmin() {
-//        return this.loginModel.isAdmin(this.getDataWhenLogin().getEmail(), this.getDataWhenLogin().getPassword());
-//    }
-//
-//    public boolean isMatching() {
-//        return this.loginModel.isMatching(this.getDataWhenLogin().getEmail(), this.getDataWhenLogin().getPassword());
-//    }
+    public boolean isEmpty() {
+        String email = jTextField_Right_Middle_Email.getText();
+        String password = String.valueOf(jPasswordField_Right_Middle_Password.getPassword());
+        return this.loginModel.isEmpty(email, password);
+    }
+
+    public boolean isAdmin() {
+        String email = jTextField_Right_Middle_Email.getText();
+        String password = String.valueOf(jPasswordField_Right_Middle_Password.getPassword());
+        return this.loginModel.isAdmin(email, password);
+    }
+
+    public UserScore login() {
+        String email = jTextField_Right_Middle_Email.getText();
+        String password = String.valueOf(jPasswordField_Right_Middle_Password.getPassword());
+        return this.loginModel.login(email, password);
+    }
 
     public void handleSuccess() {
         UIPrompts.IS_LOGIN_SUCCESS();
-        // Switch to the play button card
-        this.getCardLayout().next(LoginView.jPanel_Right_Bottom_Button);
-        //hidden the username and password input field
+        // Switch to play button using explicit card name
+        this.getCardLayout().show(jPanel_Right_Bottom_Button, "play");
         this.setStatusInputData(false);
     }
 
-    //this method for test getLogin above
+    // Utility methods
     public void setLogin(String username, String password) {
         jTextField_Right_Middle_Email.setText(username);
         jPasswordField_Right_Middle_Password.setText(password);
@@ -194,7 +200,17 @@ public class LoginView extends MyFrame implements ToggleHandler{
 
     @Override
     public void changeColorBaseOnToggle() {
-
+        // Implementation if needed
     }
 
+    private class ClickOtherOption implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            dispose(); // Properly dispose the current frame
+            // Create and show the RegisterView, but disable the toggle button action initially
+            RegisterView registerView = new RegisterView();
+            // Make sure to initialize all components before showing the frame
+            registerView.setVisible(true);
+        }
+    }
 }

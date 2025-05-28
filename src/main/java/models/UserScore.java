@@ -1,4 +1,4 @@
-package modules.user;
+package models;
 
 import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
@@ -20,5 +20,10 @@ public class UserScore {
     private String password;
     private int score;
     private LocalDateTime timestamp;
+
+    public UserScore(String email, String password) {
+        this.email = email;
+        this.password = password;
+    }
 
 }
