@@ -2,14 +2,11 @@ package views.base;
 
 import constants.Info;
 import controllers.ScoreController;
-import controllers.ToggleHandler;
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionListener;
-import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JComponent;
@@ -24,7 +21,7 @@ import views.MenuView;
 import views.ScoreView;
 
 @Slf4j
-public abstract class MyFrame extends AppComponent implements ToggleHandler{
+public abstract class MyFrame extends AppComponent {
 
     public MyFrame() {
         setTitle(UILabels.WINDOW);
@@ -46,7 +43,6 @@ public abstract class MyFrame extends AppComponent implements ToggleHandler{
         initMenu();
         initLeft();
         initRight();
-        initToggle();
         initContainer();
     }
 
@@ -88,15 +84,6 @@ public abstract class MyFrame extends AppComponent implements ToggleHandler{
     public abstract void initRightBottom();
 
     public abstract void initRightPanel();
-
-    protected void initToggle() {
-        toggleButton.addEventSelected(selected -> {
-            Map<JComponent, Color[]> lightMode = createLightModeMap();
-            Map<JComponent, Color[]> darkMode = createDarkModeMap();
-            updateUI(selected ? darkMode : lightMode);
-        });
-        jPanel_Right_Bottom_Option.add(toggleButton, FlowLayout.RIGHT);
-    }
 
     //foreground, background
     private Map<JComponent, Color[]> createLightModeMap() {
@@ -193,7 +180,7 @@ public abstract class MyFrame extends AppComponent implements ToggleHandler{
 
         @Override
         public void actionPerformed(java.awt.event.ActionEvent e) {
-            new MenuView().setVisible(true);
+            new MenuView(null).setVisible(true);
             dispose();
         }
     }

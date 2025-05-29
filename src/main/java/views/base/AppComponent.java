@@ -193,8 +193,11 @@ public abstract class AppComponent extends JFrame {
         jLabel_Title_MenuView.setBorder(UIBorders.CONTAINER_MENU);
 
         jButton_Mode_Classic.setFont(UIFonts.BUTTON);
+        jButton_Mode_Classic.setBackground(UIColors.TEXT_COLOR_L);
         jButton_Mode_Modern.setFont(UIFonts.BUTTON);
+        jButton_Mode_Modern.setBackground(UIColors.TEXT_COLOR_L);
         jButton_Mode_Campaign.setFont(UIFonts.BUTTON);
+        jButton_Mode_Campaign.setBackground(UIColors.TEXT_COLOR_L);
     }
 
     private void stylingMenuModern() {
