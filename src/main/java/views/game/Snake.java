@@ -1,5 +1,6 @@
 package views.game;
 
+import enums.GameMode;
 import javax.swing.*;
 
 import controllers.MenuController;
@@ -10,6 +11,9 @@ import models.UserScore;
 import styles.UIBorders;
 import styles.UIImages;
 import styles.UIColors;
+import views.base.Board;
+import views.game.factory.BoardFactory;
+import views.game.factory.BoardFactoryProvider;
 
 import java.awt.*;
 
@@ -21,15 +25,14 @@ public class Snake extends JFrame {
     private final JMenuItem jMenuItem_Back_To_Main_Menu = new JMenuItem("Back to main menu");
     private final UserScore currentUser;
 
-    public Snake(String mode, UserScore user) {
+    public Snake(GameMode mode, UserScore user) {
         this.currentUser = user;
-        log.info("Snake created with user: " +
-                          (user != null ? user.getUsername() : "null"));
+        log.info("Snake created with user: {}", user != null ? user.getUsername() : "null");
         initMenu();
         initUI(mode);
     }
 
-    private void initUI(String mode) {
+    private void initUI(GameMode mode) {
         checkMode(mode);
         setResizable(false);
         pack();
@@ -59,39 +62,14 @@ public class Snake extends JFrame {
         this.setJMenuBar(jMenuBar);
     }
 
-    public UserScore getCurrentUser() {
-        return currentUser;
-    }
+    private void checkMode(GameMode mode) {
+        log.info("Creating game board with user: {}",
+                 currentUser != null ? currentUser.getUsername() : "null");
 
-    private void checkMode(String mode) {
-        log.info("Creating game board with user: " +
-                          (currentUser != null ? currentUser.getUsername() : "null"));
-
-        // Always explicitly pass the user to the board
-        if (mode.equals("Classic")) {
-            add(new NoMaze(currentUser));
-        }
-        if (mode.equals("NoMaze")) {
-            add(new NoMaze(currentUser));
-        }
-        if (mode.equals("Box")) {
-            add(new Box(currentUser));
-        }
-        if (mode.equals("Tunnel")) {
-            add(new Tunnel(currentUser));
-        }
-        if (mode.equals("Mill")) {
-            add(new Mill(currentUser));
-        }
-        if (mode.equals("Rails")) {
-            add(new Rails(currentUser));
-        }
-        if (mode.equals("Apartment")) {
-            add(new Apartment(currentUser));
-        }
-        if (mode.equals("Campaign")) {
-            add(new Campaign(currentUser));
-        }
+        // Use the factory pattern to create the appropriate board
+        BoardFactory factory = BoardFactoryProvider.getFactory(mode.getDisplayName());
+        Board board = factory.createBoard(currentUser);
+        add(board);
     }
 
     public void startGame() {

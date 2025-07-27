@@ -1,5 +1,6 @@
 package controllers;
 
+import enums.GameMode;
 import enums.Hover;
 import java.util.Arrays;
 import java.util.List;
@@ -62,7 +63,7 @@ public class MenuController implements MouseListener, ActionListener {
             log.info("Starting Classic mode with user: " +
                               (currentUser != null ? currentUser.getUsername() : "null"));
             menuView.dispose();
-            Snake snake = new Snake("Classic", currentUser);
+            Snake snake = new Snake(GameMode.CLASSIC, currentUser);
             snake.startGame();
         }
         if (e.getSource() == menuView.jButton_Mode_Modern) {
@@ -174,37 +175,37 @@ public class MenuController implements MouseListener, ActionListener {
                 log.info("Starting NoMaze mode with user: " +
                                   (currentUser != null ? currentUser.getUsername() : "null"));
                 menuView.dispose();
-                Snake snake = new Snake("NoMaze", currentUser);
+                Snake snake = new Snake(GameMode.NO_MAZE, currentUser);
                 snake.startGame();
             }
             if (e.getSource() == menuModern.getJButton_Box()) {
                 EventQueue.invokeLater(() -> {
                     menuView.dispose();
-                    new Snake("Box", currentUser).startGame();
+                    new Snake(GameMode.BOX, currentUser).startGame();
                 });
             }
             if (e.getSource() == menuModern.getJButton_Tunnel()) {
                 EventQueue.invokeLater(() -> {
                     menuView.dispose();
-                    new Snake("Tunnel", currentUser).startGame();
+                    new Snake(GameMode.TUNNEL, currentUser).startGame();
                 });
             }
             if (e.getSource() == menuModern.getJButton_Mill()) {
                 EventQueue.invokeLater(() -> {
                     menuView.dispose();
-                    new Snake("Mill", currentUser).startGame();
+                    new Snake(GameMode.MILL, currentUser).startGame();
                 });
             }
             if (e.getSource() == menuModern.getJButton_Rails()) {
                 EventQueue.invokeLater(() -> {
                     menuView.dispose();
-                    new Snake("Rails", currentUser).startGame();
+                    new Snake(GameMode.RAILS, currentUser).startGame();
                 });
             }
             if (e.getSource() == menuModern.getJButton_Apartment()) {
                 EventQueue.invokeLater(() -> {
                     menuView.dispose();
-                    new Snake("Apartment", currentUser).startGame();
+                    new Snake(GameMode.APARTMENT, currentUser).startGame();
                 });
             }
         }

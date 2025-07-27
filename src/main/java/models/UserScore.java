@@ -26,4 +26,10 @@ public class UserScore {
         this.password = password;
     }
 
+    public UserScore(int i, String demoUser, int i1) {
+        this.userId = i;
+        this.username = demoUser;
+        this.score = i1;
+        this.timestamp = LocalDateTime.now();
+    }
 }
