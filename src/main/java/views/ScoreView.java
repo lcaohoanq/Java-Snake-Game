@@ -18,6 +18,9 @@ import styles.UIFonts;
 @Getter
 public class ScoreView extends JFrame {
 
+    // Singleton instance
+    private static ScoreView instance;
+    
     public JTextArea jTextArea_Score = new JTextArea();
     JPanel jPanel_Container = new JPanel();
     JScrollPane jScrollPane_Score = new JScrollPane(jTextArea_Score);
@@ -25,13 +28,25 @@ public class ScoreView extends JFrame {
 
     private final ScoreController scoreFormController;
 
-    public ScoreView() {
+    private ScoreView() {
         this.scoreFormController = new ScoreController(this);
         setSize(UISizes.WIDTH_SCORE_FORM, UISizes.HEIGHT_SCORE_FORM);
         setLocationRelativeTo(null);
         setResizable(true);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         initUI();
+    }
+    
+    /**
+     * Get the singleton instance of ScoreView
+     * If an instance already exists, it will be disposed and a new one created
+     */
+    public static synchronized ScoreView getInstance() {
+        if (instance != null) {
+            instance.dispose();
+        }
+        instance = new ScoreView();
+        return instance;
     }
 
     private void initUI() {

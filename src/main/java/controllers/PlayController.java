@@ -19,8 +19,8 @@ public class PlayController implements ActionListener {
     public PlayController(LoginView loginView, UserScore user) {
         this.source = loginView;
         this.currentUser = user;
-        log.info("PlayController created with user: " +
-                     (user != null ? user.getUsername() : "null"));
+        log.info("PlayController created with user: " + 
+                          (user != null ? user.getUsername() : "null"));
     }
 
     // Constructor for Snake game
@@ -33,15 +33,21 @@ public class PlayController implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (source instanceof LoginView) {
             // From login view to menu
-            ((LoginView) source).dispose();
-
-            log.info("Navigating to MenuView with user: " +
-                         (currentUser != null ? currentUser.getUsername() : "null"));
-            MenuView.getInstance(currentUser).setVisible(true);
-        } else if (source instanceof Snake) {
+            ((LoginView)source).dispose();
+            
+            // Create menu and pass the user
+            MenuView menuView = MenuView.getInstance();
+            MenuController menuController = new MenuController(menuView, currentUser);
+            log.info("Navigating to MenuView with user: " + 
+                              (currentUser != null ? currentUser.getUsername() : "null"));
+            menuView.setVisible(true);
+        } 
+        else if (source instanceof Snake) {
             // Back to menu from game
-            ((Snake) source).dispose();
-            MenuView.getInstance(currentUser).setVisible(true);
+            ((Snake)source).dispose();
+            MenuView menuView = MenuView.getInstance();
+            MenuController menuController = new MenuController(menuView, currentUser);
+            menuView.setVisible(true);
         }
     }
 }

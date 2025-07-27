@@ -27,7 +27,6 @@ public class MenuController implements MouseListener, ActionListener {
 
     public static MenuView menuView;
     public static MenuView.MenuModern menuModern;
-    private boolean isMenuModern = true;
     private final AudioHandler audioHandler;
     private UIHovers<MenuView> uiHovers;
     private final UserScore currentUser; // Store the authenticated user
@@ -53,8 +52,8 @@ public class MenuController implements MouseListener, ActionListener {
         menuView.jButton_Mode_Modern.addMouseListener(this);
         // Add other registrations
 
-        log.info("MenuController initialized with user: " +
-                          (user != null ? user.getUsername() : "null"));
+        log.info("MenuController initialized with user: {}",
+                 user != null ? user.getUsername() : "null");
     }
 
     @Override
@@ -63,20 +62,18 @@ public class MenuController implements MouseListener, ActionListener {
             log.info("Starting Classic mode with user: " +
                               (currentUser != null ? currentUser.getUsername() : "null"));
             menuView.dispose();
-            Snake snake = new Snake(GameMode.CLASSIC, currentUser);
+            Snake snake = Snake.getInstance(GameMode.CLASSIC, currentUser);
             snake.startGame();
         }
         if (e.getSource() == menuView.jButton_Mode_Modern) {
             EventQueue.invokeLater(() -> {
-
-                if (isMenuModern) {
+                // Check if menuModern is already created and visible
+                if (menuModern == null || !menuModern.isVisible()) {
                     menuModern = menuView.new MenuModern();
-                    isMenuModern = true;
-//                    menuView.dispose();
                     menuModern.setVisible(true);
                 } else {
-//                    menuView.dispose();
-                    isMenuModern = false;
+                    // If already visible, bring it to front
+                    menuModern.toFront();
                 }
             });
         }
@@ -149,7 +146,7 @@ public class MenuController implements MouseListener, ActionListener {
 
     public static class MenuModernController extends AppComponent implements MouseListener {
 
-        private final MenuView.MenuModern menuModern;
+        private MenuView.MenuModern menuModern;
         private final AudioHandler audioHandler;
         private UIHovers<MenuView.MenuModern> uiHovers;
         private final UserScore currentUser; // Store the authenticated user
@@ -174,38 +171,50 @@ public class MenuController implements MouseListener, ActionListener {
             if (e.getSource() == menuModern.getJButton_NoMaze()) {
                 log.info("Starting NoMaze mode with user: " +
                                   (currentUser != null ? currentUser.getUsername() : "null"));
+                menuModern.dispose();
                 menuView.dispose();
-                Snake snake = new Snake(GameMode.NO_MAZE, currentUser);
+                menuModern = null;
+                Snake snake = Snake.getInstance(GameMode.NO_MAZE, currentUser);
                 snake.startGame();
             }
             if (e.getSource() == menuModern.getJButton_Box()) {
                 EventQueue.invokeLater(() -> {
+                    menuModern.dispose();
                     menuView.dispose();
-                    new Snake(GameMode.BOX, currentUser).startGame();
+                    menuModern = null;
+                    Snake.getInstance(GameMode.BOX, currentUser).startGame();
                 });
             }
             if (e.getSource() == menuModern.getJButton_Tunnel()) {
                 EventQueue.invokeLater(() -> {
+                    menuModern.dispose();
                     menuView.dispose();
-                    new Snake(GameMode.TUNNEL, currentUser).startGame();
+                    menuModern = null;
+                    Snake.getInstance(GameMode.TUNNEL, currentUser).startGame();
                 });
             }
             if (e.getSource() == menuModern.getJButton_Mill()) {
                 EventQueue.invokeLater(() -> {
+                    menuModern.dispose();
                     menuView.dispose();
-                    new Snake(GameMode.MILL, currentUser).startGame();
+                    menuModern = null;
+                    Snake.getInstance(GameMode.MILL, currentUser).startGame();
                 });
             }
             if (e.getSource() == menuModern.getJButton_Rails()) {
                 EventQueue.invokeLater(() -> {
+                    menuModern.dispose();
                     menuView.dispose();
-                    new Snake(GameMode.RAILS, currentUser).startGame();
+                    menuModern = null;
+                    Snake.getInstance(GameMode.RAILS, currentUser).startGame();
                 });
             }
             if (e.getSource() == menuModern.getJButton_Apartment()) {
                 EventQueue.invokeLater(() -> {
+                    menuModern.dispose();
                     menuView.dispose();
-                    new Snake(GameMode.APARTMENT, currentUser).startGame();
+                    menuModern = null;
+                    Snake.getInstance(GameMode.APARTMENT, currentUser).startGame();
                 });
             }
         }

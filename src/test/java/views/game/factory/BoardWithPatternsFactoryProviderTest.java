@@ -1,5 +1,6 @@
 package views.game.factory;
 
+import enums.GameMode;
 import org.junit.jupiter.api.Test;
 import views.base.BoardWithPatterns;
 import views.game.boards.BoxBoardWithPatterns;
@@ -11,11 +12,8 @@ class BoardWithPatternsFactoryProviderTest {
 
     @Test
     void getFactoryForNoMazeMode() {
-        // Given
-        String mode = "NoMaze";
-        
         // When
-        BoardWithPatternsFactory factory = BoardWithPatternsFactoryProvider.getFactory(mode);
+        BoardWithPatternsFactory factory = BoardWithPatternsFactoryProvider.getFactory(GameMode.NO_MAZE);
         
         // Then
         assertNotNull(factory);
@@ -24,11 +22,8 @@ class BoardWithPatternsFactoryProviderTest {
 
     @Test
     void getFactoryForBoxMode() {
-        // Given
-        String mode = "Box";
-        
         // When
-        BoardWithPatternsFactory factory = BoardWithPatternsFactoryProvider.getFactory(mode);
+        BoardWithPatternsFactory factory = BoardWithPatternsFactoryProvider.getFactory(GameMode.BOX);
         
         // Then
         assertNotNull(factory);
@@ -37,11 +32,8 @@ class BoardWithPatternsFactoryProviderTest {
 
     @Test
     void getFactoryForUnknownMode() {
-        // Given
-        String mode = "UnknownMode";
-        
         // When
-        BoardWithPatternsFactory factory = BoardWithPatternsFactoryProvider.getFactory(mode);
+        BoardWithPatternsFactory factory = BoardWithPatternsFactoryProvider.getFactory(GameMode.UNKNOWN);
         
         // Then
         assertNotNull(factory);
@@ -50,11 +42,8 @@ class BoardWithPatternsFactoryProviderTest {
 
     @Test
     void getFactoryForNullMode() {
-        // Given
-        String mode = null;
-        
         // When
-        BoardWithPatternsFactory factory = BoardWithPatternsFactoryProvider.getFactory(mode);
+        BoardWithPatternsFactory factory = BoardWithPatternsFactoryProvider.getFactory(null);
         
         // Then
         assertNotNull(factory);
