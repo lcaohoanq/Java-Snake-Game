@@ -25,6 +25,9 @@ import views.base.MyFrame;
 @Getter
 public class LoginView extends MyFrame implements ToggleHandler {
 
+    // Singleton instance
+    private static LoginView instance;
+    
     private CardLayout cardLayout;
     private final LoginModel loginModel;
     private LoginController loginController;
@@ -34,6 +37,18 @@ public class LoginView extends MyFrame implements ToggleHandler {
         this.loginModel = new LoginModel();
         InputStream inputStream = getClass().getResourceAsStream(ResourcePaths.URL_INTRO);
         audioHandler.playAudio(inputStream);
+    }
+    
+    /**
+     * Get the singleton instance of LoginView
+     * If an instance already exists, it will be disposed and a new one created
+     */
+    public static synchronized LoginView getInstance() {
+        if (instance != null) {
+            instance.dispose();
+        }
+        instance = new LoginView();
+        return instance;
     }
 
     @Override
@@ -207,10 +222,8 @@ public class LoginView extends MyFrame implements ToggleHandler {
         @Override
         public void actionPerformed(ActionEvent e) {
             dispose(); // Properly dispose the current frame
-            // Create and show the RegisterView, but disable the toggle button action initially
-            RegisterView registerView = new RegisterView();
-            // Make sure to initialize all components before showing the frame
-            registerView.setVisible(true);
+            // Create and show the RegisterView using Singleton pattern
+            RegisterView.getInstance().setVisible(true);
         }
     }
 }

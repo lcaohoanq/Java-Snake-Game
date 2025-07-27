@@ -21,6 +21,9 @@ import views.base.AppComponent;
 
 @Slf4j
 public class MenuView extends AppComponent implements ToggleHandler {
+    // Singleton instance
+    private static MenuView instance;
+    
     boolean isActive;
     private UIHovers<MenuView> uiHovers;
     private MenuController controller;
@@ -34,6 +37,18 @@ public class MenuView extends AppComponent implements ToggleHandler {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         initUI();
         this.uiHovers = new UIHovers<>(this);
+    }
+    
+    /**
+     * Get the singleton instance of MenuView
+     * If an instance already exists, it will be disposed and a new one created
+     */
+    public static synchronized MenuView getInstance() {
+        if (instance != null) {
+            instance.dispose();
+        }
+        instance = new MenuView();
+        return instance;
     }
 
     @Override
@@ -139,6 +154,14 @@ public class MenuView extends AppComponent implements ToggleHandler {
             setVisible(false);
             initComponents();
             doAction();
+            
+            // Ensure this window is properly disposed when closed
+            addWindowListener(new java.awt.event.WindowAdapter() {
+                @Override
+                public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+                    dispose();
+                }
+            });
         }
 
         @Override
@@ -243,7 +266,7 @@ public class MenuView extends AppComponent implements ToggleHandler {
                 dispose();
                 log.info("Back to main menu");
                 toggleButton.setSelected(false);
-                new LoginView().setVisible(true);
+                LoginView.getInstance().setVisible(true);
             });
         }
     }
@@ -254,7 +277,7 @@ public class MenuView extends AppComponent implements ToggleHandler {
             EventQueue.invokeLater(() -> {
                 dispose();
                 toggleButton.setSelected(false);
-                new LoginView().setVisible(true);
+                LoginView.getInstance().setVisible(true);
             });
         }
     }

@@ -36,7 +36,7 @@ public class PlayController implements ActionListener {
             ((LoginView)source).dispose();
             
             // Create menu and pass the user
-            MenuView menuView = new MenuView();
+            MenuView menuView = MenuView.getInstance();
             MenuController menuController = new MenuController(menuView, currentUser);
             log.info("Navigating to MenuView with user: " + 
                               (currentUser != null ? currentUser.getUsername() : "null"));
@@ -45,7 +45,7 @@ public class PlayController implements ActionListener {
         else if (source instanceof Snake) {
             // Back to menu from game
             ((Snake)source).dispose();
-            MenuView menuView = new MenuView();
+            MenuView menuView = MenuView.getInstance();
             MenuController menuController = new MenuController(menuView, currentUser);
             menuView.setVisible(true);
         }

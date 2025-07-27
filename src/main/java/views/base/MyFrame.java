@@ -177,7 +177,7 @@ public abstract class MyFrame extends AppComponent implements ToggleHandler{
     public void doAction() {
         jMenuItem_Go.addActionListener(new ClickPlayNow());
         jMenuItem_AboutMe.addActionListener(new Info());
-        jMenuItem_Score.addActionListener(new ScoreController(new ScoreView()));
+        jMenuItem_Score.addActionListener(new ScoreController(ScoreView.getInstance()));
     }
 
     public class PressEnter implements ActionListener {
@@ -193,7 +193,7 @@ public abstract class MyFrame extends AppComponent implements ToggleHandler{
 
         @Override
         public void actionPerformed(java.awt.event.ActionEvent e) {
-            new MenuView().setVisible(true);
+            MenuView.getInstance().setVisible(true);
             dispose();
         }
     }

@@ -20,11 +20,26 @@ import views.base.MyFrame;
 @Getter
 public class RegisterView extends MyFrame implements ToggleHandler {
 
+    // Singleton instance
+    private static RegisterView instance;
+    
     private RegisterModel registerModel;
 
-    public RegisterView() {
+    private RegisterView() {
         super();
         this.registerModel = new RegisterModel();
+    }
+    
+    /**
+     * Get the singleton instance of RegisterView
+     * If an instance already exists, it will be disposed and a new one created
+     */
+    public static synchronized RegisterView getInstance() {
+        if (instance != null) {
+            instance.dispose();
+        }
+        instance = new RegisterView();
+        return instance;
     }
 
     @Override

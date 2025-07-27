@@ -16,18 +16,43 @@ import java.awt.*;
 @Slf4j
 public class SnakeWithPatterns extends JFrame {
 
+    // Singleton instance
+    private static SnakeWithPatterns instance;
+    
     private BoardWithPatterns board;
     private UserScore currentUser;
     private GameMode mode;
 
-    public SnakeWithPatterns() {
+    private SnakeWithPatterns() {
         initUI();
     }
 
-    public SnakeWithPatterns(UserScore user, GameMode mode) {
+    private SnakeWithPatterns(UserScore user, GameMode mode) {
         this.currentUser = user;
         this.mode = mode;
         initUI();
+    }
+    
+    /**
+     * Get the singleton instance of SnakeWithPatterns
+     * If an instance already exists, it will be disposed and a new one created
+     */
+    public static synchronized SnakeWithPatterns getInstance(UserScore user, GameMode mode) {
+        if (instance != null) {
+            instance.dispose();
+        }
+        instance = new SnakeWithPatterns(user, mode);
+        return instance;
+    }
+    
+    /**
+     * Get the singleton instance with default parameters
+     */
+    public static synchronized SnakeWithPatterns getInstance() {
+        if (instance == null) {
+            instance = new SnakeWithPatterns();
+        }
+        return instance;
     }
 
     private void initUI() {
@@ -47,7 +72,7 @@ public class SnakeWithPatterns extends JFrame {
 
     public static void main(String[] args) {
         EventQueue.invokeLater(() -> {
-            JFrame ex = new SnakeWithPatterns();
+            JFrame ex = SnakeWithPatterns.getInstance();
             ex.setVisible(true);
         });
     }

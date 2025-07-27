@@ -14,7 +14,8 @@ public enum GameMode {
     MILL("Mill"),
     RAILS("Rails"),
     APARTMENT("Apartment"),
-    CAMPAIGN("Campaign");
+    CAMPAIGN("Campaign"),
+    UNKNOWN("UnknownMode");
 
     private final String displayName;
 

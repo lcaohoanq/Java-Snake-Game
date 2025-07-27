@@ -20,16 +20,33 @@ import java.awt.*;
 @Slf4j
 @Getter
 public class Snake extends JFrame {
+    // Singleton instance
+    private static Snake instance;
+    
     private final JMenuBar jMenuBar = new JMenuBar();
     private final JMenu jMenu = new JMenu("HELP");
     private final JMenuItem jMenuItem_Back_To_Main_Menu = new JMenuItem("Back to main menu");
     private final UserScore currentUser;
+    private GameMode gameMode;
 
-    public Snake(GameMode mode, UserScore user) {
+    private Snake(GameMode mode, UserScore user) {
         this.currentUser = user;
+        this.gameMode = mode;
         log.info("Snake created with user: {}", user != null ? user.getUsername() : "null");
         initMenu();
         initUI(mode);
+    }
+    
+    /**
+     * Get the singleton instance of Snake
+     * If an instance already exists, it will be disposed and a new one created
+     */
+    public static synchronized Snake getInstance(GameMode mode, UserScore user) {
+        if (instance != null) {
+            instance.dispose();
+        }
+        instance = new Snake(mode, user);
+        return instance;
     }
 
     private void initUI(GameMode mode) {

@@ -272,7 +272,7 @@ public abstract class BoardWithPatterns extends JPanel implements ActionListener
         backToMainMenuButton.setForeground(UIColors.PRIMARY_COLOR_L);
         backToMainMenuButton.addActionListener(e -> {
             SwingUtilities.getWindowAncestor(this).dispose();
-            new MenuView().setVisible(true);
+            MenuView.getInstance().setVisible(true);
         });
         backToMainMenuButton.setPreferredSize(UISizes.SIZE_BUTTON_GAME_OVER_BACK_TO_MAIN_MENU);
     }
