@@ -49,7 +49,7 @@ public class RegisterController implements ActionListener, MouseListener {
         else if (e.getSource() == registerView.getJButton_Right_Bottom_Others()) {
             // Navigate to login view
             registerView.dispose();
-            new LoginView().setVisible(true);
+            LoginView.getInstance().setVisible(true);
         }
     }
 
@@ -79,7 +79,7 @@ public class RegisterController implements ActionListener, MouseListener {
 
                         // Navigate to login view
                         registerView.dispose();
-                        new LoginView().setVisible(true);
+                        LoginView.getInstance().setVisible(true);
                     } else {
                         // Registration failed
                         UIPrompts.IS_REGISTER_FAILED();
@@ -104,7 +104,7 @@ public class RegisterController implements ActionListener, MouseListener {
         // Handle "Sign In Here" button click
         if (e.getSource() == registerView.getJButton_Right_Bottom_Others()) {
             registerView.dispose();
-            new LoginView().setVisible(true);
+            LoginView.getInstance().setVisible(true);
         }
     }
 

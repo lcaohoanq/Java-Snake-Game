@@ -1,11 +1,11 @@
 package views.base;
 
 import lombok.Getter;
-import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import models.UserScore;
+import services.AudioService;
+import services.ServiceLocator;
 import services.UserService;
-import services.UserServiceImpl;
 import views.UIPrompts;
 import constants.ResourcePaths;
 import styles.UISizes;
@@ -13,8 +13,14 @@ import styles.UILabels;
 import styles.UIBorders;
 import styles.UIColors;
 import styles.UIFonts;
-import utils.AudioHandler;
 import views.MenuView;
+import views.game.command.CommandInvoker;
+import views.game.command.DirectionState;
+import views.game.observer.AudioEventListener;
+import views.game.observer.GameEventListener;
+import views.game.observer.GameEventPublisher;
+import views.game.observer.ScoreUpdateListener;
+import views.game.strategy.MovementContext;
 
 import javax.swing.*;
 import java.awt.*;
@@ -24,9 +30,11 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.InputStream;
 
+/**
+ * Abstract base class for game boards with design patterns applied
+ */
 @Slf4j
-@Deprecated
-public abstract class Board extends JPanel implements ActionListener {
+public abstract class BoardWithPatterns extends JPanel implements ActionListener {
 
     // Board dimensions and settings
     protected final int DOT_SIZE = 10;        // Size of the snake's body
@@ -46,13 +54,23 @@ public abstract class Board extends JPanel implements ActionListener {
     protected int apple_y;                       // Y-coordinate of a regular apple
     // Game timers and images
     protected Timer timer;                       // Timer for regular game events
-    protected AudioHandler audioHandler = new AudioHandler();
-    // Snake movement directions
-    protected boolean leftDirection = false;     // Flag for moving left
-    protected boolean rightDirection = true;     // Flag for moving right
-    protected boolean upDirection = false;       // Flag for moving up
-    protected boolean downDirection = false;     // Flag for moving down
+    
+    // Design Pattern: Singleton for services
+    protected final AudioService audioService = AudioService.getInstance();
+    protected final UserService userService;
+    
+    // Design Pattern: Strategy for movement
+    protected final DirectionState directionState = new DirectionState();
+    protected final MovementContext movementContext;
+    
+    // Design Pattern: Command for input handling
+    protected final CommandInvoker commandInvoker = new CommandInvoker();
+    
+    // Design Pattern: Observer for game events
+    protected final GameEventPublisher eventPublisher = new GameEventPublisher();
+    
     // Game state variables
+    @Getter
     private int score = 0;            // Player's score
     private Timer bigAppleTimer;               // Timer for big apple appearance
     private Image ball;                        // Snake body image
@@ -73,30 +91,21 @@ public abstract class Board extends JPanel implements ActionListener {
     private final JPanel bottomPanel = new JPanel(); // Panel for UI components at the bottom
     private final JPanel gameOverButtonPanel = new JPanel(); // Panel for UI components at the game over
 
-    private UserService userService;
     private UserScore currentUser;
 
-    public int getScore() {
-        return this.score;
-    }
-
-    // Method to set the current user
-    public void setCurrentUser(UserScore user) {
-        this.currentUser = user;
-    }
-
     // Add a default constructor
-    public Board() {
-        userService = new UserServiceImpl();
+    public BoardWithPatterns() {
+        userService = ServiceLocator.getInstance().getService(UserService.class);
+        movementContext = new MovementContext(DOT_SIZE);
         log.info("Board created with no user");
         initBoard();
     }
 
-    public Board(UserScore user) {
-        userService = new UserServiceImpl();
+    public BoardWithPatterns(UserScore user) {
+        userService = ServiceLocator.getInstance().getService(UserService.class);
+        movementContext = new MovementContext(DOT_SIZE);
         this.currentUser = user;
-        log.info("Board created with user: " + 
-                          (user != null ? user.getUsername() : "null"));
+        log.info("Board created with user: {}", user != null ? user.getUsername() : "null");
         initBoard();
     }
 
@@ -114,13 +123,45 @@ public abstract class Board extends JPanel implements ActionListener {
         initBottomPanel();
         initLine();
         initGameOverPanel();
+        
+        // Set up command invoker with default commands
+        commandInvoker.setupDefaultCommands(movementContext, directionState);
+        
+        // Set up event listeners
+        eventPublisher.addListener(new ScoreUpdateListener(scoreLabel));
+        eventPublisher.addListener(new AudioEventListener(audioService.isSoundEnabled() ? 
+                                                        new utils.AudioHandler() : null, 
+                                                        audioService.isSoundEnabled()));
+        eventPublisher.addListener(new GameEventListener() {
+            @Override
+            public void onAppleEaten(int score) {
+                // Additional game logic for apple eaten
+            }
+            
+            @Override
+            public void onBigAppleEaten(int score, int newDelay) {
+                // Additional game logic for big apple eaten
+            }
+            
+            @Override
+            public void onBigAppleAppeared() {
+                // Additional game logic for big apple appeared
+                renderProgressBar();
+            }
+            
+            @Override
+            public void onGameOver(int finalScore) {
+                // Additional game logic for game over
+                timer.stop();
+            }
+        });
 
         // Print debug info
-    if (currentUser != null) {
-        log.info("Game initialized for user: " + currentUser.getUsername());
-    } else {
-        log.info("Game initialized with no user");
-    }
+        if (currentUser != null) {
+            log.info("Game initialized for user: {}", currentUser.getUsername());
+        } else {
+            log.info("Game initialized with no user");
+        }
     }
 
     private void initLine() {
@@ -230,16 +271,8 @@ public abstract class Board extends JPanel implements ActionListener {
         backToMainMenuButton.setBackground(UIColors.BACK_TO_MAIN_MENU);
         backToMainMenuButton.setForeground(UIColors.PRIMARY_COLOR_L);
         backToMainMenuButton.addActionListener(e -> {
-//            SwingUtilities.getWindowAncestor(this).dispose();
-//            new MenuView().setVisible(true);
-
-            JOptionPane.showMessageDialog(
-                this,
-                "Returning to main menu is not implemented yet.",
-                "Info",
-                JOptionPane.INFORMATION_MESSAGE
-            );
-
+            SwingUtilities.getWindowAncestor(this).dispose();
+            MenuView.getInstance().setVisible(true);
         });
         backToMainMenuButton.setPreferredSize(UISizes.SIZE_BUTTON_GAME_OVER_BACK_TO_MAIN_MENU);
     }
@@ -266,18 +299,13 @@ public abstract class Board extends JPanel implements ActionListener {
     }
 
     protected void loadImages() {
-
         ball = new ImageIcon(getClass().getResource(ResourcePaths.URL_DOT)).getImage();
-
         apple = new ImageIcon(getClass().getResource(ResourcePaths.URL_APPLE)).getImage();
-
         head = new ImageIcon(getClass().getResource(ResourcePaths.URL_HEAD)).getImage();
-
         bigApple = new ImageIcon(getClass().getResource(ResourcePaths.URL_BIG_APPLE)).getImage();
     }
 
     private void initGame() {
-
         dots = 3;
         for (int z = 0; z < dots; z++) {
             x[z] = 50 - z * 10;
@@ -317,21 +345,12 @@ public abstract class Board extends JPanel implements ActionListener {
             Toolkit.getDefaultToolkit().sync();
         } else {
             gameOver(g);
-//            updateScore();
         }
     }
 
     public int compareDatabaseAndCurrentScore(int dbScore, int currentScore) {
         return dbScore - currentScore;
     }
-
-//    public int handleScore(String username) {
-//        UserDAO executeQuery = UserDAO.getInstance();
-//        int currentScore = this.score;
-//        int dbScore = Objects.requireNonNull(executeQuery.selectEmailAndScoreByEmail(username))
-//            .getScore();
-//        return compareDatabaseAndCurrentScore(dbScore, currentScore);
-//    }
 
     public void updateScore() {
         if (currentUser == null) {
@@ -375,35 +394,47 @@ public abstract class Board extends JPanel implements ActionListener {
         backToMainMenuButton.setVisible(true);
         bigAppleProgressBar.setVisible(false);
         
+        // Notify observers of game over
+        eventPublisher.notifyGameOver(score);
+        
         // Call updateScore to update the user's score
         updateScore();
     }
 
     private void resetGame() {
         // Reset game variables here
-        // For example:
         score = 0;
         dots = 3;
         apple_count = 0;
         inGame = true;
         bigApple_x = -100;
         bigApple_y = -100;
+        
         // Reset the snake's position
         for (int z = 0; z < dots; z++) {
             x[z] = 50 - z * 10;
             y[z] = 50;
         }
-        // Reset any other necessary game state variables
-        rightDirection = true;
-        leftDirection = false;
-        upDirection = false;
-        downDirection = false;
+        
+        // Reset direction state
+        directionState.resetToDefault();
+        
+        // Update movement strategy
+        movementContext.setStrategy(
+            directionState.isLeftDirection(),
+            directionState.isRightDirection(),
+            directionState.isUpDirection(),
+            directionState.isDownDirection()
+        );
+        
         // Hide the "Play Again" button again
         playAgainButton.setVisible(false);
         exitButton.setVisible(false);
         backToMainMenuButton.setVisible(false);
+        
         // Ensure that the gameOverButtonPanel is not visible
         gameOverButtonPanel.setVisible(false);
+        
         // Restart the timer and initialize the game
         timer.stop();
         initGame();
@@ -411,25 +442,22 @@ public abstract class Board extends JPanel implements ActionListener {
     }
 
     private void checkApple() {
-
         if ((x[0] == apple_x) && (y[0] == apple_y)) {
             dots++;
-            checkScore();
+            score++;
             apple_count++;
             locateApple();
-            if (score % 5 != 0) {
-                if (isOnSound()) {
-                    InputStream inputStream = getClass().getResourceAsStream(
-                        ResourcePaths.URL_EATING2);
-                    audioHandler.playAudio(inputStream);
-                }
-            }
+            
+            // Notify observers of apple eaten
+            eventPublisher.notifyAppleEaten(score);
+            
             return;
         }
+        
         if ((x[0] >= bigApple_x) && (x[0] <= bigApple_x + 2 * DOT_SIZE)
             && (y[0] >= bigApple_y) && (y[0] <= bigApple_y + 2 * DOT_SIZE)) {
             dots += 5;
-            checkBigScore();
+            score += 5;
 
             // change the game speed
             int newDelay = Math.max(timer.getDelay() - DECREASE_DELAY, 0);
@@ -443,43 +471,16 @@ public abstract class Board extends JPanel implements ActionListener {
 
             apple_count = 0;
             locateApple();
-            if (isOnSound()) {
-                InputStream inputStream = getClass().getResourceAsStream(ResourcePaths.URL_EATING);
-                audioHandler.playAudio(inputStream);
-            }
+            
+            // Notify observers of big apple eaten
+            eventPublisher.notifyBigAppleEaten(score, newDelay);
         }
     }
 
-    private void checkScore() {
-        score++;
-    }
-
-    private void checkBigScore() {
-        score += 5;
-    }
-
+    // Design Pattern: Strategy for movement
     private void move() {
-
-        for (int z = dots; z > 0; z--) {
-            x[z] = x[(z - 1)];
-            y[z] = y[(z - 1)];
-        }
-
-        if (leftDirection) {
-            x[0] -= DOT_SIZE;
-        }
-
-        if (rightDirection) {
-            x[0] += DOT_SIZE;
-        }
-
-        if (upDirection) {
-            y[0] -= DOT_SIZE;
-        }
-
-        if (downDirection) {
-            y[0] += DOT_SIZE;
-        }
+        // Use the movement context to execute the current strategy
+        movementContext.executeStrategy(x, y, dots);
     }
 
     protected abstract void checkCollision();
@@ -499,28 +500,29 @@ public abstract class Board extends JPanel implements ActionListener {
         int BIG_APPLE_TIMER = 5000;
         bigAppleTimer = new Timer(BIG_APPLE_TIMER, e -> {
             bigAppleTimer.stop();
-            if (isOnSound()) {
+            if (audioService.isSoundEnabled()) {
                 InputStream inputStream = getClass().getResourceAsStream(
                     ResourcePaths.URL_BIG_APPLE_DIS);
-                audioHandler.playAudio(inputStream);
+                audioService.playAudio(inputStream);
             }
             apple_count = 0;
             locateApple();
             bigAppleProgressBar.setVisible(false);
         });
-        bigAppleProgressBar.setVisible(true);
+        
+        // Notify observers of big apple appeared
+        eventPublisher.notifyBigAppleAppeared();
+        
         bigAppleTimer.start();
     }
 
     protected boolean isOnSound() {
-        return !audioHandler.isEmptyPath();
+        return audioService.isSoundEnabled();
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
         if (inGame) {
-
             checkApple();
             checkCollision();
             move();
@@ -530,35 +532,11 @@ public abstract class Board extends JPanel implements ActionListener {
     }
 
     private class TAdapter extends KeyAdapter {
-
         @Override
         public void keyPressed(KeyEvent e) {
-
-            int key = e.getKeyCode();
-
-            if ((key == KeyEvent.VK_LEFT) && (!rightDirection)) {
-                leftDirection = true;
-                upDirection = false;
-                downDirection = false;
-            }
-
-            if ((key == KeyEvent.VK_RIGHT) && (!leftDirection)) {
-                rightDirection = true;
-                upDirection = false;
-                downDirection = false;
-            }
-
-            if ((key == KeyEvent.VK_UP) && (!downDirection)) {
-                upDirection = true;
-                rightDirection = false;
-                leftDirection = false;
-            }
-
-            if ((key == KeyEvent.VK_DOWN) && (!upDirection)) {
-                downDirection = true;
-                rightDirection = false;
-                leftDirection = false;
-            }
+            // Design Pattern: Command for input handling
+            // Use the command invoker to execute the appropriate command
+            commandInvoker.executeCommand(e.getKeyCode());
         }
     }
 }
