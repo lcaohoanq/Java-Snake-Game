@@ -31,22 +31,23 @@ public final class LoginController implements ActionListener, MouseListener {
             log.info("Admin login successful");
             return;
         }
-        
+
         // Check for empty fields
         if (loginView.isEmpty()) {
             UIPrompts.IS_EMPTY_FIELD();
             log.error("Empty field when login, please try again");
             return;
         }
-        
+
         // Attempt to login
         UserScore user = loginView.login();
         if (user != null) {
             loginView.handleSuccess();
             log.info("User login successful: {}", user.getUsername());
-            
+
             // Add the play button listener with user info
-            loginView.getJButton_Right_Play().addActionListener(new PlayController(loginView, user));
+            loginView.getJButton_Right_Play()
+                .addActionListener(new PlayController(loginView, user));
         } else {
             UIPrompts.IS_INCORRECT_CREDENTIALS();
             log.error("Incorrect credentials, please try again");
@@ -72,26 +73,13 @@ public final class LoginController implements ActionListener, MouseListener {
     public void mouseEntered(MouseEvent e) {
         // Keep your existing hover handling code
         if (e.getSource() == loginView.getJTextField_Right_Middle_Email()) {
-            if (!loginView.getStatusToggle()) {
-                uiHovers.setHoverEmail(Hover.ENABLE.isStatus(), "light");
-            } else {
-                uiHovers.setHoverEmail(Hover.ENABLE.isStatus(), "dark");
-            }
+            uiHovers.setHoverEmail(Hover.ENABLE.isStatus(), "light");
         }
         if (e.getSource() == loginView.getJPasswordField_Right_Middle_Password()) {
-            if (!loginView.getStatusToggle()) {
-                uiHovers.setHoverEmail(Hover.ENABLE.isStatus(), "light");
-
-            } else {
-                uiHovers.setHoverEmail(Hover.ENABLE.isStatus(), "dark");
-            }
+            uiHovers.setHoverEmail(Hover.ENABLE.isStatus(), "light");
         }
         if (e.getSource() == loginView.getJButton_Right_Bottom_Submit()) {
-            if (!loginView.getStatusToggle()) {
-                uiHovers.setHoverEmail(Hover.ENABLE.isStatus(), "light");
-            } else {
-                uiHovers.setHoverEmail(Hover.ENABLE.isStatus(), "dark");
-            }
+            uiHovers.setHoverEmail(Hover.ENABLE.isStatus(), "light");
         }
         if (e.getSource() == loginView.getJButton_Right_Bottom_Others()) {
             uiHovers.setHoverOther(Hover.ENABLE.isStatus());
@@ -105,32 +93,16 @@ public final class LoginController implements ActionListener, MouseListener {
     public void mouseExited(MouseEvent e) {
         // Keep your existing hover exit code
         if (e.getSource() == loginView.getJTextField_Right_Middle_Email()) {
-            if (!loginView.getStatusToggle()) {
-                uiHovers.setHoverEmail(Hover.DISABLE.isStatus(), "light");
-            } else {
-                uiHovers.setHoverEmail(Hover.DISABLE.isStatus(), "dark");
-            }
+            uiHovers.setHoverEmail(Hover.DISABLE.isStatus(), "light");
         }
         if (e.getSource() == loginView.getJTextField_Right_Middle_UserName()) {
-            if (!loginView.getStatusToggle()) {
-                uiHovers.setHoverFirstName(Hover.DISABLE.isStatus(), "light");
-            } else {
-                uiHovers.setHoverFirstName(Hover.DISABLE.isStatus(), "dark");
-            }
+            uiHovers.setHoverFirstName(Hover.DISABLE.isStatus(), "light");
         }
         if (e.getSource() == loginView.getJPasswordField_Right_Middle_Password()) {
-            if (!loginView.getStatusToggle()) {
-                uiHovers.setHoverPassword(Hover.DISABLE.isStatus(), "light");
-            } else {
-                uiHovers.setHoverPassword(Hover.DISABLE.isStatus(), "dark");
-            }
+            uiHovers.setHoverPassword(Hover.DISABLE.isStatus(), "light");
         }
         if (e.getSource() == loginView.getJButton_Right_Bottom_Submit()) {
-            if (!loginView.getStatusToggle()) {
-                uiHovers.setHoverButton(Hover.DISABLE.isStatus(), "light");
-            } else {
-                uiHovers.setHoverButton(Hover.DISABLE.isStatus(), "dark");
-            }
+            uiHovers.setHoverButton(Hover.DISABLE.isStatus(), "light");
         }
         if (e.getSource() == loginView.getJButton_Right_Bottom_Others()) {
             uiHovers.setHoverOther(Hover.DISABLE.isStatus());

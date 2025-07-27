@@ -1,7 +1,6 @@
 package views;
 
 import controllers.RegisterController;
-import controllers.ToggleHandler;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import javax.swing.BoxLayout;
@@ -18,7 +17,7 @@ import styles.UILabels;
 import views.base.MyFrame;
 
 @Getter
-public class RegisterView extends MyFrame implements ToggleHandler {
+public class RegisterView extends MyFrame  {
 
     // Singleton instance
     private static RegisterView instance;
@@ -144,28 +143,6 @@ public class RegisterView extends MyFrame implements ToggleHandler {
     }
 
     @Override
-    public void initToggle() {
-        super.initToggle();
-        toggleButton.addEventSelected(selected -> {
-            if (selected) {
-                jLabel_Right_Middle_Confirm_Password.setForeground(UIColors.TEXT_COLOR_D);
-                jLabel_Right_Middle_Confirm_Password.setBackground(UIColors.PRIMARY_COLOR_D);
-                jPasswordField_Right_Middle_Confirm_Password.setForeground(UIColors.TEXT_COLOR_D);
-                jPasswordField_Right_Middle_Confirm_Password.setBackground(
-                    UIColors.SECONDARY_COLOR_D);
-                jPanel_Right_Middle_Confirm_Password.setBackground(UIColors.PRIMARY_COLOR_D);
-            } else {
-                jLabel_Right_Middle_Confirm_Password.setForeground(UIColors.TEXT_COLOR_L);
-                jLabel_Right_Middle_Confirm_Password.setBackground(UIColors.PRIMARY_COLOR_L);
-                jPasswordField_Right_Middle_Confirm_Password.setForeground(UIColors.TEXT_COLOR_L);
-                jPasswordField_Right_Middle_Confirm_Password.setBackground(
-                    UIColors.SECONDARY_COLOR_L);
-                jPanel_Right_Middle_Confirm_Password.setBackground(UIColors.PRIMARY_COLOR_L);
-            }
-        });
-    }
-
-    @Override
     public void doAction() {
         // TODO Auto-generated method stub
         super.doAction();
@@ -254,11 +231,6 @@ public class RegisterView extends MyFrame implements ToggleHandler {
                     UIColors.SECONDARY_COLOR_D);
             }
         }
-    }
-
-    @Override
-    public void changeColorBaseOnToggle() {
-
     }
 
 }

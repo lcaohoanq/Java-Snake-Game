@@ -230,8 +230,16 @@ public abstract class Board extends JPanel implements ActionListener {
         backToMainMenuButton.setBackground(UIColors.BACK_TO_MAIN_MENU);
         backToMainMenuButton.setForeground(UIColors.PRIMARY_COLOR_L);
         backToMainMenuButton.addActionListener(e -> {
-            SwingUtilities.getWindowAncestor(this).dispose();
-            new MenuView().setVisible(true);
+//            SwingUtilities.getWindowAncestor(this).dispose();
+//            new MenuView().setVisible(true);
+
+            JOptionPane.showMessageDialog(
+                this,
+                "Returning to main menu is not implemented yet.",
+                "Info",
+                JOptionPane.INFORMATION_MESSAGE
+            );
+
         });
         backToMainMenuButton.setPreferredSize(UISizes.SIZE_BUTTON_GAME_OVER_BACK_TO_MAIN_MENU);
     }

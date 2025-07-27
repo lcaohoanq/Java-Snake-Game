@@ -1,10 +1,9 @@
 package utils;
 
-import exceptions.FileException;
 
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.io.InputStream;
-
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
@@ -22,9 +21,15 @@ public class AudioHandler {
     }
 
     public void playAudio(InputStream inputStream) {
+
+        if(!path) {
+            log.info("Audio path is empty");
+            return;
+        }
+
         try {
             if (inputStreamCurrent != null) {
-                throw new FileException("Audio file is missing");
+                throw new IOException("Audio file is missing");
             }
             // Create a byte array to store the audio data
             byte[] audioData = inputStream.readAllBytes();

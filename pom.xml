@@ -9,9 +9,9 @@
     <version>1.0.0</version>
 
     <properties>
-        <maven.compiler.source>18</maven.compiler.source>
-        <maven.compiler.target>18</maven.compiler.target>
-        <maven.compiler.release>18</maven.compiler.release>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <maven.compiler.release>17</maven.compiler.release>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
@@ -23,39 +23,61 @@
             <id>myProfile</id>
             <build>
                 <finalName>Snake-Game</finalName>
-                <resources>
-                    <resource>
-                        <directory>src/main/resources/assets/img</directory>
-                        <filtering>false</filtering>
-                        <includes>
-                            <include>*.png</include>
-                            <include>*.jpg</include>
-                        </includes>
-                    </resource>
-                    <resource>
-                        <directory>src/main/resources/assets/sound</directory>
-                        <filtering>false</filtering>
-                        <includes>
-                            <include>*.wav</include>
-                        </includes>
-                    </resource>
-                    <resource>
-                        <directory>src/main/resources/templates/email</directory>
-                        <filtering>false</filtering>
-                        <includes>
-                            <include>*.html</include>
-                        </includes>
-                    </resource>
-                    <resource>
-                        <directory>src/main/resources/templates/email</directory>
-                        <filtering>false</filtering>
-                        <includes>
-                            <include>*.html</include>
-                        </includes>
-                    </resource>
-                </resources>
+<!--                <resources>-->
+<!--                    <resource>-->
+<!--                        <directory>src/main/resources/assets/img</directory>-->
+<!--                        <filtering>false</filtering>-->
+<!--                        <includes>-->
+<!--                            <include>*.png</include>-->
+<!--                            <include>*.jpg</include>-->
+<!--                        </includes>-->
+<!--                    </resource>-->
+<!--                    <resource>-->
+<!--                        <directory>src/main/resources/assets/sound</directory>-->
+<!--                        <filtering>false</filtering>-->
+<!--                        <includes>-->
+<!--                            <include>*.wav</include>-->
+<!--                        </includes>-->
+<!--                    </resource>-->
+<!--                    <resource>-->
+<!--                        <directory>src/main/resources/templates/email</directory>-->
+<!--                        <filtering>false</filtering>-->
+<!--                        <includes>-->
+<!--                            <include>*.html</include>-->
+<!--                        </includes>-->
+<!--                    </resource>-->
+<!--                    <resource>-->
+<!--                        <directory>src/main/resources/templates/email</directory>-->
+<!--                        <filtering>false</filtering>-->
+<!--                        <includes>-->
+<!--                            <include>*.html</include>-->
+<!--                        </includes>-->
+<!--                    </resource>-->
+<!--                </resources>-->
 
                 <plugins>
+
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-shade-plugin</artifactId>
+                        <version>3.4.1</version>
+                        <executions>
+                            <execution>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>shade</goal>
+                                </goals>
+                                <configuration>
+                                    <transformers>
+                                        <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                            <mainClass>views.Main</mainClass>
+                                        </transformer>
+                                    </transformers>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+
                     <!-- Add maven-jar-plugin for creating a JAR file -->
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
@@ -64,7 +86,7 @@
                         <configuration>
                             <archive>
                                 <manifest>
-                                    <mainClass>Main</mainClass>
+                                    <mainClass>views.Main</mainClass>
                                 </manifest>
                             </archive>
                         </configuration>
@@ -83,7 +105,7 @@
                             </execution>
                         </executions>
                         <configuration>
-                            <mainClass>Main</mainClass>
+                            <mainClass>views.Main</mainClass>
                             <classpathScope>test</classpathScope>
                         </configuration>
                     </plugin>
@@ -125,13 +147,6 @@
             <groupId>org.swinglabs</groupId>
             <artifactId>swingx</artifactId>
             <version>1.6.1</version>
-        </dependency>
-
-        <!-- https://mvnrepository.com/artifact/io.github.cdimascio/dotenv-java -->
-        <dependency>
-            <groupId>io.github.cdimascio</groupId>
-            <artifactId>dotenv-java</artifactId>
-            <version>3.0.0</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/junit/junit -->
         <dependency>

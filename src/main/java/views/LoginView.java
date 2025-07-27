@@ -3,7 +3,7 @@ package views;
 import constants.ResourcePaths;
 import controllers.LoginController;
 import controllers.PlayController;
-import controllers.ToggleHandler;
+
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.GridLayout;
@@ -23,7 +23,7 @@ import styles.UISizes;
 import views.base.MyFrame;
 
 @Getter
-public class LoginView extends MyFrame implements ToggleHandler {
+public class LoginView extends MyFrame {
 
     // Singleton instance
     private static LoginView instance;
@@ -138,20 +138,6 @@ public class LoginView extends MyFrame implements ToggleHandler {
     }
 
     @Override
-    public void initToggle() {
-        super.initToggle();
-        toggleButton.addEventSelected(selected -> {
-            if (selected) {
-                jButton_Right_Play.setForeground(UIColors.PRIMARY_COLOR_D);
-                jButton_Right_Play.setBackground(UIColors.TEXT_COLOR_D);
-            } else {
-                jButton_Right_Play.setBackground(UIColors.TEXT_COLOR_L);
-                jButton_Right_Play.setForeground(UIColors.PRIMARY_COLOR_L);
-            }
-        });
-    }
-
-    @Override
     public void doAction() {
         // TODO Auto-generated method stub
         super.doAction();
@@ -211,11 +197,6 @@ public class LoginView extends MyFrame implements ToggleHandler {
     public void setStatusInputData(boolean status) {
         jTextField_Right_Middle_Email.setEnabled(status);
         jPasswordField_Right_Middle_Password.setEnabled(status);
-    }
-
-    @Override
-    public void changeColorBaseOnToggle() {
-        // Implementation if needed
     }
 
     private class ClickOtherOption implements ActionListener {

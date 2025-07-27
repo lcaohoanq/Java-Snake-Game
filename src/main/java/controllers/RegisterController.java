@@ -55,19 +55,19 @@ public class RegisterController implements ActionListener, MouseListener {
 
     private void handleRegistration() {
         log.info("Starting registration process...");
-        
+
         // Check for empty fields
         if (!registerView.isEmpty()) {
             log.info("Fields are not empty, checking password match...");
-            
+
             // Check if passwords match
             if (registerView.isMatchingPasswordAndConfirmPassword()) {
                 log.info("Passwords match, checking for duplicate email...");
-                
+
                 // Check if email already exists
                 if (!registerView.isDuplicateEmail()) {
                     log.info("Email is not duplicate, attempting to register user...");
-                    
+
                     // Register the user
                     UserScore newUser = registerView.registerUser();
                     log.info("Register result: {}", newUser);
@@ -124,28 +124,16 @@ public class RegisterController implements ActionListener, MouseListener {
         inputFieldList.stream()
             .filter(inputField -> e.getSource() == inputField)
             .forEach(inputField -> {
-                if (!registerView.getStatusToggle()) {
-                    if (inputField == registerView.getJTextField_Right_Middle_Email()) {
-                        uiHovers.setHoverEmail(Hover.ENABLE.isStatus(), "light");
-                    }
-                    if (inputField == registerView.getJPasswordField_Right_Middle_Password()) {
-                        uiHovers.setHoverPassword(Hover.ENABLE.isStatus(), "light");
-                    }
-                    if (inputField
-                        == registerView.getJPasswordField_Right_Middle_Confirm_Password()) {
-                        uiHovers.setHoverConfirmPassword(Hover.ENABLE.isStatus(), "light");
-                    }
-                } else {
-                    if (inputField == registerView.getJTextField_Right_Middle_Email()) {
-                        uiHovers.setHoverEmail(Hover.ENABLE.isStatus(), "dark");
-                    }
-                    if (inputField == registerView.getJPasswordField_Right_Middle_Password()) {
-                        uiHovers.setHoverPassword(Hover.ENABLE.isStatus(), "dark");
-                    }
-                    if (inputField
-                        == registerView.getJPasswordField_Right_Middle_Confirm_Password()) {
-                        uiHovers.setHoverConfirmPassword(Hover.ENABLE.isStatus(), "dark");
-                    }
+
+                if (inputField == registerView.getJTextField_Right_Middle_Email()) {
+                    uiHovers.setHoverEmail(Hover.ENABLE.isStatus(), "light");
+                }
+                if (inputField == registerView.getJPasswordField_Right_Middle_Password()) {
+                    uiHovers.setHoverPassword(Hover.ENABLE.isStatus(), "light");
+                }
+                if (inputField
+                    == registerView.getJPasswordField_Right_Middle_Confirm_Password()) {
+                    uiHovers.setHoverConfirmPassword(Hover.ENABLE.isStatus(), "light");
                 }
             });
 
@@ -153,11 +141,7 @@ public class RegisterController implements ActionListener, MouseListener {
             .filter(button -> e.getSource() == button)
             .forEach(button -> {
                 if (button.getText().equals("Submit")) {
-                    if (!registerView.getStatusToggle()) {
-                        uiHovers.setHoverButton(Hover.ENABLE.isStatus(), "light");
-                    } else {
-                        uiHovers.setHoverButton(Hover.ENABLE.isStatus(), "dark");
-                    }
+                    uiHovers.setHoverButton(Hover.ENABLE.isStatus(), "light");
                 } else {
                     uiHovers.setHoverOther(Hover.ENABLE.isStatus());
                 }
@@ -169,29 +153,17 @@ public class RegisterController implements ActionListener, MouseListener {
         inputFieldList.stream()
             .filter(inputField -> e.getSource() == inputField)
             .forEach(inputField -> {
-                if (!registerView.getStatusToggle()) {
-                    uiHovers.setHoverEmail(Hover.DISABLE.isStatus(), "light");
-                    uiHovers.setHoverFirstName(Hover.DISABLE.isStatus(), "light");
-                    uiHovers.setHoverPassword(Hover.DISABLE.isStatus(), "light");
-                    uiHovers.setHoverConfirmPassword(Hover.DISABLE.isStatus(), "light");
-                } else {
-                    uiHovers.setHoverEmail(Hover.DISABLE.isStatus(), "dark");
-                    uiHovers.setHoverFirstName(Hover.DISABLE.isStatus(), "dark");
-                    uiHovers.setHoverPassword(Hover.DISABLE.isStatus(), "dark");
-                    uiHovers.setHoverConfirmPassword(Hover.DISABLE.isStatus(), "dark");
-
-                }
+                uiHovers.setHoverEmail(Hover.DISABLE.isStatus(), "light");
+                uiHovers.setHoverFirstName(Hover.DISABLE.isStatus(), "light");
+                uiHovers.setHoverPassword(Hover.DISABLE.isStatus(), "light");
+                uiHovers.setHoverConfirmPassword(Hover.DISABLE.isStatus(), "light");
             });
 
         buttonList.stream()
             .filter(button -> e.getSource() == button)
             .forEach(button -> {
                 if (button.getText().equals("Submit")) {
-                    if (!registerView.getStatusToggle()) {
-                        uiHovers.setHoverButton(Hover.DISABLE.isStatus(), "light");
-                    } else {
-                        uiHovers.setHoverButton(Hover.DISABLE.isStatus(), "dark");
-                    }
+                    uiHovers.setHoverButton(Hover.DISABLE.isStatus(), "light");
                 } else {
                     uiHovers.setHoverOther(Hover.DISABLE.isStatus());
                 }
